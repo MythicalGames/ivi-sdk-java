@@ -1,0 +1,5724 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: developer@mythical.games
+    name: Mythical Inc
+    url: https://www.mythical.games/
+  description: IVI Engine
+  title: IVI Engine
+  version: unspecified
+servers:
+- description: Generated server url
+  url: http://localhost:8081/api
+security:
+- spring_oauth: []
+- api_key: []
+paths:
+  /environments/{environmentId}/orders/{orderId}:
+    delete:
+      description: Delete an existing Order
+      operationId: deleteOrder
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Order deleted
+      summary: Delete Order
+      tags:
+      - Orders
+      x-accepts: '*/*'
+  /environments/{environmentId}/webhooks/{webhookId}:
+    delete:
+      description: Delete a webhook
+      operationId: deleteWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Webhook successfully deleted
+      summary: Delete webhook
+      tags:
+      - Webhooks
+      x-accepts: '*/*'
+    get:
+      description: Get details for a webhook
+      operationId: getWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WebhookDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get webhook
+      tags:
+      - Webhooks
+      x-accepts: '*/*'
+    put:
+      description: Update an existing webhook. All details must be included in the
+        request, not just what is being updated.
+      operationId: updateWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WebhookDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update webhook
+      tags:
+      - Webhooks
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/customer:
+    get:
+      description: Find a Payment Customer
+      operationId: getCustomer
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: customerId
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get Customer
+      tags:
+      - Payments
+      x-accepts: '*/*'
+    post:
+      description: Create Payment Customer
+      operationId: createCustomer
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create Customer
+      tags:
+      - Payments
+      x-contentType: application/json
+      x-accepts: '*/*'
+    put:
+      description: Update fields on an existing Payment Customer
+      operationId: updateCustomer
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update Customer
+      tags:
+      - Payments
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/secrets:
+    get:
+      operationId: getServerSecretsForEnvironment
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/ServerSecretDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get server secrets defined for organization
+      tags:
+      - Server Secrets
+      x-accepts: '*/*'
+    post:
+      operationId: createServerSecretForEnvironment
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServerSecretRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServerSecretDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create server secret for organization
+      tags:
+      - Server Secrets
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/listed:
+    get:
+      description: Get all listed item for sale
+      operationId: getListings
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 30
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: createdTimestamp
+        required: false
+        schema:
+          default: -1
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESCENDING
+          enum:
+          - ASCENDING
+          - DESCENDING
+          - UNRECOGNIZED
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: playerId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/ListingDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get listed items
+      tags:
+      - Items
+      x-accepts: '*/*'
+    post:
+      description: List an issued item for sale
+      operationId: listItem
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListSaleRequest'
+        required: true
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "202":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListingDto'
+          description: The request was accepted. Expect a response via configured
+            webhook. Response will contain this transactionId.
+      summary: List an item for sale
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+    put:
+      description: Close a listed item sale
+      operationId: closeSale
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseSaleRequest'
+        required: true
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "202":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ItemActionDto'
+          description: The request was accepted. Expect a response via configured
+            webhook. Response will contain this transactionId.
+      summary: Close a sale
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/players/{platformUserId}/profile:
+    put:
+      operationId: updateProfileDetails
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: platformUserId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMythicalUserRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MythicalUserDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update user profile details
+      tags:
+      - Accounts
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/partner/{partnerId}/agreement:
+    get:
+      description: Get all agreements for an partner
+      operationId: getAgreements
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: partnerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/AgreementDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get Agreements
+      tags:
+      - Partners
+      x-accepts: '*/*'
+    post:
+      description: Create a new agreement for a partner
+      operationId: createNewAgreement
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: partnerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgreementRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AgreementDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create Agreement
+      tags:
+      - Partners
+      x-contentType: application/json
+      x-accepts: '*/*'
+    put:
+      operationId: updateAgreement
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: partnerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgreementRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AgreementDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update agreement details
+      tags:
+      - Partners
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /marketplace/environments/{environmentId}/items/issued/history:
+    get:
+      operationId: getItemHistory
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: gameInventoryId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: dgoodId
+        required: false
+        schema:
+          default: -1
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/TransactionDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get the history of an item by DGood ID or Game ID
+      tags:
+      - Marketplace
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/tax/transaction/{orderId}:
+    get:
+      description: Find transaction details for a transaction id
+      operationId: getSalesTaxTransaction
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesTaxTransactionDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get Transaction Details
+      tags:
+      - Payments
+      x-accepts: '*/*'
+  /orgs/{organizationId}/{platformUserId}/role:
+    put:
+      operationId: updateOrgRole
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: platformUserId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationRoleRequest'
+        required: true
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Success, no content
+      summary: Update organization user role
+      tags:
+      - Orgs
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/invites/{inviteId}/accept:
+    post:
+      operationId: acceptInvitation
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: inviteId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Success, no content
+      summary: Accept an invitation to organization
+      tags:
+      - Orgs
+      x-accepts: '*/*'
+  /environments/{environmentId}/players/{platformUserId}/profile/picture:
+    put:
+      operationId: updateProfilePicture
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: platformUserId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfilePictureRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfilePictureDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update user profile picture
+      tags:
+      - Accounts
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/players:
+    get:
+      operationId: getAllPlayers
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PlayerDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all players for a environment
+      tags:
+      - Players
+      x-accepts: '*/*'
+    post:
+      operationId: linkPlayerToEnvironment
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkPlayerToEnvironmentRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PlayerDto'
+          description: The player was successfully linked
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Link player to environment
+      tags:
+      - Players
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/invites:
+    get:
+      operationId: getPendingInvites
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/InviteDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get organization pending invites
+      tags:
+      - Orgs
+      x-accepts: '*/*'
+    post:
+      operationId: inviteUserToOrg
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/InviteUserToOrganizationRequest'
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/InviteDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Invite a user to organization
+      tags:
+      - Orgs
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/issued/metadata:
+    get:
+      description: Get metadata for a dgood id.
+      operationId: getMetadata
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: gameInventoryId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: dgoodId
+        required: false
+        schema:
+          default: -1
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/DgoodMetadataDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: 'Get metadata for an issued dgood '
+      tags:
+      - Items
+      x-accepts: '*/*'
+    put:
+      description: Update metadata for a dgood
+      operationId: updateMetadata
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMetadataRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DgoodMetadataDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update metadata for a dgood
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/token:
+    get:
+      description: Get an anonymous payment token for a customer
+      operationId: generateClientToken
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: customerId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientPaymentTokenDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Anonymous payment token
+      tags:
+      - Payments
+      x-accepts: '*/*'
+  /environments/{environmentId}/currencies/{abbreviation}:
+    delete:
+      operationId: deleteSupportedCurrencyByAbbreviation
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: abbreviation
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Currency deleted successfully.
+      summary: Delete virtual currency for environment by abbreviation
+      tags:
+      - Virtual Currencies
+      x-accepts: '*/*'
+    get:
+      operationId: getSupportedCurrencyByAbbreviation
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: abbreviation
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VirtualCurrencyDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get virtual currency for environment by abbreviation
+      tags:
+      - Virtual Currencies
+      x-accepts: '*/*'
+  /marketplace/environments/{environmentId}/items/issued:
+    get:
+      operationId: getMarketplaceItems
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: mythicalId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: playerId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/MarketplaceItemDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all items owned by the logged in user.
+      tags:
+      - Marketplace
+      x-accepts: '*/*'
+  /environments/{environmentId}/deactivate:
+    put:
+      operationId: setEnvironmentInstanceInactive
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Environment state updated.
+      summary: Set environment to deactivated
+      tags:
+      - Environments
+      x-accepts: '*/*'
+  /users/settings/theme:
+    get:
+      description: 'Returns the user''s preferred display theme: DARK or LIGHT.'
+      operationId: getTheme
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ThemeDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get the display theme
+      tags:
+      - User Settings
+      x-accepts: '*/*'
+    post:
+      description: 'Set the user''s preferred display theme: DARK or LIGHT.'
+      operationId: setTheme
+      requestBody:
+        content:
+          application/json:
+            schema:
+              enum:
+              - DARK
+              - LIGHT
+              - UNRECOGNIZED
+              type: string
+      responses:
+        "200":
+          description: Display theme successfully set.
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Set the display theme
+      tags:
+      - User Settings
+      x-contentType: application/json
+      x-accepts: '*/*'
+    put:
+      description: 'Update the user''s preferred display theme: DARK or LIGHT.'
+      operationId: updateTheme
+      requestBody:
+        content:
+          application/json:
+            schema:
+              enum:
+              - DARK
+              - LIGHT
+              - UNRECOGNIZED
+              type: string
+      responses:
+        "200":
+          description: Display theme successfully updated.
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update the display theme
+      tags:
+      - User Settings
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/secrets/{secretId}/enable:
+    put:
+      operationId: enableServerSecret
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: secretId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Secret enabled successfully.
+      summary: Enable server secret by secret ID
+      tags:
+      - Server Secrets
+      x-accepts: '*/*'
+  /environments/{environmentId}/webhooks/{webhookId}/enable:
+    put:
+      description: Set a webhook to enabled.
+      operationId: enableWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Webhook successfully enabled
+      summary: Enable webhook
+      tags:
+      - Webhooks
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/customer/methods/{methodToken}:
+    delete:
+      description: Delete an existing Payment Method
+      operationId: deletePaymentMethod
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: methodToken
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Payment Method deleted
+      summary: Delete a Payment Method
+      tags:
+      - Payments
+      x-accepts: '*/*'
+  /environments/{environmentId}/orders:
+    get:
+      description: Find an Order
+      operationId: getOrder
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: orderId
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get Order
+      tags:
+      - Orders
+      x-accepts: '*/*'
+    post:
+      description: Create New Order
+      operationId: createOrder
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create Order
+      tags:
+      - Orders
+      x-contentType: application/json
+      x-accepts: '*/*'
+    put:
+      description: Update fields on an existing Order
+      operationId: updateOrder
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update Order
+      tags:
+      - Orders
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}:
+    get:
+      description: Get organization by id
+      operationId: getOrg
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrganizationDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get organization
+      tags:
+      - Orgs
+      x-accepts: '*/*'
+    put:
+      operationId: updateOrg
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrganizationDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update organization details
+      tags:
+      - Orgs
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/webhooks/{webhookId}/disable:
+    put:
+      description: Set a webhook to disabled.
+      operationId: disableWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Webhook successfully disabled
+      summary: Disable webhook
+      tags:
+      - Webhooks
+      x-accepts: '*/*'
+  /environments/{environmentId}/webhooks:
+    get:
+      description: Get details for all webhooks defined for this environment.
+      operationId: getWebhooksForTitleId
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all webhooks for environment
+      tags:
+      - Webhooks
+      x-accepts: '*/*'
+    post:
+      description: Define a new webhook that will be called to inform a game backend
+        of platform events.
+      operationId: createNewWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WebhookDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create webhook
+      tags:
+      - Webhooks
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /titles/{titleId}:
+    get:
+      description: Get title details
+      operationId: getTitleById
+      parameters:
+      - explode: false
+        in: path
+        name: titleId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TitleDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get title
+      tags:
+      - Titles
+      x-accepts: '*/*'
+    put:
+      description: Update title name.
+      operationId: updateTitle
+      parameters:
+      - explode: false
+        in: path
+        name: titleId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTitleRequest'
+        required: true
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: The title was updated successfully.
+      summary: Update title
+      tags:
+      - Titles
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/transactions:
+    get:
+      description: Get all transaction events for an environment with an optional
+        time period specified.
+      operationId: getAllTitleTransactions
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/TransactionEventDTO'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all transaction events for an environment.
+      tags:
+      - Transactions
+      x-accepts: '*/*'
+  /orgs/{organizationId}/titles:
+    get:
+      description: Get titles for organization
+      operationId: getTitles
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: includeInactive
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/TitleDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get titles
+      tags:
+      - Orgs
+      x-accepts: '*/*'
+    post:
+      description: Create a new title in this organization.
+      operationId: createNewTitle
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTitleRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TitleDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create title
+      tags:
+      - Orgs
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/transactions/{transactionId}:
+    get:
+      description: Get transaction events for transaction ID in an environment.
+      operationId: getTransactionEventsForTitle
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: transactionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/TransactionEventDTO'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get transaction events for transaction ID in an environment.
+      tags:
+      - Transactions
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/customer/methods/default:
+    put:
+      description: Set a payment method as a default
+      operationId: updatePaymentMethod
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentMethodDefaultRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentMethodDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update the default Payment Method
+      tags:
+      - Payments
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /titles/{titleId}/activate:
+    put:
+      operationId: setTitleActive
+      parameters:
+      - explode: false
+        in: path
+        name: titleId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Title state updated.
+      summary: Set title to activated
+      tags:
+      - Titles
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/buy:
+    get:
+      description: Get all bought/sold items for a player
+      operationId: getSoldItems
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 30
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: createdTimestamp
+        required: false
+        schema:
+          default: -1
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESCENDING
+          enum:
+          - ASCENDING
+          - DESCENDING
+          - UNRECOGNIZED
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: buyerPlayerId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sellerPlayerId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/SoldItemDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get bought/sold items
+      tags:
+      - Items
+      x-accepts: '*/*'
+    post:
+      description: Buy an item that is for sale
+      operationId: buyListing
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyListingRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SoldItemDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Purchase an item
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/tax/rate:
+    get:
+      description: Get sales tax rate and tax amount based on country ISO code, state
+        ISO code, zip code and sales amount.
+      operationId: getSalesTaxInfo
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: countryIsoCode
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: stateIsoCode
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: zipCode
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: isSecondaryMarketplace
+        required: true
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesTaxInfoDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get sales tax- rate and amount based on country, state, zip code and
+        sales amount.
+      tags:
+      - Payments
+      x-accepts: '*/*'
+  /environments/{environmentId}/currencies:
+    get:
+      operationId: getSupportedCurrencyForEnvironment
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/VirtualCurrencyDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get virtual currencies defined for environment
+      tags:
+      - Virtual Currencies
+      x-accepts: '*/*'
+    post:
+      operationId: addSupportedCurrencyForEnvironment
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVirtualCurrencyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VirtualCurrencyDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Add new virtual currency to environment
+      tags:
+      - Virtual Currencies
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/accounts/{platformUserId}:
+    get:
+      operationId: getMythicalUser
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: platformUserId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MythicalUserDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get mythical platform user by id
+      tags:
+      - Accounts
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/transfer:
+    post:
+      description: Transfer an issued item
+      operationId: transferItem
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferItemRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ItemActionDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Transfer issued item
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/burn:
+    post:
+      description: Burn an issued item
+      operationId: burnItem
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BurnItemRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ItemActionDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Burn issued item
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/customer/methods:
+    get:
+      description: Find a Payment Method for a customer
+      operationId: getPaymentMethod
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: paymentMethodToken
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentMethodDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get Payment Method
+      tags:
+      - Payments
+      x-accepts: '*/*'
+    post:
+      description: Create Payment Method
+      operationId: createPaymentMethod
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentMethodRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentMethodDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create Payment Method
+      tags:
+      - Payments
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/players/{platformUserId}/reset-password:
+    post:
+      operationId: resetPassword
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: platformUserId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Reset user password
+      tags:
+      - Accounts
+      x-accepts: '*/*'
+  /environments/{environmentId}/players/{playerId}:
+    get:
+      operationId: getPlayerData
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: playerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PlayerDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get player data
+      tags:
+      - Players
+      x-accepts: '*/*'
+  /marketplace/environments/{environmentId}/items/listed/{listingId}:
+    get:
+      operationId: getListing
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MarketplaceListingDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all information for the listing with the given id
+      tags:
+      - Marketplace
+      x-accepts: '*/*'
+  /marketplace/environments/{environmentId}/items/listed:
+    get:
+      operationId: getAllListings
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 30
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: createdTimestamp
+        required: false
+        schema:
+          default: -1
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESCENDING
+          enum:
+          - ASCENDING
+          - DESCENDING
+          - UNRECOGNIZED
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/MarketplaceListingDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all items of an environment
+      tags:
+      - Marketplace
+      x-accepts: '*/*'
+  /titles/{titleId}/environments:
+    get:
+      description: Get environment instances for a title
+      operationId: getEnvironmentInstancesForTitle
+      parameters:
+      - explode: false
+        in: path
+        name: titleId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: includeInactive
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/EnvironmentInstanceDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get environment instances for title
+      tags:
+      - Titles
+      x-accepts: '*/*'
+    post:
+      description: Create new environment instance for a title
+      operationId: addEnvironmentInstance
+      parameters:
+      - explode: false
+        in: path
+        name: titleId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironmentInstanceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EnvironmentInstanceDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create environment instance for title
+      tags:
+      - Titles
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /titles/{titleId}/deactivate:
+    put:
+      operationId: setTitleInactive
+      parameters:
+      - explode: false
+        in: path
+        name: titleId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Title state updated.
+      summary: Set title to deactivated
+      tags:
+      - Titles
+      x-accepts: '*/*'
+  /marketplace/environments/{environmentId}/items/search:
+    get:
+      operationId: searchItems
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: artists
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: rarity
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: levels
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: tokenName
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: price
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 30
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageNum
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Search items
+      tags:
+      - Marketplace
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/customer/{customerId}:
+    delete:
+      description: Delete an existing Payment Customer
+      operationId: deleteCustomer
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: customerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Customer deleted
+      summary: Delete Customer
+      tags:
+      - Payments
+      x-accepts: '*/*'
+  /environments/{environmentId}:
+    get:
+      description: Get environment instance details
+      operationId: getEnvironmentInstance
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EnvironmentInstanceDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get title environment instance
+      tags:
+      - Environments
+      x-accepts: '*/*'
+    put:
+      description: Update environment instance display name for a title
+      operationId: updateEnvironmentInstanceName
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironmentInstanceRequest'
+        required: true
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Environment name updated.
+      summary: Update instance display name for title
+      tags:
+      - Environments
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/secrets/{secretId}/disable:
+    put:
+      operationId: disableServerSecret
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: secretId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Secret disabled successfully.
+      summary: Disable server secret by secret ID
+      tags:
+      - Server Secrets
+      x-accepts: '*/*'
+  /orgs/{organizationId}/accounts:
+    post:
+      operationId: createMythicalUser
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMythicalUserRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MythicalUserDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create new mythical account
+      tags:
+      - Accounts
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/accounts/search:
+    get:
+      operationId: findMythicalUser
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: email
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: firstName
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: lastName
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/MythicalUserDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Find mythical accounts
+      tags:
+      - Accounts
+      x-accepts: '*/*'
+  /environments/{environmentId}/activate:
+    put:
+      operationId: setEnvironmentInstanceActive
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Environment state updated.
+      summary: Set environment to activated
+      tags:
+      - Environments
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/types:
+    get:
+      operationId: getItemTypes
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemTypeDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all item types for an environment
+      tags:
+      - Items
+      x-accepts: '*/*'
+    post:
+      description: Create a new type of item on the blockchain that can be issued
+        to players.
+      operationId: createItem
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItemRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ItemTypeDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create item type
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /environments/{environmentId}/payments/pay:
+    post:
+      description: Make the final payment
+      operationId: completePayment
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinalizePaymentRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentDto'
+          description: Authentication failure.
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentDto'
+          description: Internal Server Error.
+        "403":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentDto'
+          description: You do not have the correct access rights to make this request.
+      summary: Finalize Purchase
+      tags:
+      - Payments
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/partner:
+    get:
+      description: Get all partners for an organization
+      operationId: getPartners
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PartnerDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get Partners
+      tags:
+      - Partners
+      x-accepts: '*/*'
+    post:
+      description: Create a new partner for an organization
+      operationId: createNewPartner
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePartnerRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PartnerDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Create Partner
+      tags:
+      - Partners
+      x-contentType: application/json
+      x-accepts: '*/*'
+    put:
+      operationId: updatePartner
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartnerRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PartnerDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Update partner details
+      tags:
+      - Orgs
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/secrets/{secretId}:
+    delete:
+      operationId: deleteServerSecret
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: secretId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+        "204":
+          description: Secret deleted successfully.
+      summary: Delete server secret for environment by secret ID
+      tags:
+      - Server Secrets
+      x-accepts: '*/*'
+    get:
+      operationId: getServerSecretById
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: secretId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServerSecretDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get server secret for environment by secret ID
+      tags:
+      - Server Secrets
+      x-accepts: '*/*'
+  /environments/{environmentId}/items/issued:
+    get:
+      operationId: getIssuedItems
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: playerId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: gameInventoryId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: dgoodId
+        required: false
+        schema:
+          default: -1
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/IssuedItemDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get all issued items for an environment.
+      tags:
+      - Items
+      x-accepts: '*/*'
+    post:
+      description: Issue instance(s) of an item type to a player
+      operationId: issueItem
+      parameters:
+      - explode: false
+        in: path
+        name: environmentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueItemRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IssuedItemDto'
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Issue item
+      tags:
+      - Items
+      x-contentType: application/json
+      x-accepts: '*/*'
+  /orgs/{organizationId}/users:
+    get:
+      description: Get users for organization
+      operationId: getUsersForOrganization
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get users
+      tags:
+      - Orgs
+      x-accepts: '*/*'
+components:
+  parameters:
+    Version:
+      explode: false
+      in: header
+      name: Version
+      required: false
+      schema:
+        default: 0.0.1
+        type: string
+      style: simple
+  schemas:
+    PaymentMethodDto:
+      example:
+        address:
+          firstName: firstName
+          lastName: lastName
+          countryIsoAlpha2: countryIsoAlpha2
+          city: city
+          postalCode: postalCode
+          addressLine1: addressLine1
+          addressLine2: addressLine2
+          state: state
+          countryName: countryName
+        defaultOption: true
+        type: type
+        token: token
+      properties:
+        address:
+          $ref: '#/components/schemas/PostalAddress'
+        defaultOption:
+          type: boolean
+        type:
+          type: string
+        token:
+          type: string
+      type: object
+    UpdatePaymentMethodDefaultRequest:
+      example:
+        paymentMethodToken: paymentMethodToken
+        defaultOption: true
+      properties:
+        paymentMethodToken:
+          type: string
+        defaultOption:
+          example: true
+          type: boolean
+      required:
+      - defaultOption
+      - paymentMethodToken
+      type: object
+    UpdateOrganizationRoleRequest:
+      example:
+        roleName: roleName
+      properties:
+        roleName:
+          type: string
+      required:
+      - roleName
+      type: object
+    CreateServerSecretRequest:
+      example:
+        roleName: WRITE
+        description: description
+        disabled: false
+      properties:
+        roleName:
+          example: WRITE
+          type: string
+        description:
+          type: string
+        disabled:
+          example: false
+          type: boolean
+      required:
+      - roleName
+      type: object
+    ThemeDto:
+      example:
+        theme: DARK
+      properties:
+        theme:
+          enum:
+          - DARK
+          - LIGHT
+          - UNRECOGNIZED
+          type: string
+      type: object
+    ListSaleRequest:
+      example:
+        sellerProceeds: 9.99
+        ownerPlayerId: ownerPlayerId
+        sellByDays: 5
+        gameInventoryIds:
+        - gameInventoryIds
+        - gameInventoryIds
+        saleModel: FIXED_PRICE
+        currency: currency
+      properties:
+        sellerProceeds:
+          example: 9.99
+          minimum: 0
+          type: number
+        ownerPlayerId:
+          type: string
+        sellByDays:
+          example: 5
+          format: int32
+          maximum: 364
+          minimum: 1
+          type: integer
+        gameInventoryIds:
+          items:
+            type: string
+          type: array
+        saleModel:
+          enum:
+          - FIXED_PRICE
+          - UNRECOGNIZED
+          type: string
+        currency:
+          type: string
+      required:
+      - currency
+      - gameInventoryIds
+      - ownerPlayerId
+      type: object
+    UserDto:
+      example:
+        organizationId: organizationId
+        createdTimestamp: createdTimestamp
+        roleName: roleName
+        userId: userId
+        email: email
+      properties:
+        organizationId:
+          type: string
+        createdTimestamp:
+          type: string
+        roleName:
+          type: string
+        userId:
+          type: string
+        email:
+          type: string
+      type: object
+    BurnItemRequest:
+      example:
+        gameInventoryId: gameInventoryId
+      properties:
+        gameInventoryId:
+          type: string
+      required:
+      - gameInventoryId
+      type: object
+    UpdateWebhookRequest:
+      example:
+        requiredHeaders:
+          key: requiredHeaders
+        name: name
+        description: description
+        disabled: false
+        url: url
+        requiredQueryParams:
+          key: requiredQueryParams
+      properties:
+        requiredHeaders:
+          additionalProperties:
+            type: string
+          type: object
+        name:
+          type: string
+        description:
+          type: string
+        disabled:
+          example: false
+          type: boolean
+        url:
+          type: string
+        requiredQueryParams:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - url
+      type: object
+    UpdateMetadataRequest:
+      example:
+        metadata:
+          key: '{}'
+        authenticity: authenticity
+        imageSmall: imageSmall
+        tokenName: tokenName
+        description: description
+        imageLarge: imageLarge
+        render: render
+        dgoodId: 17
+      properties:
+        metadata:
+          additionalProperties:
+            type: object
+          type: object
+        authenticity:
+          type: string
+        imageSmall:
+          type: string
+        tokenName:
+          type: string
+        description:
+          type: string
+        imageLarge:
+          type: string
+        render:
+          type: string
+        dgoodId:
+          example: 17
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - dgoodId
+      type: object
+    ProfilePictureDto:
+      example:
+        profileImageUrl: profileImageUrl
+      properties:
+        profileImageUrl:
+          type: string
+      type: object
+    SoldItemDto:
+      example:
+        marketplaceId: marketplaceId
+        finalized: true
+        environmentId: environmentId
+        createdBy: createdBy
+        createdTimestamp: 0
+        sellerPlayerId: sellerPlayerId
+        batchId: 6
+        buyerPlayerId: buyerPlayerId
+        transactionId: transactionId
+      properties:
+        marketplaceId:
+          type: string
+        finalized:
+          type: boolean
+        environmentId:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        sellerPlayerId:
+          type: string
+        batchId:
+          format: int64
+          type: integer
+        buyerPlayerId:
+          type: string
+        transactionId:
+          type: string
+      type: object
+    SalesTaxTransactionDto:
+      example:
+        transaction_date: 0
+        toZip: toZip
+        taxableAmount: 6.027456183070403
+        toState: toState
+        salesTaxAmount: 1.4658129805029452
+        toCity: toCity
+        userId: 5
+        transactionId: transactionId
+        toCountry: toCountry
+      properties:
+        transaction_date:
+          format: int64
+          type: integer
+        toZip:
+          type: string
+        taxableAmount:
+          type: number
+        toState:
+          type: string
+        salesTaxAmount:
+          type: number
+        toCity:
+          type: string
+        userId:
+          format: int32
+          type: integer
+        transactionId:
+          type: string
+        toCountry:
+          type: string
+      type: object
+    BraintreeData:
+      example:
+        braintreeClientToken: braintreeClientToken
+      properties:
+        braintreeClientToken:
+          type: string
+      type: object
+    ListingDto:
+      example:
+        saleAmount: 0.8008281904610115
+        currencyBase: currencyBase
+        transactionIdClosed: transactionIdClosed
+        sellByDays: 6
+        createdTimestamp: 1
+        sellerPlayerId: sellerPlayerId
+        finalizedClosed: true
+        batchId: 5
+        transactionId: transactionId
+        finalized: true
+        sellByDate: 5
+        environmentId: environmentId
+        createdBy: createdBy
+        saleModel: FIXED_PRICE
+        gameInventoryIds:
+        - gameInventoryIds
+        - gameInventoryIds
+        closed: true
+        currency: currency
+        dgoodIds:
+        - 2
+        - 2
+        saleAmountBase: 7.061401241503109
+      properties:
+        saleAmount:
+          type: number
+        currencyBase:
+          type: string
+        transactionIdClosed:
+          type: string
+        sellByDays:
+          format: int32
+          type: integer
+        createdTimestamp:
+          format: int64
+          type: integer
+        sellerPlayerId:
+          type: string
+        finalizedClosed:
+          type: boolean
+        batchId:
+          format: int64
+          type: integer
+        transactionId:
+          type: string
+        finalized:
+          type: boolean
+        sellByDate:
+          format: int64
+          type: integer
+        environmentId:
+          type: string
+        createdBy:
+          type: string
+        saleModel:
+          enum:
+          - FIXED_PRICE
+          - UNRECOGNIZED
+          type: string
+        gameInventoryIds:
+          items:
+            type: string
+          type: array
+        closed:
+          type: boolean
+        currency:
+          type: string
+        dgoodIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        saleAmountBase:
+          type: number
+      type: object
+    UpdateMythicalUserRequest:
+      example:
+        firstName: firstName
+        lastName: lastName
+        birthdate: birthdate
+        email: email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthdate:
+          type: string
+        email:
+          type: string
+      type: object
+    CreateTitleRequest:
+      example:
+        titleName: titleName
+        initialEnvironmentDisplayName: initialEnvironmentDisplayName
+        initialEnvironmentType: DEV
+      properties:
+        titleName:
+          type: string
+        initialEnvironmentDisplayName:
+          type: string
+        initialEnvironmentType:
+          enum:
+          - DEV
+          - QA
+          - STAGING
+          - PROD
+          - UNRECOGNIZED
+          example: DEV
+          type: string
+      required:
+      - initialEnvironmentDisplayName
+      - initialEnvironmentType
+      - titleName
+      type: object
+    InviteUserToOrganizationRequest:
+      example:
+        roleName: roleName
+        userEmail: userEmail
+      properties:
+        roleName:
+          type: string
+        userEmail:
+          type: string
+      required:
+      - roleName
+      - userEmail
+      type: object
+    BraintreePayment:
+      example:
+        braintreePaymentNonce: braintreePaymentNonce
+      properties:
+        braintreePaymentNonce:
+          type: string
+      type: object
+    CreateItemRequest:
+      example:
+        transferable: true
+        tokenName: tokenName
+        burnable: true
+        maxSupply: 1000
+        sellable: true
+        category: category
+        agreementIds:
+        - agreementIds
+        - agreementIds
+        issueTimeSpan: 0
+      properties:
+        transferable:
+          type: boolean
+        tokenName:
+          type: string
+        burnable:
+          type: boolean
+        maxSupply:
+          example: 1000
+          format: int32
+          minimum: 0
+          type: integer
+        sellable:
+          type: boolean
+        category:
+          type: string
+        agreementIds:
+          items:
+            type: string
+          type: array
+        issueTimeSpan:
+          example: 0
+          format: int32
+          minimum: 0
+          type: integer
+      required:
+      - burnable
+      - category
+      - sellable
+      - tokenName
+      - transferable
+      type: object
+    PaymentData:
+      example:
+        braintree:
+          braintreePaymentNonce: braintreePaymentNonce
+        coinbase:
+          coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        braintree:
+          $ref: '#/components/schemas/BraintreePayment'
+        coinbase:
+          $ref: '#/components/schemas/CoinbasePayment'
+      type: object
+    UpdatePartnerRequest:
+      example:
+        firstName: firstName
+        lastName: lastName
+        managerEmail: managerEmail
+        notes: notes
+        middleName: middleName
+        company: company
+        id: id
+        managerName: managerName
+        email: email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        managerEmail:
+          type: string
+        notes:
+          type: string
+        middleName:
+          type: string
+        company:
+          type: string
+        id:
+          type: string
+        managerName:
+          type: string
+        email:
+          type: string
+      required:
+      - company
+      - email
+      - firstName
+      - id
+      - lastName
+      - managerEmail
+      - managerName
+      - middleName
+      - notes
+      type: object
+    BuyListingRequest:
+      example:
+        marketplaceId: ebay
+        gameInventoryIds:
+        - gameInventoryIds
+        - gameInventoryIds
+        sellerPlayerId: sellerPlayerId
+        buyerPlayerId: buyerPlayerId
+      properties:
+        marketplaceId:
+          example: ebay
+          type: string
+        gameInventoryIds:
+          items:
+            type: string
+          type: array
+        sellerPlayerId:
+          type: string
+        buyerPlayerId:
+          type: string
+      required:
+      - buyerPlayerId
+      - gameInventoryIds
+      - sellerPlayerId
+      type: object
+    CreateWebhookRequest:
+      example:
+        requiredHeaders:
+          key: requiredHeaders
+        name: name
+        description: description
+        disabled: false
+        url: url
+        requiredQueryParams:
+          key: requiredQueryParams
+      properties:
+        requiredHeaders:
+          additionalProperties:
+            type: string
+          type: object
+        name:
+          type: string
+        description:
+          type: string
+        disabled:
+          example: false
+          type: boolean
+        url:
+          type: string
+        requiredQueryParams:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - url
+      type: object
+    IssueItemRequest:
+      example:
+        imageLargeUrl: imageLargeUrl
+        tokenName: tokenName
+        description: description
+        memo: memo
+        imageSmallUrl: imageSmallUrl
+        additionalMetadata:
+          key: '{}'
+        gameInventoryId: gameInventoryId
+        itemName: itemName
+        amountPaid: 7.5
+        ownerPlayerId: ownerPlayerId
+        authenticityImageUrl: authenticityImageUrl
+        currency: currency
+        category: category
+        render: render
+      properties:
+        imageLargeUrl:
+          type: string
+        tokenName:
+          type: string
+        description:
+          type: string
+        memo:
+          type: string
+        imageSmallUrl:
+          type: string
+        additionalMetadata:
+          additionalProperties:
+            type: object
+          type: object
+        gameInventoryId:
+          type: string
+        itemName:
+          type: string
+        amountPaid:
+          example: 7.5
+          format: float
+          minimum: 0
+          type: number
+        ownerPlayerId:
+          type: string
+        authenticityImageUrl:
+          type: string
+        currency:
+          type: string
+        category:
+          type: string
+        render:
+          type: string
+      required:
+      - category
+      - currency
+      - gameInventoryId
+      - ownerPlayerId
+      - tokenName
+      type: object
+    TokenCategory:
+      example:
+      - category: blanko
+        token: seafarer.da
+      properties:
+        category:
+          type: string
+        token:
+          type: string
+      type: object
+    OrganizationDto:
+      example:
+        createdBy: createdBy
+        displayName: displayName
+        createdTimestamp: createdTimestamp
+        id: id
+        ownerId: ownerId
+        environmentLimits: environmentLimits
+      properties:
+        createdBy:
+          type: string
+        displayName:
+          type: string
+        createdTimestamp:
+          type: string
+        id:
+          type: string
+        ownerId:
+          type: string
+        environmentLimits:
+          type: string
+      type: object
+    ElasticDgood:
+      example:
+        image_small: image_small
+        metadata:
+          key: '{}'
+        dgood_id: 6
+        authenticity: authenticity
+        name: name
+        description: description
+        category: category
+        image_large: image_large
+        title: title
+        render: render
+      properties:
+        image_small:
+          type: string
+        metadata:
+          additionalProperties:
+            type: object
+          type: object
+        dgood_id:
+          format: int64
+          type: integer
+        authenticity:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        image_large:
+          type: string
+        title:
+          type: string
+        render:
+          type: string
+      type: object
+    SearchResponse:
+      example:
+        total:
+          value: 0
+          relation: relation
+        data:
+        - get_index: get_index
+          get_source:
+            image_small: image_small
+            metadata:
+              key: '{}'
+            dgood_id: 6
+            authenticity: authenticity
+            name: name
+            description: description
+            category: category
+            image_large: image_large
+            title: title
+            render: render
+          get_type: get_type
+          get_score: 1.4658129805029452
+          get_id: get_id
+        - get_index: get_index
+          get_source:
+            image_small: image_small
+            metadata:
+              key: '{}'
+            dgood_id: 6
+            authenticity: authenticity
+            name: name
+            description: description
+            category: category
+            image_large: image_large
+            title: title
+            render: render
+          get_type: get_type
+          get_score: 1.4658129805029452
+          get_id: get_id
+      properties:
+        total:
+          $ref: '#/components/schemas/SearchTotal'
+        data:
+          items:
+            $ref: '#/components/schemas/SearchHit'
+          type: array
+      type: object
+    ItemTypeDto:
+      example:
+        transferable: true
+        createdTimestamp: 0
+        tokenName: tokenName
+        currentSupply: 6
+        sellable: true
+        agreementIds:
+        - agreementIds
+        - agreementIds
+        issuer: issuer
+        transactionId: transactionId
+        issueTimeSpan: 1
+        finalized: true
+        issuedSupply: 5
+        environmentId: environmentId
+        createdBy: createdBy
+        baseUri: baseUri
+        fungible: true
+        burnable: true
+        id: id
+        maxSupply: 5
+        category: category
+      properties:
+        transferable:
+          type: boolean
+        createdTimestamp:
+          format: int64
+          type: integer
+        tokenName:
+          type: string
+        currentSupply:
+          format: int32
+          type: integer
+        sellable:
+          type: boolean
+        agreementIds:
+          items:
+            type: string
+          type: array
+        issuer:
+          type: string
+        transactionId:
+          type: string
+        issueTimeSpan:
+          format: int32
+          type: integer
+        finalized:
+          type: boolean
+        issuedSupply:
+          format: int32
+          type: integer
+        environmentId:
+          type: string
+        createdBy:
+          type: string
+        baseUri:
+          type: string
+        fungible:
+          type: boolean
+        burnable:
+          type: boolean
+        id:
+          type: string
+        maxSupply:
+          format: int32
+          type: integer
+        category:
+          type: string
+      type: object
+    PostalAddress:
+      example:
+        firstName: firstName
+        lastName: lastName
+        countryIsoAlpha2: countryIsoAlpha2
+        city: city
+        postalCode: postalCode
+        addressLine1: addressLine1
+        addressLine2: addressLine2
+        state: state
+        countryName: countryName
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        countryIsoAlpha2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        state:
+          type: string
+        countryName:
+          type: string
+      type: object
+    PaymentProviderData:
+      example:
+        braintree:
+          braintreeClientToken: braintreeClientToken
+        coinbase:
+          coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        braintree:
+          $ref: '#/components/schemas/BraintreeData'
+        coinbase:
+          $ref: '#/components/schemas/CoinbaseData'
+      type: object
+    CreateAgreementRequest:
+      example:
+        itemTypeNames:
+        - itemTypeNames
+        - itemTypeNames
+        timeFrameStart: 0
+        revShareInitial: 0.12
+        notes: notes
+        paySchedule: MONTHLY
+        timeFrameEnd: 6
+        titleId: titleId
+        name: name
+        revShareResale: 0.1
+        active: true
+        guarantee: 1
+        currency: currency
+      properties:
+        itemTypeNames:
+          items:
+            type: string
+          type: array
+        timeFrameStart:
+          format: int64
+          type: integer
+        revShareInitial:
+          example: 0.12
+          exclusiveMaximum: false
+          exclusiveMinimum: false
+          format: double
+          maximum: 1
+          minimum: 0
+          type: number
+        notes:
+          type: string
+        paySchedule:
+          enum:
+          - MONTHLY
+          - QUARTERLY
+          - UNRECOGNIZED
+          type: string
+        timeFrameEnd:
+          format: int64
+          type: integer
+        titleId:
+          type: string
+        name:
+          type: string
+        revShareResale:
+          example: 0.1
+          exclusiveMaximum: false
+          exclusiveMinimum: false
+          format: double
+          maximum: 1
+          minimum: 0
+          type: number
+        active:
+          type: boolean
+        guarantee:
+          format: int32
+          type: integer
+        currency:
+          type: string
+      required:
+      - active
+      - currency
+      - name
+      - revShareInitial
+      - revShareResale
+      - titleId
+      type: object
+    SalesTaxInfoDto:
+      example:
+        zip: zip
+        countyRate: 0.8008281904610115
+        combinedTaxRate: 6.027456183070403
+        combinedDistrictRate: 1.4658129805029452
+        city: city
+        county: county
+        state: state
+        stateRate: 5.962133916683182
+        exempt: true
+        cityRate: 5.637376656633329
+      properties:
+        zip:
+          type: string
+        countyRate:
+          type: number
+        combinedTaxRate:
+          type: number
+        combinedDistrictRate:
+          type: number
+        city:
+          type: string
+        county:
+          type: string
+        state:
+          type: string
+        stateRate:
+          type: number
+        exempt:
+          type: boolean
+        cityRate:
+          type: number
+      type: object
+    ClientPaymentTokenDto:
+      example:
+        token: token
+      properties:
+        token:
+          type: string
+      type: object
+    OrderDto:
+      example:
+        itemTypes: itemTypes
+        total: 0.8008281904610115
+        metadata: metadata
+        environmentId: environmentId
+        address: address
+        orderId: orderId
+        createdBy: createdBy
+        createdTimestamp: createdTimestamp
+        requestIp: requestIp
+        tax: 6.027456183070403
+        paymentProviderId: BRAINTREE
+        paymentProviderData:
+          braintree:
+            braintreeClientToken: braintreeClientToken
+          coinbase:
+            coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        itemTypes:
+          type: string
+        total:
+          type: number
+        metadata:
+          type: string
+        environmentId:
+          type: string
+        address:
+          type: string
+        orderId:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          type: string
+        requestIp:
+          type: string
+        tax:
+          type: number
+        paymentProviderId:
+          enum:
+          - BRAINTREE
+          - COINBASE
+          - UNRECOGNIZED
+          type: string
+        paymentProviderData:
+          $ref: '#/components/schemas/PaymentProviderData'
+      type: object
+    MythicalUserDto:
+      example:
+        firstName: firstName
+        lastName: lastName
+        birthdate: birthdate
+        platformUserId: platformUserId
+        email: email
+        playerData:
+          platformUserId: platformUserId
+          createdBy: createdBy
+          createdTimestamp: 0
+          wallets:
+            key:
+              owner: owner
+              createdBy: createdBy
+              createdTimestamp: createdTimestamp
+              name: name
+          sidechainAccountName: sidechainAccountName
+          playerId: playerId
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthdate:
+          type: string
+        platformUserId:
+          type: string
+        email:
+          type: string
+        playerData:
+          $ref: '#/components/schemas/PlayerDto'
+      type: object
+    LinkPlayerToEnvironmentRequest:
+      example:
+        platformUserId: platformUserId
+        playerId: playerId
+      properties:
+        platformUserId:
+          type: string
+        playerId:
+          type: string
+      required:
+      - platformUserId
+      - playerId
+      type: object
+    CreatePartnerRequest:
+      example:
+        firstName: firstName
+        lastName: lastName
+        managerEmail: help@mythical.games
+        notes: notes
+        middleName: middleName
+        company: company
+        managerName: managerName
+        email: partner@epic.com
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        managerEmail:
+          example: help@mythical.games
+          type: string
+        notes:
+          type: string
+        middleName:
+          type: string
+        company:
+          type: string
+        managerName:
+          type: string
+        email:
+          example: partner@epic.com
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
+      type: object
+    VirtualCurrencyDto:
+      example:
+        createdBy: createdBy
+        createdTimestamp: createdTimestamp
+        name: name
+        fiat: true
+        abbreviation: abbreviation
+        base: true
+      properties:
+        createdBy:
+          type: string
+        createdTimestamp:
+          type: string
+        name:
+          type: string
+        fiat:
+          type: boolean
+        abbreviation:
+          type: string
+        base:
+          type: boolean
+      type: object
+    CloseSaleRequest:
+      example:
+        gameInventoryIds:
+        - gameInventoryIds
+        - gameInventoryIds
+        playerId: playerId
+      properties:
+        gameInventoryIds:
+          items:
+            type: string
+          type: array
+        playerId:
+          type: string
+      required:
+      - gameInventoryIds
+      - playerId
+      type: object
+    PlayerDto:
+      example:
+        platformUserId: platformUserId
+        createdBy: createdBy
+        createdTimestamp: 0
+        wallets:
+          key:
+            owner: owner
+            createdBy: createdBy
+            createdTimestamp: createdTimestamp
+            name: name
+        sidechainAccountName: sidechainAccountName
+        playerId: playerId
+      properties:
+        platformUserId:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        wallets:
+          additionalProperties:
+            $ref: '#/components/schemas/Wallet'
+          type: object
+        sidechainAccountName:
+          type: string
+        playerId:
+          type: string
+      type: object
+    TransactionDto:
+      example:
+        finalized: true
+        environmentId: environmentId
+        data: data
+        createdBy: createdBy
+        createdTimestamp: 0
+        action: action
+        finalizedTimestamp: 6
+        transactionId: transactionId
+        dgoodId: 1
+      properties:
+        finalized:
+          type: boolean
+        environmentId:
+          type: string
+        data:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        action:
+          type: string
+        finalizedTimestamp:
+          format: int64
+          type: integer
+        transactionId:
+          type: string
+        dgoodId:
+          format: int64
+          type: integer
+      type: object
+    SearchHit:
+      example:
+        get_index: get_index
+        get_source:
+          image_small: image_small
+          metadata:
+            key: '{}'
+          dgood_id: 6
+          authenticity: authenticity
+          name: name
+          description: description
+          category: category
+          image_large: image_large
+          title: title
+          render: render
+        get_type: get_type
+        get_score: 1.4658129805029452
+        get_id: get_id
+      properties:
+        get_index:
+          type: string
+        get_source:
+          $ref: '#/components/schemas/ElasticDgood'
+        get_type:
+          type: string
+        get_score:
+          format: double
+          type: number
+        get_id:
+          type: string
+      type: object
+    IssuedItemDto:
+      example:
+        currencyBase: currencyBase
+        serialNumber: 0
+        createdTimestamp: 6
+        tokenName: tokenName
+        amountPaidBase: 1.4658129805029452
+        metadataUri: metadataUri
+        transactionId: transactionId
+        gameInventoryId: gameInventoryId
+        relativeUri: relativeUri
+        ownerMythicalId: ownerMythicalId
+        itemName: itemName
+        environmentId: environmentId
+        ownerSidechainAccount: ownerSidechainAccount
+        amountPaid: 5.962133916683182
+        createdBy: createdBy
+        ownerPlayerId: ownerPlayerId
+        currency: currency
+        category: category
+        dgoodId: 5
+      properties:
+        currencyBase:
+          type: string
+        serialNumber:
+          format: int32
+          type: integer
+        createdTimestamp:
+          format: int64
+          type: integer
+        tokenName:
+          type: string
+        amountPaidBase:
+          type: number
+        metadataUri:
+          type: string
+        transactionId:
+          type: string
+        gameInventoryId:
+          type: string
+        relativeUri:
+          type: string
+        ownerMythicalId:
+          type: string
+        itemName:
+          type: string
+        environmentId:
+          type: string
+        ownerSidechainAccount:
+          type: string
+        amountPaid:
+          type: number
+        createdBy:
+          type: string
+        ownerPlayerId:
+          type: string
+        currency:
+          type: string
+        category:
+          type: string
+        dgoodId:
+          format: int64
+          type: integer
+      type: object
+    CreateOrderRequest:
+      example:
+        itemTypes:
+        - category: blanko
+          token: seafarer.da
+        metadata:
+          dgood_id: 1
+        address:
+          firstName: firstName
+          lastName: lastName
+          countryIsoAlpha2: countryIsoAlpha2
+          city: city
+          postalCode: postalCode
+          addressLine1: addressLine1
+          addressLine2: addressLine2
+          state: state
+          countryName: countryName
+        platformUserId: platformUserId
+        requestIp: 104.172.16.113
+        subTotal: 19.99
+        paymentProviderId: BRAINTREE
+      properties:
+        itemTypes:
+          example:
+          - category: blanko
+            token: seafarer.da
+          items:
+            $ref: '#/components/schemas/TokenCategory'
+          type: array
+        metadata:
+          additionalProperties:
+            example:
+              dgood_id: 1
+            type: object
+          example:
+            dgood_id: 1
+          type: object
+        address:
+          $ref: '#/components/schemas/PostalAddress'
+        platformUserId:
+          type: string
+        requestIp:
+          example: 104.172.16.113
+          type: string
+        subTotal:
+          example: 19.99
+          type: number
+        paymentProviderId:
+          enum:
+          - BRAINTREE
+          - COINBASE
+          - UNRECOGNIZED
+          example: BRAINTREE
+          type: string
+      required:
+      - paymentProviderId
+      - platformUserId
+      - requestIp
+      - subTotal
+      type: object
+    CoinbaseData:
+      example:
+        coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        coinbaseTransactionId:
+          type: string
+      type: object
+    CreateEnvironmentInstanceRequest:
+      example:
+        displayName: displayName
+        environmentType: DEV
+      properties:
+        displayName:
+          type: string
+        environmentType:
+          enum:
+          - DEV
+          - QA
+          - STAGING
+          - PROD
+          - UNRECOGNIZED
+          type: string
+      required:
+      - displayName
+      - environmentType
+      type: object
+    ServerSecretDto:
+      example:
+        organizationId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdBy: createdBy
+        createdTimestamp: createdTimestamp
+        roleName: roleName
+        description: description
+        disabled: true
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        secret: secret
+      properties:
+        organizationId:
+          format: uuid
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          type: string
+        roleName:
+          type: string
+        description:
+          type: string
+        disabled:
+          type: boolean
+        id:
+          format: uuid
+          type: string
+        secret:
+          type: string
+      type: object
+    CustomerDto:
+      example:
+        firstName: firstName
+        lastName: lastName
+        website: website
+        phone: phone
+        paymentMethods:
+        - address:
+            firstName: firstName
+            lastName: lastName
+            countryIsoAlpha2: countryIsoAlpha2
+            city: city
+            postalCode: postalCode
+            addressLine1: addressLine1
+            addressLine2: addressLine2
+            state: state
+            countryName: countryName
+          defaultOption: true
+          type: type
+          token: token
+        - address:
+            firstName: firstName
+            lastName: lastName
+            countryIsoAlpha2: countryIsoAlpha2
+            city: city
+            postalCode: postalCode
+            addressLine1: addressLine1
+            addressLine2: addressLine2
+            state: state
+            countryName: countryName
+          defaultOption: true
+          type: type
+          token: token
+        company: company
+        id: id
+        fax: fax
+        email: email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        website:
+          type: string
+        phone:
+          type: string
+        paymentMethods:
+          items:
+            $ref: '#/components/schemas/PaymentMethodDto'
+          type: array
+        company:
+          type: string
+        id:
+          type: string
+        fax:
+          type: string
+        email:
+          type: string
+      type: object
+    ItemActionDto:
+      example:
+        finalized: true
+        dgoodIds:
+        - 0
+        - 0
+        message: message
+        transactionId: transactionId
+        status: 6
+      properties:
+        finalized:
+          type: boolean
+        dgoodIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        message:
+          type: string
+        transactionId:
+          type: string
+        status:
+          format: int32
+          type: integer
+      type: object
+    UpdateAgreementRequest:
+      example:
+        timeFrameStart: 0
+        notes: notes
+        paySchedule: MONTHLY
+        timeFrameEnd: 6
+        titleId: titleId
+        active: true
+        guarantee: 1
+        itemTypeNames:
+        - itemTypeNames
+        - itemTypeNames
+        revShareInitial: 0.12
+        name: name
+        revShareResale: 0.1
+        currency: currency
+        id: id
+      properties:
+        timeFrameStart:
+          format: int64
+          type: integer
+        notes:
+          type: string
+        paySchedule:
+          enum:
+          - MONTHLY
+          - QUARTERLY
+          - UNRECOGNIZED
+          type: string
+        timeFrameEnd:
+          format: int64
+          type: integer
+        titleId:
+          type: string
+        active:
+          type: boolean
+        guarantee:
+          format: int32
+          type: integer
+        itemTypeNames:
+          items:
+            type: string
+          type: array
+        revShareInitial:
+          example: 0.12
+          format: double
+          type: number
+        name:
+          type: string
+        revShareResale:
+          example: 0.1
+          format: double
+          type: number
+        currency:
+          type: string
+        id:
+          type: string
+      required:
+      - active
+      - currency
+      - guarantee
+      - id
+      - name
+      - notes
+      - paySchedule
+      - revShareInitial
+      - revShareResale
+      - timeFrameEnd
+      - timeFrameStart
+      - titleId
+      type: object
+    UpdateProfilePictureRequest:
+      example:
+        imageBase64: imageBase64
+        extension: extension
+      properties:
+        imageBase64:
+          type: string
+        extension:
+          type: string
+      required:
+      - extension
+      - imageBase64
+      type: object
+    InviteDto:
+      example:
+        organizationId: organizationId
+        expiryTimestamp: expiryTimestamp
+        createdBy: createdBy
+        createdTimestamp: createdTimestamp
+        roleName: roleName
+        userEmail: userEmail
+        id: id
+      properties:
+        organizationId:
+          type: string
+        expiryTimestamp:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          type: string
+        roleName:
+          type: string
+        userEmail:
+          type: string
+        id:
+          type: string
+      type: object
+    CoinbasePayment:
+      example:
+        coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        coinbaseTransactionId:
+          type: string
+      type: object
+    MarketplaceItemDto:
+      example:
+        dgoodsMetadata: dgoodsMetadata
+        imageLargeUrl: imageLargeUrl
+        createdTimestamp: 0
+        tokenName: tokenName
+        description: description
+        listingId: listingId
+        imageSmallUrl: imageSmallUrl
+        metadataUri: metadataUri
+        gameInventoryId: gameInventoryId
+        ownerMythicalId: ownerMythicalId
+        finalized: true
+        itemName: itemName
+        ownerPlayerId: ownerPlayerId
+        category: category
+        render: render
+        dgoodId: 6
+      properties:
+        dgoodsMetadata:
+          type: string
+        imageLargeUrl:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        tokenName:
+          type: string
+        description:
+          type: string
+        listingId:
+          type: string
+        imageSmallUrl:
+          type: string
+        metadataUri:
+          type: string
+        gameInventoryId:
+          type: string
+        ownerMythicalId:
+          type: string
+        finalized:
+          type: boolean
+        itemName:
+          type: string
+        ownerPlayerId:
+          type: string
+        category:
+          type: string
+        render:
+          type: string
+        dgoodId:
+          format: int64
+          type: integer
+      type: object
+    AgreementDto:
+      example:
+        timeFrameStart: 0
+        notes: notes
+        paySchedule: paySchedule
+        timeFrameEnd: 6
+        titleId: titleId
+        createdTimestamp: 1
+        active: true
+        guarantee: 5
+        itemTypeNames:
+        - itemTypeNames
+        - itemTypeNames
+        revShareInitial: 5.637376656633329
+        createdBy: createdBy
+        name: name
+        revShareResale: 2.3021358869347655
+        currency: currency
+        id: id
+        partnerId: partnerId
+      properties:
+        timeFrameStart:
+          format: int64
+          type: integer
+        notes:
+          type: string
+        paySchedule:
+          type: string
+        timeFrameEnd:
+          format: int64
+          type: integer
+        titleId:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        active:
+          type: boolean
+        guarantee:
+          format: int32
+          type: integer
+        itemTypeNames:
+          items:
+            type: string
+          type: array
+        revShareInitial:
+          format: double
+          type: number
+        createdBy:
+          type: string
+        name:
+          type: string
+        revShareResale:
+          format: double
+          type: number
+        currency:
+          type: string
+        id:
+          type: string
+        partnerId:
+          type: string
+      type: object
+    CreateMythicalUserRequest:
+      example:
+        firstName: firstName
+        lastName: lastName
+        birthdate: 2000-03-11
+        email: email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthdate:
+          example: 2000-03-11
+          pattern: ^[0-9]{4}-[01][0-9]-[0-3][0-9]$
+          type: string
+        email:
+          type: string
+      required:
+      - email
+      - firstName
+      type: object
+    CreatePaymentMethodRequest:
+      example:
+        customerId: customerId
+        paymentMethodNonce: paymentMethodNonce
+      properties:
+        customerId:
+          type: string
+        paymentMethodNonce:
+          type: string
+      required:
+      - paymentMethodNonce
+      type: object
+    UpdateOrderRequest:
+      example:
+        itemTypes:
+        - category: blanko
+          token: geisha.da
+        metadata:
+          dgood_id: 35
+        address:
+          firstName: firstName
+          lastName: lastName
+          countryIsoAlpha2: countryIsoAlpha2
+          city: city
+          postalCode: postalCode
+          addressLine1: addressLine1
+          addressLine2: addressLine2
+          state: state
+          countryName: countryName
+        orderId: orderId
+        platformUserId: platformUserId
+        tax: 0.99
+        subTotal: 2.99
+        paymentProviderId: BRAINTREE
+        status: STARTED
+      properties:
+        itemTypes:
+          example:
+          - category: blanko
+            token: geisha.da
+          items:
+            $ref: '#/components/schemas/TokenCategory'
+          type: array
+        metadata:
+          additionalProperties:
+            example:
+              dgood_id: 35
+            type: object
+          example:
+            dgood_id: 35
+          type: object
+        address:
+          $ref: '#/components/schemas/PostalAddress'
+        orderId:
+          type: string
+        platformUserId:
+          type: string
+        tax:
+          example: 0.99
+          type: number
+        subTotal:
+          example: 2.99
+          type: number
+        paymentProviderId:
+          enum:
+          - BRAINTREE
+          - COINBASE
+          - UNRECOGNIZED
+          example: BRAINTREE
+          type: string
+        status:
+          enum:
+          - STARTED
+          - COMPLETE
+          - UNRECOGNIZED
+          type: string
+      required:
+      - orderId
+      - paymentProviderId
+      type: object
+    WebhookDto:
+      example:
+        createdTimestamp: 0
+        description: description
+        url: url
+        requiredQueryParams:
+          key: requiredQueryParams
+        lastFailureReason: lastFailureReason
+        environmentId: environmentId
+        requiredHeaders:
+          key: requiredHeaders
+        createdBy: createdBy
+        name: name
+        disabled: true
+        lastFailureTimestamp: 6
+        id: id
+        failureCount: 1
+      properties:
+        createdTimestamp:
+          format: int64
+          type: integer
+        description:
+          type: string
+        url:
+          type: string
+        requiredQueryParams:
+          additionalProperties:
+            type: string
+          type: object
+        lastFailureReason:
+          type: string
+        environmentId:
+          type: string
+        requiredHeaders:
+          additionalProperties:
+            type: string
+          type: object
+        createdBy:
+          type: string
+        name:
+          type: string
+        disabled:
+          type: boolean
+        lastFailureTimestamp:
+          format: int64
+          type: integer
+        id:
+          type: string
+        failureCount:
+          format: int64
+          type: integer
+      type: object
+    TitleDto:
+      example:
+        environments:
+        - createdBy: createdBy
+          environmentType: DEV
+          displayName: displayName
+          createdTimestamp: createdTimestamp
+          parentTitleId: parentTitleId
+          id: id
+          deactivated: true
+        - createdBy: createdBy
+          environmentType: DEV
+          displayName: displayName
+          createdTimestamp: createdTimestamp
+          parentTitleId: parentTitleId
+          id: id
+          deactivated: true
+        createdBy: createdBy
+        createdTimestamp: createdTimestamp
+        name: name
+        id: id
+        availableEnvironmentTypes:
+        - availableEnvironmentTypes
+        - availableEnvironmentTypes
+        parentOrganizationId: parentOrganizationId
+        deactivated: true
+      properties:
+        environments:
+          items:
+            $ref: '#/components/schemas/EnvironmentInstanceDto'
+          type: array
+        createdBy:
+          type: string
+        createdTimestamp:
+          type: string
+        name:
+          type: string
+        id:
+          type: string
+        availableEnvironmentTypes:
+          items:
+            type: string
+          type: array
+        parentOrganizationId:
+          type: string
+        deactivated:
+          type: boolean
+      type: object
+    PartnerDto:
+      example:
+        organizationId: organizationId
+        firstName: firstName
+        lastName: lastName
+        managerEmail: managerEmail
+        notes: notes
+        createdBy: createdBy
+        createdTimestamp: 0
+        middleName: middleName
+        company: company
+        id: id
+        managerName: managerName
+        email: email
+      properties:
+        organizationId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        managerEmail:
+          type: string
+        notes:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        middleName:
+          type: string
+        company:
+          type: string
+        id:
+          type: string
+        managerName:
+          type: string
+        email:
+          type: string
+      type: object
+    Wallet:
+      example:
+        owner: owner
+        createdBy: createdBy
+        createdTimestamp: createdTimestamp
+        name: name
+      properties:
+        owner:
+          type: string
+        createdBy:
+          type: string
+        createdTimestamp:
+          type: string
+        name:
+          type: string
+      type: object
+    FinalizePaymentRequest:
+      example:
+        orderId: orderId
+        paymentProviderData:
+          braintree:
+            braintreePaymentNonce: braintreePaymentNonce
+          coinbase:
+            coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        orderId:
+          type: string
+        paymentProviderData:
+          $ref: '#/components/schemas/PaymentData'
+      required:
+      - orderId
+      - paymentProviderData
+      type: object
+    TransactionEventDTO:
+      example:
+        eventId: 0
+        chainName: chainName
+        environmentId: environmentId
+        eventDetails: eventDetails
+        transactionId: transactionId
+        timestamp: 6
+      properties:
+        eventId:
+          format: int64
+          type: integer
+        chainName:
+          type: string
+        environmentId:
+          type: string
+        eventDetails:
+          type: string
+        transactionId:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+      type: object
+    CreateCustomerRequest:
+      example:
+        firstName: first
+        lastName: last
+        website: https://mythical.games
+        phone: 818.555.1212
+        paymentMethodNonce: paymentMethodNonce
+        company: Mythical Games
+        fax: fax
+        email: customer@moo.com
+      properties:
+        firstName:
+          example: first
+          type: string
+        lastName:
+          example: last
+          type: string
+        website:
+          example: https://mythical.games
+          type: string
+        phone:
+          example: 818.555.1212
+          type: string
+        paymentMethodNonce:
+          type: string
+        company:
+          example: Mythical Games
+          type: string
+        fax:
+          type: string
+        email:
+          example: customer@moo.com
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
+      type: object
+    PaymentDto:
+      example:
+        success: true
+        paymentInstrumentType: paymentInstrumentType
+        status: status
+      properties:
+        success:
+          type: boolean
+        paymentInstrumentType:
+          type: string
+        status:
+          type: string
+      type: object
+    DgoodMetadataDto:
+      example:
+        metadata:
+          key: '{}'
+        authenticity: authenticity
+        imageSmall: imageSmall
+        name: name
+        description: description
+        category: category
+        imageLarge: imageLarge
+        title: title
+        render: render
+        dgoodId: 0
+      properties:
+        metadata:
+          additionalProperties:
+            type: object
+          type: object
+        authenticity:
+          type: string
+        imageSmall:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        imageLarge:
+          type: string
+        title:
+          type: string
+        render:
+          type: string
+        dgoodId:
+          format: int64
+          type: integer
+      type: object
+    SearchTotal:
+      example:
+        value: 0
+        relation: relation
+      properties:
+        value:
+          format: int32
+          type: integer
+        relation:
+          type: string
+      type: object
+    EnvironmentInstanceDto:
+      example:
+        createdBy: createdBy
+        environmentType: DEV
+        displayName: displayName
+        createdTimestamp: createdTimestamp
+        parentTitleId: parentTitleId
+        id: id
+        deactivated: true
+      properties:
+        createdBy:
+          type: string
+        environmentType:
+          enum:
+          - DEV
+          - QA
+          - STAGING
+          - PROD
+          - UNRECOGNIZED
+          type: string
+        displayName:
+          type: string
+        createdTimestamp:
+          type: string
+        parentTitleId:
+          type: string
+        id:
+          type: string
+        deactivated:
+          type: boolean
+      type: object
+    MarketplaceListingDto:
+      example:
+        saleAmount: 0.8008281904610115
+        dgoodsMetadata: dgoodsMetadata
+        createdTimestamp: 6
+        sellerPlayerId: sellerPlayerId
+        batchId: 1
+        finalized: true
+        sellByDate: 5
+        environmentId: environmentId
+        gameItems: gameItems
+        saleModel: FIXED_PRICE
+        closed: true
+        currency: currency
+        dgoodIds:
+        - 5
+        - 5
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        saleAmount:
+          type: number
+        dgoodsMetadata:
+          type: string
+        createdTimestamp:
+          format: int64
+          type: integer
+        sellerPlayerId:
+          type: string
+        batchId:
+          format: int64
+          type: integer
+        finalized:
+          type: boolean
+        sellByDate:
+          format: int64
+          type: integer
+        environmentId:
+          type: string
+        gameItems:
+          type: string
+        saleModel:
+          enum:
+          - FIXED_PRICE
+          - UNRECOGNIZED
+          type: string
+        closed:
+          type: boolean
+        currency:
+          type: string
+        dgoodIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        id:
+          format: uuid
+          type: string
+      type: object
+    CreateVirtualCurrencyRequest:
+      example:
+        name: BlankoBucks
+        fiat: true
+        abbreviation: BB
+        base: true
+      properties:
+        name:
+          example: BlankoBucks
+          type: string
+        fiat:
+          example: true
+          type: boolean
+        abbreviation:
+          example: BB
+          type: string
+        base:
+          example: true
+          type: boolean
+      required:
+      - abbreviation
+      - fiat
+      - name
+      type: object
+    UpdateOrganizationRequest:
+      example:
+        displayName: displayName
+        newOwner: newOwner
+        environmentLimits:
+          key: 0
+      properties:
+        displayName:
+          type: string
+        newOwner:
+          type: string
+        environmentLimits:
+          additionalProperties:
+            format: int32
+            type: integer
+          type: object
+      type: object
+    UpdateCustomerRequest:
+      example:
+        firstName: firstName
+        lastName: lastName
+        website: website
+        phone: phone
+        customerId: customerId
+        paymentMethodNonce: paymentMethodNonce
+        company: company
+        fax: fax
+        email: email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        website:
+          type: string
+        phone:
+          type: string
+        customerId:
+          type: string
+        paymentMethodNonce:
+          type: string
+        company:
+          type: string
+        fax:
+          type: string
+        email:
+          type: string
+      required:
+      - customerId
+      type: object
+    TransferItemRequest:
+      example:
+        destPlayerId: destPlayerId
+        memo: optional
+        sourcePlayerId: sourcePlayerId
+        newGameInventoryId: optional
+        gameInventoryId: gameInventoryId
+      properties:
+        destPlayerId:
+          type: string
+        memo:
+          example: optional
+          type: string
+        sourcePlayerId:
+          type: string
+        newGameInventoryId:
+          example: optional
+          type: string
+        gameInventoryId:
+          type: string
+      required:
+      - destPlayerId
+      - gameInventoryId
+      - sourcePlayerId
+      type: object
+  securitySchemes:
+    api_key:
+      description: Api Key access
+      in: header
+      name: API-KEY
+      type: apiKey
+    spring_oauth:
+      description: Oauth2 flow
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/auth
+          refreshUrl: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/token
+          scopes: {}
+          tokenUrl: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/token
+      type: oauth2
+
