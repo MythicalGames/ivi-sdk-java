@@ -15,26 +15,27 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * UpdateProfilePictureRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  UpdateProfilePictureRequest.JSON_PROPERTY_IMAGE_BASE64,
+  UpdateProfilePictureRequest.JSON_PROPERTY_EXTENSION
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class UpdateProfilePictureRequest {
-  public static final String SERIALIZED_NAME_IMAGE_BASE64 = "imageBase64";
-  @SerializedName(SERIALIZED_NAME_IMAGE_BASE64)
+  public static final String JSON_PROPERTY_IMAGE_BASE64 = "imageBase64";
   private String imageBase64;
 
-  public static final String SERIALIZED_NAME_EXTENSION = "extension";
-  @SerializedName(SERIALIZED_NAME_EXTENSION)
+  public static final String JSON_PROPERTY_EXTENSION = "extension";
   private String extension;
 
 
@@ -49,6 +50,8 @@ public class UpdateProfilePictureRequest {
    * @return imageBase64
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_BASE64)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getImageBase64() {
     return imageBase64;
@@ -71,6 +74,8 @@ public class UpdateProfilePictureRequest {
    * @return extension
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_EXTENSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExtension() {
     return extension;

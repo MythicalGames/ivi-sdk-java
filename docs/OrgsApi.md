@@ -16,54 +16,57 @@ Method | HTTP request | Description
 [**updatePartner**](OrgsApi.md#updatePartner) | **PUT** /orgs/{organizationId}/partner | Update partner details
 
 
-<a name="acceptInvitation"></a>
-# **acceptInvitation**
+
+## acceptInvitation
+
 > acceptInvitation(organizationId, inviteId)
 
 Accept an invitation to organization
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    String inviteId = "inviteId_example"; // String | 
-    try {
-      apiInstance.acceptInvitation(organizationId, inviteId);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#acceptInvitation");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String inviteId = "inviteId_example"; // String | 
+        try {
+            apiInstance.acceptInvitation(organizationId, inviteId);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#acceptInvitation");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -80,17 +83,18 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**400** | Bad Request |  -  |
-**204** | Success, no content |  -  |
+| **400** | Bad Request |  -  |
+| **204** | Success, no content |  -  |
 
-<a name="createNewTitle"></a>
-# **createNewTitle**
+
+## createNewTitle
+
 > TitleDto createNewTitle(organizationId, createTitleRequest)
 
 Create title
@@ -98,48 +102,50 @@ Create title
 Create a new title in this organization.
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    CreateTitleRequest createTitleRequest = new CreateTitleRequest(); // CreateTitleRequest | 
-    try {
-      TitleDto result = apiInstance.createNewTitle(organizationId, createTitleRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#createNewTitle");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        CreateTitleRequest createTitleRequest = new CreateTitleRequest(); // CreateTitleRequest | 
+        try {
+            TitleDto result = apiInstance.createNewTitle(organizationId, createTitleRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#createNewTitle");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -156,17 +162,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getOrg"></a>
-# **getOrg**
+
+## getOrg
+
 > OrganizationDto getOrg(organizationId)
 
 Get organization
@@ -174,47 +181,49 @@ Get organization
 Get organization by id
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    try {
-      OrganizationDto result = apiInstance.getOrg(organizationId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#getOrg");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        try {
+            OrganizationDto result = apiInstance.getOrg(organizationId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#getOrg");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -230,63 +239,66 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getPendingInvites"></a>
-# **getPendingInvites**
+
+## getPendingInvites
+
 > List&lt;InviteDto&gt; getPendingInvites(organizationId)
 
 Get organization pending invites
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    try {
-      List<InviteDto> result = apiInstance.getPendingInvites(organizationId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#getPendingInvites");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        try {
+            List<InviteDto> result = apiInstance.getPendingInvites(organizationId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#getPendingInvites");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -302,17 +314,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getTitles"></a>
-# **getTitles**
+
+## getTitles
+
 > List&lt;TitleDto&gt; getTitles(organizationId, includeInactive)
 
 Get titles
@@ -320,48 +333,50 @@ Get titles
 Get titles for organization
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    Boolean includeInactive = true; // Boolean | 
-    try {
-      List<TitleDto> result = apiInstance.getTitles(organizationId, includeInactive);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#getTitles");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        Boolean includeInactive = true; // Boolean | 
+        try {
+            List<TitleDto> result = apiInstance.getTitles(organizationId, includeInactive);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#getTitles");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -378,17 +393,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getUsersForOrganization"></a>
-# **getUsersForOrganization**
+
+## getUsersForOrganization
+
 > List&lt;UserDto&gt; getUsersForOrganization(organizationId)
 
 Get users
@@ -396,47 +412,49 @@ Get users
 Get users for organization
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    try {
-      List<UserDto> result = apiInstance.getUsersForOrganization(organizationId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#getUsersForOrganization");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        try {
+            List<UserDto> result = apiInstance.getUsersForOrganization(organizationId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#getUsersForOrganization");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -452,64 +470,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="inviteUserToOrg"></a>
-# **inviteUserToOrg**
+
+## inviteUserToOrg
+
 > List&lt;InviteDto&gt; inviteUserToOrg(organizationId, inviteUserToOrganizationRequest)
 
 Invite a user to organization
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest = Arrays.asList(); // List<InviteUserToOrganizationRequest> | 
-    try {
-      List<InviteDto> result = apiInstance.inviteUserToOrg(organizationId, inviteUserToOrganizationRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#inviteUserToOrg");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest = Arrays.asList(); // List<InviteUserToOrganizationRequest> | 
+        try {
+            List<InviteDto> result = apiInstance.inviteUserToOrg(organizationId, inviteUserToOrganizationRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#inviteUserToOrg");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -526,64 +547,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="updateOrg"></a>
-# **updateOrg**
+
+## updateOrg
+
 > OrganizationDto updateOrg(organizationId, updateOrganizationRequest)
 
 Update organization details
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    UpdateOrganizationRequest updateOrganizationRequest = new UpdateOrganizationRequest(); // UpdateOrganizationRequest | 
-    try {
-      OrganizationDto result = apiInstance.updateOrg(organizationId, updateOrganizationRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#updateOrg");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        UpdateOrganizationRequest updateOrganizationRequest = new UpdateOrganizationRequest(); // UpdateOrganizationRequest | 
+        try {
+            OrganizationDto result = apiInstance.updateOrg(organizationId, updateOrganizationRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#updateOrg");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -600,64 +624,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="updateOrgRole"></a>
-# **updateOrgRole**
+
+## updateOrgRole
+
 > updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest)
 
 Update organization user role
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    String platformUserId = "platformUserId_example"; // String | 
-    UpdateOrganizationRoleRequest updateOrganizationRoleRequest = new UpdateOrganizationRoleRequest(); // UpdateOrganizationRoleRequest | 
-    try {
-      apiInstance.updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#updateOrgRole");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String platformUserId = "platformUserId_example"; // String | 
+        UpdateOrganizationRoleRequest updateOrganizationRoleRequest = new UpdateOrganizationRoleRequest(); // UpdateOrganizationRoleRequest | 
+        try {
+            apiInstance.updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#updateOrgRole");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -675,64 +702,67 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**400** | Bad Request |  -  |
-**204** | Success, no content |  -  |
+| **400** | Bad Request |  -  |
+| **204** | Success, no content |  -  |
 
-<a name="updatePartner"></a>
-# **updatePartner**
+
+## updatePartner
+
 > PartnerDto updatePartner(organizationId, updatePartnerRequest)
 
 Update partner details
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.OrgsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    OrgsApi apiInstance = new OrgsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    UpdatePartnerRequest updatePartnerRequest = new UpdatePartnerRequest(); // UpdatePartnerRequest | 
-    try {
-      PartnerDto result = apiInstance.updatePartner(organizationId, updatePartnerRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling OrgsApi#updatePartner");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        OrgsApi apiInstance = new OrgsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        UpdatePartnerRequest updatePartnerRequest = new UpdatePartnerRequest(); // UpdatePartnerRequest | 
+        try {
+            PartnerDto result = apiInstance.updatePartner(organizationId, updatePartnerRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrgsApi#updatePartner");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -749,12 +779,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 

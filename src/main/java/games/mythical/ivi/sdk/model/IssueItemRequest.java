@@ -15,77 +15,78 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * IssueItemRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  IssueItemRequest.JSON_PROPERTY_IMAGE_LARGE_URL,
+  IssueItemRequest.JSON_PROPERTY_TOKEN_NAME,
+  IssueItemRequest.JSON_PROPERTY_DESCRIPTION,
+  IssueItemRequest.JSON_PROPERTY_MEMO,
+  IssueItemRequest.JSON_PROPERTY_IMAGE_SMALL_URL,
+  IssueItemRequest.JSON_PROPERTY_ADDITIONAL_METADATA,
+  IssueItemRequest.JSON_PROPERTY_GAME_INVENTORY_ID,
+  IssueItemRequest.JSON_PROPERTY_ITEM_NAME,
+  IssueItemRequest.JSON_PROPERTY_AMOUNT_PAID,
+  IssueItemRequest.JSON_PROPERTY_OWNER_PLAYER_ID,
+  IssueItemRequest.JSON_PROPERTY_AUTHENTICITY_IMAGE_URL,
+  IssueItemRequest.JSON_PROPERTY_CURRENCY,
+  IssueItemRequest.JSON_PROPERTY_CATEGORY,
+  IssueItemRequest.JSON_PROPERTY_RENDER
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class IssueItemRequest {
-  public static final String SERIALIZED_NAME_IMAGE_LARGE_URL = "imageLargeUrl";
-  @SerializedName(SERIALIZED_NAME_IMAGE_LARGE_URL)
+  public static final String JSON_PROPERTY_IMAGE_LARGE_URL = "imageLargeUrl";
   private String imageLargeUrl;
 
-  public static final String SERIALIZED_NAME_TOKEN_NAME = "tokenName";
-  @SerializedName(SERIALIZED_NAME_TOKEN_NAME)
+  public static final String JSON_PROPERTY_TOKEN_NAME = "tokenName";
   private String tokenName;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_MEMO = "memo";
-  @SerializedName(SERIALIZED_NAME_MEMO)
+  public static final String JSON_PROPERTY_MEMO = "memo";
   private String memo;
 
-  public static final String SERIALIZED_NAME_IMAGE_SMALL_URL = "imageSmallUrl";
-  @SerializedName(SERIALIZED_NAME_IMAGE_SMALL_URL)
+  public static final String JSON_PROPERTY_IMAGE_SMALL_URL = "imageSmallUrl";
   private String imageSmallUrl;
 
-  public static final String SERIALIZED_NAME_ADDITIONAL_METADATA = "additionalMetadata";
-  @SerializedName(SERIALIZED_NAME_ADDITIONAL_METADATA)
+  public static final String JSON_PROPERTY_ADDITIONAL_METADATA = "additionalMetadata";
   private Map<String, Object> additionalMetadata = null;
 
-  public static final String SERIALIZED_NAME_GAME_INVENTORY_ID = "gameInventoryId";
-  @SerializedName(SERIALIZED_NAME_GAME_INVENTORY_ID)
+  public static final String JSON_PROPERTY_GAME_INVENTORY_ID = "gameInventoryId";
   private String gameInventoryId;
 
-  public static final String SERIALIZED_NAME_ITEM_NAME = "itemName";
-  @SerializedName(SERIALIZED_NAME_ITEM_NAME)
+  public static final String JSON_PROPERTY_ITEM_NAME = "itemName";
   private String itemName;
 
-  public static final String SERIALIZED_NAME_AMOUNT_PAID = "amountPaid";
-  @SerializedName(SERIALIZED_NAME_AMOUNT_PAID)
+  public static final String JSON_PROPERTY_AMOUNT_PAID = "amountPaid";
   private Float amountPaid;
 
-  public static final String SERIALIZED_NAME_OWNER_PLAYER_ID = "ownerPlayerId";
-  @SerializedName(SERIALIZED_NAME_OWNER_PLAYER_ID)
+  public static final String JSON_PROPERTY_OWNER_PLAYER_ID = "ownerPlayerId";
   private String ownerPlayerId;
 
-  public static final String SERIALIZED_NAME_AUTHENTICITY_IMAGE_URL = "authenticityImageUrl";
-  @SerializedName(SERIALIZED_NAME_AUTHENTICITY_IMAGE_URL)
+  public static final String JSON_PROPERTY_AUTHENTICITY_IMAGE_URL = "authenticityImageUrl";
   private String authenticityImageUrl;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
-  public static final String SERIALIZED_NAME_CATEGORY = "category";
-  @SerializedName(SERIALIZED_NAME_CATEGORY)
+  public static final String JSON_PROPERTY_CATEGORY = "category";
   private String category;
 
-  public static final String SERIALIZED_NAME_RENDER = "render";
-  @SerializedName(SERIALIZED_NAME_RENDER)
+  public static final String JSON_PROPERTY_RENDER = "render";
   private String render;
 
 
@@ -101,6 +102,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_LARGE_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageLargeUrl() {
     return imageLargeUrl;
@@ -123,6 +126,8 @@ public class IssueItemRequest {
    * @return tokenName
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTokenName() {
     return tokenName;
@@ -146,6 +151,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -169,6 +176,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MEMO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMemo() {
     return memo;
@@ -192,6 +201,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_SMALL_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageSmallUrl() {
     return imageSmallUrl;
@@ -211,7 +222,7 @@ public class IssueItemRequest {
 
   public IssueItemRequest putAdditionalMetadataItem(String key, Object additionalMetadataItem) {
     if (this.additionalMetadata == null) {
-      this.additionalMetadata = new HashMap<String, Object>();
+      this.additionalMetadata = new HashMap<>();
     }
     this.additionalMetadata.put(key, additionalMetadataItem);
     return this;
@@ -223,6 +234,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDITIONAL_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getAdditionalMetadata() {
     return additionalMetadata;
@@ -245,6 +258,8 @@ public class IssueItemRequest {
    * @return gameInventoryId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getGameInventoryId() {
     return gameInventoryId;
@@ -268,6 +283,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getItemName() {
     return itemName;
@@ -292,6 +309,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "7.5", value = "")
+  @JsonProperty(JSON_PROPERTY_AMOUNT_PAID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Float getAmountPaid() {
     return amountPaid;
@@ -314,6 +333,8 @@ public class IssueItemRequest {
    * @return ownerPlayerId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOwnerPlayerId() {
     return ownerPlayerId;
@@ -337,6 +358,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AUTHENTICITY_IMAGE_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAuthenticityImageUrl() {
     return authenticityImageUrl;
@@ -359,6 +382,8 @@ public class IssueItemRequest {
    * @return currency
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getCurrency() {
     return currency;
@@ -381,6 +406,8 @@ public class IssueItemRequest {
    * @return category
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CATEGORY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getCategory() {
     return category;
@@ -404,6 +431,8 @@ public class IssueItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RENDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRender() {
     return render;

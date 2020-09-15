@@ -13,7 +13,7 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateMythicalUserRequest;
 import games.mythical.ivi.sdk.model.MythicalUserDto;
 import games.mythical.ivi.sdk.model.ProfilePictureDto;
@@ -21,6 +21,7 @@ import games.mythical.ivi.sdk.model.UpdateMythicalUserRequest;
 import games.mythical.ivi.sdk.model.UpdateProfilePictureRequest;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,116 +31,118 @@ import java.util.Map;
 /**
  * API tests for AccountsApi
  */
-@Ignore
 public class AccountsApiTest {
 
     private final AccountsApi api = new AccountsApi();
 
-    
     /**
      * Create new mythical account
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void createMythicalUserTest() throws ApiException {
-        String organizationId = null;
-        CreateMythicalUserRequest createMythicalUserRequest = null;
-        MythicalUserDto response = api.createMythicalUser(organizationId, createMythicalUserRequest);
+        //
+        //String organizationId = null;
+        //
+        //CreateMythicalUserRequest createMythicalUserRequest = null;
+        //
+        //MythicalUserDto response = api.createMythicalUser(organizationId, createMythicalUserRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Find mythical accounts
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void findMythicalUserTest() throws ApiException {
-        String organizationId = null;
-        String email = null;
-        String firstName = null;
-        String lastName = null;
-        List<MythicalUserDto> response = api.findMythicalUser(organizationId, email, firstName, lastName);
+        //
+        //String organizationId = null;
+        //
+        //String email = null;
+        //
+        //String firstName = null;
+        //
+        //String lastName = null;
+        //
+        //List<MythicalUserDto> response = api.findMythicalUser(organizationId, email, firstName, lastName);
 
         // TODO: test validations
     }
-    
     /**
      * Get mythical platform user by id
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getMythicalUserTest() throws ApiException {
-        String organizationId = null;
-        String platformUserId = null;
-        MythicalUserDto response = api.getMythicalUser(organizationId, platformUserId);
+        //
+        //String organizationId = null;
+        //
+        //String platformUserId = null;
+        //
+        //MythicalUserDto response = api.getMythicalUser(organizationId, platformUserId);
 
         // TODO: test validations
     }
-    
     /**
      * Reset user password
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void resetPasswordTest() throws ApiException {
-        String environmentId = null;
-        String platformUserId = null;
-        api.resetPassword(environmentId, platformUserId);
+        //
+        //String environmentId = null;
+        //
+        //String platformUserId = null;
+        //
+        //api.resetPassword(environmentId, platformUserId);
 
         // TODO: test validations
     }
-    
     /**
      * Update user profile details
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void updateProfileDetailsTest() throws ApiException {
-        String environmentId = null;
-        String platformUserId = null;
-        UpdateMythicalUserRequest updateMythicalUserRequest = null;
-        MythicalUserDto response = api.updateProfileDetails(environmentId, platformUserId, updateMythicalUserRequest);
+        //
+        //String environmentId = null;
+        //
+        //String platformUserId = null;
+        //
+        //UpdateMythicalUserRequest updateMythicalUserRequest = null;
+        //
+        //MythicalUserDto response = api.updateProfileDetails(environmentId, platformUserId, updateMythicalUserRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Update user profile picture
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void updateProfilePictureTest() throws ApiException {
-        String environmentId = null;
-        String platformUserId = null;
-        UpdateProfilePictureRequest updateProfilePictureRequest = null;
-        ProfilePictureDto response = api.updateProfilePicture(environmentId, platformUserId, updateProfilePictureRequest);
+        //
+        //String environmentId = null;
+        //
+        //String platformUserId = null;
+        //
+        //UpdateProfilePictureRequest updateProfilePictureRequest = null;
+        //
+        //ProfilePictureDto response = api.updateProfilePicture(environmentId, platformUserId, updateProfilePictureRequest);
 
         // TODO: test validations
     }
-    
 }

@@ -15,53 +15,54 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * UpdateMetadataRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  UpdateMetadataRequest.JSON_PROPERTY_METADATA,
+  UpdateMetadataRequest.JSON_PROPERTY_AUTHENTICITY,
+  UpdateMetadataRequest.JSON_PROPERTY_IMAGE_SMALL,
+  UpdateMetadataRequest.JSON_PROPERTY_TOKEN_NAME,
+  UpdateMetadataRequest.JSON_PROPERTY_DESCRIPTION,
+  UpdateMetadataRequest.JSON_PROPERTY_IMAGE_LARGE,
+  UpdateMetadataRequest.JSON_PROPERTY_RENDER,
+  UpdateMetadataRequest.JSON_PROPERTY_DGOOD_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class UpdateMetadataRequest {
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
+  public static final String JSON_PROPERTY_METADATA = "metadata";
   private Map<String, Object> metadata = null;
 
-  public static final String SERIALIZED_NAME_AUTHENTICITY = "authenticity";
-  @SerializedName(SERIALIZED_NAME_AUTHENTICITY)
+  public static final String JSON_PROPERTY_AUTHENTICITY = "authenticity";
   private String authenticity;
 
-  public static final String SERIALIZED_NAME_IMAGE_SMALL = "imageSmall";
-  @SerializedName(SERIALIZED_NAME_IMAGE_SMALL)
+  public static final String JSON_PROPERTY_IMAGE_SMALL = "imageSmall";
   private String imageSmall;
 
-  public static final String SERIALIZED_NAME_TOKEN_NAME = "tokenName";
-  @SerializedName(SERIALIZED_NAME_TOKEN_NAME)
+  public static final String JSON_PROPERTY_TOKEN_NAME = "tokenName";
   private String tokenName;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_IMAGE_LARGE = "imageLarge";
-  @SerializedName(SERIALIZED_NAME_IMAGE_LARGE)
+  public static final String JSON_PROPERTY_IMAGE_LARGE = "imageLarge";
   private String imageLarge;
 
-  public static final String SERIALIZED_NAME_RENDER = "render";
-  @SerializedName(SERIALIZED_NAME_RENDER)
+  public static final String JSON_PROPERTY_RENDER = "render";
   private String render;
 
-  public static final String SERIALIZED_NAME_DGOOD_ID = "dgoodId";
-  @SerializedName(SERIALIZED_NAME_DGOOD_ID)
+  public static final String JSON_PROPERTY_DGOOD_ID = "dgoodId";
   private Long dgoodId;
 
 
@@ -73,7 +74,7 @@ public class UpdateMetadataRequest {
 
   public UpdateMetadataRequest putMetadataItem(String key, Object metadataItem) {
     if (this.metadata == null) {
-      this.metadata = new HashMap<String, Object>();
+      this.metadata = new HashMap<>();
     }
     this.metadata.put(key, metadataItem);
     return this;
@@ -85,6 +86,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getMetadata() {
     return metadata;
@@ -108,6 +111,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AUTHENTICITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAuthenticity() {
     return authenticity;
@@ -131,6 +136,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_SMALL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageSmall() {
     return imageSmall;
@@ -154,6 +161,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTokenName() {
     return tokenName;
@@ -177,6 +186,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -200,6 +211,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_LARGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageLarge() {
     return imageLarge;
@@ -223,6 +236,8 @@ public class UpdateMetadataRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RENDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRender() {
     return render;
@@ -246,6 +261,8 @@ public class UpdateMetadataRequest {
    * @return dgoodId
   **/
   @ApiModelProperty(example = "17", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getDgoodId() {
     return dgoodId;

@@ -15,33 +15,34 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * UpdateOrganizationRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  UpdateOrganizationRequest.JSON_PROPERTY_DISPLAY_NAME,
+  UpdateOrganizationRequest.JSON_PROPERTY_NEW_OWNER,
+  UpdateOrganizationRequest.JSON_PROPERTY_ENVIRONMENT_LIMITS
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class UpdateOrganizationRequest {
-  public static final String SERIALIZED_NAME_DISPLAY_NAME = "displayName";
-  @SerializedName(SERIALIZED_NAME_DISPLAY_NAME)
+  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   private String displayName;
 
-  public static final String SERIALIZED_NAME_NEW_OWNER = "newOwner";
-  @SerializedName(SERIALIZED_NAME_NEW_OWNER)
+  public static final String JSON_PROPERTY_NEW_OWNER = "newOwner";
   private String newOwner;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_LIMITS = "environmentLimits";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_LIMITS)
+  public static final String JSON_PROPERTY_ENVIRONMENT_LIMITS = "environmentLimits";
   private Map<String, Integer> environmentLimits = null;
 
 
@@ -57,6 +58,8 @@ public class UpdateOrganizationRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
     return displayName;
@@ -80,6 +83,8 @@ public class UpdateOrganizationRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NEW_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNewOwner() {
     return newOwner;
@@ -99,7 +104,7 @@ public class UpdateOrganizationRequest {
 
   public UpdateOrganizationRequest putEnvironmentLimitsItem(String key, Integer environmentLimitsItem) {
     if (this.environmentLimits == null) {
-      this.environmentLimits = new HashMap<String, Integer>();
+      this.environmentLimits = new HashMap<>();
     }
     this.environmentLimits.put(key, environmentLimitsItem);
     return this;
@@ -111,6 +116,8 @@ public class UpdateOrganizationRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_LIMITS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Integer> getEnvironmentLimits() {
     return environmentLimits;

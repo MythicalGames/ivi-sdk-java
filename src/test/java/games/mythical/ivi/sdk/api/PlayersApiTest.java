@@ -13,11 +13,12 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.LinkPlayerToEnvironmentRequest;
 import games.mythical.ivi.sdk.model.PlayerDto;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,60 +28,57 @@ import java.util.Map;
 /**
  * API tests for PlayersApi
  */
-@Ignore
 public class PlayersApiTest {
 
     private final PlayersApi api = new PlayersApi();
 
-    
     /**
      * Get all players for a environment
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getAllPlayersTest() throws ApiException {
-        String environmentId = null;
-        List<PlayerDto> response = api.getAllPlayers(environmentId);
+        //
+        //String environmentId = null;
+        //
+        //List<PlayerDto> response = api.getAllPlayers(environmentId);
 
         // TODO: test validations
     }
-    
     /**
      * Get player data
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getPlayerDataTest() throws ApiException {
-        String environmentId = null;
-        String playerId = null;
-        PlayerDto response = api.getPlayerData(environmentId, playerId);
+        //
+        //String environmentId = null;
+        //
+        //String playerId = null;
+        //
+        //PlayerDto response = api.getPlayerData(environmentId, playerId);
 
         // TODO: test validations
     }
-    
     /**
      * Link player to environment
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void linkPlayerToEnvironmentTest() throws ApiException {
-        String environmentId = null;
-        LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = null;
-        PlayerDto response = api.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
+        //
+        //String environmentId = null;
+        //
+        //LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = null;
+        //
+        //PlayerDto response = api.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
 
         // TODO: test validations
     }
-    
 }

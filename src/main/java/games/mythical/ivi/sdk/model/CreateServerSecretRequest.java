@@ -15,30 +15,31 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateServerSecretRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateServerSecretRequest.JSON_PROPERTY_ROLE_NAME,
+  CreateServerSecretRequest.JSON_PROPERTY_DESCRIPTION,
+  CreateServerSecretRequest.JSON_PROPERTY_DISABLED
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateServerSecretRequest {
-  public static final String SERIALIZED_NAME_ROLE_NAME = "roleName";
-  @SerializedName(SERIALIZED_NAME_ROLE_NAME)
+  public static final String JSON_PROPERTY_ROLE_NAME = "roleName";
   private String roleName;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_DISABLED = "disabled";
-  @SerializedName(SERIALIZED_NAME_DISABLED)
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
   private Boolean disabled;
 
 
@@ -53,6 +54,8 @@ public class CreateServerSecretRequest {
    * @return roleName
   **/
   @ApiModelProperty(example = "WRITE", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_ROLE_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getRoleName() {
     return roleName;
@@ -76,6 +79,8 @@ public class CreateServerSecretRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -99,6 +104,8 @@ public class CreateServerSecretRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "false", value = "")
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
     return disabled;

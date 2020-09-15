@@ -15,46 +15,47 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.Wallet;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * PlayerDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  PlayerDto.JSON_PROPERTY_PLATFORM_USER_ID,
+  PlayerDto.JSON_PROPERTY_CREATED_BY,
+  PlayerDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  PlayerDto.JSON_PROPERTY_WALLETS,
+  PlayerDto.JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME,
+  PlayerDto.JSON_PROPERTY_PLAYER_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class PlayerDto {
-  public static final String SERIALIZED_NAME_PLATFORM_USER_ID = "platformUserId";
-  @SerializedName(SERIALIZED_NAME_PLATFORM_USER_ID)
+  public static final String JSON_PROPERTY_PLATFORM_USER_ID = "platformUserId";
   private String platformUserId;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_WALLETS = "wallets";
-  @SerializedName(SERIALIZED_NAME_WALLETS)
+  public static final String JSON_PROPERTY_WALLETS = "wallets";
   private Map<String, Wallet> wallets = null;
 
-  public static final String SERIALIZED_NAME_SIDECHAIN_ACCOUNT_NAME = "sidechainAccountName";
-  @SerializedName(SERIALIZED_NAME_SIDECHAIN_ACCOUNT_NAME)
+  public static final String JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME = "sidechainAccountName";
   private String sidechainAccountName;
 
-  public static final String SERIALIZED_NAME_PLAYER_ID = "playerId";
-  @SerializedName(SERIALIZED_NAME_PLAYER_ID)
+  public static final String JSON_PROPERTY_PLAYER_ID = "playerId";
   private String playerId;
 
 
@@ -70,6 +71,8 @@ public class PlayerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PLATFORM_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPlatformUserId() {
     return platformUserId;
@@ -93,6 +96,8 @@ public class PlayerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -116,6 +121,8 @@ public class PlayerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -135,7 +142,7 @@ public class PlayerDto {
 
   public PlayerDto putWalletsItem(String key, Wallet walletsItem) {
     if (this.wallets == null) {
-      this.wallets = new HashMap<String, Wallet>();
+      this.wallets = new HashMap<>();
     }
     this.wallets.put(key, walletsItem);
     return this;
@@ -147,6 +154,8 @@ public class PlayerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_WALLETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Wallet> getWallets() {
     return wallets;
@@ -170,6 +179,8 @@ public class PlayerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSidechainAccountName() {
     return sidechainAccountName;
@@ -193,6 +204,8 @@ public class PlayerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPlayerId() {
     return playerId;

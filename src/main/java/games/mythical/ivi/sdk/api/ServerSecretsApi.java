@@ -10,777 +10,381 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.CreateServerSecretRequest;
 import games.mythical.ivi.sdk.model.ServerSecretDto;
 import java.util.UUID;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ServerSecretsApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public ServerSecretsApi() {
+    this(new ApiClient());
+  }
 
-    public ServerSecretsApi() {
-        this(Configuration.getDefaultApiClient());
+  public ServerSecretsApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Create server secret for organization
+   * 
+   * @param organizationId  (required)
+   * @param createServerSecretRequest  (required)
+   * @return ServerSecretDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ServerSecretDto> createServerSecretForEnvironment (UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createServerSecretForEnvironment"));
+    }
+    // verify the required parameter 'createServerSecretRequest' is set
+    if (createServerSecretRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createServerSecretRequest' when calling createServerSecretForEnvironment"));
     }
 
-    public ServerSecretsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/secrets"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createServerSecretRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createServerSecretForEnvironment call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ServerSecretDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Delete server secret for environment by secret ID
+   * 
+   * @param organizationId  (required)
+   * @param secretId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> deleteServerSecret (UUID organizationId, String secretId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling deleteServerSecret"));
+    }
+    // verify the required parameter 'secretId' is set
+    if (secretId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling deleteServerSecret"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/secrets/{secretId}"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{secretId}", ApiClient.urlEncode(secretId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "deleteServerSecret call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Disable server secret by secret ID
+   * 
+   * @param organizationId  (required)
+   * @param secretId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> disableServerSecret (UUID organizationId, String secretId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling disableServerSecret"));
+    }
+    // verify the required parameter 'secretId' is set
+    if (secretId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling disableServerSecret"));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/secrets/{secretId}/disable"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{secretId}", ApiClient.urlEncode(secretId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "disableServerSecret call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Enable server secret by secret ID
+   * 
+   * @param organizationId  (required)
+   * @param secretId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> enableServerSecret (UUID organizationId, String secretId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling enableServerSecret"));
+    }
+    // verify the required parameter 'secretId' is set
+    if (secretId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling enableServerSecret"));
     }
 
-    /**
-     * Build call for createServerSecretForEnvironment
-     * @param organizationId  (required)
-     * @param createServerSecretRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createServerSecretForEnvironmentCall(UUID organizationId, CreateServerSecretRequest createServerSecretRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createServerSecretRequest;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/secrets"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()));
+    String localVarPath = "/orgs/{organizationId}/secrets/{secretId}/enable"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{secretId}", ApiClient.urlEncode(secretId.toString()));
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "enableServerSecret call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get server secret for environment by secret ID
+   * 
+   * @param organizationId  (required)
+   * @param secretId  (required)
+   * @return ServerSecretDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ServerSecretDto> getServerSecretById (UUID organizationId, String secretId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getServerSecretById"));
+    }
+    // verify the required parameter 'secretId' is set
+    if (secretId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling getServerSecretById"));
     }
 
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createServerSecretForEnvironmentValidateBeforeCall(UUID organizationId, CreateServerSecretRequest createServerSecretRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling createServerSecretForEnvironment(Async)");
-        }
-        
-        // verify the required parameter 'createServerSecretRequest' is set
-        if (createServerSecretRequest == null) {
-            throw new ApiException("Missing the required parameter 'createServerSecretRequest' when calling createServerSecretForEnvironment(Async)");
-        }
-        
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        okhttp3.Call localVarCall = createServerSecretForEnvironmentCall(organizationId, createServerSecretRequest, _callback);
-        return localVarCall;
+    String localVarPath = "/orgs/{organizationId}/secrets/{secretId}"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{secretId}", ApiClient.urlEncode(secretId.toString()));
 
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getServerSecretById call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ServerSecretDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get server secrets defined for organization
+   * 
+   * @param organizationId  (required)
+   * @return List&lt;ServerSecretDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<ServerSecretDto>> getServerSecretsForEnvironment (UUID organizationId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getServerSecretsForEnvironment"));
     }
 
-    /**
-     * Create server secret for organization
-     * 
-     * @param organizationId  (required)
-     * @param createServerSecretRequest  (required)
-     * @return ServerSecretDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ServerSecretDto createServerSecretForEnvironment(UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws ApiException {
-        ApiResponse<ServerSecretDto> localVarResp = createServerSecretForEnvironmentWithHttpInfo(organizationId, createServerSecretRequest);
-        return localVarResp.getData();
-    }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    /**
-     * Create server secret for organization
-     * 
-     * @param organizationId  (required)
-     * @param createServerSecretRequest  (required)
-     * @return ApiResponse&lt;ServerSecretDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServerSecretDto> createServerSecretForEnvironmentWithHttpInfo(UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws ApiException {
-        okhttp3.Call localVarCall = createServerSecretForEnvironmentValidateBeforeCall(organizationId, createServerSecretRequest, null);
-        Type localVarReturnType = new TypeToken<ServerSecretDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+    String localVarPath = "/orgs/{organizationId}/secrets"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
 
-    /**
-     * Create server secret for organization (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param createServerSecretRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createServerSecretForEnvironmentAsync(UUID organizationId, CreateServerSecretRequest createServerSecretRequest, final ApiCallback<ServerSecretDto> _callback) throws ApiException {
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        okhttp3.Call localVarCall = createServerSecretForEnvironmentValidateBeforeCall(organizationId, createServerSecretRequest, _callback);
-        Type localVarReturnType = new TypeToken<ServerSecretDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteServerSecret
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteServerSecretCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/secrets/{secretId}"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "secretId" + "\\}", localVarApiClient.escapeString(secretId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteServerSecretValidateBeforeCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling deleteServerSecret(Async)");
-        }
-        
-        // verify the required parameter 'secretId' is set
-        if (secretId == null) {
-            throw new ApiException("Missing the required parameter 'secretId' when calling deleteServerSecret(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = deleteServerSecretCall(organizationId, secretId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Delete server secret for environment by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void deleteServerSecret(UUID organizationId, String secretId) throws ApiException {
-        deleteServerSecretWithHttpInfo(organizationId, secretId);
-    }
-
-    /**
-     * Delete server secret for environment by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteServerSecretWithHttpInfo(UUID organizationId, String secretId) throws ApiException {
-        okhttp3.Call localVarCall = deleteServerSecretValidateBeforeCall(organizationId, secretId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Delete server secret for environment by secret ID (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteServerSecretAsync(UUID organizationId, String secretId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = deleteServerSecretValidateBeforeCall(organizationId, secretId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for disableServerSecret
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret disabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call disableServerSecretCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/secrets/{secretId}/disable"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "secretId" + "\\}", localVarApiClient.escapeString(secretId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call disableServerSecretValidateBeforeCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling disableServerSecret(Async)");
-        }
-        
-        // verify the required parameter 'secretId' is set
-        if (secretId == null) {
-            throw new ApiException("Missing the required parameter 'secretId' when calling disableServerSecret(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = disableServerSecretCall(organizationId, secretId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Disable server secret by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret disabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void disableServerSecret(UUID organizationId, String secretId) throws ApiException {
-        disableServerSecretWithHttpInfo(organizationId, secretId);
-    }
-
-    /**
-     * Disable server secret by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret disabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> disableServerSecretWithHttpInfo(UUID organizationId, String secretId) throws ApiException {
-        okhttp3.Call localVarCall = disableServerSecretValidateBeforeCall(organizationId, secretId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Disable server secret by secret ID (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret disabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call disableServerSecretAsync(UUID organizationId, String secretId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = disableServerSecretValidateBeforeCall(organizationId, secretId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for enableServerSecret
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret enabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call enableServerSecretCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/secrets/{secretId}/enable"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "secretId" + "\\}", localVarApiClient.escapeString(secretId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call enableServerSecretValidateBeforeCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling enableServerSecret(Async)");
-        }
-        
-        // verify the required parameter 'secretId' is set
-        if (secretId == null) {
-            throw new ApiException("Missing the required parameter 'secretId' when calling enableServerSecret(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = enableServerSecretCall(organizationId, secretId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Enable server secret by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret enabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void enableServerSecret(UUID organizationId, String secretId) throws ApiException {
-        enableServerSecretWithHttpInfo(organizationId, secretId);
-    }
-
-    /**
-     * Enable server secret by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret enabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> enableServerSecretWithHttpInfo(UUID organizationId, String secretId) throws ApiException {
-        okhttp3.Call localVarCall = enableServerSecretValidateBeforeCall(organizationId, secretId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Enable server secret by secret ID (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Secret enabled successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call enableServerSecretAsync(UUID organizationId, String secretId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = enableServerSecretValidateBeforeCall(organizationId, secretId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getServerSecretById
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServerSecretByIdCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/secrets/{secretId}"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "secretId" + "\\}", localVarApiClient.escapeString(secretId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getServerSecretByIdValidateBeforeCall(UUID organizationId, String secretId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling getServerSecretById(Async)");
-        }
-        
-        // verify the required parameter 'secretId' is set
-        if (secretId == null) {
-            throw new ApiException("Missing the required parameter 'secretId' when calling getServerSecretById(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getServerSecretByIdCall(organizationId, secretId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get server secret for environment by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @return ServerSecretDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ServerSecretDto getServerSecretById(UUID organizationId, String secretId) throws ApiException {
-        ApiResponse<ServerSecretDto> localVarResp = getServerSecretByIdWithHttpInfo(organizationId, secretId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get server secret for environment by secret ID
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @return ApiResponse&lt;ServerSecretDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServerSecretDto> getServerSecretByIdWithHttpInfo(UUID organizationId, String secretId) throws ApiException {
-        okhttp3.Call localVarCall = getServerSecretByIdValidateBeforeCall(organizationId, secretId, null);
-        Type localVarReturnType = new TypeToken<ServerSecretDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get server secret for environment by secret ID (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param secretId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServerSecretByIdAsync(UUID organizationId, String secretId, final ApiCallback<ServerSecretDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getServerSecretByIdValidateBeforeCall(organizationId, secretId, _callback);
-        Type localVarReturnType = new TypeToken<ServerSecretDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getServerSecretsForEnvironment
-     * @param organizationId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServerSecretsForEnvironmentCall(UUID organizationId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/secrets"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getServerSecretsForEnvironmentValidateBeforeCall(UUID organizationId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling getServerSecretsForEnvironment(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getServerSecretsForEnvironmentCall(organizationId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get server secrets defined for organization
-     * 
-     * @param organizationId  (required)
-     * @return List&lt;ServerSecretDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<ServerSecretDto> getServerSecretsForEnvironment(UUID organizationId) throws ApiException {
-        ApiResponse<List<ServerSecretDto>> localVarResp = getServerSecretsForEnvironmentWithHttpInfo(organizationId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get server secrets defined for organization
-     * 
-     * @param organizationId  (required)
-     * @return ApiResponse&lt;List&lt;ServerSecretDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<ServerSecretDto>> getServerSecretsForEnvironmentWithHttpInfo(UUID organizationId) throws ApiException {
-        okhttp3.Call localVarCall = getServerSecretsForEnvironmentValidateBeforeCall(organizationId, null);
-        Type localVarReturnType = new TypeToken<List<ServerSecretDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get server secrets defined for organization (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServerSecretsForEnvironmentAsync(UUID organizationId, final ApiCallback<List<ServerSecretDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getServerSecretsForEnvironmentValidateBeforeCall(organizationId, _callback);
-        Type localVarReturnType = new TypeToken<List<ServerSecretDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getServerSecretsForEnvironment call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ServerSecretDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
 }

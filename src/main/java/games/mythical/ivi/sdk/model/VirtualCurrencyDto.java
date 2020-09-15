@@ -15,42 +15,43 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * VirtualCurrencyDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  VirtualCurrencyDto.JSON_PROPERTY_CREATED_BY,
+  VirtualCurrencyDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  VirtualCurrencyDto.JSON_PROPERTY_NAME,
+  VirtualCurrencyDto.JSON_PROPERTY_FIAT,
+  VirtualCurrencyDto.JSON_PROPERTY_ABBREVIATION,
+  VirtualCurrencyDto.JSON_PROPERTY_BASE
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class VirtualCurrencyDto {
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private String createdTimestamp;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_FIAT = "fiat";
-  @SerializedName(SERIALIZED_NAME_FIAT)
+  public static final String JSON_PROPERTY_FIAT = "fiat";
   private Boolean fiat;
 
-  public static final String SERIALIZED_NAME_ABBREVIATION = "abbreviation";
-  @SerializedName(SERIALIZED_NAME_ABBREVIATION)
+  public static final String JSON_PROPERTY_ABBREVIATION = "abbreviation";
   private String abbreviation;
 
-  public static final String SERIALIZED_NAME_BASE = "base";
-  @SerializedName(SERIALIZED_NAME_BASE)
+  public static final String JSON_PROPERTY_BASE = "base";
   private Boolean base;
 
 
@@ -66,6 +67,8 @@ public class VirtualCurrencyDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -89,6 +92,8 @@ public class VirtualCurrencyDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedTimestamp() {
     return createdTimestamp;
@@ -112,6 +117,8 @@ public class VirtualCurrencyDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -135,6 +142,8 @@ public class VirtualCurrencyDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FIAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFiat() {
     return fiat;
@@ -158,6 +167,8 @@ public class VirtualCurrencyDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ABBREVIATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAbbreviation() {
     return abbreviation;
@@ -181,6 +192,8 @@ public class VirtualCurrencyDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getBase() {
     return base;

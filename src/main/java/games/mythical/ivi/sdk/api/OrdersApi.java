@@ -10,547 +10,292 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.CreateOrderRequest;
 import games.mythical.ivi.sdk.model.OrderDto;
 import games.mythical.ivi.sdk.model.UpdateOrderRequest;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class OrdersApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public OrdersApi() {
+    this(new ApiClient());
+  }
 
-    public OrdersApi() {
-        this(Configuration.getDefaultApiClient());
+  public OrdersApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Create Order
+   * Create New Order
+   * @param environmentId  (required)
+   * @param createOrderRequest  (required)
+   * @return OrderDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<OrderDto> createOrder (String environmentId, CreateOrderRequest createOrderRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createOrder"));
+    }
+    // verify the required parameter 'createOrderRequest' is set
+    if (createOrderRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createOrderRequest' when calling createOrder"));
     }
 
-    public OrdersApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/orders"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createOrderRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createOrder call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Delete Order
+   * Delete an existing Order
+   * @param environmentId  (required)
+   * @param orderId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> deleteOrder (String environmentId, String orderId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteOrder"));
+    }
+    // verify the required parameter 'orderId' is set
+    if (orderId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'orderId' when calling deleteOrder"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/orders/{orderId}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{orderId}", ApiClient.urlEncode(orderId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "deleteOrder call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get Order
+   * Find an Order
+   * @param environmentId  (required)
+   * @param orderId  (required)
+   * @return OrderDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<OrderDto> getOrder (String environmentId, String orderId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getOrder"));
+    }
+    // verify the required parameter 'orderId' is set
+    if (orderId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'orderId' when calling getOrder"));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/orders"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("orderId", orderId));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
     }
 
-    /**
-     * Build call for createOrder
-     * @param environmentId  (required)
-     * @param createOrderRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createOrderCall(String environmentId, CreateOrderRequest createOrderRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createOrderRequest;
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/orders"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getOrder call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Update Order
+   * Update fields on an existing Order
+   * @param environmentId  (required)
+   * @param updateOrderRequest  (required)
+   * @return OrderDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<OrderDto> updateOrder (String environmentId, UpdateOrderRequest updateOrderRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateOrder"));
+    }
+    // verify the required parameter 'updateOrderRequest' is set
+    if (updateOrderRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateOrderRequest' when calling updateOrder"));
     }
 
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createOrderValidateBeforeCall(String environmentId, CreateOrderRequest createOrderRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling createOrder(Async)");
-        }
-        
-        // verify the required parameter 'createOrderRequest' is set
-        if (createOrderRequest == null) {
-            throw new ApiException("Missing the required parameter 'createOrderRequest' when calling createOrder(Async)");
-        }
-        
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        okhttp3.Call localVarCall = createOrderCall(environmentId, createOrderRequest, _callback);
-        return localVarCall;
+    String localVarPath = "/environments/{environmentId}/orders"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
 
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateOrderRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateOrder call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
     }
-
-    /**
-     * Create Order
-     * Create New Order
-     * @param environmentId  (required)
-     * @param createOrderRequest  (required)
-     * @return OrderDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public OrderDto createOrder(String environmentId, CreateOrderRequest createOrderRequest) throws ApiException {
-        ApiResponse<OrderDto> localVarResp = createOrderWithHttpInfo(environmentId, createOrderRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Create Order
-     * Create New Order
-     * @param environmentId  (required)
-     * @param createOrderRequest  (required)
-     * @return ApiResponse&lt;OrderDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OrderDto> createOrderWithHttpInfo(String environmentId, CreateOrderRequest createOrderRequest) throws ApiException {
-        okhttp3.Call localVarCall = createOrderValidateBeforeCall(environmentId, createOrderRequest, null);
-        Type localVarReturnType = new TypeToken<OrderDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Create Order (asynchronously)
-     * Create New Order
-     * @param environmentId  (required)
-     * @param createOrderRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createOrderAsync(String environmentId, CreateOrderRequest createOrderRequest, final ApiCallback<OrderDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createOrderValidateBeforeCall(environmentId, createOrderRequest, _callback);
-        Type localVarReturnType = new TypeToken<OrderDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteOrder
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Order deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteOrderCall(String environmentId, String orderId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/orders/{orderId}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "orderId" + "\\}", localVarApiClient.escapeString(orderId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteOrderValidateBeforeCall(String environmentId, String orderId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling deleteOrder(Async)");
-        }
-        
-        // verify the required parameter 'orderId' is set
-        if (orderId == null) {
-            throw new ApiException("Missing the required parameter 'orderId' when calling deleteOrder(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = deleteOrderCall(environmentId, orderId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Delete Order
-     * Delete an existing Order
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Order deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public void deleteOrder(String environmentId, String orderId) throws ApiException {
-        deleteOrderWithHttpInfo(environmentId, orderId);
-    }
-
-    /**
-     * Delete Order
-     * Delete an existing Order
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Order deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteOrderWithHttpInfo(String environmentId, String orderId) throws ApiException {
-        okhttp3.Call localVarCall = deleteOrderValidateBeforeCall(environmentId, orderId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Delete Order (asynchronously)
-     * Delete an existing Order
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Order deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteOrderAsync(String environmentId, String orderId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = deleteOrderValidateBeforeCall(environmentId, orderId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getOrder
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getOrderCall(String environmentId, String orderId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/orders"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (orderId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("orderId", orderId));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getOrderValidateBeforeCall(String environmentId, String orderId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getOrder(Async)");
-        }
-        
-        // verify the required parameter 'orderId' is set
-        if (orderId == null) {
-            throw new ApiException("Missing the required parameter 'orderId' when calling getOrder(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getOrderCall(environmentId, orderId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get Order
-     * Find an Order
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @return OrderDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public OrderDto getOrder(String environmentId, String orderId) throws ApiException {
-        ApiResponse<OrderDto> localVarResp = getOrderWithHttpInfo(environmentId, orderId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get Order
-     * Find an Order
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @return ApiResponse&lt;OrderDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OrderDto> getOrderWithHttpInfo(String environmentId, String orderId) throws ApiException {
-        okhttp3.Call localVarCall = getOrderValidateBeforeCall(environmentId, orderId, null);
-        Type localVarReturnType = new TypeToken<OrderDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Order (asynchronously)
-     * Find an Order
-     * @param environmentId  (required)
-     * @param orderId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getOrderAsync(String environmentId, String orderId, final ApiCallback<OrderDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getOrderValidateBeforeCall(environmentId, orderId, _callback);
-        Type localVarReturnType = new TypeToken<OrderDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateOrder
-     * @param environmentId  (required)
-     * @param updateOrderRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateOrderCall(String environmentId, UpdateOrderRequest updateOrderRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = updateOrderRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/orders"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateOrderValidateBeforeCall(String environmentId, UpdateOrderRequest updateOrderRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling updateOrder(Async)");
-        }
-        
-        // verify the required parameter 'updateOrderRequest' is set
-        if (updateOrderRequest == null) {
-            throw new ApiException("Missing the required parameter 'updateOrderRequest' when calling updateOrder(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateOrderCall(environmentId, updateOrderRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update Order
-     * Update fields on an existing Order
-     * @param environmentId  (required)
-     * @param updateOrderRequest  (required)
-     * @return OrderDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public OrderDto updateOrder(String environmentId, UpdateOrderRequest updateOrderRequest) throws ApiException {
-        ApiResponse<OrderDto> localVarResp = updateOrderWithHttpInfo(environmentId, updateOrderRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update Order
-     * Update fields on an existing Order
-     * @param environmentId  (required)
-     * @param updateOrderRequest  (required)
-     * @return ApiResponse&lt;OrderDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OrderDto> updateOrderWithHttpInfo(String environmentId, UpdateOrderRequest updateOrderRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateOrderValidateBeforeCall(environmentId, updateOrderRequest, null);
-        Type localVarReturnType = new TypeToken<OrderDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update Order (asynchronously)
-     * Update fields on an existing Order
-     * @param environmentId  (required)
-     * @param updateOrderRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateOrderAsync(String environmentId, UpdateOrderRequest updateOrderRequest, final ApiCallback<OrderDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateOrderValidateBeforeCall(environmentId, updateOrderRequest, _callback);
-        Type localVarReturnType = new TypeToken<OrderDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+  }
 }

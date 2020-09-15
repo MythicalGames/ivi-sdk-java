@@ -15,42 +15,43 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * TransactionEventDTO
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  TransactionEventDTO.JSON_PROPERTY_EVENT_ID,
+  TransactionEventDTO.JSON_PROPERTY_CHAIN_NAME,
+  TransactionEventDTO.JSON_PROPERTY_ENVIRONMENT_ID,
+  TransactionEventDTO.JSON_PROPERTY_EVENT_DETAILS,
+  TransactionEventDTO.JSON_PROPERTY_TRANSACTION_ID,
+  TransactionEventDTO.JSON_PROPERTY_TIMESTAMP
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class TransactionEventDTO {
-  public static final String SERIALIZED_NAME_EVENT_ID = "eventId";
-  @SerializedName(SERIALIZED_NAME_EVENT_ID)
+  public static final String JSON_PROPERTY_EVENT_ID = "eventId";
   private Long eventId;
 
-  public static final String SERIALIZED_NAME_CHAIN_NAME = "chainName";
-  @SerializedName(SERIALIZED_NAME_CHAIN_NAME)
+  public static final String JSON_PROPERTY_CHAIN_NAME = "chainName";
   private String chainName;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_EVENT_DETAILS = "eventDetails";
-  @SerializedName(SERIALIZED_NAME_EVENT_DETAILS)
+  public static final String JSON_PROPERTY_EVENT_DETAILS = "eventDetails";
   private String eventDetails;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private String transactionId;
 
-  public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
-  @SerializedName(SERIALIZED_NAME_TIMESTAMP)
+  public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
   private Long timestamp;
 
 
@@ -66,6 +67,8 @@ public class TransactionEventDTO {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_EVENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getEventId() {
     return eventId;
@@ -89,6 +92,8 @@ public class TransactionEventDTO {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CHAIN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getChainName() {
     return chainName;
@@ -112,6 +117,8 @@ public class TransactionEventDTO {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -135,6 +142,8 @@ public class TransactionEventDTO {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_EVENT_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEventDetails() {
     return eventDetails;
@@ -158,6 +167,8 @@ public class TransactionEventDTO {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionId() {
     return transactionId;
@@ -181,6 +192,8 @@ public class TransactionEventDTO {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTimestamp() {
     return timestamp;

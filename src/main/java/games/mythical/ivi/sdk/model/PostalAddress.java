@@ -15,54 +15,55 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * PostalAddress
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  PostalAddress.JSON_PROPERTY_FIRST_NAME,
+  PostalAddress.JSON_PROPERTY_LAST_NAME,
+  PostalAddress.JSON_PROPERTY_COUNTRY_ISO_ALPHA2,
+  PostalAddress.JSON_PROPERTY_CITY,
+  PostalAddress.JSON_PROPERTY_POSTAL_CODE,
+  PostalAddress.JSON_PROPERTY_ADDRESS_LINE1,
+  PostalAddress.JSON_PROPERTY_ADDRESS_LINE2,
+  PostalAddress.JSON_PROPERTY_STATE,
+  PostalAddress.JSON_PROPERTY_COUNTRY_NAME
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class PostalAddress {
-  public static final String SERIALIZED_NAME_FIRST_NAME = "firstName";
-  @SerializedName(SERIALIZED_NAME_FIRST_NAME)
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;
 
-  public static final String SERIALIZED_NAME_LAST_NAME = "lastName";
-  @SerializedName(SERIALIZED_NAME_LAST_NAME)
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
   private String lastName;
 
-  public static final String SERIALIZED_NAME_COUNTRY_ISO_ALPHA2 = "countryIsoAlpha2";
-  @SerializedName(SERIALIZED_NAME_COUNTRY_ISO_ALPHA2)
+  public static final String JSON_PROPERTY_COUNTRY_ISO_ALPHA2 = "countryIsoAlpha2";
   private String countryIsoAlpha2;
 
-  public static final String SERIALIZED_NAME_CITY = "city";
-  @SerializedName(SERIALIZED_NAME_CITY)
+  public static final String JSON_PROPERTY_CITY = "city";
   private String city;
 
-  public static final String SERIALIZED_NAME_POSTAL_CODE = "postalCode";
-  @SerializedName(SERIALIZED_NAME_POSTAL_CODE)
+  public static final String JSON_PROPERTY_POSTAL_CODE = "postalCode";
   private String postalCode;
 
-  public static final String SERIALIZED_NAME_ADDRESS_LINE1 = "addressLine1";
-  @SerializedName(SERIALIZED_NAME_ADDRESS_LINE1)
+  public static final String JSON_PROPERTY_ADDRESS_LINE1 = "addressLine1";
   private String addressLine1;
 
-  public static final String SERIALIZED_NAME_ADDRESS_LINE2 = "addressLine2";
-  @SerializedName(SERIALIZED_NAME_ADDRESS_LINE2)
+  public static final String JSON_PROPERTY_ADDRESS_LINE2 = "addressLine2";
   private String addressLine2;
 
-  public static final String SERIALIZED_NAME_STATE = "state";
-  @SerializedName(SERIALIZED_NAME_STATE)
+  public static final String JSON_PROPERTY_STATE = "state";
   private String state;
 
-  public static final String SERIALIZED_NAME_COUNTRY_NAME = "countryName";
-  @SerializedName(SERIALIZED_NAME_COUNTRY_NAME)
+  public static final String JSON_PROPERTY_COUNTRY_NAME = "countryName";
   private String countryName;
 
 
@@ -78,6 +79,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
     return firstName;
@@ -101,6 +104,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
     return lastName;
@@ -124,6 +129,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_ISO_ALPHA2)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCountryIsoAlpha2() {
     return countryIsoAlpha2;
@@ -147,6 +154,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCity() {
     return city;
@@ -170,6 +179,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPostalCode() {
     return postalCode;
@@ -193,6 +204,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAddressLine1() {
     return addressLine1;
@@ -216,6 +229,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDRESS_LINE2)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAddressLine2() {
     return addressLine2;
@@ -239,6 +254,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getState() {
     return state;
@@ -262,6 +279,8 @@ public class PostalAddress {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCountryName() {
     return countryName;

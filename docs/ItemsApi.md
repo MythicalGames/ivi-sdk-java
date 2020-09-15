@@ -19,8 +19,9 @@ Method | HTTP request | Description
 [**updateMetadata**](ItemsApi.md#updateMetadata) | **PUT** /environments/{environmentId}/items/issued/metadata | Update metadata for a dgood
 
 
-<a name="burnItem"></a>
-# **burnItem**
+
+## burnItem
+
 > ItemActionDto burnItem(environmentId, burnItemRequest)
 
 Burn issued item
@@ -28,48 +29,50 @@ Burn issued item
 Burn an issued item
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    BurnItemRequest burnItemRequest = new BurnItemRequest(); // BurnItemRequest | 
-    try {
-      ItemActionDto result = apiInstance.burnItem(environmentId, burnItemRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#burnItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        BurnItemRequest burnItemRequest = new BurnItemRequest(); // BurnItemRequest | 
+        try {
+            ItemActionDto result = apiInstance.burnItem(environmentId, burnItemRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#burnItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -86,17 +89,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="buyListing"></a>
-# **buyListing**
+
+## buyListing
+
 > SoldItemDto buyListing(environmentId, buyListingRequest)
 
 Purchase an item
@@ -104,48 +108,50 @@ Purchase an item
 Buy an item that is for sale
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    BuyListingRequest buyListingRequest = new BuyListingRequest(); // BuyListingRequest | 
-    try {
-      SoldItemDto result = apiInstance.buyListing(environmentId, buyListingRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#buyListing");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        BuyListingRequest buyListingRequest = new BuyListingRequest(); // BuyListingRequest | 
+        try {
+            SoldItemDto result = apiInstance.buyListing(environmentId, buyListingRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#buyListing");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -162,17 +168,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="closeSale"></a>
-# **closeSale**
+
+## closeSale
+
 > ItemActionDto closeSale(environmentId, closeSaleRequest)
 
 Close a sale
@@ -180,48 +187,50 @@ Close a sale
 Close a listed item sale
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    CloseSaleRequest closeSaleRequest = new CloseSaleRequest(); // CloseSaleRequest | 
-    try {
-      ItemActionDto result = apiInstance.closeSale(environmentId, closeSaleRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#closeSale");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        CloseSaleRequest closeSaleRequest = new CloseSaleRequest(); // CloseSaleRequest | 
+        try {
+            ItemActionDto result = apiInstance.closeSale(environmentId, closeSaleRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#closeSale");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -238,17 +247,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**400** | Bad Request |  -  |
-**202** | The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. |  -  |
+| **400** | Bad Request |  -  |
+| **202** | The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. |  -  |
 
-<a name="createItem"></a>
-# **createItem**
+
+## createItem
+
 > ItemTypeDto createItem(environmentId, createItemRequest)
 
 Create item type
@@ -256,48 +266,50 @@ Create item type
 Create a new type of item on the blockchain that can be issued to players.
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    CreateItemRequest createItemRequest = new CreateItemRequest(); // CreateItemRequest | 
-    try {
-      ItemTypeDto result = apiInstance.createItem(environmentId, createItemRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#createItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        CreateItemRequest createItemRequest = new CreateItemRequest(); // CreateItemRequest | 
+        try {
+            ItemTypeDto result = apiInstance.createItem(environmentId, createItemRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#createItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -314,66 +326,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getIssuedItems"></a>
-# **getIssuedItems**
+
+## getIssuedItems
+
 > List&lt;IssuedItemDto&gt; getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId)
 
 Get all issued items for an environment.
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    String playerId = "playerId_example"; // String | 
-    String gameInventoryId = "gameInventoryId_example"; // String | 
-    Long dgoodId = -1lL; // Long | 
-    try {
-      List<IssuedItemDto> result = apiInstance.getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#getIssuedItems");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        String playerId = "playerId_example"; // String | 
+        String gameInventoryId = "gameInventoryId_example"; // String | 
+        Long dgoodId = -1lL; // Long | 
+        try {
+            List<IssuedItemDto> result = apiInstance.getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#getIssuedItems");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -392,65 +407,68 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getItemTypes"></a>
-# **getItemTypes**
+
+## getItemTypes
+
 > List&lt;ItemTypeDto&gt; getItemTypes(environmentId, category, token)
 
 Get all item types for an environment
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    String category = "category_example"; // String | 
-    String token = "token_example"; // String | 
-    try {
-      List<ItemTypeDto> result = apiInstance.getItemTypes(environmentId, category, token);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#getItemTypes");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        String category = "category_example"; // String | 
+        String token = "token_example"; // String | 
+        try {
+            List<ItemTypeDto> result = apiInstance.getItemTypes(environmentId, category, token);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#getItemTypes");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -468,17 +486,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getListings"></a>
-# **getListings**
+
+## getListings
+
 > List&lt;ListingDto&gt; getListings(environmentId, pageSize, createdTimestamp, order, playerId)
 
 Get listed items
@@ -486,51 +505,53 @@ Get listed items
 Get all listed item for sale
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    Integer pageSize = 30; // Integer | 
-    Long createdTimestamp = -1lL; // Long | 
-    String order = "DESCENDING"; // String | 
-    String playerId = "playerId_example"; // String | 
-    try {
-      List<ListingDto> result = apiInstance.getListings(environmentId, pageSize, createdTimestamp, order, playerId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#getListings");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        Integer pageSize = 30; // Integer | 
+        Long createdTimestamp = -1lL; // Long | 
+        String order = "DESCENDING"; // String | 
+        String playerId = "playerId_example"; // String | 
+        try {
+            List<ListingDto> result = apiInstance.getListings(environmentId, pageSize, createdTimestamp, order, playerId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#getListings");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -550,17 +571,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getMetadata"></a>
-# **getMetadata**
+
+## getMetadata
+
 > List&lt;DgoodMetadataDto&gt; getMetadata(environmentId, gameInventoryId, dgoodId)
 
 Get metadata for an issued dgood 
@@ -568,49 +590,51 @@ Get metadata for an issued dgood
 Get metadata for a dgood id.
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    String gameInventoryId = "gameInventoryId_example"; // String | 
-    Long dgoodId = -1lL; // Long | 
-    try {
-      List<DgoodMetadataDto> result = apiInstance.getMetadata(environmentId, gameInventoryId, dgoodId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#getMetadata");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        String gameInventoryId = "gameInventoryId_example"; // String | 
+        Long dgoodId = -1lL; // Long | 
+        try {
+            List<DgoodMetadataDto> result = apiInstance.getMetadata(environmentId, gameInventoryId, dgoodId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#getMetadata");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -628,17 +652,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getSoldItems"></a>
-# **getSoldItems**
+
+## getSoldItems
+
 > List&lt;SoldItemDto&gt; getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId)
 
 Get bought/sold items
@@ -646,52 +671,54 @@ Get bought/sold items
 Get all bought/sold items for a player
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    Integer pageSize = 30; // Integer | 
-    Long createdTimestamp = -1lL; // Long | 
-    String order = "DESCENDING"; // String | 
-    String buyerPlayerId = "buyerPlayerId_example"; // String | 
-    String sellerPlayerId = "sellerPlayerId_example"; // String | 
-    try {
-      List<SoldItemDto> result = apiInstance.getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#getSoldItems");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        Integer pageSize = 30; // Integer | 
+        Long createdTimestamp = -1lL; // Long | 
+        String order = "DESCENDING"; // String | 
+        String buyerPlayerId = "buyerPlayerId_example"; // String | 
+        String sellerPlayerId = "sellerPlayerId_example"; // String | 
+        try {
+            List<SoldItemDto> result = apiInstance.getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#getSoldItems");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -712,17 +739,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="issueItem"></a>
-# **issueItem**
+
+## issueItem
+
 > IssuedItemDto issueItem(environmentId, issueItemRequest)
 
 Issue item
@@ -730,48 +758,50 @@ Issue item
 Issue instance(s) of an item type to a player
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    IssueItemRequest issueItemRequest = new IssueItemRequest(); // IssueItemRequest | 
-    try {
-      IssuedItemDto result = apiInstance.issueItem(environmentId, issueItemRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#issueItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        IssueItemRequest issueItemRequest = new IssueItemRequest(); // IssueItemRequest | 
+        try {
+            IssuedItemDto result = apiInstance.issueItem(environmentId, issueItemRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#issueItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -788,17 +818,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="listItem"></a>
-# **listItem**
+
+## listItem
+
 > ListingDto listItem(environmentId, listSaleRequest)
 
 List an item for sale
@@ -806,48 +837,50 @@ List an item for sale
 List an issued item for sale
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    ListSaleRequest listSaleRequest = new ListSaleRequest(); // ListSaleRequest | 
-    try {
-      ListingDto result = apiInstance.listItem(environmentId, listSaleRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#listItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        ListSaleRequest listSaleRequest = new ListSaleRequest(); // ListSaleRequest | 
+        try {
+            ListingDto result = apiInstance.listItem(environmentId, listSaleRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#listItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -864,17 +897,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**400** | Bad Request |  -  |
-**202** | The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. |  -  |
+| **400** | Bad Request |  -  |
+| **202** | The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. |  -  |
 
-<a name="transferItem"></a>
-# **transferItem**
+
+## transferItem
+
 > ItemActionDto transferItem(environmentId, transferItemRequest)
 
 Transfer issued item
@@ -882,48 +916,50 @@ Transfer issued item
 Transfer an issued item
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    TransferItemRequest transferItemRequest = new TransferItemRequest(); // TransferItemRequest | 
-    try {
-      ItemActionDto result = apiInstance.transferItem(environmentId, transferItemRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#transferItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        TransferItemRequest transferItemRequest = new TransferItemRequest(); // TransferItemRequest | 
+        try {
+            ItemActionDto result = apiInstance.transferItem(environmentId, transferItemRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#transferItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -940,17 +976,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="updateMetadata"></a>
-# **updateMetadata**
+
+## updateMetadata
+
 > DgoodMetadataDto updateMetadata(environmentId, updateMetadataRequest)
 
 Update metadata for a dgood
@@ -958,48 +995,50 @@ Update metadata for a dgood
 Update metadata for a dgood
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.ItemsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    ItemsApi apiInstance = new ItemsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    UpdateMetadataRequest updateMetadataRequest = new UpdateMetadataRequest(); // UpdateMetadataRequest | 
-    try {
-      DgoodMetadataDto result = apiInstance.updateMetadata(environmentId, updateMetadataRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ItemsApi#updateMetadata");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        UpdateMetadataRequest updateMetadataRequest = new UpdateMetadataRequest(); // UpdateMetadataRequest | 
+        try {
+            DgoodMetadataDto result = apiInstance.updateMetadata(environmentId, updateMetadataRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#updateMetadata");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1016,12 +1055,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 

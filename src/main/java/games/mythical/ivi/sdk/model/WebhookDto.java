@@ -15,73 +15,74 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * WebhookDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  WebhookDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  WebhookDto.JSON_PROPERTY_DESCRIPTION,
+  WebhookDto.JSON_PROPERTY_URL,
+  WebhookDto.JSON_PROPERTY_REQUIRED_QUERY_PARAMS,
+  WebhookDto.JSON_PROPERTY_LAST_FAILURE_REASON,
+  WebhookDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  WebhookDto.JSON_PROPERTY_REQUIRED_HEADERS,
+  WebhookDto.JSON_PROPERTY_CREATED_BY,
+  WebhookDto.JSON_PROPERTY_NAME,
+  WebhookDto.JSON_PROPERTY_DISABLED,
+  WebhookDto.JSON_PROPERTY_LAST_FAILURE_TIMESTAMP,
+  WebhookDto.JSON_PROPERTY_ID,
+  WebhookDto.JSON_PROPERTY_FAILURE_COUNT
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class WebhookDto {
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_URL = "url";
-  @SerializedName(SERIALIZED_NAME_URL)
+  public static final String JSON_PROPERTY_URL = "url";
   private String url;
 
-  public static final String SERIALIZED_NAME_REQUIRED_QUERY_PARAMS = "requiredQueryParams";
-  @SerializedName(SERIALIZED_NAME_REQUIRED_QUERY_PARAMS)
+  public static final String JSON_PROPERTY_REQUIRED_QUERY_PARAMS = "requiredQueryParams";
   private Map<String, String> requiredQueryParams = null;
 
-  public static final String SERIALIZED_NAME_LAST_FAILURE_REASON = "lastFailureReason";
-  @SerializedName(SERIALIZED_NAME_LAST_FAILURE_REASON)
+  public static final String JSON_PROPERTY_LAST_FAILURE_REASON = "lastFailureReason";
   private String lastFailureReason;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_REQUIRED_HEADERS = "requiredHeaders";
-  @SerializedName(SERIALIZED_NAME_REQUIRED_HEADERS)
+  public static final String JSON_PROPERTY_REQUIRED_HEADERS = "requiredHeaders";
   private Map<String, String> requiredHeaders = null;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_DISABLED = "disabled";
-  @SerializedName(SERIALIZED_NAME_DISABLED)
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
   private Boolean disabled;
 
-  public static final String SERIALIZED_NAME_LAST_FAILURE_TIMESTAMP = "lastFailureTimestamp";
-  @SerializedName(SERIALIZED_NAME_LAST_FAILURE_TIMESTAMP)
+  public static final String JSON_PROPERTY_LAST_FAILURE_TIMESTAMP = "lastFailureTimestamp";
   private Long lastFailureTimestamp;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+  public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public static final String SERIALIZED_NAME_FAILURE_COUNT = "failureCount";
-  @SerializedName(SERIALIZED_NAME_FAILURE_COUNT)
+  public static final String JSON_PROPERTY_FAILURE_COUNT = "failureCount";
   private Long failureCount;
 
 
@@ -97,6 +98,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -120,6 +123,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -143,6 +148,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrl() {
     return url;
@@ -162,7 +169,7 @@ public class WebhookDto {
 
   public WebhookDto putRequiredQueryParamsItem(String key, String requiredQueryParamsItem) {
     if (this.requiredQueryParams == null) {
-      this.requiredQueryParams = new HashMap<String, String>();
+      this.requiredQueryParams = new HashMap<>();
     }
     this.requiredQueryParams.put(key, requiredQueryParamsItem);
     return this;
@@ -174,6 +181,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REQUIRED_QUERY_PARAMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getRequiredQueryParams() {
     return requiredQueryParams;
@@ -197,6 +206,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_FAILURE_REASON)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastFailureReason() {
     return lastFailureReason;
@@ -220,6 +231,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -239,7 +252,7 @@ public class WebhookDto {
 
   public WebhookDto putRequiredHeadersItem(String key, String requiredHeadersItem) {
     if (this.requiredHeaders == null) {
-      this.requiredHeaders = new HashMap<String, String>();
+      this.requiredHeaders = new HashMap<>();
     }
     this.requiredHeaders.put(key, requiredHeadersItem);
     return this;
@@ -251,6 +264,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REQUIRED_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getRequiredHeaders() {
     return requiredHeaders;
@@ -274,6 +289,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -297,6 +314,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -320,6 +339,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
     return disabled;
@@ -343,6 +364,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_FAILURE_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getLastFailureTimestamp() {
     return lastFailureTimestamp;
@@ -366,6 +389,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -389,6 +414,8 @@ public class WebhookDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FAILURE_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getFailureCount() {
     return failureCount;

@@ -15,27 +15,28 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.PaymentData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * FinalizePaymentRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  FinalizePaymentRequest.JSON_PROPERTY_ORDER_ID,
+  FinalizePaymentRequest.JSON_PROPERTY_PAYMENT_PROVIDER_DATA
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class FinalizePaymentRequest {
-  public static final String SERIALIZED_NAME_ORDER_ID = "orderId";
-  @SerializedName(SERIALIZED_NAME_ORDER_ID)
+  public static final String JSON_PROPERTY_ORDER_ID = "orderId";
   private String orderId;
 
-  public static final String SERIALIZED_NAME_PAYMENT_PROVIDER_DATA = "paymentProviderData";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_PROVIDER_DATA)
+  public static final String JSON_PROPERTY_PAYMENT_PROVIDER_DATA = "paymentProviderData";
   private PaymentData paymentProviderData;
 
 
@@ -50,6 +51,8 @@ public class FinalizePaymentRequest {
    * @return orderId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_ORDER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOrderId() {
     return orderId;
@@ -72,6 +75,8 @@ public class FinalizePaymentRequest {
    * @return paymentProviderData
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_DATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PaymentData getPaymentProviderData() {
     return paymentProviderData;

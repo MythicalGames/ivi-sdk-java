@@ -12,55 +12,58 @@ Method | HTTP request | Description
 [**updateProfilePicture**](AccountsApi.md#updateProfilePicture) | **PUT** /environments/{environmentId}/players/{platformUserId}/profile/picture | Update user profile picture
 
 
-<a name="createMythicalUser"></a>
-# **createMythicalUser**
+
+## createMythicalUser
+
 > MythicalUserDto createMythicalUser(organizationId, createMythicalUserRequest)
 
 Create new mythical account
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.AccountsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    CreateMythicalUserRequest createMythicalUserRequest = new CreateMythicalUserRequest(); // CreateMythicalUserRequest | 
-    try {
-      MythicalUserDto result = apiInstance.createMythicalUser(organizationId, createMythicalUserRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling AccountsApi#createMythicalUser");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        CreateMythicalUserRequest createMythicalUserRequest = new CreateMythicalUserRequest(); // CreateMythicalUserRequest | 
+        try {
+            MythicalUserDto result = apiInstance.createMythicalUser(organizationId, createMythicalUserRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#createMythicalUser");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -77,66 +80,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="findMythicalUser"></a>
-# **findMythicalUser**
+
+## findMythicalUser
+
 > List&lt;MythicalUserDto&gt; findMythicalUser(organizationId, email, firstName, lastName)
 
 Find mythical accounts
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.AccountsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    String email = "email_example"; // String | 
-    String firstName = "firstName_example"; // String | 
-    String lastName = "lastName_example"; // String | 
-    try {
-      List<MythicalUserDto> result = apiInstance.findMythicalUser(organizationId, email, firstName, lastName);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling AccountsApi#findMythicalUser");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String email = "email_example"; // String | 
+        String firstName = "firstName_example"; // String | 
+        String lastName = "lastName_example"; // String | 
+        try {
+            List<MythicalUserDto> result = apiInstance.findMythicalUser(organizationId, email, firstName, lastName);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#findMythicalUser");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -155,64 +161,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="getMythicalUser"></a>
-# **getMythicalUser**
+
+## getMythicalUser
+
 > MythicalUserDto getMythicalUser(organizationId, platformUserId)
 
 Get mythical platform user by id
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.AccountsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-    String organizationId = "organizationId_example"; // String | 
-    String platformUserId = "platformUserId_example"; // String | 
-    try {
-      MythicalUserDto result = apiInstance.getMythicalUser(organizationId, platformUserId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling AccountsApi#getMythicalUser");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String platformUserId = "platformUserId_example"; // String | 
+        try {
+            MythicalUserDto result = apiInstance.getMythicalUser(organizationId, platformUserId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#getMythicalUser");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -229,63 +238,66 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="resetPassword"></a>
-# **resetPassword**
+
+## resetPassword
+
 > resetPassword(environmentId, platformUserId)
 
 Reset user password
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.AccountsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    String platformUserId = "platformUserId_example"; // String | 
-    try {
-      apiInstance.resetPassword(environmentId, platformUserId);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling AccountsApi#resetPassword");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        String platformUserId = "platformUserId_example"; // String | 
+        try {
+            apiInstance.resetPassword(environmentId, platformUserId);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#resetPassword");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -302,65 +314,68 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="updateProfileDetails"></a>
-# **updateProfileDetails**
+
+## updateProfileDetails
+
 > MythicalUserDto updateProfileDetails(environmentId, platformUserId, updateMythicalUserRequest)
 
 Update user profile details
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.AccountsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    String platformUserId = "platformUserId_example"; // String | 
-    UpdateMythicalUserRequest updateMythicalUserRequest = new UpdateMythicalUserRequest(); // UpdateMythicalUserRequest | 
-    try {
-      MythicalUserDto result = apiInstance.updateProfileDetails(environmentId, platformUserId, updateMythicalUserRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling AccountsApi#updateProfileDetails");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        String platformUserId = "platformUserId_example"; // String | 
+        UpdateMythicalUserRequest updateMythicalUserRequest = new UpdateMythicalUserRequest(); // UpdateMythicalUserRequest | 
+        try {
+            MythicalUserDto result = apiInstance.updateProfileDetails(environmentId, platformUserId, updateMythicalUserRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#updateProfileDetails");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -378,65 +393,68 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 
-<a name="updateProfilePicture"></a>
-# **updateProfilePicture**
+
+## updateProfilePicture
+
 > ProfilePictureDto updateProfilePicture(environmentId, platformUserId, updateProfilePictureRequest)
 
 Update user profile picture
 
 ### Example
+
 ```java
 // Import classes:
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.auth.*;
-import games.mythical.ivi.sdk.invoker.models.*;
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
 import games.mythical.ivi.sdk.api.AccountsApi;
 
 public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8081/api");
-    
-    // Configure API key authorization: api_key
-    ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-    api_key.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //api_key.setApiKeyPrefix("Token");
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:8081/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-    // Configure OAuth2 access token for authorization: spring_oauth
-    OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-    spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
+        // Configure OAuth2 access token for authorization: spring_oauth
+        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
+        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-    String environmentId = "environmentId_example"; // String | 
-    String platformUserId = "platformUserId_example"; // String | 
-    UpdateProfilePictureRequest updateProfilePictureRequest = new UpdateProfilePictureRequest(); // UpdateProfilePictureRequest | 
-    try {
-      ProfilePictureDto result = apiInstance.updateProfilePicture(environmentId, platformUserId, updateProfilePictureRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling AccountsApi#updateProfilePicture");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        String platformUserId = "platformUserId_example"; // String | 
+        UpdateProfilePictureRequest updateProfilePictureRequest = new UpdateProfilePictureRequest(); // UpdateProfilePictureRequest | 
+        try {
+            ProfilePictureDto result = apiInstance.updateProfilePicture(environmentId, platformUserId, updateProfilePictureRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#updateProfilePicture");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -454,12 +472,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
-**400** | Bad Request |  -  |
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
 

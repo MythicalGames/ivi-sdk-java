@@ -15,59 +15,61 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.PostalAddress;
 import games.mythical.ivi.sdk.model.TokenCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * UpdateOrderRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  UpdateOrderRequest.JSON_PROPERTY_ITEM_TYPES,
+  UpdateOrderRequest.JSON_PROPERTY_METADATA,
+  UpdateOrderRequest.JSON_PROPERTY_ADDRESS,
+  UpdateOrderRequest.JSON_PROPERTY_ORDER_ID,
+  UpdateOrderRequest.JSON_PROPERTY_PLATFORM_USER_ID,
+  UpdateOrderRequest.JSON_PROPERTY_TAX,
+  UpdateOrderRequest.JSON_PROPERTY_SUB_TOTAL,
+  UpdateOrderRequest.JSON_PROPERTY_PAYMENT_PROVIDER_ID,
+  UpdateOrderRequest.JSON_PROPERTY_STATUS
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class UpdateOrderRequest {
-  public static final String SERIALIZED_NAME_ITEM_TYPES = "itemTypes";
-  @SerializedName(SERIALIZED_NAME_ITEM_TYPES)
+  public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
   private List<TokenCategory> itemTypes = null;
 
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
+  public static final String JSON_PROPERTY_METADATA = "metadata";
   private Map<String, Object> metadata = null;
 
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  public static final String JSON_PROPERTY_ADDRESS = "address";
   private PostalAddress address;
 
-  public static final String SERIALIZED_NAME_ORDER_ID = "orderId";
-  @SerializedName(SERIALIZED_NAME_ORDER_ID)
+  public static final String JSON_PROPERTY_ORDER_ID = "orderId";
   private String orderId;
 
-  public static final String SERIALIZED_NAME_PLATFORM_USER_ID = "platformUserId";
-  @SerializedName(SERIALIZED_NAME_PLATFORM_USER_ID)
+  public static final String JSON_PROPERTY_PLATFORM_USER_ID = "platformUserId";
   private String platformUserId;
 
-  public static final String SERIALIZED_NAME_TAX = "tax";
-  @SerializedName(SERIALIZED_NAME_TAX)
+  public static final String JSON_PROPERTY_TAX = "tax";
   private BigDecimal tax;
 
-  public static final String SERIALIZED_NAME_SUB_TOTAL = "subTotal";
-  @SerializedName(SERIALIZED_NAME_SUB_TOTAL)
+  public static final String JSON_PROPERTY_SUB_TOTAL = "subTotal";
   private BigDecimal subTotal;
 
   /**
    * Gets or Sets paymentProviderId
    */
-  @JsonAdapter(PaymentProviderIdEnum.Adapter.class)
   public enum PaymentProviderIdEnum {
     BRAINTREE("BRAINTREE"),
     
@@ -81,6 +83,7 @@ public class UpdateOrderRequest {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -90,6 +93,7 @@ public class UpdateOrderRequest {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static PaymentProviderIdEnum fromValue(String value) {
       for (PaymentProviderIdEnum b : PaymentProviderIdEnum.values()) {
         if (b.value.equals(value)) {
@@ -98,29 +102,14 @@ public class UpdateOrderRequest {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<PaymentProviderIdEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PaymentProviderIdEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PaymentProviderIdEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return PaymentProviderIdEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_PAYMENT_PROVIDER_ID = "paymentProviderId";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_PROVIDER_ID)
+  public static final String JSON_PROPERTY_PAYMENT_PROVIDER_ID = "paymentProviderId";
   private PaymentProviderIdEnum paymentProviderId;
 
   /**
    * Gets or Sets status
    */
-  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
     STARTED("STARTED"),
     
@@ -134,6 +123,7 @@ public class UpdateOrderRequest {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -143,6 +133,7 @@ public class UpdateOrderRequest {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
         if (b.value.equals(value)) {
@@ -151,23 +142,9 @@ public class UpdateOrderRequest {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<StatusEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public StatusEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return StatusEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
+  public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
 
@@ -179,7 +156,7 @@ public class UpdateOrderRequest {
 
   public UpdateOrderRequest addItemTypesItem(TokenCategory itemTypesItem) {
     if (this.itemTypes == null) {
-      this.itemTypes = new ArrayList<TokenCategory>();
+      this.itemTypes = new ArrayList<>();
     }
     this.itemTypes.add(itemTypesItem);
     return this;
@@ -191,6 +168,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "[{\"category\":\"blanko\",\"token\":\"geisha.da\"}]", value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TokenCategory> getItemTypes() {
     return itemTypes;
@@ -210,7 +189,7 @@ public class UpdateOrderRequest {
 
   public UpdateOrderRequest putMetadataItem(String key, Object metadataItem) {
     if (this.metadata == null) {
-      this.metadata = new HashMap<String, Object>();
+      this.metadata = new HashMap<>();
     }
     this.metadata.put(key, metadataItem);
     return this;
@@ -222,6 +201,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "{\"dgood_id\":35}", value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getMetadata() {
     return metadata;
@@ -245,6 +226,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PostalAddress getAddress() {
     return address;
@@ -267,6 +250,8 @@ public class UpdateOrderRequest {
    * @return orderId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_ORDER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOrderId() {
     return orderId;
@@ -290,6 +275,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PLATFORM_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPlatformUserId() {
     return platformUserId;
@@ -313,6 +300,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "0.99", value = "")
+  @JsonProperty(JSON_PROPERTY_TAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getTax() {
     return tax;
@@ -336,6 +325,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "2.99", value = "")
+  @JsonProperty(JSON_PROPERTY_SUB_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getSubTotal() {
     return subTotal;
@@ -358,6 +349,8 @@ public class UpdateOrderRequest {
    * @return paymentProviderId
   **/
   @ApiModelProperty(example = "BRAINTREE", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PaymentProviderIdEnum getPaymentProviderId() {
     return paymentProviderId;
@@ -381,6 +374,8 @@ public class UpdateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StatusEnum getStatus() {
     return status;

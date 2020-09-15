@@ -13,7 +13,7 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.ClientPaymentTokenDto;
 import games.mythical.ivi.sdk.model.CreateCustomerRequest;
 import games.mythical.ivi.sdk.model.CreatePaymentMethodRequest;
@@ -27,6 +27,7 @@ import games.mythical.ivi.sdk.model.UpdateCustomerRequest;
 import games.mythical.ivi.sdk.model.UpdatePaymentMethodDefaultRequest;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,12 +37,10 @@ import java.util.Map;
 /**
  * API tests for PaymentsApi
  */
-@Ignore
 public class PaymentsApiTest {
 
     private final PaymentsApi api = new PaymentsApi();
 
-    
     /**
      * Finalize Purchase
      *
@@ -52,13 +51,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void completePaymentTest() throws ApiException {
-        String environmentId = null;
-        FinalizePaymentRequest finalizePaymentRequest = null;
-        PaymentDto response = api.completePayment(environmentId, finalizePaymentRequest);
+        //
+        //String environmentId = null;
+        //
+        //FinalizePaymentRequest finalizePaymentRequest = null;
+        //
+        //PaymentDto response = api.completePayment(environmentId, finalizePaymentRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Create Customer
      *
@@ -69,13 +70,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void createCustomerTest() throws ApiException {
-        String environmentId = null;
-        CreateCustomerRequest createCustomerRequest = null;
-        CustomerDto response = api.createCustomer(environmentId, createCustomerRequest);
+        //
+        //String environmentId = null;
+        //
+        //CreateCustomerRequest createCustomerRequest = null;
+        //
+        //CustomerDto response = api.createCustomer(environmentId, createCustomerRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Create Payment Method
      *
@@ -86,13 +89,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void createPaymentMethodTest() throws ApiException {
-        String environmentId = null;
-        CreatePaymentMethodRequest createPaymentMethodRequest = null;
-        PaymentMethodDto response = api.createPaymentMethod(environmentId, createPaymentMethodRequest);
+        //
+        //String environmentId = null;
+        //
+        //CreatePaymentMethodRequest createPaymentMethodRequest = null;
+        //
+        //PaymentMethodDto response = api.createPaymentMethod(environmentId, createPaymentMethodRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Delete Customer
      *
@@ -103,13 +108,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void deleteCustomerTest() throws ApiException {
-        String environmentId = null;
-        String customerId = null;
-        api.deleteCustomer(environmentId, customerId);
+        //
+        //String environmentId = null;
+        //
+        //String customerId = null;
+        //
+        //api.deleteCustomer(environmentId, customerId);
 
         // TODO: test validations
     }
-    
     /**
      * Delete a Payment Method
      *
@@ -120,13 +127,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void deletePaymentMethodTest() throws ApiException {
-        String environmentId = null;
-        String methodToken = null;
-        api.deletePaymentMethod(environmentId, methodToken);
+        //
+        //String environmentId = null;
+        //
+        //String methodToken = null;
+        //
+        //api.deletePaymentMethod(environmentId, methodToken);
 
         // TODO: test validations
     }
-    
     /**
      * Anonymous payment token
      *
@@ -137,13 +146,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void generateClientTokenTest() throws ApiException {
-        String environmentId = null;
-        String customerId = null;
-        ClientPaymentTokenDto response = api.generateClientToken(environmentId, customerId);
+        //
+        //String environmentId = null;
+        //
+        //String customerId = null;
+        //
+        //ClientPaymentTokenDto response = api.generateClientToken(environmentId, customerId);
 
         // TODO: test validations
     }
-    
     /**
      * Get Customer
      *
@@ -154,13 +165,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void getCustomerTest() throws ApiException {
-        String environmentId = null;
-        String customerId = null;
-        CustomerDto response = api.getCustomer(environmentId, customerId);
+        //
+        //String environmentId = null;
+        //
+        //String customerId = null;
+        //
+        //CustomerDto response = api.getCustomer(environmentId, customerId);
 
         // TODO: test validations
     }
-    
     /**
      * Get Payment Method
      *
@@ -171,13 +184,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void getPaymentMethodTest() throws ApiException {
-        String environmentId = null;
-        String paymentMethodToken = null;
-        PaymentMethodDto response = api.getPaymentMethod(environmentId, paymentMethodToken);
+        //
+        //String environmentId = null;
+        //
+        //String paymentMethodToken = null;
+        //
+        //PaymentMethodDto response = api.getPaymentMethod(environmentId, paymentMethodToken);
 
         // TODO: test validations
     }
-    
     /**
      * Get sales tax- rate and amount based on country, state, zip code and sales amount.
      *
@@ -188,16 +203,21 @@ public class PaymentsApiTest {
      */
     @Test
     public void getSalesTaxInfoTest() throws ApiException {
-        String environmentId = null;
-        String countryIsoCode = null;
-        String stateIsoCode = null;
-        String zipCode = null;
-        Boolean isSecondaryMarketplace = null;
-        SalesTaxInfoDto response = api.getSalesTaxInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace);
+        //
+        //String environmentId = null;
+        //
+        //String countryIsoCode = null;
+        //
+        //String stateIsoCode = null;
+        //
+        //String zipCode = null;
+        //
+        //Boolean isSecondaryMarketplace = null;
+        //
+        //SalesTaxInfoDto response = api.getSalesTaxInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace);
 
         // TODO: test validations
     }
-    
     /**
      * Get Transaction Details
      *
@@ -208,13 +228,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void getSalesTaxTransactionTest() throws ApiException {
-        String environmentId = null;
-        String orderId = null;
-        SalesTaxTransactionDto response = api.getSalesTaxTransaction(environmentId, orderId);
+        //
+        //String environmentId = null;
+        //
+        //String orderId = null;
+        //
+        //SalesTaxTransactionDto response = api.getSalesTaxTransaction(environmentId, orderId);
 
         // TODO: test validations
     }
-    
     /**
      * Update Customer
      *
@@ -225,13 +247,15 @@ public class PaymentsApiTest {
      */
     @Test
     public void updateCustomerTest() throws ApiException {
-        String environmentId = null;
-        UpdateCustomerRequest updateCustomerRequest = null;
-        CustomerDto response = api.updateCustomer(environmentId, updateCustomerRequest);
+        //
+        //String environmentId = null;
+        //
+        //UpdateCustomerRequest updateCustomerRequest = null;
+        //
+        //CustomerDto response = api.updateCustomer(environmentId, updateCustomerRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Update the default Payment Method
      *
@@ -242,11 +266,13 @@ public class PaymentsApiTest {
      */
     @Test
     public void updatePaymentMethodTest() throws ApiException {
-        String environmentId = null;
-        UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest = null;
-        PaymentMethodDto response = api.updatePaymentMethod(environmentId, updatePaymentMethodDefaultRequest);
+        //
+        //String environmentId = null;
+        //
+        //UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest = null;
+        //
+        //PaymentMethodDto response = api.updatePaymentMethod(environmentId, updatePaymentMethodDefaultRequest);
 
         // TODO: test validations
     }
-    
 }

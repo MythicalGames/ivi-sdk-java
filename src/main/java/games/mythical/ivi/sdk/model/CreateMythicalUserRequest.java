@@ -15,34 +15,35 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateMythicalUserRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateMythicalUserRequest.JSON_PROPERTY_FIRST_NAME,
+  CreateMythicalUserRequest.JSON_PROPERTY_LAST_NAME,
+  CreateMythicalUserRequest.JSON_PROPERTY_BIRTHDATE,
+  CreateMythicalUserRequest.JSON_PROPERTY_EMAIL
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateMythicalUserRequest {
-  public static final String SERIALIZED_NAME_FIRST_NAME = "firstName";
-  @SerializedName(SERIALIZED_NAME_FIRST_NAME)
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;
 
-  public static final String SERIALIZED_NAME_LAST_NAME = "lastName";
-  @SerializedName(SERIALIZED_NAME_LAST_NAME)
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
   private String lastName;
 
-  public static final String SERIALIZED_NAME_BIRTHDATE = "birthdate";
-  @SerializedName(SERIALIZED_NAME_BIRTHDATE)
+  public static final String JSON_PROPERTY_BIRTHDATE = "birthdate";
   private String birthdate;
 
-  public static final String SERIALIZED_NAME_EMAIL = "email";
-  @SerializedName(SERIALIZED_NAME_EMAIL)
+  public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
 
 
@@ -57,6 +58,8 @@ public class CreateMythicalUserRequest {
    * @return firstName
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
     return firstName;
@@ -80,6 +83,8 @@ public class CreateMythicalUserRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
     return lastName;
@@ -103,6 +108,8 @@ public class CreateMythicalUserRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "2000-03-11", value = "")
+  @JsonProperty(JSON_PROPERTY_BIRTHDATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBirthdate() {
     return birthdate;
@@ -125,6 +132,8 @@ public class CreateMythicalUserRequest {
    * @return email
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
     return email;

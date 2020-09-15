@@ -15,50 +15,51 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateCustomerRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateCustomerRequest.JSON_PROPERTY_FIRST_NAME,
+  CreateCustomerRequest.JSON_PROPERTY_LAST_NAME,
+  CreateCustomerRequest.JSON_PROPERTY_WEBSITE,
+  CreateCustomerRequest.JSON_PROPERTY_PHONE,
+  CreateCustomerRequest.JSON_PROPERTY_PAYMENT_METHOD_NONCE,
+  CreateCustomerRequest.JSON_PROPERTY_COMPANY,
+  CreateCustomerRequest.JSON_PROPERTY_FAX,
+  CreateCustomerRequest.JSON_PROPERTY_EMAIL
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateCustomerRequest {
-  public static final String SERIALIZED_NAME_FIRST_NAME = "firstName";
-  @SerializedName(SERIALIZED_NAME_FIRST_NAME)
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;
 
-  public static final String SERIALIZED_NAME_LAST_NAME = "lastName";
-  @SerializedName(SERIALIZED_NAME_LAST_NAME)
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
   private String lastName;
 
-  public static final String SERIALIZED_NAME_WEBSITE = "website";
-  @SerializedName(SERIALIZED_NAME_WEBSITE)
+  public static final String JSON_PROPERTY_WEBSITE = "website";
   private String website;
 
-  public static final String SERIALIZED_NAME_PHONE = "phone";
-  @SerializedName(SERIALIZED_NAME_PHONE)
+  public static final String JSON_PROPERTY_PHONE = "phone";
   private String phone;
 
-  public static final String SERIALIZED_NAME_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_METHOD_NONCE)
+  public static final String JSON_PROPERTY_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
   private String paymentMethodNonce;
 
-  public static final String SERIALIZED_NAME_COMPANY = "company";
-  @SerializedName(SERIALIZED_NAME_COMPANY)
+  public static final String JSON_PROPERTY_COMPANY = "company";
   private String company;
 
-  public static final String SERIALIZED_NAME_FAX = "fax";
-  @SerializedName(SERIALIZED_NAME_FAX)
+  public static final String JSON_PROPERTY_FAX = "fax";
   private String fax;
 
-  public static final String SERIALIZED_NAME_EMAIL = "email";
-  @SerializedName(SERIALIZED_NAME_EMAIL)
+  public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
 
 
@@ -73,6 +74,8 @@ public class CreateCustomerRequest {
    * @return firstName
   **/
   @ApiModelProperty(example = "first", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
     return firstName;
@@ -95,6 +98,8 @@ public class CreateCustomerRequest {
    * @return lastName
   **/
   @ApiModelProperty(example = "last", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLastName() {
     return lastName;
@@ -118,6 +123,8 @@ public class CreateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "https://mythical.games", value = "")
+  @JsonProperty(JSON_PROPERTY_WEBSITE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getWebsite() {
     return website;
@@ -141,6 +148,8 @@ public class CreateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "818.555.1212", value = "")
+  @JsonProperty(JSON_PROPERTY_PHONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPhone() {
     return phone;
@@ -164,6 +173,8 @@ public class CreateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_METHOD_NONCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPaymentMethodNonce() {
     return paymentMethodNonce;
@@ -187,6 +198,8 @@ public class CreateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "Mythical Games", value = "")
+  @JsonProperty(JSON_PROPERTY_COMPANY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCompany() {
     return company;
@@ -210,6 +223,8 @@ public class CreateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFax() {
     return fax;
@@ -232,6 +247,8 @@ public class CreateCustomerRequest {
    * @return email
   **/
   @ApiModelProperty(example = "customer@moo.com", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
     return email;

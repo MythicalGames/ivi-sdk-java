@@ -15,82 +15,83 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * MarketplaceItemDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  MarketplaceItemDto.JSON_PROPERTY_DGOODS_METADATA,
+  MarketplaceItemDto.JSON_PROPERTY_IMAGE_LARGE_URL,
+  MarketplaceItemDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  MarketplaceItemDto.JSON_PROPERTY_TOKEN_NAME,
+  MarketplaceItemDto.JSON_PROPERTY_DESCRIPTION,
+  MarketplaceItemDto.JSON_PROPERTY_LISTING_ID,
+  MarketplaceItemDto.JSON_PROPERTY_IMAGE_SMALL_URL,
+  MarketplaceItemDto.JSON_PROPERTY_METADATA_URI,
+  MarketplaceItemDto.JSON_PROPERTY_GAME_INVENTORY_ID,
+  MarketplaceItemDto.JSON_PROPERTY_OWNER_MYTHICAL_ID,
+  MarketplaceItemDto.JSON_PROPERTY_FINALIZED,
+  MarketplaceItemDto.JSON_PROPERTY_ITEM_NAME,
+  MarketplaceItemDto.JSON_PROPERTY_OWNER_PLAYER_ID,
+  MarketplaceItemDto.JSON_PROPERTY_CATEGORY,
+  MarketplaceItemDto.JSON_PROPERTY_RENDER,
+  MarketplaceItemDto.JSON_PROPERTY_DGOOD_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class MarketplaceItemDto {
-  public static final String SERIALIZED_NAME_DGOODS_METADATA = "dgoodsMetadata";
-  @SerializedName(SERIALIZED_NAME_DGOODS_METADATA)
+  public static final String JSON_PROPERTY_DGOODS_METADATA = "dgoodsMetadata";
   private String dgoodsMetadata;
 
-  public static final String SERIALIZED_NAME_IMAGE_LARGE_URL = "imageLargeUrl";
-  @SerializedName(SERIALIZED_NAME_IMAGE_LARGE_URL)
+  public static final String JSON_PROPERTY_IMAGE_LARGE_URL = "imageLargeUrl";
   private String imageLargeUrl;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_TOKEN_NAME = "tokenName";
-  @SerializedName(SERIALIZED_NAME_TOKEN_NAME)
+  public static final String JSON_PROPERTY_TOKEN_NAME = "tokenName";
   private String tokenName;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_LISTING_ID = "listingId";
-  @SerializedName(SERIALIZED_NAME_LISTING_ID)
+  public static final String JSON_PROPERTY_LISTING_ID = "listingId";
   private String listingId;
 
-  public static final String SERIALIZED_NAME_IMAGE_SMALL_URL = "imageSmallUrl";
-  @SerializedName(SERIALIZED_NAME_IMAGE_SMALL_URL)
+  public static final String JSON_PROPERTY_IMAGE_SMALL_URL = "imageSmallUrl";
   private String imageSmallUrl;
 
-  public static final String SERIALIZED_NAME_METADATA_URI = "metadataUri";
-  @SerializedName(SERIALIZED_NAME_METADATA_URI)
+  public static final String JSON_PROPERTY_METADATA_URI = "metadataUri";
   private String metadataUri;
 
-  public static final String SERIALIZED_NAME_GAME_INVENTORY_ID = "gameInventoryId";
-  @SerializedName(SERIALIZED_NAME_GAME_INVENTORY_ID)
+  public static final String JSON_PROPERTY_GAME_INVENTORY_ID = "gameInventoryId";
   private String gameInventoryId;
 
-  public static final String SERIALIZED_NAME_OWNER_MYTHICAL_ID = "ownerMythicalId";
-  @SerializedName(SERIALIZED_NAME_OWNER_MYTHICAL_ID)
+  public static final String JSON_PROPERTY_OWNER_MYTHICAL_ID = "ownerMythicalId";
   private String ownerMythicalId;
 
-  public static final String SERIALIZED_NAME_FINALIZED = "finalized";
-  @SerializedName(SERIALIZED_NAME_FINALIZED)
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;
 
-  public static final String SERIALIZED_NAME_ITEM_NAME = "itemName";
-  @SerializedName(SERIALIZED_NAME_ITEM_NAME)
+  public static final String JSON_PROPERTY_ITEM_NAME = "itemName";
   private String itemName;
 
-  public static final String SERIALIZED_NAME_OWNER_PLAYER_ID = "ownerPlayerId";
-  @SerializedName(SERIALIZED_NAME_OWNER_PLAYER_ID)
+  public static final String JSON_PROPERTY_OWNER_PLAYER_ID = "ownerPlayerId";
   private String ownerPlayerId;
 
-  public static final String SERIALIZED_NAME_CATEGORY = "category";
-  @SerializedName(SERIALIZED_NAME_CATEGORY)
+  public static final String JSON_PROPERTY_CATEGORY = "category";
   private String category;
 
-  public static final String SERIALIZED_NAME_RENDER = "render";
-  @SerializedName(SERIALIZED_NAME_RENDER)
+  public static final String JSON_PROPERTY_RENDER = "render";
   private String render;
 
-  public static final String SERIALIZED_NAME_DGOOD_ID = "dgoodId";
-  @SerializedName(SERIALIZED_NAME_DGOOD_ID)
+  public static final String JSON_PROPERTY_DGOOD_ID = "dgoodId";
   private Long dgoodId;
 
 
@@ -106,6 +107,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOODS_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDgoodsMetadata() {
     return dgoodsMetadata;
@@ -129,6 +132,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_LARGE_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageLargeUrl() {
     return imageLargeUrl;
@@ -152,6 +157,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -175,6 +182,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTokenName() {
     return tokenName;
@@ -198,6 +207,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -221,6 +232,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LISTING_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getListingId() {
     return listingId;
@@ -244,6 +257,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_SMALL_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageSmallUrl() {
     return imageSmallUrl;
@@ -267,6 +282,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMetadataUri() {
     return metadataUri;
@@ -290,6 +307,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGameInventoryId() {
     return gameInventoryId;
@@ -313,6 +332,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_MYTHICAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOwnerMythicalId() {
     return ownerMythicalId;
@@ -336,6 +357,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFinalized() {
     return finalized;
@@ -359,6 +382,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getItemName() {
     return itemName;
@@ -382,6 +407,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOwnerPlayerId() {
     return ownerPlayerId;
@@ -405,6 +432,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CATEGORY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCategory() {
     return category;
@@ -428,6 +457,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RENDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRender() {
     return render;
@@ -451,6 +482,8 @@ public class MarketplaceItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getDgoodId() {
     return dgoodId;

@@ -13,12 +13,13 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateOrderRequest;
 import games.mythical.ivi.sdk.model.OrderDto;
 import games.mythical.ivi.sdk.model.UpdateOrderRequest;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +29,10 @@ import java.util.Map;
 /**
  * API tests for OrdersApi
  */
-@Ignore
 public class OrdersApiTest {
 
     private final OrdersApi api = new OrdersApi();
 
-    
     /**
      * Create Order
      *
@@ -44,13 +43,15 @@ public class OrdersApiTest {
      */
     @Test
     public void createOrderTest() throws ApiException {
-        String environmentId = null;
-        CreateOrderRequest createOrderRequest = null;
-        OrderDto response = api.createOrder(environmentId, createOrderRequest);
+        //
+        //String environmentId = null;
+        //
+        //CreateOrderRequest createOrderRequest = null;
+        //
+        //OrderDto response = api.createOrder(environmentId, createOrderRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Delete Order
      *
@@ -61,13 +62,15 @@ public class OrdersApiTest {
      */
     @Test
     public void deleteOrderTest() throws ApiException {
-        String environmentId = null;
-        String orderId = null;
-        api.deleteOrder(environmentId, orderId);
+        //
+        //String environmentId = null;
+        //
+        //String orderId = null;
+        //
+        //api.deleteOrder(environmentId, orderId);
 
         // TODO: test validations
     }
-    
     /**
      * Get Order
      *
@@ -78,13 +81,15 @@ public class OrdersApiTest {
      */
     @Test
     public void getOrderTest() throws ApiException {
-        String environmentId = null;
-        String orderId = null;
-        OrderDto response = api.getOrder(environmentId, orderId);
+        //
+        //String environmentId = null;
+        //
+        //String orderId = null;
+        //
+        //OrderDto response = api.getOrder(environmentId, orderId);
 
         // TODO: test validations
     }
-    
     /**
      * Update Order
      *
@@ -95,11 +100,13 @@ public class OrdersApiTest {
      */
     @Test
     public void updateOrderTest() throws ApiException {
-        String environmentId = null;
-        UpdateOrderRequest updateOrderRequest = null;
-        OrderDto response = api.updateOrder(environmentId, updateOrderRequest);
+        //
+        //String environmentId = null;
+        //
+        //UpdateOrderRequest updateOrderRequest = null;
+        //
+        //OrderDto response = api.updateOrder(environmentId, updateOrderRequest);
 
         // TODO: test validations
     }
-    
 }

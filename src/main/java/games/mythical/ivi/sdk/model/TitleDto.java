@@ -15,53 +15,54 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.EnvironmentInstanceDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * TitleDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  TitleDto.JSON_PROPERTY_ENVIRONMENTS,
+  TitleDto.JSON_PROPERTY_CREATED_BY,
+  TitleDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  TitleDto.JSON_PROPERTY_NAME,
+  TitleDto.JSON_PROPERTY_ID,
+  TitleDto.JSON_PROPERTY_AVAILABLE_ENVIRONMENT_TYPES,
+  TitleDto.JSON_PROPERTY_PARENT_ORGANIZATION_ID,
+  TitleDto.JSON_PROPERTY_DEACTIVATED
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class TitleDto {
-  public static final String SERIALIZED_NAME_ENVIRONMENTS = "environments";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENTS)
+  public static final String JSON_PROPERTY_ENVIRONMENTS = "environments";
   private List<EnvironmentInstanceDto> environments = null;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private String createdTimestamp;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+  public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public static final String SERIALIZED_NAME_AVAILABLE_ENVIRONMENT_TYPES = "availableEnvironmentTypes";
-  @SerializedName(SERIALIZED_NAME_AVAILABLE_ENVIRONMENT_TYPES)
+  public static final String JSON_PROPERTY_AVAILABLE_ENVIRONMENT_TYPES = "availableEnvironmentTypes";
   private List<String> availableEnvironmentTypes = null;
 
-  public static final String SERIALIZED_NAME_PARENT_ORGANIZATION_ID = "parentOrganizationId";
-  @SerializedName(SERIALIZED_NAME_PARENT_ORGANIZATION_ID)
+  public static final String JSON_PROPERTY_PARENT_ORGANIZATION_ID = "parentOrganizationId";
   private String parentOrganizationId;
 
-  public static final String SERIALIZED_NAME_DEACTIVATED = "deactivated";
-  @SerializedName(SERIALIZED_NAME_DEACTIVATED)
+  public static final String JSON_PROPERTY_DEACTIVATED = "deactivated";
   private Boolean deactivated;
 
 
@@ -73,7 +74,7 @@ public class TitleDto {
 
   public TitleDto addEnvironmentsItem(EnvironmentInstanceDto environmentsItem) {
     if (this.environments == null) {
-      this.environments = new ArrayList<EnvironmentInstanceDto>();
+      this.environments = new ArrayList<>();
     }
     this.environments.add(environmentsItem);
     return this;
@@ -85,6 +86,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<EnvironmentInstanceDto> getEnvironments() {
     return environments;
@@ -108,6 +111,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -131,6 +136,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedTimestamp() {
     return createdTimestamp;
@@ -154,6 +161,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -177,6 +186,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -196,7 +207,7 @@ public class TitleDto {
 
   public TitleDto addAvailableEnvironmentTypesItem(String availableEnvironmentTypesItem) {
     if (this.availableEnvironmentTypes == null) {
-      this.availableEnvironmentTypes = new ArrayList<String>();
+      this.availableEnvironmentTypes = new ArrayList<>();
     }
     this.availableEnvironmentTypes.add(availableEnvironmentTypesItem);
     return this;
@@ -208,6 +219,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AVAILABLE_ENVIRONMENT_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAvailableEnvironmentTypes() {
     return availableEnvironmentTypes;
@@ -231,6 +244,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PARENT_ORGANIZATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getParentOrganizationId() {
     return parentOrganizationId;
@@ -254,6 +269,8 @@ public class TitleDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DEACTIVATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeactivated() {
     return deactivated;

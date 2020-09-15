@@ -10,22 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.CreateMythicalUserRequest;
 import games.mythical.ivi.sdk.model.MythicalUserDto;
@@ -33,811 +22,413 @@ import games.mythical.ivi.sdk.model.ProfilePictureDto;
 import games.mythical.ivi.sdk.model.UpdateMythicalUserRequest;
 import games.mythical.ivi.sdk.model.UpdateProfilePictureRequest;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class AccountsApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public AccountsApi() {
+    this(new ApiClient());
+  }
 
-    public AccountsApi() {
-        this(Configuration.getDefaultApiClient());
+  public AccountsApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Create new mythical account
+   * 
+   * @param organizationId  (required)
+   * @param createMythicalUserRequest  (required)
+   * @return MythicalUserDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<MythicalUserDto> createMythicalUser (String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createMythicalUser"));
+    }
+    // verify the required parameter 'createMythicalUserRequest' is set
+    if (createMythicalUserRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createMythicalUserRequest' when calling createMythicalUser"));
     }
 
-    public AccountsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/accounts"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createMythicalUserRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createMythicalUser call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Find mythical accounts
+   * 
+   * @param organizationId  (required)
+   * @param email  (required)
+   * @param firstName  (optional)
+   * @param lastName  (optional)
+   * @return List&lt;MythicalUserDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<MythicalUserDto>> findMythicalUser (String organizationId, String email, String firstName, String lastName) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling findMythicalUser"));
+    }
+    // verify the required parameter 'email' is set
+    if (email == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'email' when calling findMythicalUser"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/accounts/search"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("email", email));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("firstName", firstName));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("lastName", lastName));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "findMythicalUser call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<MythicalUserDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get mythical platform user by id
+   * 
+   * @param organizationId  (required)
+   * @param platformUserId  (required)
+   * @return MythicalUserDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<MythicalUserDto> getMythicalUser (String organizationId, String platformUserId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getMythicalUser"));
+    }
+    // verify the required parameter 'platformUserId' is set
+    if (platformUserId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling getMythicalUser"));
     }
 
-    /**
-     * Build call for createMythicalUser
-     * @param organizationId  (required)
-     * @param createMythicalUserRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMythicalUserCall(String organizationId, CreateMythicalUserRequest createMythicalUserRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createMythicalUserRequest;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/accounts"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()));
+    String localVarPath = "/orgs/{organizationId}/accounts/{platformUserId}"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{platformUserId}", ApiClient.urlEncode(platformUserId.toString()));
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getMythicalUser call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Reset user password
+   * 
+   * @param environmentId  (required)
+   * @param platformUserId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> resetPassword (String environmentId, String platformUserId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling resetPassword"));
+    }
+    // verify the required parameter 'platformUserId' is set
+    if (platformUserId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling resetPassword"));
     }
 
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createMythicalUserValidateBeforeCall(String organizationId, CreateMythicalUserRequest createMythicalUserRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling createMythicalUser(Async)");
-        }
-        
-        // verify the required parameter 'createMythicalUserRequest' is set
-        if (createMythicalUserRequest == null) {
-            throw new ApiException("Missing the required parameter 'createMythicalUserRequest' when calling createMythicalUser(Async)");
-        }
-        
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        okhttp3.Call localVarCall = createMythicalUserCall(organizationId, createMythicalUserRequest, _callback);
-        return localVarCall;
+    String localVarPath = "/environments/{environmentId}/players/{platformUserId}/reset-password"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{platformUserId}", ApiClient.urlEncode(platformUserId.toString()));
 
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "resetPassword call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Update user profile details
+   * 
+   * @param environmentId  (required)
+   * @param platformUserId  (required)
+   * @param updateMythicalUserRequest  (required)
+   * @return MythicalUserDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<MythicalUserDto> updateProfileDetails (String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateProfileDetails"));
+    }
+    // verify the required parameter 'platformUserId' is set
+    if (platformUserId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateProfileDetails"));
+    }
+    // verify the required parameter 'updateMythicalUserRequest' is set
+    if (updateMythicalUserRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateMythicalUserRequest' when calling updateProfileDetails"));
     }
 
-    /**
-     * Create new mythical account
-     * 
-     * @param organizationId  (required)
-     * @param createMythicalUserRequest  (required)
-     * @return MythicalUserDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public MythicalUserDto createMythicalUser(String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws ApiException {
-        ApiResponse<MythicalUserDto> localVarResp = createMythicalUserWithHttpInfo(organizationId, createMythicalUserRequest);
-        return localVarResp.getData();
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/players/{platformUserId}/profile"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{platformUserId}", ApiClient.urlEncode(platformUserId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateMythicalUserRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateProfileDetails call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Update user profile picture
+   * 
+   * @param environmentId  (required)
+   * @param platformUserId  (required)
+   * @param updateProfilePictureRequest  (required)
+   * @return ProfilePictureDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ProfilePictureDto> updateProfilePicture (String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateProfilePicture"));
+    }
+    // verify the required parameter 'platformUserId' is set
+    if (platformUserId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateProfilePicture"));
+    }
+    // verify the required parameter 'updateProfilePictureRequest' is set
+    if (updateProfilePictureRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateProfilePictureRequest' when calling updateProfilePicture"));
     }
 
-    /**
-     * Create new mythical account
-     * 
-     * @param organizationId  (required)
-     * @param createMythicalUserRequest  (required)
-     * @return ApiResponse&lt;MythicalUserDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MythicalUserDto> createMythicalUserWithHttpInfo(String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws ApiException {
-        okhttp3.Call localVarCall = createMythicalUserValidateBeforeCall(organizationId, createMythicalUserRequest, null);
-        Type localVarReturnType = new TypeToken<MythicalUserDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/players/{platformUserId}/profile/picture"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{platformUserId}", ApiClient.urlEncode(platformUserId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateProfilePictureRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateProfilePicture call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ProfilePictureDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
     }
-
-    /**
-     * Create new mythical account (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param createMythicalUserRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createMythicalUserAsync(String organizationId, CreateMythicalUserRequest createMythicalUserRequest, final ApiCallback<MythicalUserDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createMythicalUserValidateBeforeCall(organizationId, createMythicalUserRequest, _callback);
-        Type localVarReturnType = new TypeToken<MythicalUserDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for findMythicalUser
-     * @param organizationId  (required)
-     * @param email  (required)
-     * @param firstName  (optional)
-     * @param lastName  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call findMythicalUserCall(String organizationId, String email, String firstName, String lastName, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/accounts/search"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (email != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("email", email));
-        }
-
-        if (firstName != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("firstName", firstName));
-        }
-
-        if (lastName != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("lastName", lastName));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call findMythicalUserValidateBeforeCall(String organizationId, String email, String firstName, String lastName, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling findMythicalUser(Async)");
-        }
-        
-        // verify the required parameter 'email' is set
-        if (email == null) {
-            throw new ApiException("Missing the required parameter 'email' when calling findMythicalUser(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = findMythicalUserCall(organizationId, email, firstName, lastName, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Find mythical accounts
-     * 
-     * @param organizationId  (required)
-     * @param email  (required)
-     * @param firstName  (optional)
-     * @param lastName  (optional)
-     * @return List&lt;MythicalUserDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<MythicalUserDto> findMythicalUser(String organizationId, String email, String firstName, String lastName) throws ApiException {
-        ApiResponse<List<MythicalUserDto>> localVarResp = findMythicalUserWithHttpInfo(organizationId, email, firstName, lastName);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Find mythical accounts
-     * 
-     * @param organizationId  (required)
-     * @param email  (required)
-     * @param firstName  (optional)
-     * @param lastName  (optional)
-     * @return ApiResponse&lt;List&lt;MythicalUserDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<MythicalUserDto>> findMythicalUserWithHttpInfo(String organizationId, String email, String firstName, String lastName) throws ApiException {
-        okhttp3.Call localVarCall = findMythicalUserValidateBeforeCall(organizationId, email, firstName, lastName, null);
-        Type localVarReturnType = new TypeToken<List<MythicalUserDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Find mythical accounts (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param email  (required)
-     * @param firstName  (optional)
-     * @param lastName  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call findMythicalUserAsync(String organizationId, String email, String firstName, String lastName, final ApiCallback<List<MythicalUserDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = findMythicalUserValidateBeforeCall(organizationId, email, firstName, lastName, _callback);
-        Type localVarReturnType = new TypeToken<List<MythicalUserDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getMythicalUser
-     * @param organizationId  (required)
-     * @param platformUserId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMythicalUserCall(String organizationId, String platformUserId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/accounts/{platformUserId}"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "platformUserId" + "\\}", localVarApiClient.escapeString(platformUserId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMythicalUserValidateBeforeCall(String organizationId, String platformUserId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling getMythicalUser(Async)");
-        }
-        
-        // verify the required parameter 'platformUserId' is set
-        if (platformUserId == null) {
-            throw new ApiException("Missing the required parameter 'platformUserId' when calling getMythicalUser(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getMythicalUserCall(organizationId, platformUserId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get mythical platform user by id
-     * 
-     * @param organizationId  (required)
-     * @param platformUserId  (required)
-     * @return MythicalUserDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public MythicalUserDto getMythicalUser(String organizationId, String platformUserId) throws ApiException {
-        ApiResponse<MythicalUserDto> localVarResp = getMythicalUserWithHttpInfo(organizationId, platformUserId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get mythical platform user by id
-     * 
-     * @param organizationId  (required)
-     * @param platformUserId  (required)
-     * @return ApiResponse&lt;MythicalUserDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MythicalUserDto> getMythicalUserWithHttpInfo(String organizationId, String platformUserId) throws ApiException {
-        okhttp3.Call localVarCall = getMythicalUserValidateBeforeCall(organizationId, platformUserId, null);
-        Type localVarReturnType = new TypeToken<MythicalUserDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get mythical platform user by id (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param platformUserId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMythicalUserAsync(String organizationId, String platformUserId, final ApiCallback<MythicalUserDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getMythicalUserValidateBeforeCall(organizationId, platformUserId, _callback);
-        Type localVarReturnType = new TypeToken<MythicalUserDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for resetPassword
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call resetPasswordCall(String environmentId, String platformUserId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/players/{platformUserId}/reset-password"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "platformUserId" + "\\}", localVarApiClient.escapeString(platformUserId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call resetPasswordValidateBeforeCall(String environmentId, String platformUserId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling resetPassword(Async)");
-        }
-        
-        // verify the required parameter 'platformUserId' is set
-        if (platformUserId == null) {
-            throw new ApiException("Missing the required parameter 'platformUserId' when calling resetPassword(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = resetPasswordCall(environmentId, platformUserId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Reset user password
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public void resetPassword(String environmentId, String platformUserId) throws ApiException {
-        resetPasswordWithHttpInfo(environmentId, platformUserId);
-    }
-
-    /**
-     * Reset user password
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> resetPasswordWithHttpInfo(String environmentId, String platformUserId) throws ApiException {
-        okhttp3.Call localVarCall = resetPasswordValidateBeforeCall(environmentId, platformUserId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Reset user password (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call resetPasswordAsync(String environmentId, String platformUserId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = resetPasswordValidateBeforeCall(environmentId, platformUserId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateProfileDetails
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateMythicalUserRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateProfileDetailsCall(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = updateMythicalUserRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/players/{platformUserId}/profile"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "platformUserId" + "\\}", localVarApiClient.escapeString(platformUserId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateProfileDetailsValidateBeforeCall(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling updateProfileDetails(Async)");
-        }
-        
-        // verify the required parameter 'platformUserId' is set
-        if (platformUserId == null) {
-            throw new ApiException("Missing the required parameter 'platformUserId' when calling updateProfileDetails(Async)");
-        }
-        
-        // verify the required parameter 'updateMythicalUserRequest' is set
-        if (updateMythicalUserRequest == null) {
-            throw new ApiException("Missing the required parameter 'updateMythicalUserRequest' when calling updateProfileDetails(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateProfileDetailsCall(environmentId, platformUserId, updateMythicalUserRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update user profile details
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateMythicalUserRequest  (required)
-     * @return MythicalUserDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public MythicalUserDto updateProfileDetails(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws ApiException {
-        ApiResponse<MythicalUserDto> localVarResp = updateProfileDetailsWithHttpInfo(environmentId, platformUserId, updateMythicalUserRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update user profile details
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateMythicalUserRequest  (required)
-     * @return ApiResponse&lt;MythicalUserDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MythicalUserDto> updateProfileDetailsWithHttpInfo(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateProfileDetailsValidateBeforeCall(environmentId, platformUserId, updateMythicalUserRequest, null);
-        Type localVarReturnType = new TypeToken<MythicalUserDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update user profile details (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateMythicalUserRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateProfileDetailsAsync(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest, final ApiCallback<MythicalUserDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateProfileDetailsValidateBeforeCall(environmentId, platformUserId, updateMythicalUserRequest, _callback);
-        Type localVarReturnType = new TypeToken<MythicalUserDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateProfilePicture
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateProfilePictureRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateProfilePictureCall(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = updateProfilePictureRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/players/{platformUserId}/profile/picture"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "platformUserId" + "\\}", localVarApiClient.escapeString(platformUserId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateProfilePictureValidateBeforeCall(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling updateProfilePicture(Async)");
-        }
-        
-        // verify the required parameter 'platformUserId' is set
-        if (platformUserId == null) {
-            throw new ApiException("Missing the required parameter 'platformUserId' when calling updateProfilePicture(Async)");
-        }
-        
-        // verify the required parameter 'updateProfilePictureRequest' is set
-        if (updateProfilePictureRequest == null) {
-            throw new ApiException("Missing the required parameter 'updateProfilePictureRequest' when calling updateProfilePicture(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateProfilePictureCall(environmentId, platformUserId, updateProfilePictureRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update user profile picture
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateProfilePictureRequest  (required)
-     * @return ProfilePictureDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ProfilePictureDto updateProfilePicture(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws ApiException {
-        ApiResponse<ProfilePictureDto> localVarResp = updateProfilePictureWithHttpInfo(environmentId, platformUserId, updateProfilePictureRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update user profile picture
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateProfilePictureRequest  (required)
-     * @return ApiResponse&lt;ProfilePictureDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ProfilePictureDto> updateProfilePictureWithHttpInfo(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateProfilePictureValidateBeforeCall(environmentId, platformUserId, updateProfilePictureRequest, null);
-        Type localVarReturnType = new TypeToken<ProfilePictureDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update user profile picture (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param platformUserId  (required)
-     * @param updateProfilePictureRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateProfilePictureAsync(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest, final ApiCallback<ProfilePictureDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateProfilePictureValidateBeforeCall(environmentId, platformUserId, updateProfilePictureRequest, _callback);
-        Type localVarReturnType = new TypeToken<ProfilePictureDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+  }
 }

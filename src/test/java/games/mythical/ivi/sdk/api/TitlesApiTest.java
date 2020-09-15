@@ -13,13 +13,14 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateEnvironmentInstanceRequest;
 import games.mythical.ivi.sdk.model.CreateTitleRequest;
 import games.mythical.ivi.sdk.model.EnvironmentInstanceDto;
 import games.mythical.ivi.sdk.model.TitleDto;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,12 +30,10 @@ import java.util.Map;
 /**
  * API tests for TitlesApi
  */
-@Ignore
 public class TitlesApiTest {
 
     private final TitlesApi api = new TitlesApi();
 
-    
     /**
      * Create environment instance for title
      *
@@ -45,13 +44,15 @@ public class TitlesApiTest {
      */
     @Test
     public void addEnvironmentInstanceTest() throws ApiException {
-        String titleId = null;
-        CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest = null;
-        EnvironmentInstanceDto response = api.addEnvironmentInstance(titleId, createEnvironmentInstanceRequest);
+        //
+        //String titleId = null;
+        //
+        //CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest = null;
+        //
+        //EnvironmentInstanceDto response = api.addEnvironmentInstance(titleId, createEnvironmentInstanceRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Get environment instances for title
      *
@@ -62,13 +63,15 @@ public class TitlesApiTest {
      */
     @Test
     public void getEnvironmentInstancesForTitleTest() throws ApiException {
-        String titleId = null;
-        Boolean includeInactive = null;
-        List<EnvironmentInstanceDto> response = api.getEnvironmentInstancesForTitle(titleId, includeInactive);
+        //
+        //String titleId = null;
+        //
+        //Boolean includeInactive = null;
+        //
+        //List<EnvironmentInstanceDto> response = api.getEnvironmentInstancesForTitle(titleId, includeInactive);
 
         // TODO: test validations
     }
-    
     /**
      * Get title
      *
@@ -79,44 +82,43 @@ public class TitlesApiTest {
      */
     @Test
     public void getTitleByIdTest() throws ApiException {
-        String titleId = null;
-        TitleDto response = api.getTitleById(titleId);
+        //
+        //String titleId = null;
+        //
+        //TitleDto response = api.getTitleById(titleId);
 
         // TODO: test validations
     }
-    
     /**
      * Set title to activated
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void setTitleActiveTest() throws ApiException {
-        String titleId = null;
-        api.setTitleActive(titleId);
+        //
+        //String titleId = null;
+        //
+        //api.setTitleActive(titleId);
 
         // TODO: test validations
     }
-    
     /**
      * Set title to deactivated
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void setTitleInactiveTest() throws ApiException {
-        String titleId = null;
-        api.setTitleInactive(titleId);
+        //
+        //String titleId = null;
+        //
+        //api.setTitleInactive(titleId);
 
         // TODO: test validations
     }
-    
     /**
      * Update title
      *
@@ -127,11 +129,13 @@ public class TitlesApiTest {
      */
     @Test
     public void updateTitleTest() throws ApiException {
-        String titleId = null;
-        CreateTitleRequest createTitleRequest = null;
-        api.updateTitle(titleId, createTitleRequest);
+        //
+        //String titleId = null;
+        //
+        //CreateTitleRequest createTitleRequest = null;
+        //
+        //api.updateTitle(titleId, createTitleRequest);
 
         // TODO: test validations
     }
-    
 }

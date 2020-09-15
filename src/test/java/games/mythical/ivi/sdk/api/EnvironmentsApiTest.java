@@ -13,11 +13,12 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateEnvironmentInstanceRequest;
 import games.mythical.ivi.sdk.model.EnvironmentInstanceDto;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +28,10 @@ import java.util.Map;
 /**
  * API tests for EnvironmentsApi
  */
-@Ignore
 public class EnvironmentsApiTest {
 
     private final EnvironmentsApi api = new EnvironmentsApi();
 
-    
     /**
      * Get title environment instance
      *
@@ -43,44 +42,43 @@ public class EnvironmentsApiTest {
      */
     @Test
     public void getEnvironmentInstanceTest() throws ApiException {
-        String environmentId = null;
-        EnvironmentInstanceDto response = api.getEnvironmentInstance(environmentId);
+        //
+        //String environmentId = null;
+        //
+        //EnvironmentInstanceDto response = api.getEnvironmentInstance(environmentId);
 
         // TODO: test validations
     }
-    
     /**
      * Set environment to activated
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void setEnvironmentInstanceActiveTest() throws ApiException {
-        String environmentId = null;
-        api.setEnvironmentInstanceActive(environmentId);
+        //
+        //String environmentId = null;
+        //
+        //api.setEnvironmentInstanceActive(environmentId);
 
         // TODO: test validations
     }
-    
     /**
      * Set environment to deactivated
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void setEnvironmentInstanceInactiveTest() throws ApiException {
-        String environmentId = null;
-        api.setEnvironmentInstanceInactive(environmentId);
+        //
+        //String environmentId = null;
+        //
+        //api.setEnvironmentInstanceInactive(environmentId);
 
         // TODO: test validations
     }
-    
     /**
      * Update instance display name for title
      *
@@ -91,11 +89,13 @@ public class EnvironmentsApiTest {
      */
     @Test
     public void updateEnvironmentInstanceNameTest() throws ApiException {
-        String environmentId = null;
-        CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest = null;
-        api.updateEnvironmentInstanceName(environmentId, createEnvironmentInstanceRequest);
+        //
+        //String environmentId = null;
+        //
+        //CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest = null;
+        //
+        //api.updateEnvironmentInstanceName(environmentId, createEnvironmentInstanceRequest);
 
         // TODO: test validations
     }
-    
 }

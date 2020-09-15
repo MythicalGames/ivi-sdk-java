@@ -15,24 +15,25 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * ThemeDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  ThemeDto.JSON_PROPERTY_THEME
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ThemeDto {
   /**
    * Gets or Sets theme
    */
-  @JsonAdapter(ThemeEnum.Adapter.class)
   public enum ThemeEnum {
     DARK("DARK"),
     
@@ -46,6 +47,7 @@ public class ThemeDto {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -55,6 +57,7 @@ public class ThemeDto {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static ThemeEnum fromValue(String value) {
       for (ThemeEnum b : ThemeEnum.values()) {
         if (b.value.equals(value)) {
@@ -63,23 +66,9 @@ public class ThemeDto {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<ThemeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ThemeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ThemeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return ThemeEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_THEME = "theme";
-  @SerializedName(SERIALIZED_NAME_THEME)
+  public static final String JSON_PROPERTY_THEME = "theme";
   private ThemeEnum theme;
 
 
@@ -95,6 +84,8 @@ public class ThemeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_THEME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ThemeEnum getTheme() {
     return theme;

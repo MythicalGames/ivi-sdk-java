@@ -15,50 +15,51 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreatePartnerRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreatePartnerRequest.JSON_PROPERTY_FIRST_NAME,
+  CreatePartnerRequest.JSON_PROPERTY_LAST_NAME,
+  CreatePartnerRequest.JSON_PROPERTY_MANAGER_EMAIL,
+  CreatePartnerRequest.JSON_PROPERTY_NOTES,
+  CreatePartnerRequest.JSON_PROPERTY_MIDDLE_NAME,
+  CreatePartnerRequest.JSON_PROPERTY_COMPANY,
+  CreatePartnerRequest.JSON_PROPERTY_MANAGER_NAME,
+  CreatePartnerRequest.JSON_PROPERTY_EMAIL
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreatePartnerRequest {
-  public static final String SERIALIZED_NAME_FIRST_NAME = "firstName";
-  @SerializedName(SERIALIZED_NAME_FIRST_NAME)
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;
 
-  public static final String SERIALIZED_NAME_LAST_NAME = "lastName";
-  @SerializedName(SERIALIZED_NAME_LAST_NAME)
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
   private String lastName;
 
-  public static final String SERIALIZED_NAME_MANAGER_EMAIL = "managerEmail";
-  @SerializedName(SERIALIZED_NAME_MANAGER_EMAIL)
+  public static final String JSON_PROPERTY_MANAGER_EMAIL = "managerEmail";
   private String managerEmail;
 
-  public static final String SERIALIZED_NAME_NOTES = "notes";
-  @SerializedName(SERIALIZED_NAME_NOTES)
+  public static final String JSON_PROPERTY_NOTES = "notes";
   private String notes;
 
-  public static final String SERIALIZED_NAME_MIDDLE_NAME = "middleName";
-  @SerializedName(SERIALIZED_NAME_MIDDLE_NAME)
+  public static final String JSON_PROPERTY_MIDDLE_NAME = "middleName";
   private String middleName;
 
-  public static final String SERIALIZED_NAME_COMPANY = "company";
-  @SerializedName(SERIALIZED_NAME_COMPANY)
+  public static final String JSON_PROPERTY_COMPANY = "company";
   private String company;
 
-  public static final String SERIALIZED_NAME_MANAGER_NAME = "managerName";
-  @SerializedName(SERIALIZED_NAME_MANAGER_NAME)
+  public static final String JSON_PROPERTY_MANAGER_NAME = "managerName";
   private String managerName;
 
-  public static final String SERIALIZED_NAME_EMAIL = "email";
-  @SerializedName(SERIALIZED_NAME_EMAIL)
+  public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
 
 
@@ -73,6 +74,8 @@ public class CreatePartnerRequest {
    * @return firstName
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
     return firstName;
@@ -95,6 +98,8 @@ public class CreatePartnerRequest {
    * @return lastName
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLastName() {
     return lastName;
@@ -118,6 +123,8 @@ public class CreatePartnerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "help@mythical.games", value = "")
+  @JsonProperty(JSON_PROPERTY_MANAGER_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getManagerEmail() {
     return managerEmail;
@@ -141,6 +148,8 @@ public class CreatePartnerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NOTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNotes() {
     return notes;
@@ -164,6 +173,8 @@ public class CreatePartnerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MIDDLE_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMiddleName() {
     return middleName;
@@ -187,6 +198,8 @@ public class CreatePartnerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COMPANY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCompany() {
     return company;
@@ -210,6 +223,8 @@ public class CreatePartnerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MANAGER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getManagerName() {
     return managerName;
@@ -232,6 +247,8 @@ public class CreatePartnerRequest {
    * @return email
   **/
   @ApiModelProperty(example = "partner@epic.com", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
     return email;

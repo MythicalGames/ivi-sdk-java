@@ -15,64 +15,69 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * MarketplaceListingDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  MarketplaceListingDto.JSON_PROPERTY_SALE_AMOUNT,
+  MarketplaceListingDto.JSON_PROPERTY_DGOODS_METADATA,
+  MarketplaceListingDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  MarketplaceListingDto.JSON_PROPERTY_SELLER_PLAYER_ID,
+  MarketplaceListingDto.JSON_PROPERTY_BATCH_ID,
+  MarketplaceListingDto.JSON_PROPERTY_FINALIZED,
+  MarketplaceListingDto.JSON_PROPERTY_SELL_BY_DATE,
+  MarketplaceListingDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  MarketplaceListingDto.JSON_PROPERTY_GAME_ITEMS,
+  MarketplaceListingDto.JSON_PROPERTY_SALE_MODEL,
+  MarketplaceListingDto.JSON_PROPERTY_CLOSED,
+  MarketplaceListingDto.JSON_PROPERTY_CURRENCY,
+  MarketplaceListingDto.JSON_PROPERTY_DGOOD_IDS,
+  MarketplaceListingDto.JSON_PROPERTY_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class MarketplaceListingDto {
-  public static final String SERIALIZED_NAME_SALE_AMOUNT = "saleAmount";
-  @SerializedName(SERIALIZED_NAME_SALE_AMOUNT)
+  public static final String JSON_PROPERTY_SALE_AMOUNT = "saleAmount";
   private BigDecimal saleAmount;
 
-  public static final String SERIALIZED_NAME_DGOODS_METADATA = "dgoodsMetadata";
-  @SerializedName(SERIALIZED_NAME_DGOODS_METADATA)
+  public static final String JSON_PROPERTY_DGOODS_METADATA = "dgoodsMetadata";
   private String dgoodsMetadata;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_SELLER_PLAYER_ID = "sellerPlayerId";
-  @SerializedName(SERIALIZED_NAME_SELLER_PLAYER_ID)
+  public static final String JSON_PROPERTY_SELLER_PLAYER_ID = "sellerPlayerId";
   private String sellerPlayerId;
 
-  public static final String SERIALIZED_NAME_BATCH_ID = "batchId";
-  @SerializedName(SERIALIZED_NAME_BATCH_ID)
+  public static final String JSON_PROPERTY_BATCH_ID = "batchId";
   private Long batchId;
 
-  public static final String SERIALIZED_NAME_FINALIZED = "finalized";
-  @SerializedName(SERIALIZED_NAME_FINALIZED)
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;
 
-  public static final String SERIALIZED_NAME_SELL_BY_DATE = "sellByDate";
-  @SerializedName(SERIALIZED_NAME_SELL_BY_DATE)
+  public static final String JSON_PROPERTY_SELL_BY_DATE = "sellByDate";
   private Long sellByDate;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_GAME_ITEMS = "gameItems";
-  @SerializedName(SERIALIZED_NAME_GAME_ITEMS)
+  public static final String JSON_PROPERTY_GAME_ITEMS = "gameItems";
   private String gameItems;
 
   /**
    * Gets or Sets saleModel
    */
-  @JsonAdapter(SaleModelEnum.Adapter.class)
   public enum SaleModelEnum {
     FIXED_PRICE("FIXED_PRICE"),
     
@@ -84,6 +89,7 @@ public class MarketplaceListingDto {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -93,6 +99,7 @@ public class MarketplaceListingDto {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static SaleModelEnum fromValue(String value) {
       for (SaleModelEnum b : SaleModelEnum.values()) {
         if (b.value.equals(value)) {
@@ -101,39 +108,21 @@ public class MarketplaceListingDto {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<SaleModelEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final SaleModelEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public SaleModelEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return SaleModelEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_SALE_MODEL = "saleModel";
-  @SerializedName(SERIALIZED_NAME_SALE_MODEL)
+  public static final String JSON_PROPERTY_SALE_MODEL = "saleModel";
   private SaleModelEnum saleModel;
 
-  public static final String SERIALIZED_NAME_CLOSED = "closed";
-  @SerializedName(SERIALIZED_NAME_CLOSED)
+  public static final String JSON_PROPERTY_CLOSED = "closed";
   private Boolean closed;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
-  public static final String SERIALIZED_NAME_DGOOD_IDS = "dgoodIds";
-  @SerializedName(SERIALIZED_NAME_DGOOD_IDS)
+  public static final String JSON_PROPERTY_DGOOD_IDS = "dgoodIds";
   private List<Long> dgoodIds = null;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+  public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
 
 
@@ -149,6 +138,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALE_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getSaleAmount() {
     return saleAmount;
@@ -172,6 +163,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOODS_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDgoodsMetadata() {
     return dgoodsMetadata;
@@ -195,6 +188,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -218,6 +213,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SELLER_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSellerPlayerId() {
     return sellerPlayerId;
@@ -241,6 +238,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BATCH_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getBatchId() {
     return batchId;
@@ -264,6 +263,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFinalized() {
     return finalized;
@@ -287,6 +288,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SELL_BY_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSellByDate() {
     return sellByDate;
@@ -310,6 +313,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -333,6 +338,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_ITEMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGameItems() {
     return gameItems;
@@ -356,6 +363,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALE_MODEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SaleModelEnum getSaleModel() {
     return saleModel;
@@ -379,6 +388,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CLOSED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getClosed() {
     return closed;
@@ -402,6 +413,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrency() {
     return currency;
@@ -421,7 +434,7 @@ public class MarketplaceListingDto {
 
   public MarketplaceListingDto addDgoodIdsItem(Long dgoodIdsItem) {
     if (this.dgoodIds == null) {
-      this.dgoodIds = new ArrayList<Long>();
+      this.dgoodIds = new ArrayList<>();
     }
     this.dgoodIds.add(dgoodIdsItem);
     return this;
@@ -433,6 +446,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Long> getDgoodIds() {
     return dgoodIds;
@@ -456,6 +471,8 @@ public class MarketplaceListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getId() {
     return id;

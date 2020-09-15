@@ -15,95 +15,96 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * IssuedItemDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  IssuedItemDto.JSON_PROPERTY_CURRENCY_BASE,
+  IssuedItemDto.JSON_PROPERTY_SERIAL_NUMBER,
+  IssuedItemDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  IssuedItemDto.JSON_PROPERTY_TOKEN_NAME,
+  IssuedItemDto.JSON_PROPERTY_AMOUNT_PAID_BASE,
+  IssuedItemDto.JSON_PROPERTY_METADATA_URI,
+  IssuedItemDto.JSON_PROPERTY_TRANSACTION_ID,
+  IssuedItemDto.JSON_PROPERTY_GAME_INVENTORY_ID,
+  IssuedItemDto.JSON_PROPERTY_RELATIVE_URI,
+  IssuedItemDto.JSON_PROPERTY_OWNER_MYTHICAL_ID,
+  IssuedItemDto.JSON_PROPERTY_ITEM_NAME,
+  IssuedItemDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  IssuedItemDto.JSON_PROPERTY_OWNER_SIDECHAIN_ACCOUNT,
+  IssuedItemDto.JSON_PROPERTY_AMOUNT_PAID,
+  IssuedItemDto.JSON_PROPERTY_CREATED_BY,
+  IssuedItemDto.JSON_PROPERTY_OWNER_PLAYER_ID,
+  IssuedItemDto.JSON_PROPERTY_CURRENCY,
+  IssuedItemDto.JSON_PROPERTY_CATEGORY,
+  IssuedItemDto.JSON_PROPERTY_DGOOD_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class IssuedItemDto {
-  public static final String SERIALIZED_NAME_CURRENCY_BASE = "currencyBase";
-  @SerializedName(SERIALIZED_NAME_CURRENCY_BASE)
+  public static final String JSON_PROPERTY_CURRENCY_BASE = "currencyBase";
   private String currencyBase;
 
-  public static final String SERIALIZED_NAME_SERIAL_NUMBER = "serialNumber";
-  @SerializedName(SERIALIZED_NAME_SERIAL_NUMBER)
+  public static final String JSON_PROPERTY_SERIAL_NUMBER = "serialNumber";
   private Integer serialNumber;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_TOKEN_NAME = "tokenName";
-  @SerializedName(SERIALIZED_NAME_TOKEN_NAME)
+  public static final String JSON_PROPERTY_TOKEN_NAME = "tokenName";
   private String tokenName;
 
-  public static final String SERIALIZED_NAME_AMOUNT_PAID_BASE = "amountPaidBase";
-  @SerializedName(SERIALIZED_NAME_AMOUNT_PAID_BASE)
+  public static final String JSON_PROPERTY_AMOUNT_PAID_BASE = "amountPaidBase";
   private BigDecimal amountPaidBase;
 
-  public static final String SERIALIZED_NAME_METADATA_URI = "metadataUri";
-  @SerializedName(SERIALIZED_NAME_METADATA_URI)
+  public static final String JSON_PROPERTY_METADATA_URI = "metadataUri";
   private String metadataUri;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private String transactionId;
 
-  public static final String SERIALIZED_NAME_GAME_INVENTORY_ID = "gameInventoryId";
-  @SerializedName(SERIALIZED_NAME_GAME_INVENTORY_ID)
+  public static final String JSON_PROPERTY_GAME_INVENTORY_ID = "gameInventoryId";
   private String gameInventoryId;
 
-  public static final String SERIALIZED_NAME_RELATIVE_URI = "relativeUri";
-  @SerializedName(SERIALIZED_NAME_RELATIVE_URI)
+  public static final String JSON_PROPERTY_RELATIVE_URI = "relativeUri";
   private String relativeUri;
 
-  public static final String SERIALIZED_NAME_OWNER_MYTHICAL_ID = "ownerMythicalId";
-  @SerializedName(SERIALIZED_NAME_OWNER_MYTHICAL_ID)
+  public static final String JSON_PROPERTY_OWNER_MYTHICAL_ID = "ownerMythicalId";
   private String ownerMythicalId;
 
-  public static final String SERIALIZED_NAME_ITEM_NAME = "itemName";
-  @SerializedName(SERIALIZED_NAME_ITEM_NAME)
+  public static final String JSON_PROPERTY_ITEM_NAME = "itemName";
   private String itemName;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_OWNER_SIDECHAIN_ACCOUNT = "ownerSidechainAccount";
-  @SerializedName(SERIALIZED_NAME_OWNER_SIDECHAIN_ACCOUNT)
+  public static final String JSON_PROPERTY_OWNER_SIDECHAIN_ACCOUNT = "ownerSidechainAccount";
   private String ownerSidechainAccount;
 
-  public static final String SERIALIZED_NAME_AMOUNT_PAID = "amountPaid";
-  @SerializedName(SERIALIZED_NAME_AMOUNT_PAID)
+  public static final String JSON_PROPERTY_AMOUNT_PAID = "amountPaid";
   private BigDecimal amountPaid;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_OWNER_PLAYER_ID = "ownerPlayerId";
-  @SerializedName(SERIALIZED_NAME_OWNER_PLAYER_ID)
+  public static final String JSON_PROPERTY_OWNER_PLAYER_ID = "ownerPlayerId";
   private String ownerPlayerId;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
-  public static final String SERIALIZED_NAME_CATEGORY = "category";
-  @SerializedName(SERIALIZED_NAME_CATEGORY)
+  public static final String JSON_PROPERTY_CATEGORY = "category";
   private String category;
 
-  public static final String SERIALIZED_NAME_DGOOD_ID = "dgoodId";
-  @SerializedName(SERIALIZED_NAME_DGOOD_ID)
+  public static final String JSON_PROPERTY_DGOOD_ID = "dgoodId";
   private Long dgoodId;
 
 
@@ -119,6 +120,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrencyBase() {
     return currencyBase;
@@ -142,6 +145,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SERIAL_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getSerialNumber() {
     return serialNumber;
@@ -165,6 +170,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -188,6 +195,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTokenName() {
     return tokenName;
@@ -211,6 +220,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AMOUNT_PAID_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getAmountPaidBase() {
     return amountPaidBase;
@@ -234,6 +245,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMetadataUri() {
     return metadataUri;
@@ -257,6 +270,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionId() {
     return transactionId;
@@ -280,6 +295,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGameInventoryId() {
     return gameInventoryId;
@@ -303,6 +320,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RELATIVE_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRelativeUri() {
     return relativeUri;
@@ -326,6 +345,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_MYTHICAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOwnerMythicalId() {
     return ownerMythicalId;
@@ -349,6 +370,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getItemName() {
     return itemName;
@@ -372,6 +395,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -395,6 +420,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_SIDECHAIN_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOwnerSidechainAccount() {
     return ownerSidechainAccount;
@@ -418,6 +445,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AMOUNT_PAID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getAmountPaid() {
     return amountPaid;
@@ -441,6 +470,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -464,6 +495,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOwnerPlayerId() {
     return ownerPlayerId;
@@ -487,6 +520,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrency() {
     return currency;
@@ -510,6 +545,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CATEGORY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCategory() {
     return category;
@@ -533,6 +570,8 @@ public class IssuedItemDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getDgoodId() {
     return dgoodId;

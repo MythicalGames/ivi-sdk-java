@@ -10,22 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.BurnItemRequest;
 import games.mythical.ivi.sdk.model.BuyListingRequest;
@@ -42,1724 +31,842 @@ import games.mythical.ivi.sdk.model.SoldItemDto;
 import games.mythical.ivi.sdk.model.TransferItemRequest;
 import games.mythical.ivi.sdk.model.UpdateMetadataRequest;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ItemsApi {
-    private ApiClient localVarApiClient;
-
-    public ItemsApi() {
-        this(Configuration.getDefaultApiClient());
-    }
-
-    public ItemsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return localVarApiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
-    }
-
-    /**
-     * Build call for burnItem
-     * @param environmentId  (required)
-     * @param burnItemRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call burnItemCall(String environmentId, BurnItemRequest burnItemRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = burnItemRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/burn"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call burnItemValidateBeforeCall(String environmentId, BurnItemRequest burnItemRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling burnItem(Async)");
-        }
-        
-        // verify the required parameter 'burnItemRequest' is set
-        if (burnItemRequest == null) {
-            throw new ApiException("Missing the required parameter 'burnItemRequest' when calling burnItem(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = burnItemCall(environmentId, burnItemRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Burn issued item
-     * Burn an issued item
-     * @param environmentId  (required)
-     * @param burnItemRequest  (required)
-     * @return ItemActionDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ItemActionDto burnItem(String environmentId, BurnItemRequest burnItemRequest) throws ApiException {
-        ApiResponse<ItemActionDto> localVarResp = burnItemWithHttpInfo(environmentId, burnItemRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Burn issued item
-     * Burn an issued item
-     * @param environmentId  (required)
-     * @param burnItemRequest  (required)
-     * @return ApiResponse&lt;ItemActionDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ItemActionDto> burnItemWithHttpInfo(String environmentId, BurnItemRequest burnItemRequest) throws ApiException {
-        okhttp3.Call localVarCall = burnItemValidateBeforeCall(environmentId, burnItemRequest, null);
-        Type localVarReturnType = new TypeToken<ItemActionDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Burn issued item (asynchronously)
-     * Burn an issued item
-     * @param environmentId  (required)
-     * @param burnItemRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call burnItemAsync(String environmentId, BurnItemRequest burnItemRequest, final ApiCallback<ItemActionDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = burnItemValidateBeforeCall(environmentId, burnItemRequest, _callback);
-        Type localVarReturnType = new TypeToken<ItemActionDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for buyListing
-     * @param environmentId  (required)
-     * @param buyListingRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call buyListingCall(String environmentId, BuyListingRequest buyListingRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = buyListingRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/buy"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call buyListingValidateBeforeCall(String environmentId, BuyListingRequest buyListingRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling buyListing(Async)");
-        }
-        
-        // verify the required parameter 'buyListingRequest' is set
-        if (buyListingRequest == null) {
-            throw new ApiException("Missing the required parameter 'buyListingRequest' when calling buyListing(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = buyListingCall(environmentId, buyListingRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Purchase an item
-     * Buy an item that is for sale
-     * @param environmentId  (required)
-     * @param buyListingRequest  (required)
-     * @return SoldItemDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public SoldItemDto buyListing(String environmentId, BuyListingRequest buyListingRequest) throws ApiException {
-        ApiResponse<SoldItemDto> localVarResp = buyListingWithHttpInfo(environmentId, buyListingRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Purchase an item
-     * Buy an item that is for sale
-     * @param environmentId  (required)
-     * @param buyListingRequest  (required)
-     * @return ApiResponse&lt;SoldItemDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<SoldItemDto> buyListingWithHttpInfo(String environmentId, BuyListingRequest buyListingRequest) throws ApiException {
-        okhttp3.Call localVarCall = buyListingValidateBeforeCall(environmentId, buyListingRequest, null);
-        Type localVarReturnType = new TypeToken<SoldItemDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Purchase an item (asynchronously)
-     * Buy an item that is for sale
-     * @param environmentId  (required)
-     * @param buyListingRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call buyListingAsync(String environmentId, BuyListingRequest buyListingRequest, final ApiCallback<SoldItemDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = buyListingValidateBeforeCall(environmentId, buyListingRequest, _callback);
-        Type localVarReturnType = new TypeToken<SoldItemDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for closeSale
-     * @param environmentId  (required)
-     * @param closeSaleRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call closeSaleCall(String environmentId, CloseSaleRequest closeSaleRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = closeSaleRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/listed"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call closeSaleValidateBeforeCall(String environmentId, CloseSaleRequest closeSaleRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling closeSale(Async)");
-        }
-        
-        // verify the required parameter 'closeSaleRequest' is set
-        if (closeSaleRequest == null) {
-            throw new ApiException("Missing the required parameter 'closeSaleRequest' when calling closeSale(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = closeSaleCall(environmentId, closeSaleRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Close a sale
-     * Close a listed item sale
-     * @param environmentId  (required)
-     * @param closeSaleRequest  (required)
-     * @return ItemActionDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ItemActionDto closeSale(String environmentId, CloseSaleRequest closeSaleRequest) throws ApiException {
-        ApiResponse<ItemActionDto> localVarResp = closeSaleWithHttpInfo(environmentId, closeSaleRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Close a sale
-     * Close a listed item sale
-     * @param environmentId  (required)
-     * @param closeSaleRequest  (required)
-     * @return ApiResponse&lt;ItemActionDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ItemActionDto> closeSaleWithHttpInfo(String environmentId, CloseSaleRequest closeSaleRequest) throws ApiException {
-        okhttp3.Call localVarCall = closeSaleValidateBeforeCall(environmentId, closeSaleRequest, null);
-        Type localVarReturnType = new TypeToken<ItemActionDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Close a sale (asynchronously)
-     * Close a listed item sale
-     * @param environmentId  (required)
-     * @param closeSaleRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call closeSaleAsync(String environmentId, CloseSaleRequest closeSaleRequest, final ApiCallback<ItemActionDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = closeSaleValidateBeforeCall(environmentId, closeSaleRequest, _callback);
-        Type localVarReturnType = new TypeToken<ItemActionDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createItem
-     * @param environmentId  (required)
-     * @param createItemRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createItemCall(String environmentId, CreateItemRequest createItemRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createItemRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/types"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createItemValidateBeforeCall(String environmentId, CreateItemRequest createItemRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling createItem(Async)");
-        }
-        
-        // verify the required parameter 'createItemRequest' is set
-        if (createItemRequest == null) {
-            throw new ApiException("Missing the required parameter 'createItemRequest' when calling createItem(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = createItemCall(environmentId, createItemRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Create item type
-     * Create a new type of item on the blockchain that can be issued to players.
-     * @param environmentId  (required)
-     * @param createItemRequest  (required)
-     * @return ItemTypeDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ItemTypeDto createItem(String environmentId, CreateItemRequest createItemRequest) throws ApiException {
-        ApiResponse<ItemTypeDto> localVarResp = createItemWithHttpInfo(environmentId, createItemRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Create item type
-     * Create a new type of item on the blockchain that can be issued to players.
-     * @param environmentId  (required)
-     * @param createItemRequest  (required)
-     * @return ApiResponse&lt;ItemTypeDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ItemTypeDto> createItemWithHttpInfo(String environmentId, CreateItemRequest createItemRequest) throws ApiException {
-        okhttp3.Call localVarCall = createItemValidateBeforeCall(environmentId, createItemRequest, null);
-        Type localVarReturnType = new TypeToken<ItemTypeDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Create item type (asynchronously)
-     * Create a new type of item on the blockchain that can be issued to players.
-     * @param environmentId  (required)
-     * @param createItemRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createItemAsync(String environmentId, CreateItemRequest createItemRequest, final ApiCallback<ItemTypeDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createItemValidateBeforeCall(environmentId, createItemRequest, _callback);
-        Type localVarReturnType = new TypeToken<ItemTypeDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getIssuedItems
-     * @param environmentId  (required)
-     * @param playerId  (optional)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getIssuedItemsCall(String environmentId, String playerId, String gameInventoryId, Long dgoodId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/issued"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (playerId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("playerId", playerId));
-        }
-
-        if (gameInventoryId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("gameInventoryId", gameInventoryId));
-        }
-
-        if (dgoodId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dgoodId", dgoodId));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getIssuedItemsValidateBeforeCall(String environmentId, String playerId, String gameInventoryId, Long dgoodId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getIssuedItems(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getIssuedItemsCall(environmentId, playerId, gameInventoryId, dgoodId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get all issued items for an environment.
-     * 
-     * @param environmentId  (required)
-     * @param playerId  (optional)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @return List&lt;IssuedItemDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<IssuedItemDto> getIssuedItems(String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws ApiException {
-        ApiResponse<List<IssuedItemDto>> localVarResp = getIssuedItemsWithHttpInfo(environmentId, playerId, gameInventoryId, dgoodId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get all issued items for an environment.
-     * 
-     * @param environmentId  (required)
-     * @param playerId  (optional)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @return ApiResponse&lt;List&lt;IssuedItemDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<IssuedItemDto>> getIssuedItemsWithHttpInfo(String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws ApiException {
-        okhttp3.Call localVarCall = getIssuedItemsValidateBeforeCall(environmentId, playerId, gameInventoryId, dgoodId, null);
-        Type localVarReturnType = new TypeToken<List<IssuedItemDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get all issued items for an environment. (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param playerId  (optional)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getIssuedItemsAsync(String environmentId, String playerId, String gameInventoryId, Long dgoodId, final ApiCallback<List<IssuedItemDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getIssuedItemsValidateBeforeCall(environmentId, playerId, gameInventoryId, dgoodId, _callback);
-        Type localVarReturnType = new TypeToken<List<IssuedItemDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getItemTypes
-     * @param environmentId  (required)
-     * @param category  (optional)
-     * @param token  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getItemTypesCall(String environmentId, String category, String token, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/types"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (category != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("category", category));
-        }
-
-        if (token != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("token", token));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getItemTypesValidateBeforeCall(String environmentId, String category, String token, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getItemTypes(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getItemTypesCall(environmentId, category, token, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get all item types for an environment
-     * 
-     * @param environmentId  (required)
-     * @param category  (optional)
-     * @param token  (optional)
-     * @return List&lt;ItemTypeDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<ItemTypeDto> getItemTypes(String environmentId, String category, String token) throws ApiException {
-        ApiResponse<List<ItemTypeDto>> localVarResp = getItemTypesWithHttpInfo(environmentId, category, token);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get all item types for an environment
-     * 
-     * @param environmentId  (required)
-     * @param category  (optional)
-     * @param token  (optional)
-     * @return ApiResponse&lt;List&lt;ItemTypeDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<ItemTypeDto>> getItemTypesWithHttpInfo(String environmentId, String category, String token) throws ApiException {
-        okhttp3.Call localVarCall = getItemTypesValidateBeforeCall(environmentId, category, token, null);
-        Type localVarReturnType = new TypeToken<List<ItemTypeDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get all item types for an environment (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param category  (optional)
-     * @param token  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getItemTypesAsync(String environmentId, String category, String token, final ApiCallback<List<ItemTypeDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getItemTypesValidateBeforeCall(environmentId, category, token, _callback);
-        Type localVarReturnType = new TypeToken<List<ItemTypeDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getListings
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param playerId  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getListingsCall(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/listed"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (pageSize != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("pageSize", pageSize));
-        }
-
-        if (createdTimestamp != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("createdTimestamp", createdTimestamp));
-        }
-
-        if (order != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("order", order));
-        }
-
-        if (playerId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("playerId", playerId));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getListingsValidateBeforeCall(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getListings(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getListingsCall(environmentId, pageSize, createdTimestamp, order, playerId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get listed items
-     * Get all listed item for sale
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param playerId  (optional)
-     * @return List&lt;ListingDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<ListingDto> getListings(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws ApiException {
-        ApiResponse<List<ListingDto>> localVarResp = getListingsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, playerId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get listed items
-     * Get all listed item for sale
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param playerId  (optional)
-     * @return ApiResponse&lt;List&lt;ListingDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<ListingDto>> getListingsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws ApiException {
-        okhttp3.Call localVarCall = getListingsValidateBeforeCall(environmentId, pageSize, createdTimestamp, order, playerId, null);
-        Type localVarReturnType = new TypeToken<List<ListingDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get listed items (asynchronously)
-     * Get all listed item for sale
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param playerId  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getListingsAsync(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId, final ApiCallback<List<ListingDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getListingsValidateBeforeCall(environmentId, pageSize, createdTimestamp, order, playerId, _callback);
-        Type localVarReturnType = new TypeToken<List<ListingDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getMetadata
-     * @param environmentId  (required)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMetadataCall(String environmentId, String gameInventoryId, Long dgoodId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/issued/metadata"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (gameInventoryId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("gameInventoryId", gameInventoryId));
-        }
-
-        if (dgoodId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dgoodId", dgoodId));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMetadataValidateBeforeCall(String environmentId, String gameInventoryId, Long dgoodId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getMetadata(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getMetadataCall(environmentId, gameInventoryId, dgoodId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get metadata for an issued dgood 
-     * Get metadata for a dgood id.
-     * @param environmentId  (required)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @return List&lt;DgoodMetadataDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<DgoodMetadataDto> getMetadata(String environmentId, String gameInventoryId, Long dgoodId) throws ApiException {
-        ApiResponse<List<DgoodMetadataDto>> localVarResp = getMetadataWithHttpInfo(environmentId, gameInventoryId, dgoodId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get metadata for an issued dgood 
-     * Get metadata for a dgood id.
-     * @param environmentId  (required)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @return ApiResponse&lt;List&lt;DgoodMetadataDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<DgoodMetadataDto>> getMetadataWithHttpInfo(String environmentId, String gameInventoryId, Long dgoodId) throws ApiException {
-        okhttp3.Call localVarCall = getMetadataValidateBeforeCall(environmentId, gameInventoryId, dgoodId, null);
-        Type localVarReturnType = new TypeToken<List<DgoodMetadataDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get metadata for an issued dgood  (asynchronously)
-     * Get metadata for a dgood id.
-     * @param environmentId  (required)
-     * @param gameInventoryId  (optional)
-     * @param dgoodId  (optional, default to -1l)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMetadataAsync(String environmentId, String gameInventoryId, Long dgoodId, final ApiCallback<List<DgoodMetadataDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getMetadataValidateBeforeCall(environmentId, gameInventoryId, dgoodId, _callback);
-        Type localVarReturnType = new TypeToken<List<DgoodMetadataDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getSoldItems
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param buyerPlayerId  (optional)
-     * @param sellerPlayerId  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getSoldItemsCall(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/buy"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (pageSize != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("pageSize", pageSize));
-        }
-
-        if (createdTimestamp != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("createdTimestamp", createdTimestamp));
-        }
-
-        if (order != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("order", order));
-        }
-
-        if (buyerPlayerId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("buyerPlayerId", buyerPlayerId));
-        }
-
-        if (sellerPlayerId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("sellerPlayerId", sellerPlayerId));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSoldItemsValidateBeforeCall(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getSoldItems(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getSoldItemsCall(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get bought/sold items
-     * Get all bought/sold items for a player
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param buyerPlayerId  (optional)
-     * @param sellerPlayerId  (optional)
-     * @return List&lt;SoldItemDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<SoldItemDto> getSoldItems(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws ApiException {
-        ApiResponse<List<SoldItemDto>> localVarResp = getSoldItemsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get bought/sold items
-     * Get all bought/sold items for a player
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param buyerPlayerId  (optional)
-     * @param sellerPlayerId  (optional)
-     * @return ApiResponse&lt;List&lt;SoldItemDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<SoldItemDto>> getSoldItemsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws ApiException {
-        okhttp3.Call localVarCall = getSoldItemsValidateBeforeCall(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId, null);
-        Type localVarReturnType = new TypeToken<List<SoldItemDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get bought/sold items (asynchronously)
-     * Get all bought/sold items for a player
-     * @param environmentId  (required)
-     * @param pageSize  (optional, default to 30)
-     * @param createdTimestamp  (optional, default to -1l)
-     * @param order  (optional, default to DESCENDING)
-     * @param buyerPlayerId  (optional)
-     * @param sellerPlayerId  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getSoldItemsAsync(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId, final ApiCallback<List<SoldItemDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getSoldItemsValidateBeforeCall(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId, _callback);
-        Type localVarReturnType = new TypeToken<List<SoldItemDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for issueItem
-     * @param environmentId  (required)
-     * @param issueItemRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call issueItemCall(String environmentId, IssueItemRequest issueItemRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = issueItemRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/issued"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call issueItemValidateBeforeCall(String environmentId, IssueItemRequest issueItemRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling issueItem(Async)");
-        }
-        
-        // verify the required parameter 'issueItemRequest' is set
-        if (issueItemRequest == null) {
-            throw new ApiException("Missing the required parameter 'issueItemRequest' when calling issueItem(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = issueItemCall(environmentId, issueItemRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Issue item
-     * Issue instance(s) of an item type to a player
-     * @param environmentId  (required)
-     * @param issueItemRequest  (required)
-     * @return IssuedItemDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public IssuedItemDto issueItem(String environmentId, IssueItemRequest issueItemRequest) throws ApiException {
-        ApiResponse<IssuedItemDto> localVarResp = issueItemWithHttpInfo(environmentId, issueItemRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Issue item
-     * Issue instance(s) of an item type to a player
-     * @param environmentId  (required)
-     * @param issueItemRequest  (required)
-     * @return ApiResponse&lt;IssuedItemDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<IssuedItemDto> issueItemWithHttpInfo(String environmentId, IssueItemRequest issueItemRequest) throws ApiException {
-        okhttp3.Call localVarCall = issueItemValidateBeforeCall(environmentId, issueItemRequest, null);
-        Type localVarReturnType = new TypeToken<IssuedItemDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Issue item (asynchronously)
-     * Issue instance(s) of an item type to a player
-     * @param environmentId  (required)
-     * @param issueItemRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call issueItemAsync(String environmentId, IssueItemRequest issueItemRequest, final ApiCallback<IssuedItemDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = issueItemValidateBeforeCall(environmentId, issueItemRequest, _callback);
-        Type localVarReturnType = new TypeToken<IssuedItemDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for listItem
-     * @param environmentId  (required)
-     * @param listSaleRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listItemCall(String environmentId, ListSaleRequest listSaleRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = listSaleRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/listed"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call listItemValidateBeforeCall(String environmentId, ListSaleRequest listSaleRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling listItem(Async)");
-        }
-        
-        // verify the required parameter 'listSaleRequest' is set
-        if (listSaleRequest == null) {
-            throw new ApiException("Missing the required parameter 'listSaleRequest' when calling listItem(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = listItemCall(environmentId, listSaleRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * List an item for sale
-     * List an issued item for sale
-     * @param environmentId  (required)
-     * @param listSaleRequest  (required)
-     * @return ListingDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ListingDto listItem(String environmentId, ListSaleRequest listSaleRequest) throws ApiException {
-        ApiResponse<ListingDto> localVarResp = listItemWithHttpInfo(environmentId, listSaleRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * List an item for sale
-     * List an issued item for sale
-     * @param environmentId  (required)
-     * @param listSaleRequest  (required)
-     * @return ApiResponse&lt;ListingDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ListingDto> listItemWithHttpInfo(String environmentId, ListSaleRequest listSaleRequest) throws ApiException {
-        okhttp3.Call localVarCall = listItemValidateBeforeCall(environmentId, listSaleRequest, null);
-        Type localVarReturnType = new TypeToken<ListingDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * List an item for sale (asynchronously)
-     * List an issued item for sale
-     * @param environmentId  (required)
-     * @param listSaleRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 202 </td><td> The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listItemAsync(String environmentId, ListSaleRequest listSaleRequest, final ApiCallback<ListingDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = listItemValidateBeforeCall(environmentId, listSaleRequest, _callback);
-        Type localVarReturnType = new TypeToken<ListingDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for transferItem
-     * @param environmentId  (required)
-     * @param transferItemRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call transferItemCall(String environmentId, TransferItemRequest transferItemRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = transferItemRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/transfer"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call transferItemValidateBeforeCall(String environmentId, TransferItemRequest transferItemRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling transferItem(Async)");
-        }
-        
-        // verify the required parameter 'transferItemRequest' is set
-        if (transferItemRequest == null) {
-            throw new ApiException("Missing the required parameter 'transferItemRequest' when calling transferItem(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = transferItemCall(environmentId, transferItemRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Transfer issued item
-     * Transfer an issued item
-     * @param environmentId  (required)
-     * @param transferItemRequest  (required)
-     * @return ItemActionDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ItemActionDto transferItem(String environmentId, TransferItemRequest transferItemRequest) throws ApiException {
-        ApiResponse<ItemActionDto> localVarResp = transferItemWithHttpInfo(environmentId, transferItemRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Transfer issued item
-     * Transfer an issued item
-     * @param environmentId  (required)
-     * @param transferItemRequest  (required)
-     * @return ApiResponse&lt;ItemActionDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ItemActionDto> transferItemWithHttpInfo(String environmentId, TransferItemRequest transferItemRequest) throws ApiException {
-        okhttp3.Call localVarCall = transferItemValidateBeforeCall(environmentId, transferItemRequest, null);
-        Type localVarReturnType = new TypeToken<ItemActionDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Transfer issued item (asynchronously)
-     * Transfer an issued item
-     * @param environmentId  (required)
-     * @param transferItemRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call transferItemAsync(String environmentId, TransferItemRequest transferItemRequest, final ApiCallback<ItemActionDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = transferItemValidateBeforeCall(environmentId, transferItemRequest, _callback);
-        Type localVarReturnType = new TypeToken<ItemActionDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateMetadata
-     * @param environmentId  (required)
-     * @param updateMetadataRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateMetadataCall(String environmentId, UpdateMetadataRequest updateMetadataRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = updateMetadataRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/items/issued/metadata"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateMetadataValidateBeforeCall(String environmentId, UpdateMetadataRequest updateMetadataRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling updateMetadata(Async)");
-        }
-        
-        // verify the required parameter 'updateMetadataRequest' is set
-        if (updateMetadataRequest == null) {
-            throw new ApiException("Missing the required parameter 'updateMetadataRequest' when calling updateMetadata(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateMetadataCall(environmentId, updateMetadataRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update metadata for a dgood
-     * Update metadata for a dgood
-     * @param environmentId  (required)
-     * @param updateMetadataRequest  (required)
-     * @return DgoodMetadataDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public DgoodMetadataDto updateMetadata(String environmentId, UpdateMetadataRequest updateMetadataRequest) throws ApiException {
-        ApiResponse<DgoodMetadataDto> localVarResp = updateMetadataWithHttpInfo(environmentId, updateMetadataRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update metadata for a dgood
-     * Update metadata for a dgood
-     * @param environmentId  (required)
-     * @param updateMetadataRequest  (required)
-     * @return ApiResponse&lt;DgoodMetadataDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<DgoodMetadataDto> updateMetadataWithHttpInfo(String environmentId, UpdateMetadataRequest updateMetadataRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateMetadataValidateBeforeCall(environmentId, updateMetadataRequest, null);
-        Type localVarReturnType = new TypeToken<DgoodMetadataDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update metadata for a dgood (asynchronously)
-     * Update metadata for a dgood
-     * @param environmentId  (required)
-     * @param updateMetadataRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateMetadataAsync(String environmentId, UpdateMetadataRequest updateMetadataRequest, final ApiCallback<DgoodMetadataDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateMetadataValidateBeforeCall(environmentId, updateMetadataRequest, _callback);
-        Type localVarReturnType = new TypeToken<DgoodMetadataDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public ItemsApi() {
+    this(new ApiClient());
+  }
+
+  public ItemsApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Burn issued item
+   * Burn an issued item
+   * @param environmentId  (required)
+   * @param burnItemRequest  (required)
+   * @return ItemActionDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ItemActionDto> burnItem (String environmentId, BurnItemRequest burnItemRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling burnItem"));
+    }
+    // verify the required parameter 'burnItemRequest' is set
+    if (burnItemRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'burnItemRequest' when calling burnItem"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/burn"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(burnItemRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "burnItem call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Purchase an item
+   * Buy an item that is for sale
+   * @param environmentId  (required)
+   * @param buyListingRequest  (required)
+   * @return SoldItemDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<SoldItemDto> buyListing (String environmentId, BuyListingRequest buyListingRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling buyListing"));
+    }
+    // verify the required parameter 'buyListingRequest' is set
+    if (buyListingRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'buyListingRequest' when calling buyListing"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/buy"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(buyListingRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "buyListing call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SoldItemDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Close a sale
+   * Close a listed item sale
+   * @param environmentId  (required)
+   * @param closeSaleRequest  (required)
+   * @return ItemActionDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ItemActionDto> closeSale (String environmentId, CloseSaleRequest closeSaleRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling closeSale"));
+    }
+    // verify the required parameter 'closeSaleRequest' is set
+    if (closeSaleRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'closeSaleRequest' when calling closeSale"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/listed"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(closeSaleRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "closeSale call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Create item type
+   * Create a new type of item on the blockchain that can be issued to players.
+   * @param environmentId  (required)
+   * @param createItemRequest  (required)
+   * @return ItemTypeDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ItemTypeDto> createItem (String environmentId, CreateItemRequest createItemRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createItem"));
+    }
+    // verify the required parameter 'createItemRequest' is set
+    if (createItemRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createItemRequest' when calling createItem"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/types"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createItemRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createItem call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemTypeDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Get all issued items for an environment.
+   * 
+   * @param environmentId  (required)
+   * @param playerId  (optional)
+   * @param gameInventoryId  (optional)
+   * @param dgoodId  (optional, default to -1l)
+   * @return List&lt;IssuedItemDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<IssuedItemDto>> getIssuedItems (String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getIssuedItems"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/issued"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("playerId", playerId));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("gameInventoryId", gameInventoryId));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("dgoodId", dgoodId));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getIssuedItems call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<IssuedItemDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get all item types for an environment
+   * 
+   * @param environmentId  (required)
+   * @param category  (optional)
+   * @param token  (optional)
+   * @return List&lt;ItemTypeDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<ItemTypeDto>> getItemTypes (String environmentId, String category, String token) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getItemTypes"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/types"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("category", category));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("token", token));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getItemTypes call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ItemTypeDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get listed items
+   * Get all listed item for sale
+   * @param environmentId  (required)
+   * @param pageSize  (optional, default to 30)
+   * @param createdTimestamp  (optional, default to -1l)
+   * @param order  (optional, default to DESCENDING)
+   * @param playerId  (optional)
+   * @return List&lt;ListingDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<ListingDto>> getListings (String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getListings"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/listed"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("createdTimestamp", createdTimestamp));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("playerId", playerId));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getListings call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ListingDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get metadata for an issued dgood 
+   * Get metadata for a dgood id.
+   * @param environmentId  (required)
+   * @param gameInventoryId  (optional)
+   * @param dgoodId  (optional, default to -1l)
+   * @return List&lt;DgoodMetadataDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<DgoodMetadataDto>> getMetadata (String environmentId, String gameInventoryId, Long dgoodId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getMetadata"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/issued/metadata"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("gameInventoryId", gameInventoryId));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("dgoodId", dgoodId));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getMetadata call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<DgoodMetadataDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get bought/sold items
+   * Get all bought/sold items for a player
+   * @param environmentId  (required)
+   * @param pageSize  (optional, default to 30)
+   * @param createdTimestamp  (optional, default to -1l)
+   * @param order  (optional, default to DESCENDING)
+   * @param buyerPlayerId  (optional)
+   * @param sellerPlayerId  (optional)
+   * @return List&lt;SoldItemDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<SoldItemDto>> getSoldItems (String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSoldItems"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/buy"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("createdTimestamp", createdTimestamp));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("buyerPlayerId", buyerPlayerId));
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("sellerPlayerId", sellerPlayerId));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getSoldItems call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<SoldItemDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Issue item
+   * Issue instance(s) of an item type to a player
+   * @param environmentId  (required)
+   * @param issueItemRequest  (required)
+   * @return IssuedItemDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<IssuedItemDto> issueItem (String environmentId, IssueItemRequest issueItemRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling issueItem"));
+    }
+    // verify the required parameter 'issueItemRequest' is set
+    if (issueItemRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'issueItemRequest' when calling issueItem"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/issued"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(issueItemRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "issueItem call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<IssuedItemDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * List an item for sale
+   * List an issued item for sale
+   * @param environmentId  (required)
+   * @param listSaleRequest  (required)
+   * @return ListingDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ListingDto> listItem (String environmentId, ListSaleRequest listSaleRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling listItem"));
+    }
+    // verify the required parameter 'listSaleRequest' is set
+    if (listSaleRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'listSaleRequest' when calling listItem"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/listed"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(listSaleRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "listItem call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ListingDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Transfer issued item
+   * Transfer an issued item
+   * @param environmentId  (required)
+   * @param transferItemRequest  (required)
+   * @return ItemActionDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ItemActionDto> transferItem (String environmentId, TransferItemRequest transferItemRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling transferItem"));
+    }
+    // verify the required parameter 'transferItemRequest' is set
+    if (transferItemRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'transferItemRequest' when calling transferItem"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/transfer"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(transferItemRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "transferItem call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Update metadata for a dgood
+   * Update metadata for a dgood
+   * @param environmentId  (required)
+   * @param updateMetadataRequest  (required)
+   * @return DgoodMetadataDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<DgoodMetadataDto> updateMetadata (String environmentId, UpdateMetadataRequest updateMetadataRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateMetadata"));
+    }
+    // verify the required parameter 'updateMetadataRequest' is set
+    if (updateMetadataRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateMetadataRequest' when calling updateMetadata"));
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/items/issued/metadata"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateMetadataRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateMetadata call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<DgoodMetadataDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
 }

@@ -15,96 +15,97 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * ItemTypeDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  ItemTypeDto.JSON_PROPERTY_TRANSFERABLE,
+  ItemTypeDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  ItemTypeDto.JSON_PROPERTY_TOKEN_NAME,
+  ItemTypeDto.JSON_PROPERTY_CURRENT_SUPPLY,
+  ItemTypeDto.JSON_PROPERTY_SELLABLE,
+  ItemTypeDto.JSON_PROPERTY_AGREEMENT_IDS,
+  ItemTypeDto.JSON_PROPERTY_ISSUER,
+  ItemTypeDto.JSON_PROPERTY_TRANSACTION_ID,
+  ItemTypeDto.JSON_PROPERTY_ISSUE_TIME_SPAN,
+  ItemTypeDto.JSON_PROPERTY_FINALIZED,
+  ItemTypeDto.JSON_PROPERTY_ISSUED_SUPPLY,
+  ItemTypeDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  ItemTypeDto.JSON_PROPERTY_CREATED_BY,
+  ItemTypeDto.JSON_PROPERTY_BASE_URI,
+  ItemTypeDto.JSON_PROPERTY_FUNGIBLE,
+  ItemTypeDto.JSON_PROPERTY_BURNABLE,
+  ItemTypeDto.JSON_PROPERTY_ID,
+  ItemTypeDto.JSON_PROPERTY_MAX_SUPPLY,
+  ItemTypeDto.JSON_PROPERTY_CATEGORY
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ItemTypeDto {
-  public static final String SERIALIZED_NAME_TRANSFERABLE = "transferable";
-  @SerializedName(SERIALIZED_NAME_TRANSFERABLE)
+  public static final String JSON_PROPERTY_TRANSFERABLE = "transferable";
   private Boolean transferable;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_TOKEN_NAME = "tokenName";
-  @SerializedName(SERIALIZED_NAME_TOKEN_NAME)
+  public static final String JSON_PROPERTY_TOKEN_NAME = "tokenName";
   private String tokenName;
 
-  public static final String SERIALIZED_NAME_CURRENT_SUPPLY = "currentSupply";
-  @SerializedName(SERIALIZED_NAME_CURRENT_SUPPLY)
+  public static final String JSON_PROPERTY_CURRENT_SUPPLY = "currentSupply";
   private Integer currentSupply;
 
-  public static final String SERIALIZED_NAME_SELLABLE = "sellable";
-  @SerializedName(SERIALIZED_NAME_SELLABLE)
+  public static final String JSON_PROPERTY_SELLABLE = "sellable";
   private Boolean sellable;
 
-  public static final String SERIALIZED_NAME_AGREEMENT_IDS = "agreementIds";
-  @SerializedName(SERIALIZED_NAME_AGREEMENT_IDS)
+  public static final String JSON_PROPERTY_AGREEMENT_IDS = "agreementIds";
   private List<String> agreementIds = null;
 
-  public static final String SERIALIZED_NAME_ISSUER = "issuer";
-  @SerializedName(SERIALIZED_NAME_ISSUER)
+  public static final String JSON_PROPERTY_ISSUER = "issuer";
   private String issuer;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private String transactionId;
 
-  public static final String SERIALIZED_NAME_ISSUE_TIME_SPAN = "issueTimeSpan";
-  @SerializedName(SERIALIZED_NAME_ISSUE_TIME_SPAN)
+  public static final String JSON_PROPERTY_ISSUE_TIME_SPAN = "issueTimeSpan";
   private Integer issueTimeSpan;
 
-  public static final String SERIALIZED_NAME_FINALIZED = "finalized";
-  @SerializedName(SERIALIZED_NAME_FINALIZED)
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;
 
-  public static final String SERIALIZED_NAME_ISSUED_SUPPLY = "issuedSupply";
-  @SerializedName(SERIALIZED_NAME_ISSUED_SUPPLY)
+  public static final String JSON_PROPERTY_ISSUED_SUPPLY = "issuedSupply";
   private Integer issuedSupply;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_BASE_URI = "baseUri";
-  @SerializedName(SERIALIZED_NAME_BASE_URI)
+  public static final String JSON_PROPERTY_BASE_URI = "baseUri";
   private String baseUri;
 
-  public static final String SERIALIZED_NAME_FUNGIBLE = "fungible";
-  @SerializedName(SERIALIZED_NAME_FUNGIBLE)
+  public static final String JSON_PROPERTY_FUNGIBLE = "fungible";
   private Boolean fungible;
 
-  public static final String SERIALIZED_NAME_BURNABLE = "burnable";
-  @SerializedName(SERIALIZED_NAME_BURNABLE)
+  public static final String JSON_PROPERTY_BURNABLE = "burnable";
   private Boolean burnable;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+  public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public static final String SERIALIZED_NAME_MAX_SUPPLY = "maxSupply";
-  @SerializedName(SERIALIZED_NAME_MAX_SUPPLY)
+  public static final String JSON_PROPERTY_MAX_SUPPLY = "maxSupply";
   private Integer maxSupply;
 
-  public static final String SERIALIZED_NAME_CATEGORY = "category";
-  @SerializedName(SERIALIZED_NAME_CATEGORY)
+  public static final String JSON_PROPERTY_CATEGORY = "category";
   private String category;
 
 
@@ -120,6 +121,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSFERABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getTransferable() {
     return transferable;
@@ -143,6 +146,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -166,6 +171,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTokenName() {
     return tokenName;
@@ -189,6 +196,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENT_SUPPLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCurrentSupply() {
     return currentSupply;
@@ -212,6 +221,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SELLABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSellable() {
     return sellable;
@@ -231,7 +242,7 @@ public class ItemTypeDto {
 
   public ItemTypeDto addAgreementIdsItem(String agreementIdsItem) {
     if (this.agreementIds == null) {
-      this.agreementIds = new ArrayList<String>();
+      this.agreementIds = new ArrayList<>();
     }
     this.agreementIds.add(agreementIdsItem);
     return this;
@@ -243,6 +254,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AGREEMENT_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAgreementIds() {
     return agreementIds;
@@ -266,6 +279,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ISSUER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIssuer() {
     return issuer;
@@ -289,6 +304,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionId() {
     return transactionId;
@@ -312,6 +329,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ISSUE_TIME_SPAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getIssueTimeSpan() {
     return issueTimeSpan;
@@ -335,6 +354,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFinalized() {
     return finalized;
@@ -358,6 +379,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ISSUED_SUPPLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getIssuedSupply() {
     return issuedSupply;
@@ -381,6 +404,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -404,6 +429,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -427,6 +454,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BASE_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUri() {
     return baseUri;
@@ -450,6 +479,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FUNGIBLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFungible() {
     return fungible;
@@ -473,6 +504,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BURNABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getBurnable() {
     return burnable;
@@ -496,6 +529,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -519,6 +554,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MAX_SUPPLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxSupply() {
     return maxSupply;
@@ -542,6 +579,8 @@ public class ItemTypeDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CATEGORY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCategory() {
     return category;

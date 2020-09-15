@@ -15,54 +15,55 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * UpdateCustomerRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  UpdateCustomerRequest.JSON_PROPERTY_FIRST_NAME,
+  UpdateCustomerRequest.JSON_PROPERTY_LAST_NAME,
+  UpdateCustomerRequest.JSON_PROPERTY_WEBSITE,
+  UpdateCustomerRequest.JSON_PROPERTY_PHONE,
+  UpdateCustomerRequest.JSON_PROPERTY_CUSTOMER_ID,
+  UpdateCustomerRequest.JSON_PROPERTY_PAYMENT_METHOD_NONCE,
+  UpdateCustomerRequest.JSON_PROPERTY_COMPANY,
+  UpdateCustomerRequest.JSON_PROPERTY_FAX,
+  UpdateCustomerRequest.JSON_PROPERTY_EMAIL
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class UpdateCustomerRequest {
-  public static final String SERIALIZED_NAME_FIRST_NAME = "firstName";
-  @SerializedName(SERIALIZED_NAME_FIRST_NAME)
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;
 
-  public static final String SERIALIZED_NAME_LAST_NAME = "lastName";
-  @SerializedName(SERIALIZED_NAME_LAST_NAME)
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
   private String lastName;
 
-  public static final String SERIALIZED_NAME_WEBSITE = "website";
-  @SerializedName(SERIALIZED_NAME_WEBSITE)
+  public static final String JSON_PROPERTY_WEBSITE = "website";
   private String website;
 
-  public static final String SERIALIZED_NAME_PHONE = "phone";
-  @SerializedName(SERIALIZED_NAME_PHONE)
+  public static final String JSON_PROPERTY_PHONE = "phone";
   private String phone;
 
-  public static final String SERIALIZED_NAME_CUSTOMER_ID = "customerId";
-  @SerializedName(SERIALIZED_NAME_CUSTOMER_ID)
+  public static final String JSON_PROPERTY_CUSTOMER_ID = "customerId";
   private String customerId;
 
-  public static final String SERIALIZED_NAME_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_METHOD_NONCE)
+  public static final String JSON_PROPERTY_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
   private String paymentMethodNonce;
 
-  public static final String SERIALIZED_NAME_COMPANY = "company";
-  @SerializedName(SERIALIZED_NAME_COMPANY)
+  public static final String JSON_PROPERTY_COMPANY = "company";
   private String company;
 
-  public static final String SERIALIZED_NAME_FAX = "fax";
-  @SerializedName(SERIALIZED_NAME_FAX)
+  public static final String JSON_PROPERTY_FAX = "fax";
   private String fax;
 
-  public static final String SERIALIZED_NAME_EMAIL = "email";
-  @SerializedName(SERIALIZED_NAME_EMAIL)
+  public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
 
 
@@ -78,6 +79,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
     return firstName;
@@ -101,6 +104,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
     return lastName;
@@ -124,6 +129,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_WEBSITE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getWebsite() {
     return website;
@@ -147,6 +154,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PHONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPhone() {
     return phone;
@@ -169,6 +178,8 @@ public class UpdateCustomerRequest {
    * @return customerId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getCustomerId() {
     return customerId;
@@ -192,6 +203,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_METHOD_NONCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPaymentMethodNonce() {
     return paymentMethodNonce;
@@ -215,6 +228,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COMPANY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCompany() {
     return company;
@@ -238,6 +253,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFax() {
     return fax;
@@ -261,6 +278,8 @@ public class UpdateCustomerRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEmail() {
     return email;

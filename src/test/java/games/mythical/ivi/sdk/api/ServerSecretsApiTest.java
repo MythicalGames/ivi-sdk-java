@@ -13,12 +13,13 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateServerSecretRequest;
 import games.mythical.ivi.sdk.model.ServerSecretDto;
 import java.util.UUID;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,111 +29,108 @@ import java.util.Map;
 /**
  * API tests for ServerSecretsApi
  */
-@Ignore
 public class ServerSecretsApiTest {
 
     private final ServerSecretsApi api = new ServerSecretsApi();
 
-    
     /**
      * Create server secret for organization
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void createServerSecretForEnvironmentTest() throws ApiException {
-        UUID organizationId = null;
-        CreateServerSecretRequest createServerSecretRequest = null;
-        ServerSecretDto response = api.createServerSecretForEnvironment(organizationId, createServerSecretRequest);
+        //
+        //UUID organizationId = null;
+        //
+        //CreateServerSecretRequest createServerSecretRequest = null;
+        //
+        //ServerSecretDto response = api.createServerSecretForEnvironment(organizationId, createServerSecretRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Delete server secret for environment by secret ID
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void deleteServerSecretTest() throws ApiException {
-        UUID organizationId = null;
-        String secretId = null;
-        api.deleteServerSecret(organizationId, secretId);
+        //
+        //UUID organizationId = null;
+        //
+        //String secretId = null;
+        //
+        //api.deleteServerSecret(organizationId, secretId);
 
         // TODO: test validations
     }
-    
     /**
      * Disable server secret by secret ID
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void disableServerSecretTest() throws ApiException {
-        UUID organizationId = null;
-        String secretId = null;
-        api.disableServerSecret(organizationId, secretId);
+        //
+        //UUID organizationId = null;
+        //
+        //String secretId = null;
+        //
+        //api.disableServerSecret(organizationId, secretId);
 
         // TODO: test validations
     }
-    
     /**
      * Enable server secret by secret ID
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void enableServerSecretTest() throws ApiException {
-        UUID organizationId = null;
-        String secretId = null;
-        api.enableServerSecret(organizationId, secretId);
+        //
+        //UUID organizationId = null;
+        //
+        //String secretId = null;
+        //
+        //api.enableServerSecret(organizationId, secretId);
 
         // TODO: test validations
     }
-    
     /**
      * Get server secret for environment by secret ID
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getServerSecretByIdTest() throws ApiException {
-        UUID organizationId = null;
-        String secretId = null;
-        ServerSecretDto response = api.getServerSecretById(organizationId, secretId);
+        //
+        //UUID organizationId = null;
+        //
+        //String secretId = null;
+        //
+        //ServerSecretDto response = api.getServerSecretById(organizationId, secretId);
 
         // TODO: test validations
     }
-    
     /**
      * Get server secrets defined for organization
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getServerSecretsForEnvironmentTest() throws ApiException {
-        UUID organizationId = null;
-        List<ServerSecretDto> response = api.getServerSecretsForEnvironment(organizationId);
+        //
+        //UUID organizationId = null;
+        //
+        //List<ServerSecretDto> response = api.getServerSecretsForEnvironment(organizationId);
 
         // TODO: test validations
     }
-    
 }

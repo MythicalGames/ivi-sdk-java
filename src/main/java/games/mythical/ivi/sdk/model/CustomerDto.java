@@ -15,57 +15,58 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.PaymentMethodDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CustomerDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CustomerDto.JSON_PROPERTY_FIRST_NAME,
+  CustomerDto.JSON_PROPERTY_LAST_NAME,
+  CustomerDto.JSON_PROPERTY_WEBSITE,
+  CustomerDto.JSON_PROPERTY_PHONE,
+  CustomerDto.JSON_PROPERTY_PAYMENT_METHODS,
+  CustomerDto.JSON_PROPERTY_COMPANY,
+  CustomerDto.JSON_PROPERTY_ID,
+  CustomerDto.JSON_PROPERTY_FAX,
+  CustomerDto.JSON_PROPERTY_EMAIL
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CustomerDto {
-  public static final String SERIALIZED_NAME_FIRST_NAME = "firstName";
-  @SerializedName(SERIALIZED_NAME_FIRST_NAME)
+  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;
 
-  public static final String SERIALIZED_NAME_LAST_NAME = "lastName";
-  @SerializedName(SERIALIZED_NAME_LAST_NAME)
+  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
   private String lastName;
 
-  public static final String SERIALIZED_NAME_WEBSITE = "website";
-  @SerializedName(SERIALIZED_NAME_WEBSITE)
+  public static final String JSON_PROPERTY_WEBSITE = "website";
   private String website;
 
-  public static final String SERIALIZED_NAME_PHONE = "phone";
-  @SerializedName(SERIALIZED_NAME_PHONE)
+  public static final String JSON_PROPERTY_PHONE = "phone";
   private String phone;
 
-  public static final String SERIALIZED_NAME_PAYMENT_METHODS = "paymentMethods";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_METHODS)
+  public static final String JSON_PROPERTY_PAYMENT_METHODS = "paymentMethods";
   private List<PaymentMethodDto> paymentMethods = null;
 
-  public static final String SERIALIZED_NAME_COMPANY = "company";
-  @SerializedName(SERIALIZED_NAME_COMPANY)
+  public static final String JSON_PROPERTY_COMPANY = "company";
   private String company;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+  public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public static final String SERIALIZED_NAME_FAX = "fax";
-  @SerializedName(SERIALIZED_NAME_FAX)
+  public static final String JSON_PROPERTY_FAX = "fax";
   private String fax;
 
-  public static final String SERIALIZED_NAME_EMAIL = "email";
-  @SerializedName(SERIALIZED_NAME_EMAIL)
+  public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
 
 
@@ -81,6 +82,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
     return firstName;
@@ -104,6 +107,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
     return lastName;
@@ -127,6 +132,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_WEBSITE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getWebsite() {
     return website;
@@ -150,6 +157,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PHONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPhone() {
     return phone;
@@ -169,7 +178,7 @@ public class CustomerDto {
 
   public CustomerDto addPaymentMethodsItem(PaymentMethodDto paymentMethodsItem) {
     if (this.paymentMethods == null) {
-      this.paymentMethods = new ArrayList<PaymentMethodDto>();
+      this.paymentMethods = new ArrayList<>();
     }
     this.paymentMethods.add(paymentMethodsItem);
     return this;
@@ -181,6 +190,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_METHODS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PaymentMethodDto> getPaymentMethods() {
     return paymentMethods;
@@ -204,6 +215,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COMPANY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCompany() {
     return company;
@@ -227,6 +240,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -250,6 +265,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFax() {
     return fax;
@@ -273,6 +290,8 @@ public class CustomerDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEmail() {
     return email;

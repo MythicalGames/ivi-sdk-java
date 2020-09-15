@@ -13,12 +13,13 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateWebhookRequest;
 import games.mythical.ivi.sdk.model.UpdateWebhookRequest;
 import games.mythical.ivi.sdk.model.WebhookDto;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +29,10 @@ import java.util.Map;
 /**
  * API tests for WebhooksApi
  */
-@Ignore
 public class WebhooksApiTest {
 
     private final WebhooksApi api = new WebhooksApi();
 
-    
     /**
      * Create webhook
      *
@@ -44,13 +43,15 @@ public class WebhooksApiTest {
      */
     @Test
     public void createNewWebhookTest() throws ApiException {
-        String environmentId = null;
-        CreateWebhookRequest createWebhookRequest = null;
-        WebhookDto response = api.createNewWebhook(environmentId, createWebhookRequest);
+        //
+        //String environmentId = null;
+        //
+        //CreateWebhookRequest createWebhookRequest = null;
+        //
+        //WebhookDto response = api.createNewWebhook(environmentId, createWebhookRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Delete webhook
      *
@@ -61,13 +62,15 @@ public class WebhooksApiTest {
      */
     @Test
     public void deleteWebhookTest() throws ApiException {
-        String environmentId = null;
-        String webhookId = null;
-        api.deleteWebhook(environmentId, webhookId);
+        //
+        //String environmentId = null;
+        //
+        //String webhookId = null;
+        //
+        //api.deleteWebhook(environmentId, webhookId);
 
         // TODO: test validations
     }
-    
     /**
      * Disable webhook
      *
@@ -78,13 +81,15 @@ public class WebhooksApiTest {
      */
     @Test
     public void disableWebhookTest() throws ApiException {
-        String environmentId = null;
-        String webhookId = null;
-        api.disableWebhook(environmentId, webhookId);
+        //
+        //String environmentId = null;
+        //
+        //String webhookId = null;
+        //
+        //api.disableWebhook(environmentId, webhookId);
 
         // TODO: test validations
     }
-    
     /**
      * Enable webhook
      *
@@ -95,13 +100,15 @@ public class WebhooksApiTest {
      */
     @Test
     public void enableWebhookTest() throws ApiException {
-        String environmentId = null;
-        String webhookId = null;
-        api.enableWebhook(environmentId, webhookId);
+        //
+        //String environmentId = null;
+        //
+        //String webhookId = null;
+        //
+        //api.enableWebhook(environmentId, webhookId);
 
         // TODO: test validations
     }
-    
     /**
      * Get webhook
      *
@@ -112,13 +119,15 @@ public class WebhooksApiTest {
      */
     @Test
     public void getWebhookTest() throws ApiException {
-        String environmentId = null;
-        String webhookId = null;
-        WebhookDto response = api.getWebhook(environmentId, webhookId);
+        //
+        //String environmentId = null;
+        //
+        //String webhookId = null;
+        //
+        //WebhookDto response = api.getWebhook(environmentId, webhookId);
 
         // TODO: test validations
     }
-    
     /**
      * Get all webhooks for environment
      *
@@ -129,12 +138,13 @@ public class WebhooksApiTest {
      */
     @Test
     public void getWebhooksForTitleIdTest() throws ApiException {
-        String environmentId = null;
-        List<WebhookDto> response = api.getWebhooksForTitleId(environmentId);
+        //
+        //String environmentId = null;
+        //
+        //List<WebhookDto> response = api.getWebhooksForTitleId(environmentId);
 
         // TODO: test validations
     }
-    
     /**
      * Update webhook
      *
@@ -145,12 +155,15 @@ public class WebhooksApiTest {
      */
     @Test
     public void updateWebhookTest() throws ApiException {
-        String environmentId = null;
-        String webhookId = null;
-        UpdateWebhookRequest updateWebhookRequest = null;
-        WebhookDto response = api.updateWebhook(environmentId, webhookId, updateWebhookRequest);
+        //
+        //String environmentId = null;
+        //
+        //String webhookId = null;
+        //
+        //UpdateWebhookRequest updateWebhookRequest = null;
+        //
+        //WebhookDto response = api.updateWebhook(environmentId, webhookId, updateWebhookRequest);
 
         // TODO: test validations
     }
-    
 }

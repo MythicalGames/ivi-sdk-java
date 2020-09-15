@@ -13,7 +13,7 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.BurnItemRequest;
 import games.mythical.ivi.sdk.model.BuyListingRequest;
 import games.mythical.ivi.sdk.model.CloseSaleRequest;
@@ -30,6 +30,7 @@ import games.mythical.ivi.sdk.model.TransferItemRequest;
 import games.mythical.ivi.sdk.model.UpdateMetadataRequest;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,12 +40,10 @@ import java.util.Map;
 /**
  * API tests for ItemsApi
  */
-@Ignore
 public class ItemsApiTest {
 
     private final ItemsApi api = new ItemsApi();
 
-    
     /**
      * Burn issued item
      *
@@ -55,13 +54,15 @@ public class ItemsApiTest {
      */
     @Test
     public void burnItemTest() throws ApiException {
-        String environmentId = null;
-        BurnItemRequest burnItemRequest = null;
-        ItemActionDto response = api.burnItem(environmentId, burnItemRequest);
+        //
+        //String environmentId = null;
+        //
+        //BurnItemRequest burnItemRequest = null;
+        //
+        //ItemActionDto response = api.burnItem(environmentId, burnItemRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Purchase an item
      *
@@ -72,13 +73,15 @@ public class ItemsApiTest {
      */
     @Test
     public void buyListingTest() throws ApiException {
-        String environmentId = null;
-        BuyListingRequest buyListingRequest = null;
-        SoldItemDto response = api.buyListing(environmentId, buyListingRequest);
+        //
+        //String environmentId = null;
+        //
+        //BuyListingRequest buyListingRequest = null;
+        //
+        //SoldItemDto response = api.buyListing(environmentId, buyListingRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Close a sale
      *
@@ -89,13 +92,15 @@ public class ItemsApiTest {
      */
     @Test
     public void closeSaleTest() throws ApiException {
-        String environmentId = null;
-        CloseSaleRequest closeSaleRequest = null;
-        ItemActionDto response = api.closeSale(environmentId, closeSaleRequest);
+        //
+        //String environmentId = null;
+        //
+        //CloseSaleRequest closeSaleRequest = null;
+        //
+        //ItemActionDto response = api.closeSale(environmentId, closeSaleRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Create item type
      *
@@ -106,50 +111,55 @@ public class ItemsApiTest {
      */
     @Test
     public void createItemTest() throws ApiException {
-        String environmentId = null;
-        CreateItemRequest createItemRequest = null;
-        ItemTypeDto response = api.createItem(environmentId, createItemRequest);
+        //
+        //String environmentId = null;
+        //
+        //CreateItemRequest createItemRequest = null;
+        //
+        //ItemTypeDto response = api.createItem(environmentId, createItemRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Get all issued items for an environment.
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getIssuedItemsTest() throws ApiException {
-        String environmentId = null;
-        String playerId = null;
-        String gameInventoryId = null;
-        Long dgoodId = null;
-        List<IssuedItemDto> response = api.getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId);
+        //
+        //String environmentId = null;
+        //
+        //String playerId = null;
+        //
+        //String gameInventoryId = null;
+        //
+        //Long dgoodId = null;
+        //
+        //List<IssuedItemDto> response = api.getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId);
 
         // TODO: test validations
     }
-    
     /**
      * Get all item types for an environment
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getItemTypesTest() throws ApiException {
-        String environmentId = null;
-        String category = null;
-        String token = null;
-        List<ItemTypeDto> response = api.getItemTypes(environmentId, category, token);
+        //
+        //String environmentId = null;
+        //
+        //String category = null;
+        //
+        //String token = null;
+        //
+        //List<ItemTypeDto> response = api.getItemTypes(environmentId, category, token);
 
         // TODO: test validations
     }
-    
     /**
      * Get listed items
      *
@@ -160,16 +170,21 @@ public class ItemsApiTest {
      */
     @Test
     public void getListingsTest() throws ApiException {
-        String environmentId = null;
-        Integer pageSize = null;
-        Long createdTimestamp = null;
-        String order = null;
-        String playerId = null;
-        List<ListingDto> response = api.getListings(environmentId, pageSize, createdTimestamp, order, playerId);
+        //
+        //String environmentId = null;
+        //
+        //Integer pageSize = null;
+        //
+        //Long createdTimestamp = null;
+        //
+        //String order = null;
+        //
+        //String playerId = null;
+        //
+        //List<ListingDto> response = api.getListings(environmentId, pageSize, createdTimestamp, order, playerId);
 
         // TODO: test validations
     }
-    
     /**
      * Get metadata for an issued dgood 
      *
@@ -180,14 +195,17 @@ public class ItemsApiTest {
      */
     @Test
     public void getMetadataTest() throws ApiException {
-        String environmentId = null;
-        String gameInventoryId = null;
-        Long dgoodId = null;
-        List<DgoodMetadataDto> response = api.getMetadata(environmentId, gameInventoryId, dgoodId);
+        //
+        //String environmentId = null;
+        //
+        //String gameInventoryId = null;
+        //
+        //Long dgoodId = null;
+        //
+        //List<DgoodMetadataDto> response = api.getMetadata(environmentId, gameInventoryId, dgoodId);
 
         // TODO: test validations
     }
-    
     /**
      * Get bought/sold items
      *
@@ -198,17 +216,23 @@ public class ItemsApiTest {
      */
     @Test
     public void getSoldItemsTest() throws ApiException {
-        String environmentId = null;
-        Integer pageSize = null;
-        Long createdTimestamp = null;
-        String order = null;
-        String buyerPlayerId = null;
-        String sellerPlayerId = null;
-        List<SoldItemDto> response = api.getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
+        //
+        //String environmentId = null;
+        //
+        //Integer pageSize = null;
+        //
+        //Long createdTimestamp = null;
+        //
+        //String order = null;
+        //
+        //String buyerPlayerId = null;
+        //
+        //String sellerPlayerId = null;
+        //
+        //List<SoldItemDto> response = api.getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
 
         // TODO: test validations
     }
-    
     /**
      * Issue item
      *
@@ -219,13 +243,15 @@ public class ItemsApiTest {
      */
     @Test
     public void issueItemTest() throws ApiException {
-        String environmentId = null;
-        IssueItemRequest issueItemRequest = null;
-        IssuedItemDto response = api.issueItem(environmentId, issueItemRequest);
+        //
+        //String environmentId = null;
+        //
+        //IssueItemRequest issueItemRequest = null;
+        //
+        //IssuedItemDto response = api.issueItem(environmentId, issueItemRequest);
 
         // TODO: test validations
     }
-    
     /**
      * List an item for sale
      *
@@ -236,13 +262,15 @@ public class ItemsApiTest {
      */
     @Test
     public void listItemTest() throws ApiException {
-        String environmentId = null;
-        ListSaleRequest listSaleRequest = null;
-        ListingDto response = api.listItem(environmentId, listSaleRequest);
+        //
+        //String environmentId = null;
+        //
+        //ListSaleRequest listSaleRequest = null;
+        //
+        //ListingDto response = api.listItem(environmentId, listSaleRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Transfer issued item
      *
@@ -253,13 +281,15 @@ public class ItemsApiTest {
      */
     @Test
     public void transferItemTest() throws ApiException {
-        String environmentId = null;
-        TransferItemRequest transferItemRequest = null;
-        ItemActionDto response = api.transferItem(environmentId, transferItemRequest);
+        //
+        //String environmentId = null;
+        //
+        //TransferItemRequest transferItemRequest = null;
+        //
+        //ItemActionDto response = api.transferItem(environmentId, transferItemRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Update metadata for a dgood
      *
@@ -270,11 +300,13 @@ public class ItemsApiTest {
      */
     @Test
     public void updateMetadataTest() throws ApiException {
-        String environmentId = null;
-        UpdateMetadataRequest updateMetadataRequest = null;
-        DgoodMetadataDto response = api.updateMetadata(environmentId, updateMetadataRequest);
+        //
+        //String environmentId = null;
+        //
+        //UpdateMetadataRequest updateMetadataRequest = null;
+        //
+        //DgoodMetadataDto response = api.updateMetadata(environmentId, updateMetadataRequest);
 
         // TODO: test validations
     }
-    
 }

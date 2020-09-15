@@ -15,84 +15,85 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * AgreementDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  AgreementDto.JSON_PROPERTY_TIME_FRAME_START,
+  AgreementDto.JSON_PROPERTY_NOTES,
+  AgreementDto.JSON_PROPERTY_PAY_SCHEDULE,
+  AgreementDto.JSON_PROPERTY_TIME_FRAME_END,
+  AgreementDto.JSON_PROPERTY_TITLE_ID,
+  AgreementDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  AgreementDto.JSON_PROPERTY_ACTIVE,
+  AgreementDto.JSON_PROPERTY_GUARANTEE,
+  AgreementDto.JSON_PROPERTY_ITEM_TYPE_NAMES,
+  AgreementDto.JSON_PROPERTY_REV_SHARE_INITIAL,
+  AgreementDto.JSON_PROPERTY_CREATED_BY,
+  AgreementDto.JSON_PROPERTY_NAME,
+  AgreementDto.JSON_PROPERTY_REV_SHARE_RESALE,
+  AgreementDto.JSON_PROPERTY_CURRENCY,
+  AgreementDto.JSON_PROPERTY_ID,
+  AgreementDto.JSON_PROPERTY_PARTNER_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class AgreementDto {
-  public static final String SERIALIZED_NAME_TIME_FRAME_START = "timeFrameStart";
-  @SerializedName(SERIALIZED_NAME_TIME_FRAME_START)
+  public static final String JSON_PROPERTY_TIME_FRAME_START = "timeFrameStart";
   private Long timeFrameStart;
 
-  public static final String SERIALIZED_NAME_NOTES = "notes";
-  @SerializedName(SERIALIZED_NAME_NOTES)
+  public static final String JSON_PROPERTY_NOTES = "notes";
   private String notes;
 
-  public static final String SERIALIZED_NAME_PAY_SCHEDULE = "paySchedule";
-  @SerializedName(SERIALIZED_NAME_PAY_SCHEDULE)
+  public static final String JSON_PROPERTY_PAY_SCHEDULE = "paySchedule";
   private String paySchedule;
 
-  public static final String SERIALIZED_NAME_TIME_FRAME_END = "timeFrameEnd";
-  @SerializedName(SERIALIZED_NAME_TIME_FRAME_END)
+  public static final String JSON_PROPERTY_TIME_FRAME_END = "timeFrameEnd";
   private Long timeFrameEnd;
 
-  public static final String SERIALIZED_NAME_TITLE_ID = "titleId";
-  @SerializedName(SERIALIZED_NAME_TITLE_ID)
+  public static final String JSON_PROPERTY_TITLE_ID = "titleId";
   private String titleId;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_ACTIVE = "active";
-  @SerializedName(SERIALIZED_NAME_ACTIVE)
+  public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
 
-  public static final String SERIALIZED_NAME_GUARANTEE = "guarantee";
-  @SerializedName(SERIALIZED_NAME_GUARANTEE)
+  public static final String JSON_PROPERTY_GUARANTEE = "guarantee";
   private Integer guarantee;
 
-  public static final String SERIALIZED_NAME_ITEM_TYPE_NAMES = "itemTypeNames";
-  @SerializedName(SERIALIZED_NAME_ITEM_TYPE_NAMES)
+  public static final String JSON_PROPERTY_ITEM_TYPE_NAMES = "itemTypeNames";
   private List<String> itemTypeNames = null;
 
-  public static final String SERIALIZED_NAME_REV_SHARE_INITIAL = "revShareInitial";
-  @SerializedName(SERIALIZED_NAME_REV_SHARE_INITIAL)
+  public static final String JSON_PROPERTY_REV_SHARE_INITIAL = "revShareInitial";
   private Double revShareInitial;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_REV_SHARE_RESALE = "revShareResale";
-  @SerializedName(SERIALIZED_NAME_REV_SHARE_RESALE)
+  public static final String JSON_PROPERTY_REV_SHARE_RESALE = "revShareResale";
   private Double revShareResale;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
+  public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public static final String SERIALIZED_NAME_PARTNER_ID = "partnerId";
-  @SerializedName(SERIALIZED_NAME_PARTNER_ID)
+  public static final String JSON_PROPERTY_PARTNER_ID = "partnerId";
   private String partnerId;
 
 
@@ -108,6 +109,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TIME_FRAME_START)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTimeFrameStart() {
     return timeFrameStart;
@@ -131,6 +134,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NOTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNotes() {
     return notes;
@@ -154,6 +159,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAY_SCHEDULE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPaySchedule() {
     return paySchedule;
@@ -177,6 +184,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TIME_FRAME_END)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTimeFrameEnd() {
     return timeFrameEnd;
@@ -200,6 +209,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TITLE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitleId() {
     return titleId;
@@ -223,6 +234,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -246,6 +259,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getActive() {
     return active;
@@ -269,6 +284,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_GUARANTEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getGuarantee() {
     return guarantee;
@@ -288,7 +305,7 @@ public class AgreementDto {
 
   public AgreementDto addItemTypeNamesItem(String itemTypeNamesItem) {
     if (this.itemTypeNames == null) {
-      this.itemTypeNames = new ArrayList<String>();
+      this.itemTypeNames = new ArrayList<>();
     }
     this.itemTypeNames.add(itemTypeNamesItem);
     return this;
@@ -300,6 +317,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_TYPE_NAMES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getItemTypeNames() {
     return itemTypeNames;
@@ -323,6 +342,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REV_SHARE_INITIAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Double getRevShareInitial() {
     return revShareInitial;
@@ -346,6 +367,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -369,6 +392,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -392,6 +417,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REV_SHARE_RESALE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Double getRevShareResale() {
     return revShareResale;
@@ -415,6 +442,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrency() {
     return currency;
@@ -438,6 +467,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -461,6 +492,8 @@ public class AgreementDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PARTNER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPartnerId() {
     return partnerId;

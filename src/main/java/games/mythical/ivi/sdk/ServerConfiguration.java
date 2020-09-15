@@ -1,4 +1,4 @@
-package games.mythical.ivi.sdk.invoker;
+package games.mythical.ivi.sdk;
 
 import java.util.Map;
 

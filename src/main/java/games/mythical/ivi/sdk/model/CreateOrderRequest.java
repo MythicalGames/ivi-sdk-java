@@ -15,55 +15,56 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.PostalAddress;
 import games.mythical.ivi.sdk.model.TokenCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateOrderRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateOrderRequest.JSON_PROPERTY_ITEM_TYPES,
+  CreateOrderRequest.JSON_PROPERTY_METADATA,
+  CreateOrderRequest.JSON_PROPERTY_ADDRESS,
+  CreateOrderRequest.JSON_PROPERTY_PLATFORM_USER_ID,
+  CreateOrderRequest.JSON_PROPERTY_REQUEST_IP,
+  CreateOrderRequest.JSON_PROPERTY_SUB_TOTAL,
+  CreateOrderRequest.JSON_PROPERTY_PAYMENT_PROVIDER_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateOrderRequest {
-  public static final String SERIALIZED_NAME_ITEM_TYPES = "itemTypes";
-  @SerializedName(SERIALIZED_NAME_ITEM_TYPES)
+  public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
   private List<TokenCategory> itemTypes = null;
 
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
+  public static final String JSON_PROPERTY_METADATA = "metadata";
   private Map<String, Object> metadata = null;
 
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  public static final String JSON_PROPERTY_ADDRESS = "address";
   private PostalAddress address;
 
-  public static final String SERIALIZED_NAME_PLATFORM_USER_ID = "platformUserId";
-  @SerializedName(SERIALIZED_NAME_PLATFORM_USER_ID)
+  public static final String JSON_PROPERTY_PLATFORM_USER_ID = "platformUserId";
   private String platformUserId;
 
-  public static final String SERIALIZED_NAME_REQUEST_IP = "requestIp";
-  @SerializedName(SERIALIZED_NAME_REQUEST_IP)
+  public static final String JSON_PROPERTY_REQUEST_IP = "requestIp";
   private String requestIp;
 
-  public static final String SERIALIZED_NAME_SUB_TOTAL = "subTotal";
-  @SerializedName(SERIALIZED_NAME_SUB_TOTAL)
+  public static final String JSON_PROPERTY_SUB_TOTAL = "subTotal";
   private BigDecimal subTotal;
 
   /**
    * Gets or Sets paymentProviderId
    */
-  @JsonAdapter(PaymentProviderIdEnum.Adapter.class)
   public enum PaymentProviderIdEnum {
     BRAINTREE("BRAINTREE"),
     
@@ -77,6 +78,7 @@ public class CreateOrderRequest {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -86,6 +88,7 @@ public class CreateOrderRequest {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static PaymentProviderIdEnum fromValue(String value) {
       for (PaymentProviderIdEnum b : PaymentProviderIdEnum.values()) {
         if (b.value.equals(value)) {
@@ -94,23 +97,9 @@ public class CreateOrderRequest {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<PaymentProviderIdEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PaymentProviderIdEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PaymentProviderIdEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return PaymentProviderIdEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_PAYMENT_PROVIDER_ID = "paymentProviderId";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_PROVIDER_ID)
+  public static final String JSON_PROPERTY_PAYMENT_PROVIDER_ID = "paymentProviderId";
   private PaymentProviderIdEnum paymentProviderId;
 
 
@@ -122,7 +111,7 @@ public class CreateOrderRequest {
 
   public CreateOrderRequest addItemTypesItem(TokenCategory itemTypesItem) {
     if (this.itemTypes == null) {
-      this.itemTypes = new ArrayList<TokenCategory>();
+      this.itemTypes = new ArrayList<>();
     }
     this.itemTypes.add(itemTypesItem);
     return this;
@@ -134,6 +123,8 @@ public class CreateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "[{\"category\":\"blanko\",\"token\":\"seafarer.da\"}]", value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TokenCategory> getItemTypes() {
     return itemTypes;
@@ -153,7 +144,7 @@ public class CreateOrderRequest {
 
   public CreateOrderRequest putMetadataItem(String key, Object metadataItem) {
     if (this.metadata == null) {
-      this.metadata = new HashMap<String, Object>();
+      this.metadata = new HashMap<>();
     }
     this.metadata.put(key, metadataItem);
     return this;
@@ -165,6 +156,8 @@ public class CreateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "{\"dgood_id\":1}", value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getMetadata() {
     return metadata;
@@ -188,6 +181,8 @@ public class CreateOrderRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PostalAddress getAddress() {
     return address;
@@ -210,6 +205,8 @@ public class CreateOrderRequest {
    * @return platformUserId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_PLATFORM_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPlatformUserId() {
     return platformUserId;
@@ -232,6 +229,8 @@ public class CreateOrderRequest {
    * @return requestIp
   **/
   @ApiModelProperty(example = "104.172.16.113", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_REQUEST_IP)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getRequestIp() {
     return requestIp;
@@ -254,6 +253,8 @@ public class CreateOrderRequest {
    * @return subTotal
   **/
   @ApiModelProperty(example = "19.99", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_SUB_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public BigDecimal getSubTotal() {
     return subTotal;
@@ -276,6 +277,8 @@ public class CreateOrderRequest {
    * @return paymentProviderId
   **/
   @ApiModelProperty(example = "BRAINTREE", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PaymentProviderIdEnum getPaymentProviderId() {
     return paymentProviderId;

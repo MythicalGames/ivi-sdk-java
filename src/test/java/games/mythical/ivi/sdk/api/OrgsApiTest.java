@@ -13,7 +13,7 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.CreateTitleRequest;
 import games.mythical.ivi.sdk.model.InviteDto;
 import games.mythical.ivi.sdk.model.InviteUserToOrganizationRequest;
@@ -26,6 +26,7 @@ import games.mythical.ivi.sdk.model.UpdatePartnerRequest;
 import games.mythical.ivi.sdk.model.UserDto;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,29 +36,27 @@ import java.util.Map;
 /**
  * API tests for OrgsApi
  */
-@Ignore
 public class OrgsApiTest {
 
     private final OrgsApi api = new OrgsApi();
 
-    
     /**
      * Accept an invitation to organization
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void acceptInvitationTest() throws ApiException {
-        String organizationId = null;
-        String inviteId = null;
-        api.acceptInvitation(organizationId, inviteId);
+        //
+        //String organizationId = null;
+        //
+        //String inviteId = null;
+        //
+        //api.acceptInvitation(organizationId, inviteId);
 
         // TODO: test validations
     }
-    
     /**
      * Create title
      *
@@ -68,13 +67,15 @@ public class OrgsApiTest {
      */
     @Test
     public void createNewTitleTest() throws ApiException {
-        String organizationId = null;
-        CreateTitleRequest createTitleRequest = null;
-        TitleDto response = api.createNewTitle(organizationId, createTitleRequest);
+        //
+        //String organizationId = null;
+        //
+        //CreateTitleRequest createTitleRequest = null;
+        //
+        //TitleDto response = api.createNewTitle(organizationId, createTitleRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Get organization
      *
@@ -85,28 +86,28 @@ public class OrgsApiTest {
      */
     @Test
     public void getOrgTest() throws ApiException {
-        String organizationId = null;
-        OrganizationDto response = api.getOrg(organizationId);
+        //
+        //String organizationId = null;
+        //
+        //OrganizationDto response = api.getOrg(organizationId);
 
         // TODO: test validations
     }
-    
     /**
      * Get organization pending invites
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getPendingInvitesTest() throws ApiException {
-        String organizationId = null;
-        List<InviteDto> response = api.getPendingInvites(organizationId);
+        //
+        //String organizationId = null;
+        //
+        //List<InviteDto> response = api.getPendingInvites(organizationId);
 
         // TODO: test validations
     }
-    
     /**
      * Get titles
      *
@@ -117,13 +118,15 @@ public class OrgsApiTest {
      */
     @Test
     public void getTitlesTest() throws ApiException {
-        String organizationId = null;
-        Boolean includeInactive = null;
-        List<TitleDto> response = api.getTitles(organizationId, includeInactive);
+        //
+        //String organizationId = null;
+        //
+        //Boolean includeInactive = null;
+        //
+        //List<TitleDto> response = api.getTitles(organizationId, includeInactive);
 
         // TODO: test validations
     }
-    
     /**
      * Get users
      *
@@ -134,79 +137,81 @@ public class OrgsApiTest {
      */
     @Test
     public void getUsersForOrganizationTest() throws ApiException {
-        String organizationId = null;
-        List<UserDto> response = api.getUsersForOrganization(organizationId);
+        //
+        //String organizationId = null;
+        //
+        //List<UserDto> response = api.getUsersForOrganization(organizationId);
 
         // TODO: test validations
     }
-    
     /**
      * Invite a user to organization
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void inviteUserToOrgTest() throws ApiException {
-        String organizationId = null;
-        List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest = null;
-        List<InviteDto> response = api.inviteUserToOrg(organizationId, inviteUserToOrganizationRequest);
+        //
+        //String organizationId = null;
+        //
+        //List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest = null;
+        //
+        //List<InviteDto> response = api.inviteUserToOrg(organizationId, inviteUserToOrganizationRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Update organization details
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void updateOrgTest() throws ApiException {
-        String organizationId = null;
-        UpdateOrganizationRequest updateOrganizationRequest = null;
-        OrganizationDto response = api.updateOrg(organizationId, updateOrganizationRequest);
+        //
+        //String organizationId = null;
+        //
+        //UpdateOrganizationRequest updateOrganizationRequest = null;
+        //
+        //OrganizationDto response = api.updateOrg(organizationId, updateOrganizationRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Update organization user role
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void updateOrgRoleTest() throws ApiException {
-        String organizationId = null;
-        String platformUserId = null;
-        UpdateOrganizationRoleRequest updateOrganizationRoleRequest = null;
-        api.updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest);
+        //
+        //String organizationId = null;
+        //
+        //String platformUserId = null;
+        //
+        //UpdateOrganizationRoleRequest updateOrganizationRoleRequest = null;
+        //
+        //api.updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest);
 
         // TODO: test validations
     }
-    
     /**
      * Update partner details
-     *
-     * 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void updatePartnerTest() throws ApiException {
-        String organizationId = null;
-        UpdatePartnerRequest updatePartnerRequest = null;
-        PartnerDto response = api.updatePartner(organizationId, updatePartnerRequest);
+        //
+        //String organizationId = null;
+        //
+        //UpdatePartnerRequest updatePartnerRequest = null;
+        //
+        //PartnerDto response = api.updatePartner(organizationId, updatePartnerRequest);
 
         // TODO: test validations
     }
-    
 }

@@ -10,534 +10,272 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.CreateVirtualCurrencyRequest;
 import games.mythical.ivi.sdk.model.VirtualCurrencyDto;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class VirtualCurrenciesApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public VirtualCurrenciesApi() {
+    this(new ApiClient());
+  }
 
-    public VirtualCurrenciesApi() {
-        this(Configuration.getDefaultApiClient());
+  public VirtualCurrenciesApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Add new virtual currency to environment
+   * 
+   * @param environmentId  (required)
+   * @param createVirtualCurrencyRequest  (required)
+   * @return VirtualCurrencyDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<VirtualCurrencyDto> addSupportedCurrencyForEnvironment (String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling addSupportedCurrencyForEnvironment"));
+    }
+    // verify the required parameter 'createVirtualCurrencyRequest' is set
+    if (createVirtualCurrencyRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createVirtualCurrencyRequest' when calling addSupportedCurrencyForEnvironment"));
     }
 
-    public VirtualCurrenciesApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/currencies"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createVirtualCurrencyRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "addSupportedCurrencyForEnvironment call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<VirtualCurrencyDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Delete virtual currency for environment by abbreviation
+   * 
+   * @param environmentId  (required)
+   * @param abbreviation  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> deleteSupportedCurrencyByAbbreviation (String environmentId, String abbreviation) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteSupportedCurrencyByAbbreviation"));
+    }
+    // verify the required parameter 'abbreviation' is set
+    if (abbreviation == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'abbreviation' when calling deleteSupportedCurrencyByAbbreviation"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/currencies/{abbreviation}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{abbreviation}", ApiClient.urlEncode(abbreviation.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "deleteSupportedCurrencyByAbbreviation call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get virtual currency for environment by abbreviation
+   * 
+   * @param environmentId  (required)
+   * @param abbreviation  (required)
+   * @return VirtualCurrencyDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<VirtualCurrencyDto> getSupportedCurrencyByAbbreviation (String environmentId, String abbreviation) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSupportedCurrencyByAbbreviation"));
+    }
+    // verify the required parameter 'abbreviation' is set
+    if (abbreviation == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'abbreviation' when calling getSupportedCurrencyByAbbreviation"));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/currencies/{abbreviation}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{abbreviation}", ApiClient.urlEncode(abbreviation.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getSupportedCurrencyByAbbreviation call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<VirtualCurrencyDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get virtual currencies defined for environment
+   * 
+   * @param environmentId  (required)
+   * @return List&lt;VirtualCurrencyDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<VirtualCurrencyDto>> getSupportedCurrencyForEnvironment (String environmentId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSupportedCurrencyForEnvironment"));
     }
 
-    /**
-     * Build call for addSupportedCurrencyForEnvironment
-     * @param environmentId  (required)
-     * @param createVirtualCurrencyRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call addSupportedCurrencyForEnvironmentCall(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createVirtualCurrencyRequest;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/currencies"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
+    String localVarPath = "/environments/{environmentId}/currencies"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call addSupportedCurrencyForEnvironmentValidateBeforeCall(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling addSupportedCurrencyForEnvironment(Async)");
-        }
-        
-        // verify the required parameter 'createVirtualCurrencyRequest' is set
-        if (createVirtualCurrencyRequest == null) {
-            throw new ApiException("Missing the required parameter 'createVirtualCurrencyRequest' when calling addSupportedCurrencyForEnvironment(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = addSupportedCurrencyForEnvironmentCall(environmentId, createVirtualCurrencyRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Add new virtual currency to environment
-     * 
-     * @param environmentId  (required)
-     * @param createVirtualCurrencyRequest  (required)
-     * @return VirtualCurrencyDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public VirtualCurrencyDto addSupportedCurrencyForEnvironment(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws ApiException {
-        ApiResponse<VirtualCurrencyDto> localVarResp = addSupportedCurrencyForEnvironmentWithHttpInfo(environmentId, createVirtualCurrencyRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Add new virtual currency to environment
-     * 
-     * @param environmentId  (required)
-     * @param createVirtualCurrencyRequest  (required)
-     * @return ApiResponse&lt;VirtualCurrencyDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<VirtualCurrencyDto> addSupportedCurrencyForEnvironmentWithHttpInfo(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws ApiException {
-        okhttp3.Call localVarCall = addSupportedCurrencyForEnvironmentValidateBeforeCall(environmentId, createVirtualCurrencyRequest, null);
-        Type localVarReturnType = new TypeToken<VirtualCurrencyDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Add new virtual currency to environment (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param createVirtualCurrencyRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call addSupportedCurrencyForEnvironmentAsync(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest, final ApiCallback<VirtualCurrencyDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = addSupportedCurrencyForEnvironmentValidateBeforeCall(environmentId, createVirtualCurrencyRequest, _callback);
-        Type localVarReturnType = new TypeToken<VirtualCurrencyDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteSupportedCurrencyByAbbreviation
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Currency deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteSupportedCurrencyByAbbreviationCall(String environmentId, String abbreviation, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/currencies/{abbreviation}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "abbreviation" + "\\}", localVarApiClient.escapeString(abbreviation.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteSupportedCurrencyByAbbreviationValidateBeforeCall(String environmentId, String abbreviation, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling deleteSupportedCurrencyByAbbreviation(Async)");
-        }
-        
-        // verify the required parameter 'abbreviation' is set
-        if (abbreviation == null) {
-            throw new ApiException("Missing the required parameter 'abbreviation' when calling deleteSupportedCurrencyByAbbreviation(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = deleteSupportedCurrencyByAbbreviationCall(environmentId, abbreviation, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Delete virtual currency for environment by abbreviation
-     * 
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Currency deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void deleteSupportedCurrencyByAbbreviation(String environmentId, String abbreviation) throws ApiException {
-        deleteSupportedCurrencyByAbbreviationWithHttpInfo(environmentId, abbreviation);
-    }
-
-    /**
-     * Delete virtual currency for environment by abbreviation
-     * 
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Currency deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteSupportedCurrencyByAbbreviationWithHttpInfo(String environmentId, String abbreviation) throws ApiException {
-        okhttp3.Call localVarCall = deleteSupportedCurrencyByAbbreviationValidateBeforeCall(environmentId, abbreviation, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Delete virtual currency for environment by abbreviation (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Currency deleted successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteSupportedCurrencyByAbbreviationAsync(String environmentId, String abbreviation, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = deleteSupportedCurrencyByAbbreviationValidateBeforeCall(environmentId, abbreviation, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getSupportedCurrencyByAbbreviation
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getSupportedCurrencyByAbbreviationCall(String environmentId, String abbreviation, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/currencies/{abbreviation}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "abbreviation" + "\\}", localVarApiClient.escapeString(abbreviation.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSupportedCurrencyByAbbreviationValidateBeforeCall(String environmentId, String abbreviation, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getSupportedCurrencyByAbbreviation(Async)");
-        }
-        
-        // verify the required parameter 'abbreviation' is set
-        if (abbreviation == null) {
-            throw new ApiException("Missing the required parameter 'abbreviation' when calling getSupportedCurrencyByAbbreviation(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getSupportedCurrencyByAbbreviationCall(environmentId, abbreviation, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get virtual currency for environment by abbreviation
-     * 
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @return VirtualCurrencyDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public VirtualCurrencyDto getSupportedCurrencyByAbbreviation(String environmentId, String abbreviation) throws ApiException {
-        ApiResponse<VirtualCurrencyDto> localVarResp = getSupportedCurrencyByAbbreviationWithHttpInfo(environmentId, abbreviation);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get virtual currency for environment by abbreviation
-     * 
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @return ApiResponse&lt;VirtualCurrencyDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<VirtualCurrencyDto> getSupportedCurrencyByAbbreviationWithHttpInfo(String environmentId, String abbreviation) throws ApiException {
-        okhttp3.Call localVarCall = getSupportedCurrencyByAbbreviationValidateBeforeCall(environmentId, abbreviation, null);
-        Type localVarReturnType = new TypeToken<VirtualCurrencyDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get virtual currency for environment by abbreviation (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param abbreviation  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getSupportedCurrencyByAbbreviationAsync(String environmentId, String abbreviation, final ApiCallback<VirtualCurrencyDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getSupportedCurrencyByAbbreviationValidateBeforeCall(environmentId, abbreviation, _callback);
-        Type localVarReturnType = new TypeToken<VirtualCurrencyDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getSupportedCurrencyForEnvironment
-     * @param environmentId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getSupportedCurrencyForEnvironmentCall(String environmentId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/currencies"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSupportedCurrencyForEnvironmentValidateBeforeCall(String environmentId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getSupportedCurrencyForEnvironment(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getSupportedCurrencyForEnvironmentCall(environmentId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get virtual currencies defined for environment
-     * 
-     * @param environmentId  (required)
-     * @return List&lt;VirtualCurrencyDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<VirtualCurrencyDto> getSupportedCurrencyForEnvironment(String environmentId) throws ApiException {
-        ApiResponse<List<VirtualCurrencyDto>> localVarResp = getSupportedCurrencyForEnvironmentWithHttpInfo(environmentId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get virtual currencies defined for environment
-     * 
-     * @param environmentId  (required)
-     * @return ApiResponse&lt;List&lt;VirtualCurrencyDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<VirtualCurrencyDto>> getSupportedCurrencyForEnvironmentWithHttpInfo(String environmentId) throws ApiException {
-        okhttp3.Call localVarCall = getSupportedCurrencyForEnvironmentValidateBeforeCall(environmentId, null);
-        Type localVarReturnType = new TypeToken<List<VirtualCurrencyDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get virtual currencies defined for environment (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getSupportedCurrencyForEnvironmentAsync(String environmentId, final ApiCallback<List<VirtualCurrencyDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getSupportedCurrencyForEnvironmentValidateBeforeCall(environmentId, _callback);
-        Type localVarReturnType = new TypeToken<List<VirtualCurrencyDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getSupportedCurrencyForEnvironment call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<VirtualCurrencyDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
 }

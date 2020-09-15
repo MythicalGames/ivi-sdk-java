@@ -10,413 +10,218 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.LinkPlayerToEnvironmentRequest;
 import games.mythical.ivi.sdk.model.PlayerDto;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class PlayersApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public PlayersApi() {
+    this(new ApiClient());
+  }
 
-    public PlayersApi() {
-        this(Configuration.getDefaultApiClient());
+  public PlayersApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Get all players for a environment
+   * 
+   * @param environmentId  (required)
+   * @return List&lt;PlayerDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<PlayerDto>> getAllPlayers (String environmentId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getAllPlayers"));
     }
 
-    public PlayersApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/players"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getAllPlayers call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<PlayerDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get player data
+   * 
+   * @param environmentId  (required)
+   * @param playerId  (required)
+   * @return PlayerDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<PlayerDto> getPlayerData (String environmentId, String playerId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getPlayerData"));
+    }
+    // verify the required parameter 'playerId' is set
+    if (playerId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'playerId' when calling getPlayerData"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/players/{playerId}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{playerId}", ApiClient.urlEncode(playerId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getPlayerData call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PlayerDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Link player to environment
+   * 
+   * @param environmentId  (required)
+   * @param linkPlayerToEnvironmentRequest  (required)
+   * @return PlayerDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<PlayerDto> linkPlayerToEnvironment (String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling linkPlayerToEnvironment"));
+    }
+    // verify the required parameter 'linkPlayerToEnvironmentRequest' is set
+    if (linkPlayerToEnvironmentRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'linkPlayerToEnvironmentRequest' when calling linkPlayerToEnvironment"));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/players"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(linkPlayerToEnvironmentRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "linkPlayerToEnvironment call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PlayerDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
     }
-
-    /**
-     * Build call for getAllPlayers
-     * @param environmentId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getAllPlayersCall(String environmentId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/players"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAllPlayersValidateBeforeCall(String environmentId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getAllPlayers(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getAllPlayersCall(environmentId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get all players for a environment
-     * 
-     * @param environmentId  (required)
-     * @return List&lt;PlayerDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<PlayerDto> getAllPlayers(String environmentId) throws ApiException {
-        ApiResponse<List<PlayerDto>> localVarResp = getAllPlayersWithHttpInfo(environmentId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get all players for a environment
-     * 
-     * @param environmentId  (required)
-     * @return ApiResponse&lt;List&lt;PlayerDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<PlayerDto>> getAllPlayersWithHttpInfo(String environmentId) throws ApiException {
-        okhttp3.Call localVarCall = getAllPlayersValidateBeforeCall(environmentId, null);
-        Type localVarReturnType = new TypeToken<List<PlayerDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get all players for a environment (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getAllPlayersAsync(String environmentId, final ApiCallback<List<PlayerDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getAllPlayersValidateBeforeCall(environmentId, _callback);
-        Type localVarReturnType = new TypeToken<List<PlayerDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getPlayerData
-     * @param environmentId  (required)
-     * @param playerId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getPlayerDataCall(String environmentId, String playerId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/players/{playerId}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "playerId" + "\\}", localVarApiClient.escapeString(playerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getPlayerDataValidateBeforeCall(String environmentId, String playerId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getPlayerData(Async)");
-        }
-        
-        // verify the required parameter 'playerId' is set
-        if (playerId == null) {
-            throw new ApiException("Missing the required parameter 'playerId' when calling getPlayerData(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getPlayerDataCall(environmentId, playerId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get player data
-     * 
-     * @param environmentId  (required)
-     * @param playerId  (required)
-     * @return PlayerDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public PlayerDto getPlayerData(String environmentId, String playerId) throws ApiException {
-        ApiResponse<PlayerDto> localVarResp = getPlayerDataWithHttpInfo(environmentId, playerId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get player data
-     * 
-     * @param environmentId  (required)
-     * @param playerId  (required)
-     * @return ApiResponse&lt;PlayerDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PlayerDto> getPlayerDataWithHttpInfo(String environmentId, String playerId) throws ApiException {
-        okhttp3.Call localVarCall = getPlayerDataValidateBeforeCall(environmentId, playerId, null);
-        Type localVarReturnType = new TypeToken<PlayerDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get player data (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param playerId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getPlayerDataAsync(String environmentId, String playerId, final ApiCallback<PlayerDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getPlayerDataValidateBeforeCall(environmentId, playerId, _callback);
-        Type localVarReturnType = new TypeToken<PlayerDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for linkPlayerToEnvironment
-     * @param environmentId  (required)
-     * @param linkPlayerToEnvironmentRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The player was successfully linked </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call linkPlayerToEnvironmentCall(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = linkPlayerToEnvironmentRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/players"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call linkPlayerToEnvironmentValidateBeforeCall(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling linkPlayerToEnvironment(Async)");
-        }
-        
-        // verify the required parameter 'linkPlayerToEnvironmentRequest' is set
-        if (linkPlayerToEnvironmentRequest == null) {
-            throw new ApiException("Missing the required parameter 'linkPlayerToEnvironmentRequest' when calling linkPlayerToEnvironment(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = linkPlayerToEnvironmentCall(environmentId, linkPlayerToEnvironmentRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Link player to environment
-     * 
-     * @param environmentId  (required)
-     * @param linkPlayerToEnvironmentRequest  (required)
-     * @return PlayerDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The player was successfully linked </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public PlayerDto linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
-        ApiResponse<PlayerDto> localVarResp = linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Link player to environment
-     * 
-     * @param environmentId  (required)
-     * @param linkPlayerToEnvironmentRequest  (required)
-     * @return ApiResponse&lt;PlayerDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The player was successfully linked </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PlayerDto> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
-        okhttp3.Call localVarCall = linkPlayerToEnvironmentValidateBeforeCall(environmentId, linkPlayerToEnvironmentRequest, null);
-        Type localVarReturnType = new TypeToken<PlayerDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Link player to environment (asynchronously)
-     * 
-     * @param environmentId  (required)
-     * @param linkPlayerToEnvironmentRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The player was successfully linked </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call linkPlayerToEnvironmentAsync(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest, final ApiCallback<PlayerDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = linkPlayerToEnvironmentValidateBeforeCall(environmentId, linkPlayerToEnvironmentRequest, _callback);
-        Type localVarReturnType = new TypeToken<PlayerDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+  }
 }

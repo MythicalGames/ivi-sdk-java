@@ -13,10 +13,11 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.TransactionEventDTO;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +27,10 @@ import java.util.Map;
 /**
  * API tests for TransactionsApi
  */
-@Ignore
 public class TransactionsApiTest {
 
     private final TransactionsApi api = new TransactionsApi();
 
-    
     /**
      * Get all transaction events for an environment.
      *
@@ -42,15 +41,19 @@ public class TransactionsApiTest {
      */
     @Test
     public void getAllTitleTransactionsTest() throws ApiException {
-        String environmentId = null;
-        String from = null;
-        String to = null;
-        String cursor = null;
-        List<TransactionEventDTO> response = api.getAllTitleTransactions(environmentId, from, to, cursor);
+        //
+        //String environmentId = null;
+        //
+        //String from = null;
+        //
+        //String to = null;
+        //
+        //String cursor = null;
+        //
+        //List<TransactionEventDTO> response = api.getAllTitleTransactions(environmentId, from, to, cursor);
 
         // TODO: test validations
     }
-    
     /**
      * Get transaction events for transaction ID in an environment.
      *
@@ -61,12 +64,15 @@ public class TransactionsApiTest {
      */
     @Test
     public void getTransactionEventsForTitleTest() throws ApiException {
-        String environmentId = null;
-        String transactionId = null;
-        String cursor = null;
-        List<TransactionEventDTO> response = api.getTransactionEventsForTitle(environmentId, transactionId, cursor);
+        //
+        //String environmentId = null;
+        //
+        //String transactionId = null;
+        //
+        //String cursor = null;
+        //
+        //List<TransactionEventDTO> response = api.getTransactionEventsForTitle(environmentId, transactionId, cursor);
 
         // TODO: test validations
     }
-    
 }

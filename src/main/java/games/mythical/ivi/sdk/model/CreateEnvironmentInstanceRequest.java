@@ -15,28 +15,29 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateEnvironmentInstanceRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateEnvironmentInstanceRequest.JSON_PROPERTY_DISPLAY_NAME,
+  CreateEnvironmentInstanceRequest.JSON_PROPERTY_ENVIRONMENT_TYPE
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateEnvironmentInstanceRequest {
-  public static final String SERIALIZED_NAME_DISPLAY_NAME = "displayName";
-  @SerializedName(SERIALIZED_NAME_DISPLAY_NAME)
+  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   private String displayName;
 
   /**
    * Gets or Sets environmentType
    */
-  @JsonAdapter(EnvironmentTypeEnum.Adapter.class)
   public enum EnvironmentTypeEnum {
     DEV("DEV"),
     
@@ -54,6 +55,7 @@ public class CreateEnvironmentInstanceRequest {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -63,6 +65,7 @@ public class CreateEnvironmentInstanceRequest {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static EnvironmentTypeEnum fromValue(String value) {
       for (EnvironmentTypeEnum b : EnvironmentTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -71,23 +74,9 @@ public class CreateEnvironmentInstanceRequest {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<EnvironmentTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final EnvironmentTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public EnvironmentTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return EnvironmentTypeEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_TYPE = "environmentType";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_TYPE)
+  public static final String JSON_PROPERTY_ENVIRONMENT_TYPE = "environmentType";
   private EnvironmentTypeEnum environmentType;
 
 
@@ -102,6 +91,8 @@ public class CreateEnvironmentInstanceRequest {
    * @return displayName
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDisplayName() {
     return displayName;
@@ -124,6 +115,8 @@ public class CreateEnvironmentInstanceRequest {
    * @return environmentType
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public EnvironmentTypeEnum getEnvironmentType() {
     return environmentType;

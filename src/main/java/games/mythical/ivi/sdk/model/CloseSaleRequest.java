@@ -15,28 +15,29 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CloseSaleRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CloseSaleRequest.JSON_PROPERTY_GAME_INVENTORY_IDS,
+  CloseSaleRequest.JSON_PROPERTY_PLAYER_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CloseSaleRequest {
-  public static final String SERIALIZED_NAME_GAME_INVENTORY_IDS = "gameInventoryIds";
-  @SerializedName(SERIALIZED_NAME_GAME_INVENTORY_IDS)
-  private List<String> gameInventoryIds = new ArrayList<String>();
+  public static final String JSON_PROPERTY_GAME_INVENTORY_IDS = "gameInventoryIds";
+  private List<String> gameInventoryIds = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_PLAYER_ID = "playerId";
-  @SerializedName(SERIALIZED_NAME_PLAYER_ID)
+  public static final String JSON_PROPERTY_PLAYER_ID = "playerId";
   private String playerId;
 
 
@@ -56,6 +57,8 @@ public class CloseSaleRequest {
    * @return gameInventoryIds
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_IDS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getGameInventoryIds() {
     return gameInventoryIds;
@@ -78,6 +81,8 @@ public class CloseSaleRequest {
    * @return playerId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPlayerId() {
     return playerId;

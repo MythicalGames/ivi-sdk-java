@@ -15,43 +15,45 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * ListSaleRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  ListSaleRequest.JSON_PROPERTY_SELLER_PROCEEDS,
+  ListSaleRequest.JSON_PROPERTY_OWNER_PLAYER_ID,
+  ListSaleRequest.JSON_PROPERTY_SELL_BY_DAYS,
+  ListSaleRequest.JSON_PROPERTY_GAME_INVENTORY_IDS,
+  ListSaleRequest.JSON_PROPERTY_SALE_MODEL,
+  ListSaleRequest.JSON_PROPERTY_CURRENCY
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ListSaleRequest {
-  public static final String SERIALIZED_NAME_SELLER_PROCEEDS = "sellerProceeds";
-  @SerializedName(SERIALIZED_NAME_SELLER_PROCEEDS)
+  public static final String JSON_PROPERTY_SELLER_PROCEEDS = "sellerProceeds";
   private BigDecimal sellerProceeds;
 
-  public static final String SERIALIZED_NAME_OWNER_PLAYER_ID = "ownerPlayerId";
-  @SerializedName(SERIALIZED_NAME_OWNER_PLAYER_ID)
+  public static final String JSON_PROPERTY_OWNER_PLAYER_ID = "ownerPlayerId";
   private String ownerPlayerId;
 
-  public static final String SERIALIZED_NAME_SELL_BY_DAYS = "sellByDays";
-  @SerializedName(SERIALIZED_NAME_SELL_BY_DAYS)
+  public static final String JSON_PROPERTY_SELL_BY_DAYS = "sellByDays";
   private Integer sellByDays;
 
-  public static final String SERIALIZED_NAME_GAME_INVENTORY_IDS = "gameInventoryIds";
-  @SerializedName(SERIALIZED_NAME_GAME_INVENTORY_IDS)
-  private List<String> gameInventoryIds = new ArrayList<String>();
+  public static final String JSON_PROPERTY_GAME_INVENTORY_IDS = "gameInventoryIds";
+  private List<String> gameInventoryIds = new ArrayList<>();
 
   /**
    * Gets or Sets saleModel
    */
-  @JsonAdapter(SaleModelEnum.Adapter.class)
   public enum SaleModelEnum {
     FIXED_PRICE("FIXED_PRICE"),
     
@@ -63,6 +65,7 @@ public class ListSaleRequest {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -72,6 +75,7 @@ public class ListSaleRequest {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static SaleModelEnum fromValue(String value) {
       for (SaleModelEnum b : SaleModelEnum.values()) {
         if (b.value.equals(value)) {
@@ -80,27 +84,12 @@ public class ListSaleRequest {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<SaleModelEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final SaleModelEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public SaleModelEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return SaleModelEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_SALE_MODEL = "saleModel";
-  @SerializedName(SERIALIZED_NAME_SALE_MODEL)
+  public static final String JSON_PROPERTY_SALE_MODEL = "saleModel";
   private SaleModelEnum saleModel;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
 
@@ -117,6 +106,8 @@ public class ListSaleRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "9.99", value = "")
+  @JsonProperty(JSON_PROPERTY_SELLER_PROCEEDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getSellerProceeds() {
     return sellerProceeds;
@@ -139,6 +130,8 @@ public class ListSaleRequest {
    * @return ownerPlayerId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_OWNER_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOwnerPlayerId() {
     return ownerPlayerId;
@@ -164,6 +157,8 @@ public class ListSaleRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "5", value = "")
+  @JsonProperty(JSON_PROPERTY_SELL_BY_DAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getSellByDays() {
     return sellByDays;
@@ -191,6 +186,8 @@ public class ListSaleRequest {
    * @return gameInventoryIds
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_IDS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getGameInventoryIds() {
     return gameInventoryIds;
@@ -214,6 +211,8 @@ public class ListSaleRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALE_MODEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SaleModelEnum getSaleModel() {
     return saleModel;
@@ -236,6 +235,8 @@ public class ListSaleRequest {
    * @return currency
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getCurrency() {
     return currency;

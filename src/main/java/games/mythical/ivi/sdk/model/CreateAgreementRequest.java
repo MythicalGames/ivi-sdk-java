@@ -15,42 +15,50 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateAgreementRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateAgreementRequest.JSON_PROPERTY_ITEM_TYPE_NAMES,
+  CreateAgreementRequest.JSON_PROPERTY_TIME_FRAME_START,
+  CreateAgreementRequest.JSON_PROPERTY_REV_SHARE_INITIAL,
+  CreateAgreementRequest.JSON_PROPERTY_NOTES,
+  CreateAgreementRequest.JSON_PROPERTY_PAY_SCHEDULE,
+  CreateAgreementRequest.JSON_PROPERTY_TIME_FRAME_END,
+  CreateAgreementRequest.JSON_PROPERTY_TITLE_ID,
+  CreateAgreementRequest.JSON_PROPERTY_NAME,
+  CreateAgreementRequest.JSON_PROPERTY_REV_SHARE_RESALE,
+  CreateAgreementRequest.JSON_PROPERTY_ACTIVE,
+  CreateAgreementRequest.JSON_PROPERTY_GUARANTEE,
+  CreateAgreementRequest.JSON_PROPERTY_CURRENCY
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateAgreementRequest {
-  public static final String SERIALIZED_NAME_ITEM_TYPE_NAMES = "itemTypeNames";
-  @SerializedName(SERIALIZED_NAME_ITEM_TYPE_NAMES)
+  public static final String JSON_PROPERTY_ITEM_TYPE_NAMES = "itemTypeNames";
   private List<String> itemTypeNames = null;
 
-  public static final String SERIALIZED_NAME_TIME_FRAME_START = "timeFrameStart";
-  @SerializedName(SERIALIZED_NAME_TIME_FRAME_START)
+  public static final String JSON_PROPERTY_TIME_FRAME_START = "timeFrameStart";
   private Long timeFrameStart;
 
-  public static final String SERIALIZED_NAME_REV_SHARE_INITIAL = "revShareInitial";
-  @SerializedName(SERIALIZED_NAME_REV_SHARE_INITIAL)
+  public static final String JSON_PROPERTY_REV_SHARE_INITIAL = "revShareInitial";
   private Double revShareInitial;
 
-  public static final String SERIALIZED_NAME_NOTES = "notes";
-  @SerializedName(SERIALIZED_NAME_NOTES)
+  public static final String JSON_PROPERTY_NOTES = "notes";
   private String notes;
 
   /**
    * Gets or Sets paySchedule
    */
-  @JsonAdapter(PayScheduleEnum.Adapter.class)
   public enum PayScheduleEnum {
     MONTHLY("MONTHLY"),
     
@@ -64,6 +72,7 @@ public class CreateAgreementRequest {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -73,6 +82,7 @@ public class CreateAgreementRequest {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static PayScheduleEnum fromValue(String value) {
       for (PayScheduleEnum b : PayScheduleEnum.values()) {
         if (b.value.equals(value)) {
@@ -81,51 +91,30 @@ public class CreateAgreementRequest {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<PayScheduleEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PayScheduleEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PayScheduleEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return PayScheduleEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_PAY_SCHEDULE = "paySchedule";
-  @SerializedName(SERIALIZED_NAME_PAY_SCHEDULE)
+  public static final String JSON_PROPERTY_PAY_SCHEDULE = "paySchedule";
   private PayScheduleEnum paySchedule;
 
-  public static final String SERIALIZED_NAME_TIME_FRAME_END = "timeFrameEnd";
-  @SerializedName(SERIALIZED_NAME_TIME_FRAME_END)
+  public static final String JSON_PROPERTY_TIME_FRAME_END = "timeFrameEnd";
   private Long timeFrameEnd;
 
-  public static final String SERIALIZED_NAME_TITLE_ID = "titleId";
-  @SerializedName(SERIALIZED_NAME_TITLE_ID)
+  public static final String JSON_PROPERTY_TITLE_ID = "titleId";
   private String titleId;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_REV_SHARE_RESALE = "revShareResale";
-  @SerializedName(SERIALIZED_NAME_REV_SHARE_RESALE)
+  public static final String JSON_PROPERTY_REV_SHARE_RESALE = "revShareResale";
   private Double revShareResale;
 
-  public static final String SERIALIZED_NAME_ACTIVE = "active";
-  @SerializedName(SERIALIZED_NAME_ACTIVE)
+  public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
 
-  public static final String SERIALIZED_NAME_GUARANTEE = "guarantee";
-  @SerializedName(SERIALIZED_NAME_GUARANTEE)
+  public static final String JSON_PROPERTY_GUARANTEE = "guarantee";
   private Integer guarantee;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
 
@@ -137,7 +126,7 @@ public class CreateAgreementRequest {
 
   public CreateAgreementRequest addItemTypeNamesItem(String itemTypeNamesItem) {
     if (this.itemTypeNames == null) {
-      this.itemTypeNames = new ArrayList<String>();
+      this.itemTypeNames = new ArrayList<>();
     }
     this.itemTypeNames.add(itemTypeNamesItem);
     return this;
@@ -149,6 +138,8 @@ public class CreateAgreementRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_TYPE_NAMES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getItemTypeNames() {
     return itemTypeNames;
@@ -172,6 +163,8 @@ public class CreateAgreementRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TIME_FRAME_START)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTimeFrameStart() {
     return timeFrameStart;
@@ -196,6 +189,8 @@ public class CreateAgreementRequest {
    * @return revShareInitial
   **/
   @ApiModelProperty(example = "0.12", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_REV_SHARE_INITIAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Double getRevShareInitial() {
     return revShareInitial;
@@ -219,6 +214,8 @@ public class CreateAgreementRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NOTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNotes() {
     return notes;
@@ -242,6 +239,8 @@ public class CreateAgreementRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAY_SCHEDULE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PayScheduleEnum getPaySchedule() {
     return paySchedule;
@@ -265,6 +264,8 @@ public class CreateAgreementRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TIME_FRAME_END)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTimeFrameEnd() {
     return timeFrameEnd;
@@ -287,6 +288,8 @@ public class CreateAgreementRequest {
    * @return titleId
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_TITLE_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitleId() {
     return titleId;
@@ -309,6 +312,8 @@ public class CreateAgreementRequest {
    * @return name
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -333,6 +338,8 @@ public class CreateAgreementRequest {
    * @return revShareResale
   **/
   @ApiModelProperty(example = "0.1", required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_REV_SHARE_RESALE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Double getRevShareResale() {
     return revShareResale;
@@ -355,6 +362,8 @@ public class CreateAgreementRequest {
    * @return active
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getActive() {
     return active;
@@ -378,6 +387,8 @@ public class CreateAgreementRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_GUARANTEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getGuarantee() {
     return guarantee;
@@ -400,6 +411,8 @@ public class CreateAgreementRequest {
    * @return currency
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getCurrency() {
     return currency;

@@ -15,54 +15,55 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * TransactionDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  TransactionDto.JSON_PROPERTY_FINALIZED,
+  TransactionDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  TransactionDto.JSON_PROPERTY_DATA,
+  TransactionDto.JSON_PROPERTY_CREATED_BY,
+  TransactionDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  TransactionDto.JSON_PROPERTY_ACTION,
+  TransactionDto.JSON_PROPERTY_FINALIZED_TIMESTAMP,
+  TransactionDto.JSON_PROPERTY_TRANSACTION_ID,
+  TransactionDto.JSON_PROPERTY_DGOOD_ID
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class TransactionDto {
-  public static final String SERIALIZED_NAME_FINALIZED = "finalized";
-  @SerializedName(SERIALIZED_NAME_FINALIZED)
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_DATA = "data";
-  @SerializedName(SERIALIZED_NAME_DATA)
+  public static final String JSON_PROPERTY_DATA = "data";
   private String data;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_ACTION = "action";
-  @SerializedName(SERIALIZED_NAME_ACTION)
+  public static final String JSON_PROPERTY_ACTION = "action";
   private String action;
 
-  public static final String SERIALIZED_NAME_FINALIZED_TIMESTAMP = "finalizedTimestamp";
-  @SerializedName(SERIALIZED_NAME_FINALIZED_TIMESTAMP)
+  public static final String JSON_PROPERTY_FINALIZED_TIMESTAMP = "finalizedTimestamp";
   private Long finalizedTimestamp;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private String transactionId;
 
-  public static final String SERIALIZED_NAME_DGOOD_ID = "dgoodId";
-  @SerializedName(SERIALIZED_NAME_DGOOD_ID)
+  public static final String JSON_PROPERTY_DGOOD_ID = "dgoodId";
   private Long dgoodId;
 
 
@@ -78,6 +79,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFinalized() {
     return finalized;
@@ -101,6 +104,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -124,6 +129,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getData() {
     return data;
@@ -147,6 +154,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -170,6 +179,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -193,6 +204,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ACTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAction() {
     return action;
@@ -216,6 +229,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getFinalizedTimestamp() {
     return finalizedTimestamp;
@@ -239,6 +254,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionId() {
     return transactionId;
@@ -262,6 +279,8 @@ public class TransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getDgoodId() {
     return dgoodId;

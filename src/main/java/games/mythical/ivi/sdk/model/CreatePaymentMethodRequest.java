@@ -15,26 +15,27 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreatePaymentMethodRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreatePaymentMethodRequest.JSON_PROPERTY_CUSTOMER_ID,
+  CreatePaymentMethodRequest.JSON_PROPERTY_PAYMENT_METHOD_NONCE
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreatePaymentMethodRequest {
-  public static final String SERIALIZED_NAME_CUSTOMER_ID = "customerId";
-  @SerializedName(SERIALIZED_NAME_CUSTOMER_ID)
+  public static final String JSON_PROPERTY_CUSTOMER_ID = "customerId";
   private String customerId;
 
-  public static final String SERIALIZED_NAME_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_METHOD_NONCE)
+  public static final String JSON_PROPERTY_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
   private String paymentMethodNonce;
 
 
@@ -50,6 +51,8 @@ public class CreatePaymentMethodRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCustomerId() {
     return customerId;
@@ -72,6 +75,8 @@ public class CreatePaymentMethodRequest {
    * @return paymentMethodNonce
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_METHOD_NONCE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPaymentMethodNonce() {
     return paymentMethodNonce;

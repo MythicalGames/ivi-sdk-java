@@ -10,22 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.AgreementDto;
 import games.mythical.ivi.sdk.model.CreateAgreementRequest;
@@ -33,661 +22,341 @@ import games.mythical.ivi.sdk.model.CreatePartnerRequest;
 import games.mythical.ivi.sdk.model.PartnerDto;
 import games.mythical.ivi.sdk.model.UpdateAgreementRequest;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class PartnersApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public PartnersApi() {
+    this(new ApiClient());
+  }
 
-    public PartnersApi() {
-        this(Configuration.getDefaultApiClient());
+  public PartnersApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Create Agreement
+   * Create a new agreement for a partner
+   * @param organizationId  (required)
+   * @param partnerId  (required)
+   * @param createAgreementRequest  (required)
+   * @return AgreementDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<AgreementDto> createNewAgreement (String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewAgreement"));
+    }
+    // verify the required parameter 'partnerId' is set
+    if (partnerId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'partnerId' when calling createNewAgreement"));
+    }
+    // verify the required parameter 'createAgreementRequest' is set
+    if (createAgreementRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createAgreementRequest' when calling createNewAgreement"));
     }
 
-    public PartnersApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/partner/{partnerId}/agreement"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{partnerId}", ApiClient.urlEncode(partnerId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createAgreementRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createNewAgreement call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<AgreementDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Create Partner
+   * Create a new partner for an organization
+   * @param organizationId  (required)
+   * @param createPartnerRequest  (required)
+   * @return PartnerDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<PartnerDto> createNewPartner (String organizationId, CreatePartnerRequest createPartnerRequest) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewPartner"));
+    }
+    // verify the required parameter 'createPartnerRequest' is set
+    if (createPartnerRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createPartnerRequest' when calling createNewPartner"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/partner"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createPartnerRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createNewPartner call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PartnerDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Get Agreements
+   * Get all agreements for an partner
+   * @param organizationId  (required)
+   * @param partnerId  (required)
+   * @return List&lt;AgreementDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<AgreementDto>> getAgreements (String organizationId, String partnerId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getAgreements"));
+    }
+    // verify the required parameter 'partnerId' is set
+    if (partnerId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'partnerId' when calling getAgreements"));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/partner/{partnerId}/agreement"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{partnerId}", ApiClient.urlEncode(partnerId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getAgreements call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<AgreementDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get Partners
+   * Get all partners for an organization
+   * @param organizationId  (required)
+   * @return List&lt;PartnerDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<PartnerDto>> getPartners (String organizationId) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getPartners"));
     }
 
-    /**
-     * Build call for createNewAgreement
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param createAgreementRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNewAgreementCall(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createAgreementRequest;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/partner/{partnerId}/agreement"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "partnerId" + "\\}", localVarApiClient.escapeString(partnerId.toString()));
+    String localVarPath = "/orgs/{organizationId}/partner"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getPartners call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<PartnerDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Update agreement details
+   * 
+   * @param organizationId  (required)
+   * @param partnerId  (required)
+   * @param updateAgreementRequest  (required)
+   * @return AgreementDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<AgreementDto> updateAgreement (String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling updateAgreement"));
+    }
+    // verify the required parameter 'partnerId' is set
+    if (partnerId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'partnerId' when calling updateAgreement"));
+    }
+    // verify the required parameter 'updateAgreementRequest' is set
+    if (updateAgreementRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateAgreementRequest' when calling updateAgreement"));
     }
 
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createNewAgreementValidateBeforeCall(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling createNewAgreement(Async)");
-        }
-        
-        // verify the required parameter 'partnerId' is set
-        if (partnerId == null) {
-            throw new ApiException("Missing the required parameter 'partnerId' when calling createNewAgreement(Async)");
-        }
-        
-        // verify the required parameter 'createAgreementRequest' is set
-        if (createAgreementRequest == null) {
-            throw new ApiException("Missing the required parameter 'createAgreementRequest' when calling createNewAgreement(Async)");
-        }
-        
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        okhttp3.Call localVarCall = createNewAgreementCall(organizationId, partnerId, createAgreementRequest, _callback);
-        return localVarCall;
+    String localVarPath = "/orgs/{organizationId}/partner/{partnerId}/agreement"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()))
+        .replace("{partnerId}", ApiClient.urlEncode(partnerId.toString()));
 
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateAgreementRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateAgreement call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<AgreementDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
     }
-
-    /**
-     * Create Agreement
-     * Create a new agreement for a partner
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param createAgreementRequest  (required)
-     * @return AgreementDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public AgreementDto createNewAgreement(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws ApiException {
-        ApiResponse<AgreementDto> localVarResp = createNewAgreementWithHttpInfo(organizationId, partnerId, createAgreementRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Create Agreement
-     * Create a new agreement for a partner
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param createAgreementRequest  (required)
-     * @return ApiResponse&lt;AgreementDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<AgreementDto> createNewAgreementWithHttpInfo(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws ApiException {
-        okhttp3.Call localVarCall = createNewAgreementValidateBeforeCall(organizationId, partnerId, createAgreementRequest, null);
-        Type localVarReturnType = new TypeToken<AgreementDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Create Agreement (asynchronously)
-     * Create a new agreement for a partner
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param createAgreementRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNewAgreementAsync(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest, final ApiCallback<AgreementDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createNewAgreementValidateBeforeCall(organizationId, partnerId, createAgreementRequest, _callback);
-        Type localVarReturnType = new TypeToken<AgreementDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createNewPartner
-     * @param organizationId  (required)
-     * @param createPartnerRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNewPartnerCall(String organizationId, CreatePartnerRequest createPartnerRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createPartnerRequest;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/partner"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createNewPartnerValidateBeforeCall(String organizationId, CreatePartnerRequest createPartnerRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling createNewPartner(Async)");
-        }
-        
-        // verify the required parameter 'createPartnerRequest' is set
-        if (createPartnerRequest == null) {
-            throw new ApiException("Missing the required parameter 'createPartnerRequest' when calling createNewPartner(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = createNewPartnerCall(organizationId, createPartnerRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Create Partner
-     * Create a new partner for an organization
-     * @param organizationId  (required)
-     * @param createPartnerRequest  (required)
-     * @return PartnerDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public PartnerDto createNewPartner(String organizationId, CreatePartnerRequest createPartnerRequest) throws ApiException {
-        ApiResponse<PartnerDto> localVarResp = createNewPartnerWithHttpInfo(organizationId, createPartnerRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Create Partner
-     * Create a new partner for an organization
-     * @param organizationId  (required)
-     * @param createPartnerRequest  (required)
-     * @return ApiResponse&lt;PartnerDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PartnerDto> createNewPartnerWithHttpInfo(String organizationId, CreatePartnerRequest createPartnerRequest) throws ApiException {
-        okhttp3.Call localVarCall = createNewPartnerValidateBeforeCall(organizationId, createPartnerRequest, null);
-        Type localVarReturnType = new TypeToken<PartnerDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Create Partner (asynchronously)
-     * Create a new partner for an organization
-     * @param organizationId  (required)
-     * @param createPartnerRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNewPartnerAsync(String organizationId, CreatePartnerRequest createPartnerRequest, final ApiCallback<PartnerDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createNewPartnerValidateBeforeCall(organizationId, createPartnerRequest, _callback);
-        Type localVarReturnType = new TypeToken<PartnerDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getAgreements
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getAgreementsCall(String organizationId, String partnerId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/partner/{partnerId}/agreement"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "partnerId" + "\\}", localVarApiClient.escapeString(partnerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAgreementsValidateBeforeCall(String organizationId, String partnerId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling getAgreements(Async)");
-        }
-        
-        // verify the required parameter 'partnerId' is set
-        if (partnerId == null) {
-            throw new ApiException("Missing the required parameter 'partnerId' when calling getAgreements(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getAgreementsCall(organizationId, partnerId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get Agreements
-     * Get all agreements for an partner
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @return List&lt;AgreementDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<AgreementDto> getAgreements(String organizationId, String partnerId) throws ApiException {
-        ApiResponse<List<AgreementDto>> localVarResp = getAgreementsWithHttpInfo(organizationId, partnerId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get Agreements
-     * Get all agreements for an partner
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @return ApiResponse&lt;List&lt;AgreementDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<AgreementDto>> getAgreementsWithHttpInfo(String organizationId, String partnerId) throws ApiException {
-        okhttp3.Call localVarCall = getAgreementsValidateBeforeCall(organizationId, partnerId, null);
-        Type localVarReturnType = new TypeToken<List<AgreementDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Agreements (asynchronously)
-     * Get all agreements for an partner
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getAgreementsAsync(String organizationId, String partnerId, final ApiCallback<List<AgreementDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getAgreementsValidateBeforeCall(organizationId, partnerId, _callback);
-        Type localVarReturnType = new TypeToken<List<AgreementDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getPartners
-     * @param organizationId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getPartnersCall(String organizationId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/partner"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getPartnersValidateBeforeCall(String organizationId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling getPartners(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getPartnersCall(organizationId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get Partners
-     * Get all partners for an organization
-     * @param organizationId  (required)
-     * @return List&lt;PartnerDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<PartnerDto> getPartners(String organizationId) throws ApiException {
-        ApiResponse<List<PartnerDto>> localVarResp = getPartnersWithHttpInfo(organizationId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get Partners
-     * Get all partners for an organization
-     * @param organizationId  (required)
-     * @return ApiResponse&lt;List&lt;PartnerDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<PartnerDto>> getPartnersWithHttpInfo(String organizationId) throws ApiException {
-        okhttp3.Call localVarCall = getPartnersValidateBeforeCall(organizationId, null);
-        Type localVarReturnType = new TypeToken<List<PartnerDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Partners (asynchronously)
-     * Get all partners for an organization
-     * @param organizationId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getPartnersAsync(String organizationId, final ApiCallback<List<PartnerDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getPartnersValidateBeforeCall(organizationId, _callback);
-        Type localVarReturnType = new TypeToken<List<PartnerDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateAgreement
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param updateAgreementRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateAgreementCall(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = updateAgreementRequest;
-
-        // create path and map variables
-        String localVarPath = "/orgs/{organizationId}/partner/{partnerId}/agreement"
-            .replaceAll("\\{" + "organizationId" + "\\}", localVarApiClient.escapeString(organizationId.toString()))
-            .replaceAll("\\{" + "partnerId" + "\\}", localVarApiClient.escapeString(partnerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateAgreementValidateBeforeCall(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'organizationId' is set
-        if (organizationId == null) {
-            throw new ApiException("Missing the required parameter 'organizationId' when calling updateAgreement(Async)");
-        }
-        
-        // verify the required parameter 'partnerId' is set
-        if (partnerId == null) {
-            throw new ApiException("Missing the required parameter 'partnerId' when calling updateAgreement(Async)");
-        }
-        
-        // verify the required parameter 'updateAgreementRequest' is set
-        if (updateAgreementRequest == null) {
-            throw new ApiException("Missing the required parameter 'updateAgreementRequest' when calling updateAgreement(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateAgreementCall(organizationId, partnerId, updateAgreementRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update agreement details
-     * 
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param updateAgreementRequest  (required)
-     * @return AgreementDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public AgreementDto updateAgreement(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws ApiException {
-        ApiResponse<AgreementDto> localVarResp = updateAgreementWithHttpInfo(organizationId, partnerId, updateAgreementRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update agreement details
-     * 
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param updateAgreementRequest  (required)
-     * @return ApiResponse&lt;AgreementDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<AgreementDto> updateAgreementWithHttpInfo(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateAgreementValidateBeforeCall(organizationId, partnerId, updateAgreementRequest, null);
-        Type localVarReturnType = new TypeToken<AgreementDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update agreement details (asynchronously)
-     * 
-     * @param organizationId  (required)
-     * @param partnerId  (required)
-     * @param updateAgreementRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateAgreementAsync(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest, final ApiCallback<AgreementDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateAgreementValidateBeforeCall(organizationId, partnerId, updateAgreementRequest, _callback);
-        Type localVarReturnType = new TypeToken<AgreementDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+  }
 }

@@ -15,45 +15,46 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateWebhookRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateWebhookRequest.JSON_PROPERTY_REQUIRED_HEADERS,
+  CreateWebhookRequest.JSON_PROPERTY_NAME,
+  CreateWebhookRequest.JSON_PROPERTY_DESCRIPTION,
+  CreateWebhookRequest.JSON_PROPERTY_DISABLED,
+  CreateWebhookRequest.JSON_PROPERTY_URL,
+  CreateWebhookRequest.JSON_PROPERTY_REQUIRED_QUERY_PARAMS
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateWebhookRequest {
-  public static final String SERIALIZED_NAME_REQUIRED_HEADERS = "requiredHeaders";
-  @SerializedName(SERIALIZED_NAME_REQUIRED_HEADERS)
+  public static final String JSON_PROPERTY_REQUIRED_HEADERS = "requiredHeaders";
   private Map<String, String> requiredHeaders = null;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_DISABLED = "disabled";
-  @SerializedName(SERIALIZED_NAME_DISABLED)
+  public static final String JSON_PROPERTY_DISABLED = "disabled";
   private Boolean disabled;
 
-  public static final String SERIALIZED_NAME_URL = "url";
-  @SerializedName(SERIALIZED_NAME_URL)
+  public static final String JSON_PROPERTY_URL = "url";
   private String url;
 
-  public static final String SERIALIZED_NAME_REQUIRED_QUERY_PARAMS = "requiredQueryParams";
-  @SerializedName(SERIALIZED_NAME_REQUIRED_QUERY_PARAMS)
+  public static final String JSON_PROPERTY_REQUIRED_QUERY_PARAMS = "requiredQueryParams";
   private Map<String, String> requiredQueryParams = null;
 
 
@@ -65,7 +66,7 @@ public class CreateWebhookRequest {
 
   public CreateWebhookRequest putRequiredHeadersItem(String key, String requiredHeadersItem) {
     if (this.requiredHeaders == null) {
-      this.requiredHeaders = new HashMap<String, String>();
+      this.requiredHeaders = new HashMap<>();
     }
     this.requiredHeaders.put(key, requiredHeadersItem);
     return this;
@@ -77,6 +78,8 @@ public class CreateWebhookRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REQUIRED_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getRequiredHeaders() {
     return requiredHeaders;
@@ -99,6 +102,8 @@ public class CreateWebhookRequest {
    * @return name
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -122,6 +127,8 @@ public class CreateWebhookRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -145,6 +152,8 @@ public class CreateWebhookRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "false", value = "")
+  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
     return disabled;
@@ -167,6 +176,8 @@ public class CreateWebhookRequest {
    * @return url
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUrl() {
     return url;
@@ -186,7 +197,7 @@ public class CreateWebhookRequest {
 
   public CreateWebhookRequest putRequiredQueryParamsItem(String key, String requiredQueryParamsItem) {
     if (this.requiredQueryParams == null) {
-      this.requiredQueryParams = new HashMap<String, String>();
+      this.requiredQueryParams = new HashMap<>();
     }
     this.requiredQueryParams.put(key, requiredQueryParamsItem);
     return this;
@@ -198,6 +209,8 @@ public class CreateWebhookRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REQUIRED_QUERY_PARAMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getRequiredQueryParams() {
     return requiredQueryParams;

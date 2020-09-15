@@ -15,59 +15,60 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * SalesTaxInfoDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  SalesTaxInfoDto.JSON_PROPERTY_ZIP,
+  SalesTaxInfoDto.JSON_PROPERTY_COUNTY_RATE,
+  SalesTaxInfoDto.JSON_PROPERTY_COMBINED_TAX_RATE,
+  SalesTaxInfoDto.JSON_PROPERTY_COMBINED_DISTRICT_RATE,
+  SalesTaxInfoDto.JSON_PROPERTY_CITY,
+  SalesTaxInfoDto.JSON_PROPERTY_COUNTY,
+  SalesTaxInfoDto.JSON_PROPERTY_STATE,
+  SalesTaxInfoDto.JSON_PROPERTY_STATE_RATE,
+  SalesTaxInfoDto.JSON_PROPERTY_EXEMPT,
+  SalesTaxInfoDto.JSON_PROPERTY_CITY_RATE
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class SalesTaxInfoDto {
-  public static final String SERIALIZED_NAME_ZIP = "zip";
-  @SerializedName(SERIALIZED_NAME_ZIP)
+  public static final String JSON_PROPERTY_ZIP = "zip";
   private String zip;
 
-  public static final String SERIALIZED_NAME_COUNTY_RATE = "countyRate";
-  @SerializedName(SERIALIZED_NAME_COUNTY_RATE)
+  public static final String JSON_PROPERTY_COUNTY_RATE = "countyRate";
   private BigDecimal countyRate;
 
-  public static final String SERIALIZED_NAME_COMBINED_TAX_RATE = "combinedTaxRate";
-  @SerializedName(SERIALIZED_NAME_COMBINED_TAX_RATE)
+  public static final String JSON_PROPERTY_COMBINED_TAX_RATE = "combinedTaxRate";
   private BigDecimal combinedTaxRate;
 
-  public static final String SERIALIZED_NAME_COMBINED_DISTRICT_RATE = "combinedDistrictRate";
-  @SerializedName(SERIALIZED_NAME_COMBINED_DISTRICT_RATE)
+  public static final String JSON_PROPERTY_COMBINED_DISTRICT_RATE = "combinedDistrictRate";
   private BigDecimal combinedDistrictRate;
 
-  public static final String SERIALIZED_NAME_CITY = "city";
-  @SerializedName(SERIALIZED_NAME_CITY)
+  public static final String JSON_PROPERTY_CITY = "city";
   private String city;
 
-  public static final String SERIALIZED_NAME_COUNTY = "county";
-  @SerializedName(SERIALIZED_NAME_COUNTY)
+  public static final String JSON_PROPERTY_COUNTY = "county";
   private String county;
 
-  public static final String SERIALIZED_NAME_STATE = "state";
-  @SerializedName(SERIALIZED_NAME_STATE)
+  public static final String JSON_PROPERTY_STATE = "state";
   private String state;
 
-  public static final String SERIALIZED_NAME_STATE_RATE = "stateRate";
-  @SerializedName(SERIALIZED_NAME_STATE_RATE)
+  public static final String JSON_PROPERTY_STATE_RATE = "stateRate";
   private BigDecimal stateRate;
 
-  public static final String SERIALIZED_NAME_EXEMPT = "exempt";
-  @SerializedName(SERIALIZED_NAME_EXEMPT)
+  public static final String JSON_PROPERTY_EXEMPT = "exempt";
   private Boolean exempt;
 
-  public static final String SERIALIZED_NAME_CITY_RATE = "cityRate";
-  @SerializedName(SERIALIZED_NAME_CITY_RATE)
+  public static final String JSON_PROPERTY_CITY_RATE = "cityRate";
   private BigDecimal cityRate;
 
 
@@ -83,6 +84,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ZIP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getZip() {
     return zip;
@@ -106,6 +109,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COUNTY_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getCountyRate() {
     return countyRate;
@@ -129,6 +134,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COMBINED_TAX_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getCombinedTaxRate() {
     return combinedTaxRate;
@@ -152,6 +159,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COMBINED_DISTRICT_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getCombinedDistrictRate() {
     return combinedDistrictRate;
@@ -175,6 +184,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCity() {
     return city;
@@ -198,6 +209,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_COUNTY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCounty() {
     return county;
@@ -221,6 +234,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getState() {
     return state;
@@ -244,6 +259,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STATE_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getStateRate() {
     return stateRate;
@@ -267,6 +284,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_EXEMPT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExempt() {
     return exempt;
@@ -290,6 +309,8 @@ public class SalesTaxInfoDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CITY_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getCityRate() {
     return cityRate;

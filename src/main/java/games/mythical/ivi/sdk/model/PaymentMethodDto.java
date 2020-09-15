@@ -15,35 +15,36 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.PostalAddress;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * PaymentMethodDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  PaymentMethodDto.JSON_PROPERTY_ADDRESS,
+  PaymentMethodDto.JSON_PROPERTY_DEFAULT_OPTION,
+  PaymentMethodDto.JSON_PROPERTY_TYPE,
+  PaymentMethodDto.JSON_PROPERTY_TOKEN
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class PaymentMethodDto {
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  public static final String JSON_PROPERTY_ADDRESS = "address";
   private PostalAddress address;
 
-  public static final String SERIALIZED_NAME_DEFAULT_OPTION = "defaultOption";
-  @SerializedName(SERIALIZED_NAME_DEFAULT_OPTION)
+  public static final String JSON_PROPERTY_DEFAULT_OPTION = "defaultOption";
   private Boolean defaultOption;
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private String type;
 
-  public static final String SERIALIZED_NAME_TOKEN = "token";
-  @SerializedName(SERIALIZED_NAME_TOKEN)
+  public static final String JSON_PROPERTY_TOKEN = "token";
   private String token;
 
 
@@ -59,6 +60,8 @@ public class PaymentMethodDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PostalAddress getAddress() {
     return address;
@@ -82,6 +85,8 @@ public class PaymentMethodDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DEFAULT_OPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDefaultOption() {
     return defaultOption;
@@ -105,6 +110,8 @@ public class PaymentMethodDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
@@ -128,6 +135,8 @@ public class PaymentMethodDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToken() {
     return token;

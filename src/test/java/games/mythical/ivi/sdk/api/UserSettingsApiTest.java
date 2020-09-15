@@ -13,10 +13,11 @@
 
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiException;
+import games.mythical.ivi.sdk.ApiException;
 import games.mythical.ivi.sdk.model.ThemeDto;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +27,10 @@ import java.util.Map;
 /**
  * API tests for UserSettingsApi
  */
-@Ignore
 public class UserSettingsApiTest {
 
     private final UserSettingsApi api = new UserSettingsApi();
 
-    
     /**
      * Get the display theme
      *
@@ -42,11 +41,11 @@ public class UserSettingsApiTest {
      */
     @Test
     public void getThemeTest() throws ApiException {
-        ThemeDto response = api.getTheme();
+        //
+        //ThemeDto response = api.getTheme();
 
         // TODO: test validations
     }
-    
     /**
      * Set the display theme
      *
@@ -57,12 +56,13 @@ public class UserSettingsApiTest {
      */
     @Test
     public void setThemeTest() throws ApiException {
-        String body = null;
-        api.setTheme(body);
+        //
+        //String body = null;
+        //
+        //api.setTheme(body);
 
         // TODO: test validations
     }
-    
     /**
      * Update the display theme
      *
@@ -73,10 +73,11 @@ public class UserSettingsApiTest {
      */
     @Test
     public void updateThemeTest() throws ApiException {
-        String body = null;
-        api.updateTheme(body);
+        //
+        //String body = null;
+        //
+        //api.updateTheme(body);
 
         // TODO: test validations
     }
-    
 }

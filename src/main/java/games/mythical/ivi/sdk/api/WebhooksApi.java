@@ -10,911 +10,447 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.CreateWebhookRequest;
 import games.mythical.ivi.sdk.model.UpdateWebhookRequest;
 import games.mythical.ivi.sdk.model.WebhookDto;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class WebhooksApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public WebhooksApi() {
+    this(new ApiClient());
+  }
 
-    public WebhooksApi() {
-        this(Configuration.getDefaultApiClient());
+  public WebhooksApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Create webhook
+   * Define a new webhook that will be called to inform a game backend of platform events.
+   * @param environmentId  (required)
+   * @param createWebhookRequest  (required)
+   * @return WebhookDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<WebhookDto> createNewWebhook (String environmentId, CreateWebhookRequest createWebhookRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createNewWebhook"));
+    }
+    // verify the required parameter 'createWebhookRequest' is set
+    if (createWebhookRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createWebhookRequest' when calling createNewWebhook"));
     }
 
-    public WebhooksApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/webhooks"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createWebhookRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "createNewWebhook call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<WebhookDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Delete webhook
+   * Delete a webhook
+   * @param environmentId  (required)
+   * @param webhookId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> deleteWebhook (String environmentId, String webhookId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteWebhook"));
+    }
+    // verify the required parameter 'webhookId' is set
+    if (webhookId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'webhookId' when calling deleteWebhook"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "deleteWebhook call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Disable webhook
+   * Set a webhook to disabled.
+   * @param environmentId  (required)
+   * @param webhookId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> disableWebhook (String environmentId, String webhookId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling disableWebhook"));
+    }
+    // verify the required parameter 'webhookId' is set
+    if (webhookId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'webhookId' when calling disableWebhook"));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}/disable"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "disableWebhook call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Enable webhook
+   * Set a webhook to enabled.
+   * @param environmentId  (required)
+   * @param webhookId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> enableWebhook (String environmentId, String webhookId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling enableWebhook"));
+    }
+    // verify the required parameter 'webhookId' is set
+    if (webhookId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'webhookId' when calling enableWebhook"));
     }
 
-    /**
-     * Build call for createNewWebhook
-     * @param environmentId  (required)
-     * @param createWebhookRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNewWebhookCall(String environmentId, CreateWebhookRequest createWebhookRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createWebhookRequest;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
+    String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}/enable"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "enableWebhook call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get webhook
+   * Get details for a webhook
+   * @param environmentId  (required)
+   * @param webhookId  (required)
+   * @return WebhookDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<WebhookDto> getWebhook (String environmentId, String webhookId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getWebhook"));
+    }
+    // verify the required parameter 'webhookId' is set
+    if (webhookId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'webhookId' when calling getWebhook"));
     }
 
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createNewWebhookValidateBeforeCall(String environmentId, CreateWebhookRequest createWebhookRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling createNewWebhook(Async)");
-        }
-        
-        // verify the required parameter 'createWebhookRequest' is set
-        if (createWebhookRequest == null) {
-            throw new ApiException("Missing the required parameter 'createWebhookRequest' when calling createNewWebhook(Async)");
-        }
-        
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        okhttp3.Call localVarCall = createNewWebhookCall(environmentId, createWebhookRequest, _callback);
-        return localVarCall;
+    String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
 
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getWebhook call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<WebhookDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get all webhooks for environment
+   * Get details for all webhooks defined for this environment.
+   * @param environmentId  (required)
+   * @return List&lt;WebhookDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<WebhookDto>> getWebhooksForTitleId (String environmentId) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getWebhooksForTitleId"));
     }
 
-    /**
-     * Create webhook
-     * Define a new webhook that will be called to inform a game backend of platform events.
-     * @param environmentId  (required)
-     * @param createWebhookRequest  (required)
-     * @return WebhookDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public WebhookDto createNewWebhook(String environmentId, CreateWebhookRequest createWebhookRequest) throws ApiException {
-        ApiResponse<WebhookDto> localVarResp = createNewWebhookWithHttpInfo(environmentId, createWebhookRequest);
-        return localVarResp.getData();
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/webhooks"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getWebhooksForTitleId call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<WebhookDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Update webhook
+   * Update an existing webhook. All details must be included in the request, not just what is being updated.
+   * @param environmentId  (required)
+   * @param webhookId  (required)
+   * @param updateWebhookRequest  (required)
+   * @return WebhookDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<WebhookDto> updateWebhook (String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws ApiException {
+    // verify the required parameter 'environmentId' is set
+    if (environmentId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateWebhook"));
+    }
+    // verify the required parameter 'webhookId' is set
+    if (webhookId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'webhookId' when calling updateWebhook"));
+    }
+    // verify the required parameter 'updateWebhookRequest' is set
+    if (updateWebhookRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateWebhookRequest' when calling updateWebhook"));
     }
 
-    /**
-     * Create webhook
-     * Define a new webhook that will be called to inform a game backend of platform events.
-     * @param environmentId  (required)
-     * @param createWebhookRequest  (required)
-     * @return ApiResponse&lt;WebhookDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<WebhookDto> createNewWebhookWithHttpInfo(String environmentId, CreateWebhookRequest createWebhookRequest) throws ApiException {
-        okhttp3.Call localVarCall = createNewWebhookValidateBeforeCall(environmentId, createWebhookRequest, null);
-        Type localVarReturnType = new TypeToken<WebhookDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}"
+        .replace("{environmentId}", ApiClient.urlEncode(environmentId.toString()))
+        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateWebhookRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateWebhook call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<WebhookDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
     }
-
-    /**
-     * Create webhook (asynchronously)
-     * Define a new webhook that will be called to inform a game backend of platform events.
-     * @param environmentId  (required)
-     * @param createWebhookRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createNewWebhookAsync(String environmentId, CreateWebhookRequest createWebhookRequest, final ApiCallback<WebhookDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createNewWebhookValidateBeforeCall(environmentId, createWebhookRequest, _callback);
-        Type localVarReturnType = new TypeToken<WebhookDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteWebhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteWebhookCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "webhookId" + "\\}", localVarApiClient.escapeString(webhookId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteWebhookValidateBeforeCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling deleteWebhook(Async)");
-        }
-        
-        // verify the required parameter 'webhookId' is set
-        if (webhookId == null) {
-            throw new ApiException("Missing the required parameter 'webhookId' when calling deleteWebhook(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = deleteWebhookCall(environmentId, webhookId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Delete webhook
-     * Delete a webhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public void deleteWebhook(String environmentId, String webhookId) throws ApiException {
-        deleteWebhookWithHttpInfo(environmentId, webhookId);
-    }
-
-    /**
-     * Delete webhook
-     * Delete a webhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteWebhookWithHttpInfo(String environmentId, String webhookId) throws ApiException {
-        okhttp3.Call localVarCall = deleteWebhookValidateBeforeCall(environmentId, webhookId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Delete webhook (asynchronously)
-     * Delete a webhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully deleted </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteWebhookAsync(String environmentId, String webhookId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = deleteWebhookValidateBeforeCall(environmentId, webhookId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for disableWebhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully disabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call disableWebhookCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}/disable"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "webhookId" + "\\}", localVarApiClient.escapeString(webhookId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call disableWebhookValidateBeforeCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling disableWebhook(Async)");
-        }
-        
-        // verify the required parameter 'webhookId' is set
-        if (webhookId == null) {
-            throw new ApiException("Missing the required parameter 'webhookId' when calling disableWebhook(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = disableWebhookCall(environmentId, webhookId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Disable webhook
-     * Set a webhook to disabled.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully disabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public void disableWebhook(String environmentId, String webhookId) throws ApiException {
-        disableWebhookWithHttpInfo(environmentId, webhookId);
-    }
-
-    /**
-     * Disable webhook
-     * Set a webhook to disabled.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully disabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> disableWebhookWithHttpInfo(String environmentId, String webhookId) throws ApiException {
-        okhttp3.Call localVarCall = disableWebhookValidateBeforeCall(environmentId, webhookId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Disable webhook (asynchronously)
-     * Set a webhook to disabled.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully disabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call disableWebhookAsync(String environmentId, String webhookId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = disableWebhookValidateBeforeCall(environmentId, webhookId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for enableWebhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully enabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call enableWebhookCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}/enable"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "webhookId" + "\\}", localVarApiClient.escapeString(webhookId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call enableWebhookValidateBeforeCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling enableWebhook(Async)");
-        }
-        
-        // verify the required parameter 'webhookId' is set
-        if (webhookId == null) {
-            throw new ApiException("Missing the required parameter 'webhookId' when calling enableWebhook(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = enableWebhookCall(environmentId, webhookId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Enable webhook
-     * Set a webhook to enabled.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully enabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public void enableWebhook(String environmentId, String webhookId) throws ApiException {
-        enableWebhookWithHttpInfo(environmentId, webhookId);
-    }
-
-    /**
-     * Enable webhook
-     * Set a webhook to enabled.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully enabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> enableWebhookWithHttpInfo(String environmentId, String webhookId) throws ApiException {
-        okhttp3.Call localVarCall = enableWebhookValidateBeforeCall(environmentId, webhookId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Enable webhook (asynchronously)
-     * Set a webhook to enabled.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Webhook successfully enabled </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call enableWebhookAsync(String environmentId, String webhookId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = enableWebhookValidateBeforeCall(environmentId, webhookId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getWebhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getWebhookCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "webhookId" + "\\}", localVarApiClient.escapeString(webhookId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getWebhookValidateBeforeCall(String environmentId, String webhookId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getWebhook(Async)");
-        }
-        
-        // verify the required parameter 'webhookId' is set
-        if (webhookId == null) {
-            throw new ApiException("Missing the required parameter 'webhookId' when calling getWebhook(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getWebhookCall(environmentId, webhookId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get webhook
-     * Get details for a webhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @return WebhookDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public WebhookDto getWebhook(String environmentId, String webhookId) throws ApiException {
-        ApiResponse<WebhookDto> localVarResp = getWebhookWithHttpInfo(environmentId, webhookId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get webhook
-     * Get details for a webhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @return ApiResponse&lt;WebhookDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<WebhookDto> getWebhookWithHttpInfo(String environmentId, String webhookId) throws ApiException {
-        okhttp3.Call localVarCall = getWebhookValidateBeforeCall(environmentId, webhookId, null);
-        Type localVarReturnType = new TypeToken<WebhookDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get webhook (asynchronously)
-     * Get details for a webhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getWebhookAsync(String environmentId, String webhookId, final ApiCallback<WebhookDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getWebhookValidateBeforeCall(environmentId, webhookId, _callback);
-        Type localVarReturnType = new TypeToken<WebhookDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getWebhooksForTitleId
-     * @param environmentId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getWebhooksForTitleIdCall(String environmentId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getWebhooksForTitleIdValidateBeforeCall(String environmentId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling getWebhooksForTitleId(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getWebhooksForTitleIdCall(environmentId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get all webhooks for environment
-     * Get details for all webhooks defined for this environment.
-     * @param environmentId  (required)
-     * @return List&lt;WebhookDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<WebhookDto> getWebhooksForTitleId(String environmentId) throws ApiException {
-        ApiResponse<List<WebhookDto>> localVarResp = getWebhooksForTitleIdWithHttpInfo(environmentId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get all webhooks for environment
-     * Get details for all webhooks defined for this environment.
-     * @param environmentId  (required)
-     * @return ApiResponse&lt;List&lt;WebhookDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<WebhookDto>> getWebhooksForTitleIdWithHttpInfo(String environmentId) throws ApiException {
-        okhttp3.Call localVarCall = getWebhooksForTitleIdValidateBeforeCall(environmentId, null);
-        Type localVarReturnType = new TypeToken<List<WebhookDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get all webhooks for environment (asynchronously)
-     * Get details for all webhooks defined for this environment.
-     * @param environmentId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getWebhooksForTitleIdAsync(String environmentId, final ApiCallback<List<WebhookDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getWebhooksForTitleIdValidateBeforeCall(environmentId, _callback);
-        Type localVarReturnType = new TypeToken<List<WebhookDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateWebhook
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param updateWebhookRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateWebhookCall(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = updateWebhookRequest;
-
-        // create path and map variables
-        String localVarPath = "/environments/{environmentId}/webhooks/{webhookId}"
-            .replaceAll("\\{" + "environmentId" + "\\}", localVarApiClient.escapeString(environmentId.toString()))
-            .replaceAll("\\{" + "webhookId" + "\\}", localVarApiClient.escapeString(webhookId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateWebhookValidateBeforeCall(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'environmentId' is set
-        if (environmentId == null) {
-            throw new ApiException("Missing the required parameter 'environmentId' when calling updateWebhook(Async)");
-        }
-        
-        // verify the required parameter 'webhookId' is set
-        if (webhookId == null) {
-            throw new ApiException("Missing the required parameter 'webhookId' when calling updateWebhook(Async)");
-        }
-        
-        // verify the required parameter 'updateWebhookRequest' is set
-        if (updateWebhookRequest == null) {
-            throw new ApiException("Missing the required parameter 'updateWebhookRequest' when calling updateWebhook(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateWebhookCall(environmentId, webhookId, updateWebhookRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update webhook
-     * Update an existing webhook. All details must be included in the request, not just what is being updated.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param updateWebhookRequest  (required)
-     * @return WebhookDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public WebhookDto updateWebhook(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws ApiException {
-        ApiResponse<WebhookDto> localVarResp = updateWebhookWithHttpInfo(environmentId, webhookId, updateWebhookRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Update webhook
-     * Update an existing webhook. All details must be included in the request, not just what is being updated.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param updateWebhookRequest  (required)
-     * @return ApiResponse&lt;WebhookDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<WebhookDto> updateWebhookWithHttpInfo(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateWebhookValidateBeforeCall(environmentId, webhookId, updateWebhookRequest, null);
-        Type localVarReturnType = new TypeToken<WebhookDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Update webhook (asynchronously)
-     * Update an existing webhook. All details must be included in the request, not just what is being updated.
-     * @param environmentId  (required)
-     * @param webhookId  (required)
-     * @param updateWebhookRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateWebhookAsync(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest, final ApiCallback<WebhookDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateWebhookValidateBeforeCall(environmentId, webhookId, updateWebhookRequest, _callback);
-        Type localVarReturnType = new TypeToken<WebhookDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
+  }
 }

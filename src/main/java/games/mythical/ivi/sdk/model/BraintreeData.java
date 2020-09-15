@@ -15,22 +15,23 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * BraintreeData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  BraintreeData.JSON_PROPERTY_BRAINTREE_CLIENT_TOKEN
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class BraintreeData {
-  public static final String SERIALIZED_NAME_BRAINTREE_CLIENT_TOKEN = "braintreeClientToken";
-  @SerializedName(SERIALIZED_NAME_BRAINTREE_CLIENT_TOKEN)
+  public static final String JSON_PROPERTY_BRAINTREE_CLIENT_TOKEN = "braintreeClientToken";
   private String braintreeClientToken;
 
 
@@ -46,6 +47,8 @@ public class BraintreeData {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BRAINTREE_CLIENT_TOKEN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBraintreeClientToken() {
     return braintreeClientToken;

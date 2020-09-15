@@ -15,55 +15,56 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * SalesTaxTransactionDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  SalesTaxTransactionDto.JSON_PROPERTY_TRANSACTION_DATE,
+  SalesTaxTransactionDto.JSON_PROPERTY_TO_ZIP,
+  SalesTaxTransactionDto.JSON_PROPERTY_TAXABLE_AMOUNT,
+  SalesTaxTransactionDto.JSON_PROPERTY_TO_STATE,
+  SalesTaxTransactionDto.JSON_PROPERTY_SALES_TAX_AMOUNT,
+  SalesTaxTransactionDto.JSON_PROPERTY_TO_CITY,
+  SalesTaxTransactionDto.JSON_PROPERTY_USER_ID,
+  SalesTaxTransactionDto.JSON_PROPERTY_TRANSACTION_ID,
+  SalesTaxTransactionDto.JSON_PROPERTY_TO_COUNTRY
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class SalesTaxTransactionDto {
-  public static final String SERIALIZED_NAME_TRANSACTION_DATE = "transaction_date";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_DATE)
+  public static final String JSON_PROPERTY_TRANSACTION_DATE = "transaction_date";
   private Long transactionDate;
 
-  public static final String SERIALIZED_NAME_TO_ZIP = "toZip";
-  @SerializedName(SERIALIZED_NAME_TO_ZIP)
+  public static final String JSON_PROPERTY_TO_ZIP = "toZip";
   private String toZip;
 
-  public static final String SERIALIZED_NAME_TAXABLE_AMOUNT = "taxableAmount";
-  @SerializedName(SERIALIZED_NAME_TAXABLE_AMOUNT)
+  public static final String JSON_PROPERTY_TAXABLE_AMOUNT = "taxableAmount";
   private BigDecimal taxableAmount;
 
-  public static final String SERIALIZED_NAME_TO_STATE = "toState";
-  @SerializedName(SERIALIZED_NAME_TO_STATE)
+  public static final String JSON_PROPERTY_TO_STATE = "toState";
   private String toState;
 
-  public static final String SERIALIZED_NAME_SALES_TAX_AMOUNT = "salesTaxAmount";
-  @SerializedName(SERIALIZED_NAME_SALES_TAX_AMOUNT)
+  public static final String JSON_PROPERTY_SALES_TAX_AMOUNT = "salesTaxAmount";
   private BigDecimal salesTaxAmount;
 
-  public static final String SERIALIZED_NAME_TO_CITY = "toCity";
-  @SerializedName(SERIALIZED_NAME_TO_CITY)
+  public static final String JSON_PROPERTY_TO_CITY = "toCity";
   private String toCity;
 
-  public static final String SERIALIZED_NAME_USER_ID = "userId";
-  @SerializedName(SERIALIZED_NAME_USER_ID)
+  public static final String JSON_PROPERTY_USER_ID = "userId";
   private Integer userId;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private String transactionId;
 
-  public static final String SERIALIZED_NAME_TO_COUNTRY = "toCountry";
-  @SerializedName(SERIALIZED_NAME_TO_COUNTRY)
+  public static final String JSON_PROPERTY_TO_COUNTRY = "toCountry";
   private String toCountry;
 
 
@@ -79,6 +80,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTransactionDate() {
     return transactionDate;
@@ -102,6 +105,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TO_ZIP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToZip() {
     return toZip;
@@ -125,6 +130,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TAXABLE_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getTaxableAmount() {
     return taxableAmount;
@@ -148,6 +155,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TO_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToState() {
     return toState;
@@ -171,6 +180,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALES_TAX_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getSalesTaxAmount() {
     return salesTaxAmount;
@@ -194,6 +205,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TO_CITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToCity() {
     return toCity;
@@ -217,6 +230,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getUserId() {
     return userId;
@@ -240,6 +255,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionId() {
     return transactionId;
@@ -263,6 +280,8 @@ public class SalesTaxTransactionDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TO_COUNTRY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToCountry() {
     return toCountry;

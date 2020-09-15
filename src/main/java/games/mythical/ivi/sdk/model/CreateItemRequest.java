@@ -15,52 +15,53 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateItemRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  CreateItemRequest.JSON_PROPERTY_TRANSFERABLE,
+  CreateItemRequest.JSON_PROPERTY_TOKEN_NAME,
+  CreateItemRequest.JSON_PROPERTY_BURNABLE,
+  CreateItemRequest.JSON_PROPERTY_MAX_SUPPLY,
+  CreateItemRequest.JSON_PROPERTY_SELLABLE,
+  CreateItemRequest.JSON_PROPERTY_CATEGORY,
+  CreateItemRequest.JSON_PROPERTY_AGREEMENT_IDS,
+  CreateItemRequest.JSON_PROPERTY_ISSUE_TIME_SPAN
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class CreateItemRequest {
-  public static final String SERIALIZED_NAME_TRANSFERABLE = "transferable";
-  @SerializedName(SERIALIZED_NAME_TRANSFERABLE)
+  public static final String JSON_PROPERTY_TRANSFERABLE = "transferable";
   private Boolean transferable;
 
-  public static final String SERIALIZED_NAME_TOKEN_NAME = "tokenName";
-  @SerializedName(SERIALIZED_NAME_TOKEN_NAME)
+  public static final String JSON_PROPERTY_TOKEN_NAME = "tokenName";
   private String tokenName;
 
-  public static final String SERIALIZED_NAME_BURNABLE = "burnable";
-  @SerializedName(SERIALIZED_NAME_BURNABLE)
+  public static final String JSON_PROPERTY_BURNABLE = "burnable";
   private Boolean burnable;
 
-  public static final String SERIALIZED_NAME_MAX_SUPPLY = "maxSupply";
-  @SerializedName(SERIALIZED_NAME_MAX_SUPPLY)
+  public static final String JSON_PROPERTY_MAX_SUPPLY = "maxSupply";
   private Integer maxSupply;
 
-  public static final String SERIALIZED_NAME_SELLABLE = "sellable";
-  @SerializedName(SERIALIZED_NAME_SELLABLE)
+  public static final String JSON_PROPERTY_SELLABLE = "sellable";
   private Boolean sellable;
 
-  public static final String SERIALIZED_NAME_CATEGORY = "category";
-  @SerializedName(SERIALIZED_NAME_CATEGORY)
+  public static final String JSON_PROPERTY_CATEGORY = "category";
   private String category;
 
-  public static final String SERIALIZED_NAME_AGREEMENT_IDS = "agreementIds";
-  @SerializedName(SERIALIZED_NAME_AGREEMENT_IDS)
+  public static final String JSON_PROPERTY_AGREEMENT_IDS = "agreementIds";
   private List<String> agreementIds = null;
 
-  public static final String SERIALIZED_NAME_ISSUE_TIME_SPAN = "issueTimeSpan";
-  @SerializedName(SERIALIZED_NAME_ISSUE_TIME_SPAN)
+  public static final String JSON_PROPERTY_ISSUE_TIME_SPAN = "issueTimeSpan";
   private Integer issueTimeSpan;
 
 
@@ -75,6 +76,8 @@ public class CreateItemRequest {
    * @return transferable
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSFERABLE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getTransferable() {
     return transferable;
@@ -97,6 +100,8 @@ public class CreateItemRequest {
    * @return tokenName
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTokenName() {
     return tokenName;
@@ -119,6 +124,8 @@ public class CreateItemRequest {
    * @return burnable
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_BURNABLE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getBurnable() {
     return burnable;
@@ -143,6 +150,8 @@ public class CreateItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "1000", value = "")
+  @JsonProperty(JSON_PROPERTY_MAX_SUPPLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxSupply() {
     return maxSupply;
@@ -165,6 +174,8 @@ public class CreateItemRequest {
    * @return sellable
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_SELLABLE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getSellable() {
     return sellable;
@@ -187,6 +198,8 @@ public class CreateItemRequest {
    * @return category
   **/
   @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CATEGORY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getCategory() {
     return category;
@@ -206,7 +219,7 @@ public class CreateItemRequest {
 
   public CreateItemRequest addAgreementIdsItem(String agreementIdsItem) {
     if (this.agreementIds == null) {
-      this.agreementIds = new ArrayList<String>();
+      this.agreementIds = new ArrayList<>();
     }
     this.agreementIds.add(agreementIdsItem);
     return this;
@@ -218,6 +231,8 @@ public class CreateItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AGREEMENT_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAgreementIds() {
     return agreementIds;
@@ -242,6 +257,8 @@ public class CreateItemRequest {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "0", value = "")
+  @JsonProperty(JSON_PROPERTY_ISSUE_TIME_SPAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getIssueTimeSpan() {
     return issueTimeSpan;

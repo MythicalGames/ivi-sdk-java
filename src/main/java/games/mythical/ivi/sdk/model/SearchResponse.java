@@ -15,30 +15,31 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.SearchHit;
 import games.mythical.ivi.sdk.model.SearchTotal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * SearchResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  SearchResponse.JSON_PROPERTY_TOTAL,
+  SearchResponse.JSON_PROPERTY_DATA
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class SearchResponse {
-  public static final String SERIALIZED_NAME_TOTAL = "total";
-  @SerializedName(SERIALIZED_NAME_TOTAL)
+  public static final String JSON_PROPERTY_TOTAL = "total";
   private SearchTotal total;
 
-  public static final String SERIALIZED_NAME_DATA = "data";
-  @SerializedName(SERIALIZED_NAME_DATA)
+  public static final String JSON_PROPERTY_DATA = "data";
   private List<SearchHit> data = null;
 
 
@@ -54,6 +55,8 @@ public class SearchResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SearchTotal getTotal() {
     return total;
@@ -73,7 +76,7 @@ public class SearchResponse {
 
   public SearchResponse addDataItem(SearchHit dataItem) {
     if (this.data == null) {
-      this.data = new ArrayList<SearchHit>();
+      this.data = new ArrayList<>();
     }
     this.data.add(dataItem);
     return this;
@@ -85,6 +88,8 @@ public class SearchResponse {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SearchHit> getData() {
     return data;

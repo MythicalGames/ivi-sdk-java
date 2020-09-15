@@ -15,61 +15,62 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * ElasticDgood
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  ElasticDgood.JSON_PROPERTY_IMAGE_SMALL,
+  ElasticDgood.JSON_PROPERTY_METADATA,
+  ElasticDgood.JSON_PROPERTY_DGOOD_ID,
+  ElasticDgood.JSON_PROPERTY_AUTHENTICITY,
+  ElasticDgood.JSON_PROPERTY_NAME,
+  ElasticDgood.JSON_PROPERTY_DESCRIPTION,
+  ElasticDgood.JSON_PROPERTY_CATEGORY,
+  ElasticDgood.JSON_PROPERTY_IMAGE_LARGE,
+  ElasticDgood.JSON_PROPERTY_TITLE,
+  ElasticDgood.JSON_PROPERTY_RENDER
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ElasticDgood {
-  public static final String SERIALIZED_NAME_IMAGE_SMALL = "image_small";
-  @SerializedName(SERIALIZED_NAME_IMAGE_SMALL)
+  public static final String JSON_PROPERTY_IMAGE_SMALL = "image_small";
   private String imageSmall;
 
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
+  public static final String JSON_PROPERTY_METADATA = "metadata";
   private Map<String, Object> metadata = null;
 
-  public static final String SERIALIZED_NAME_DGOOD_ID = "dgood_id";
-  @SerializedName(SERIALIZED_NAME_DGOOD_ID)
+  public static final String JSON_PROPERTY_DGOOD_ID = "dgood_id";
   private Long dgoodId;
 
-  public static final String SERIALIZED_NAME_AUTHENTICITY = "authenticity";
-  @SerializedName(SERIALIZED_NAME_AUTHENTICITY)
+  public static final String JSON_PROPERTY_AUTHENTICITY = "authenticity";
   private String authenticity;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_CATEGORY = "category";
-  @SerializedName(SERIALIZED_NAME_CATEGORY)
+  public static final String JSON_PROPERTY_CATEGORY = "category";
   private String category;
 
-  public static final String SERIALIZED_NAME_IMAGE_LARGE = "image_large";
-  @SerializedName(SERIALIZED_NAME_IMAGE_LARGE)
+  public static final String JSON_PROPERTY_IMAGE_LARGE = "image_large";
   private String imageLarge;
 
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
+  public static final String JSON_PROPERTY_TITLE = "title";
   private String title;
 
-  public static final String SERIALIZED_NAME_RENDER = "render";
-  @SerializedName(SERIALIZED_NAME_RENDER)
+  public static final String JSON_PROPERTY_RENDER = "render";
   private String render;
 
 
@@ -85,6 +86,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_SMALL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageSmall() {
     return imageSmall;
@@ -104,7 +107,7 @@ public class ElasticDgood {
 
   public ElasticDgood putMetadataItem(String key, Object metadataItem) {
     if (this.metadata == null) {
-      this.metadata = new HashMap<String, Object>();
+      this.metadata = new HashMap<>();
     }
     this.metadata.put(key, metadataItem);
     return this;
@@ -116,6 +119,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getMetadata() {
     return metadata;
@@ -139,6 +144,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getDgoodId() {
     return dgoodId;
@@ -162,6 +169,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AUTHENTICITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAuthenticity() {
     return authenticity;
@@ -185,6 +194,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -208,6 +219,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -231,6 +244,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CATEGORY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCategory() {
     return category;
@@ -254,6 +269,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_IMAGE_LARGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImageLarge() {
     return imageLarge;
@@ -277,6 +294,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
     return title;
@@ -300,6 +319,8 @@ public class ElasticDgood {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_RENDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRender() {
     return render;

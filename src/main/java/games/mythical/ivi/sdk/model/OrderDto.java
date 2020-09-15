@@ -15,66 +15,68 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import games.mythical.ivi.sdk.model.PaymentProviderData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * OrderDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  OrderDto.JSON_PROPERTY_ITEM_TYPES,
+  OrderDto.JSON_PROPERTY_TOTAL,
+  OrderDto.JSON_PROPERTY_METADATA,
+  OrderDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  OrderDto.JSON_PROPERTY_ADDRESS,
+  OrderDto.JSON_PROPERTY_ORDER_ID,
+  OrderDto.JSON_PROPERTY_CREATED_BY,
+  OrderDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  OrderDto.JSON_PROPERTY_REQUEST_IP,
+  OrderDto.JSON_PROPERTY_TAX,
+  OrderDto.JSON_PROPERTY_PAYMENT_PROVIDER_ID,
+  OrderDto.JSON_PROPERTY_PAYMENT_PROVIDER_DATA
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class OrderDto {
-  public static final String SERIALIZED_NAME_ITEM_TYPES = "itemTypes";
-  @SerializedName(SERIALIZED_NAME_ITEM_TYPES)
+  public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
   private String itemTypes;
 
-  public static final String SERIALIZED_NAME_TOTAL = "total";
-  @SerializedName(SERIALIZED_NAME_TOTAL)
+  public static final String JSON_PROPERTY_TOTAL = "total";
   private BigDecimal total;
 
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
+  public static final String JSON_PROPERTY_METADATA = "metadata";
   private String metadata;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  public static final String JSON_PROPERTY_ADDRESS = "address";
   private String address;
 
-  public static final String SERIALIZED_NAME_ORDER_ID = "orderId";
-  @SerializedName(SERIALIZED_NAME_ORDER_ID)
+  public static final String JSON_PROPERTY_ORDER_ID = "orderId";
   private String orderId;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private String createdTimestamp;
 
-  public static final String SERIALIZED_NAME_REQUEST_IP = "requestIp";
-  @SerializedName(SERIALIZED_NAME_REQUEST_IP)
+  public static final String JSON_PROPERTY_REQUEST_IP = "requestIp";
   private String requestIp;
 
-  public static final String SERIALIZED_NAME_TAX = "tax";
-  @SerializedName(SERIALIZED_NAME_TAX)
+  public static final String JSON_PROPERTY_TAX = "tax";
   private BigDecimal tax;
 
   /**
    * Gets or Sets paymentProviderId
    */
-  @JsonAdapter(PaymentProviderIdEnum.Adapter.class)
   public enum PaymentProviderIdEnum {
     BRAINTREE("BRAINTREE"),
     
@@ -88,6 +90,7 @@ public class OrderDto {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -97,6 +100,7 @@ public class OrderDto {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static PaymentProviderIdEnum fromValue(String value) {
       for (PaymentProviderIdEnum b : PaymentProviderIdEnum.values()) {
         if (b.value.equals(value)) {
@@ -105,27 +109,12 @@ public class OrderDto {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<PaymentProviderIdEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PaymentProviderIdEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PaymentProviderIdEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return PaymentProviderIdEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_PAYMENT_PROVIDER_ID = "paymentProviderId";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_PROVIDER_ID)
+  public static final String JSON_PROPERTY_PAYMENT_PROVIDER_ID = "paymentProviderId";
   private PaymentProviderIdEnum paymentProviderId;
 
-  public static final String SERIALIZED_NAME_PAYMENT_PROVIDER_DATA = "paymentProviderData";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_PROVIDER_DATA)
+  public static final String JSON_PROPERTY_PAYMENT_PROVIDER_DATA = "paymentProviderData";
   private PaymentProviderData paymentProviderData;
 
 
@@ -141,6 +130,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ITEM_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getItemTypes() {
     return itemTypes;
@@ -164,6 +155,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getTotal() {
     return total;
@@ -187,6 +180,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMetadata() {
     return metadata;
@@ -210,6 +205,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -233,6 +230,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAddress() {
     return address;
@@ -256,6 +255,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ORDER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOrderId() {
     return orderId;
@@ -279,6 +280,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -302,6 +305,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedTimestamp() {
     return createdTimestamp;
@@ -325,6 +330,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_REQUEST_IP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRequestIp() {
     return requestIp;
@@ -348,6 +355,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getTax() {
     return tax;
@@ -371,6 +380,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PaymentProviderIdEnum getPaymentProviderId() {
     return paymentProviderId;
@@ -394,6 +405,8 @@ public class OrderDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PaymentProviderData getPaymentProviderData() {
     return paymentProviderData;

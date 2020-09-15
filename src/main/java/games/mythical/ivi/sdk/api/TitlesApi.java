@@ -10,755 +10,379 @@
  * Do not edit the class manually.
  */
 
-
 package games.mythical.ivi.sdk.api;
 
-import games.mythical.ivi.sdk.invoker.ApiCallback;
-import games.mythical.ivi.sdk.invoker.ApiClient;
-import games.mythical.ivi.sdk.invoker.ApiException;
-import games.mythical.ivi.sdk.invoker.ApiResponse;
-import games.mythical.ivi.sdk.invoker.Configuration;
-import games.mythical.ivi.sdk.invoker.Pair;
-import games.mythical.ivi.sdk.invoker.ProgressRequestBody;
-import games.mythical.ivi.sdk.invoker.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Pair;
 
 import games.mythical.ivi.sdk.model.CreateEnvironmentInstanceRequest;
 import games.mythical.ivi.sdk.model.CreateTitleRequest;
 import games.mythical.ivi.sdk.model.EnvironmentInstanceDto;
 import games.mythical.ivi.sdk.model.TitleDto;
 
-import java.lang.reflect.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.CompletableFuture;
+
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class TitlesApi {
-    private ApiClient localVarApiClient;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  
+  public TitlesApi() {
+    this(new ApiClient());
+  }
 
-    public TitlesApi() {
-        this(Configuration.getDefaultApiClient());
+  public TitlesApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+  }
+
+  /**
+   * Create environment instance for title
+   * Create new environment instance for a title
+   * @param titleId  (required)
+   * @param createEnvironmentInstanceRequest  (required)
+   * @return EnvironmentInstanceDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<EnvironmentInstanceDto> addEnvironmentInstance (String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws ApiException {
+    // verify the required parameter 'titleId' is set
+    if (titleId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'titleId' when calling addEnvironmentInstance"));
+    }
+    // verify the required parameter 'createEnvironmentInstanceRequest' is set
+    if (createEnvironmentInstanceRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createEnvironmentInstanceRequest' when calling addEnvironmentInstance"));
     }
 
-    public TitlesApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/titles/{titleId}/environments"
+        .replace("{titleId}", ApiClient.urlEncode(titleId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createEnvironmentInstanceRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "addEnvironmentInstance call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<EnvironmentInstanceDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
+    }
+  }
+  /**
+   * Get environment instances for title
+   * Get environment instances for a title
+   * @param titleId  (required)
+   * @param includeInactive  (optional)
+   * @return List&lt;EnvironmentInstanceDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<List<EnvironmentInstanceDto>> getEnvironmentInstancesForTitle (String titleId, Boolean includeInactive) throws ApiException {
+    // verify the required parameter 'titleId' is set
+    if (titleId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'titleId' when calling getEnvironmentInstancesForTitle"));
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/titles/{titleId}/environments"
+        .replace("{titleId}", ApiClient.urlEncode(titleId.toString()));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("includeInactive", includeInactive));
+
+    if (!localVarQueryParams.isEmpty()) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getEnvironmentInstancesForTitle call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<EnvironmentInstanceDto>>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Get title
+   * Get title details
+   * @param titleId  (required)
+   * @return TitleDto
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<TitleDto> getTitleById (String titleId) throws ApiException {
+    // verify the required parameter 'titleId' is set
+    if (titleId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'titleId' when calling getTitleById"));
     }
 
-    /**
-     * Build call for addEnvironmentInstance
-     * @param titleId  (required)
-     * @param createEnvironmentInstanceRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call addEnvironmentInstanceCall(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createEnvironmentInstanceRequest;
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        // create path and map variables
-        String localVarPath = "/titles/{titleId}/environments"
-            .replaceAll("\\{" + "titleId" + "\\}", localVarApiClient.escapeString(titleId.toString()));
+    String localVarPath = "/titles/{titleId}"
+        .replace("{titleId}", ApiClient.urlEncode(titleId.toString()));
 
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "getTitleById call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<TitleDto>() {})
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Set title to activated
+   * 
+   * @param titleId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> setTitleActive (String titleId) throws ApiException {
+    // verify the required parameter 'titleId' is set
+    if (titleId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'titleId' when calling setTitleActive"));
     }
 
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call addEnvironmentInstanceValidateBeforeCall(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'titleId' is set
-        if (titleId == null) {
-            throw new ApiException("Missing the required parameter 'titleId' when calling addEnvironmentInstance(Async)");
-        }
-        
-        // verify the required parameter 'createEnvironmentInstanceRequest' is set
-        if (createEnvironmentInstanceRequest == null) {
-            throw new ApiException("Missing the required parameter 'createEnvironmentInstanceRequest' when calling addEnvironmentInstance(Async)");
-        }
-        
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        okhttp3.Call localVarCall = addEnvironmentInstanceCall(titleId, createEnvironmentInstanceRequest, _callback);
-        return localVarCall;
+    String localVarPath = "/titles/{titleId}/activate"
+        .replace("{titleId}", ApiClient.urlEncode(titleId.toString()));
 
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "setTitleActive call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Set title to deactivated
+   * 
+   * @param titleId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> setTitleInactive (String titleId) throws ApiException {
+    // verify the required parameter 'titleId' is set
+    if (titleId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'titleId' when calling setTitleInactive"));
     }
 
-    /**
-     * Create environment instance for title
-     * Create new environment instance for a title
-     * @param titleId  (required)
-     * @param createEnvironmentInstanceRequest  (required)
-     * @return EnvironmentInstanceDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public EnvironmentInstanceDto addEnvironmentInstance(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws ApiException {
-        ApiResponse<EnvironmentInstanceDto> localVarResp = addEnvironmentInstanceWithHttpInfo(titleId, createEnvironmentInstanceRequest);
-        return localVarResp.getData();
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/titles/{titleId}/deactivate"
+        .replace("{titleId}", ApiClient.urlEncode(titleId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "setTitleInactive call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+  }
+  /**
+   * Update title
+   * Update title name.
+   * @param titleId  (required)
+   * @param createTitleRequest  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<Void> updateTitle (String titleId, CreateTitleRequest createTitleRequest) throws ApiException {
+    // verify the required parameter 'titleId' is set
+    if (titleId == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'titleId' when calling updateTitle"));
+    }
+    // verify the required parameter 'createTitleRequest' is set
+    if (createTitleRequest == null) {
+        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createTitleRequest' when calling updateTitle"));
     }
 
-    /**
-     * Create environment instance for title
-     * Create new environment instance for a title
-     * @param titleId  (required)
-     * @param createEnvironmentInstanceRequest  (required)
-     * @return ApiResponse&lt;EnvironmentInstanceDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<EnvironmentInstanceDto> addEnvironmentInstanceWithHttpInfo(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws ApiException {
-        okhttp3.Call localVarCall = addEnvironmentInstanceValidateBeforeCall(titleId, createEnvironmentInstanceRequest, null);
-        Type localVarReturnType = new TypeToken<EnvironmentInstanceDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/titles/{titleId}"
+        .replace("{titleId}", ApiClient.urlEncode(titleId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createTitleRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+      if (memberVarReadTimeout != null) {
+        localVarRequestBuilder.timeout(memberVarReadTimeout);
+      }
+      if (memberVarInterceptor != null) {
+        memberVarInterceptor.accept(localVarRequestBuilder);
+      }
+      return memberVarHttpClient.sendAsync(
+              localVarRequestBuilder.build(),
+              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+          if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+                  "updateTitle call received non-success response",
+                  localVarResponse.headers(),
+                  localVarResponse.body())
+              );
+          } else {
+               try {
+                  return CompletableFuture.completedFuture(
+                          null
+                  );
+              } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+              }
+          }
+      });
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(new ApiException(e));
     }
-
-    /**
-     * Create environment instance for title (asynchronously)
-     * Create new environment instance for a title
-     * @param titleId  (required)
-     * @param createEnvironmentInstanceRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call addEnvironmentInstanceAsync(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest, final ApiCallback<EnvironmentInstanceDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = addEnvironmentInstanceValidateBeforeCall(titleId, createEnvironmentInstanceRequest, _callback);
-        Type localVarReturnType = new TypeToken<EnvironmentInstanceDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getEnvironmentInstancesForTitle
-     * @param titleId  (required)
-     * @param includeInactive  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getEnvironmentInstancesForTitleCall(String titleId, Boolean includeInactive, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/titles/{titleId}/environments"
-            .replaceAll("\\{" + "titleId" + "\\}", localVarApiClient.escapeString(titleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (includeInactive != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("includeInactive", includeInactive));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getEnvironmentInstancesForTitleValidateBeforeCall(String titleId, Boolean includeInactive, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'titleId' is set
-        if (titleId == null) {
-            throw new ApiException("Missing the required parameter 'titleId' when calling getEnvironmentInstancesForTitle(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getEnvironmentInstancesForTitleCall(titleId, includeInactive, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get environment instances for title
-     * Get environment instances for a title
-     * @param titleId  (required)
-     * @param includeInactive  (optional)
-     * @return List&lt;EnvironmentInstanceDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<EnvironmentInstanceDto> getEnvironmentInstancesForTitle(String titleId, Boolean includeInactive) throws ApiException {
-        ApiResponse<List<EnvironmentInstanceDto>> localVarResp = getEnvironmentInstancesForTitleWithHttpInfo(titleId, includeInactive);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get environment instances for title
-     * Get environment instances for a title
-     * @param titleId  (required)
-     * @param includeInactive  (optional)
-     * @return ApiResponse&lt;List&lt;EnvironmentInstanceDto&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<EnvironmentInstanceDto>> getEnvironmentInstancesForTitleWithHttpInfo(String titleId, Boolean includeInactive) throws ApiException {
-        okhttp3.Call localVarCall = getEnvironmentInstancesForTitleValidateBeforeCall(titleId, includeInactive, null);
-        Type localVarReturnType = new TypeToken<List<EnvironmentInstanceDto>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get environment instances for title (asynchronously)
-     * Get environment instances for a title
-     * @param titleId  (required)
-     * @param includeInactive  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getEnvironmentInstancesForTitleAsync(String titleId, Boolean includeInactive, final ApiCallback<List<EnvironmentInstanceDto>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getEnvironmentInstancesForTitleValidateBeforeCall(titleId, includeInactive, _callback);
-        Type localVarReturnType = new TypeToken<List<EnvironmentInstanceDto>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getTitleById
-     * @param titleId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTitleByIdCall(String titleId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/titles/{titleId}"
-            .replaceAll("\\{" + "titleId" + "\\}", localVarApiClient.escapeString(titleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTitleByIdValidateBeforeCall(String titleId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'titleId' is set
-        if (titleId == null) {
-            throw new ApiException("Missing the required parameter 'titleId' when calling getTitleById(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = getTitleByIdCall(titleId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get title
-     * Get title details
-     * @param titleId  (required)
-     * @return TitleDto
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public TitleDto getTitleById(String titleId) throws ApiException {
-        ApiResponse<TitleDto> localVarResp = getTitleByIdWithHttpInfo(titleId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get title
-     * Get title details
-     * @param titleId  (required)
-     * @return ApiResponse&lt;TitleDto&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<TitleDto> getTitleByIdWithHttpInfo(String titleId) throws ApiException {
-        okhttp3.Call localVarCall = getTitleByIdValidateBeforeCall(titleId, null);
-        Type localVarReturnType = new TypeToken<TitleDto>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get title (asynchronously)
-     * Get title details
-     * @param titleId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTitleByIdAsync(String titleId, final ApiCallback<TitleDto> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getTitleByIdValidateBeforeCall(titleId, _callback);
-        Type localVarReturnType = new TypeToken<TitleDto>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for setTitleActive
-     * @param titleId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call setTitleActiveCall(String titleId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/titles/{titleId}/activate"
-            .replaceAll("\\{" + "titleId" + "\\}", localVarApiClient.escapeString(titleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call setTitleActiveValidateBeforeCall(String titleId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'titleId' is set
-        if (titleId == null) {
-            throw new ApiException("Missing the required parameter 'titleId' when calling setTitleActive(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = setTitleActiveCall(titleId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Set title to activated
-     * 
-     * @param titleId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void setTitleActive(String titleId) throws ApiException {
-        setTitleActiveWithHttpInfo(titleId);
-    }
-
-    /**
-     * Set title to activated
-     * 
-     * @param titleId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> setTitleActiveWithHttpInfo(String titleId) throws ApiException {
-        okhttp3.Call localVarCall = setTitleActiveValidateBeforeCall(titleId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Set title to activated (asynchronously)
-     * 
-     * @param titleId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call setTitleActiveAsync(String titleId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = setTitleActiveValidateBeforeCall(titleId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for setTitleInactive
-     * @param titleId  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call setTitleInactiveCall(String titleId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/titles/{titleId}/deactivate"
-            .replaceAll("\\{" + "titleId" + "\\}", localVarApiClient.escapeString(titleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call setTitleInactiveValidateBeforeCall(String titleId, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'titleId' is set
-        if (titleId == null) {
-            throw new ApiException("Missing the required parameter 'titleId' when calling setTitleInactive(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = setTitleInactiveCall(titleId, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Set title to deactivated
-     * 
-     * @param titleId  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void setTitleInactive(String titleId) throws ApiException {
-        setTitleInactiveWithHttpInfo(titleId);
-    }
-
-    /**
-     * Set title to deactivated
-     * 
-     * @param titleId  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> setTitleInactiveWithHttpInfo(String titleId) throws ApiException {
-        okhttp3.Call localVarCall = setTitleInactiveValidateBeforeCall(titleId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Set title to deactivated (asynchronously)
-     * 
-     * @param titleId  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> Title state updated. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call setTitleInactiveAsync(String titleId, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = setTitleInactiveValidateBeforeCall(titleId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateTitle
-     * @param titleId  (required)
-     * @param createTitleRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> The title was updated successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateTitleCall(String titleId, CreateTitleRequest createTitleRequest, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = createTitleRequest;
-
-        // create path and map variables
-        String localVarPath = "/titles/{titleId}"
-            .replaceAll("\\{" + "titleId" + "\\}", localVarApiClient.escapeString(titleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] { "api_key", "spring_oauth" };
-        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateTitleValidateBeforeCall(String titleId, CreateTitleRequest createTitleRequest, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'titleId' is set
-        if (titleId == null) {
-            throw new ApiException("Missing the required parameter 'titleId' when calling updateTitle(Async)");
-        }
-        
-        // verify the required parameter 'createTitleRequest' is set
-        if (createTitleRequest == null) {
-            throw new ApiException("Missing the required parameter 'createTitleRequest' when calling updateTitle(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = updateTitleCall(titleId, createTitleRequest, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Update title
-     * Update title name.
-     * @param titleId  (required)
-     * @param createTitleRequest  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> The title was updated successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public void updateTitle(String titleId, CreateTitleRequest createTitleRequest) throws ApiException {
-        updateTitleWithHttpInfo(titleId, createTitleRequest);
-    }
-
-    /**
-     * Update title
-     * Update title name.
-     * @param titleId  (required)
-     * @param createTitleRequest  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> The title was updated successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> updateTitleWithHttpInfo(String titleId, CreateTitleRequest createTitleRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateTitleValidateBeforeCall(titleId, createTitleRequest, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Update title (asynchronously)
-     * Update title name.
-     * @param titleId  (required)
-     * @param createTitleRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 204 </td><td> The title was updated successfully. </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateTitleAsync(String titleId, CreateTitleRequest createTitleRequest, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = updateTitleValidateBeforeCall(titleId, createTitleRequest, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
+  }
 }

@@ -15,79 +15,85 @@ package games.mythical.ivi.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * ListingDto
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T14:31:49.595906-07:00[America/Los_Angeles]")
+@JsonPropertyOrder({
+  ListingDto.JSON_PROPERTY_SALE_AMOUNT,
+  ListingDto.JSON_PROPERTY_CURRENCY_BASE,
+  ListingDto.JSON_PROPERTY_TRANSACTION_ID_CLOSED,
+  ListingDto.JSON_PROPERTY_SELL_BY_DAYS,
+  ListingDto.JSON_PROPERTY_CREATED_TIMESTAMP,
+  ListingDto.JSON_PROPERTY_SELLER_PLAYER_ID,
+  ListingDto.JSON_PROPERTY_FINALIZED_CLOSED,
+  ListingDto.JSON_PROPERTY_BATCH_ID,
+  ListingDto.JSON_PROPERTY_TRANSACTION_ID,
+  ListingDto.JSON_PROPERTY_FINALIZED,
+  ListingDto.JSON_PROPERTY_SELL_BY_DATE,
+  ListingDto.JSON_PROPERTY_ENVIRONMENT_ID,
+  ListingDto.JSON_PROPERTY_CREATED_BY,
+  ListingDto.JSON_PROPERTY_SALE_MODEL,
+  ListingDto.JSON_PROPERTY_GAME_INVENTORY_IDS,
+  ListingDto.JSON_PROPERTY_CLOSED,
+  ListingDto.JSON_PROPERTY_CURRENCY,
+  ListingDto.JSON_PROPERTY_DGOOD_IDS,
+  ListingDto.JSON_PROPERTY_SALE_AMOUNT_BASE
+})
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
 public class ListingDto {
-  public static final String SERIALIZED_NAME_SALE_AMOUNT = "saleAmount";
-  @SerializedName(SERIALIZED_NAME_SALE_AMOUNT)
+  public static final String JSON_PROPERTY_SALE_AMOUNT = "saleAmount";
   private BigDecimal saleAmount;
 
-  public static final String SERIALIZED_NAME_CURRENCY_BASE = "currencyBase";
-  @SerializedName(SERIALIZED_NAME_CURRENCY_BASE)
+  public static final String JSON_PROPERTY_CURRENCY_BASE = "currencyBase";
   private String currencyBase;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID_CLOSED = "transactionIdClosed";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID_CLOSED)
+  public static final String JSON_PROPERTY_TRANSACTION_ID_CLOSED = "transactionIdClosed";
   private String transactionIdClosed;
 
-  public static final String SERIALIZED_NAME_SELL_BY_DAYS = "sellByDays";
-  @SerializedName(SERIALIZED_NAME_SELL_BY_DAYS)
+  public static final String JSON_PROPERTY_SELL_BY_DAYS = "sellByDays";
   private Integer sellByDays;
 
-  public static final String SERIALIZED_NAME_CREATED_TIMESTAMP = "createdTimestamp";
-  @SerializedName(SERIALIZED_NAME_CREATED_TIMESTAMP)
+  public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String SERIALIZED_NAME_SELLER_PLAYER_ID = "sellerPlayerId";
-  @SerializedName(SERIALIZED_NAME_SELLER_PLAYER_ID)
+  public static final String JSON_PROPERTY_SELLER_PLAYER_ID = "sellerPlayerId";
   private String sellerPlayerId;
 
-  public static final String SERIALIZED_NAME_FINALIZED_CLOSED = "finalizedClosed";
-  @SerializedName(SERIALIZED_NAME_FINALIZED_CLOSED)
+  public static final String JSON_PROPERTY_FINALIZED_CLOSED = "finalizedClosed";
   private Boolean finalizedClosed;
 
-  public static final String SERIALIZED_NAME_BATCH_ID = "batchId";
-  @SerializedName(SERIALIZED_NAME_BATCH_ID)
+  public static final String JSON_PROPERTY_BATCH_ID = "batchId";
   private Long batchId;
 
-  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
-  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
   private String transactionId;
 
-  public static final String SERIALIZED_NAME_FINALIZED = "finalized";
-  @SerializedName(SERIALIZED_NAME_FINALIZED)
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;
 
-  public static final String SERIALIZED_NAME_SELL_BY_DATE = "sellByDate";
-  @SerializedName(SERIALIZED_NAME_SELL_BY_DATE)
+  public static final String JSON_PROPERTY_SELL_BY_DATE = "sellByDate";
   private Long sellByDate;
 
-  public static final String SERIALIZED_NAME_ENVIRONMENT_ID = "environmentId";
-  @SerializedName(SERIALIZED_NAME_ENVIRONMENT_ID)
+  public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
   /**
    * Gets or Sets saleModel
    */
-  @JsonAdapter(SaleModelEnum.Adapter.class)
   public enum SaleModelEnum {
     FIXED_PRICE("FIXED_PRICE"),
     
@@ -99,6 +105,7 @@ public class ListingDto {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -108,6 +115,7 @@ public class ListingDto {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static SaleModelEnum fromValue(String value) {
       for (SaleModelEnum b : SaleModelEnum.values()) {
         if (b.value.equals(value)) {
@@ -116,43 +124,24 @@ public class ListingDto {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<SaleModelEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final SaleModelEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public SaleModelEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return SaleModelEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_SALE_MODEL = "saleModel";
-  @SerializedName(SERIALIZED_NAME_SALE_MODEL)
+  public static final String JSON_PROPERTY_SALE_MODEL = "saleModel";
   private SaleModelEnum saleModel;
 
-  public static final String SERIALIZED_NAME_GAME_INVENTORY_IDS = "gameInventoryIds";
-  @SerializedName(SERIALIZED_NAME_GAME_INVENTORY_IDS)
+  public static final String JSON_PROPERTY_GAME_INVENTORY_IDS = "gameInventoryIds";
   private List<String> gameInventoryIds = null;
 
-  public static final String SERIALIZED_NAME_CLOSED = "closed";
-  @SerializedName(SERIALIZED_NAME_CLOSED)
+  public static final String JSON_PROPERTY_CLOSED = "closed";
   private Boolean closed;
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
-  public static final String SERIALIZED_NAME_DGOOD_IDS = "dgoodIds";
-  @SerializedName(SERIALIZED_NAME_DGOOD_IDS)
+  public static final String JSON_PROPERTY_DGOOD_IDS = "dgoodIds";
   private List<Long> dgoodIds = null;
 
-  public static final String SERIALIZED_NAME_SALE_AMOUNT_BASE = "saleAmountBase";
-  @SerializedName(SERIALIZED_NAME_SALE_AMOUNT_BASE)
+  public static final String JSON_PROPERTY_SALE_AMOUNT_BASE = "saleAmountBase";
   private BigDecimal saleAmountBase;
 
 
@@ -168,6 +157,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALE_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getSaleAmount() {
     return saleAmount;
@@ -191,6 +182,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrencyBase() {
     return currencyBase;
@@ -214,6 +207,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID_CLOSED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionIdClosed() {
     return transactionIdClosed;
@@ -237,6 +232,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SELL_BY_DAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getSellByDays() {
     return sellByDays;
@@ -260,6 +257,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreatedTimestamp() {
     return createdTimestamp;
@@ -283,6 +282,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SELLER_PLAYER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSellerPlayerId() {
     return sellerPlayerId;
@@ -306,6 +307,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED_CLOSED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFinalizedClosed() {
     return finalizedClosed;
@@ -329,6 +332,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BATCH_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getBatchId() {
     return batchId;
@@ -352,6 +357,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTransactionId() {
     return transactionId;
@@ -375,6 +382,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFinalized() {
     return finalized;
@@ -398,6 +407,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SELL_BY_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSellByDate() {
     return sellByDate;
@@ -421,6 +432,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnvironmentId() {
     return environmentId;
@@ -444,6 +457,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
@@ -467,6 +482,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALE_MODEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SaleModelEnum getSaleModel() {
     return saleModel;
@@ -486,7 +503,7 @@ public class ListingDto {
 
   public ListingDto addGameInventoryIdsItem(String gameInventoryIdsItem) {
     if (this.gameInventoryIds == null) {
-      this.gameInventoryIds = new ArrayList<String>();
+      this.gameInventoryIds = new ArrayList<>();
     }
     this.gameInventoryIds.add(gameInventoryIdsItem);
     return this;
@@ -498,6 +515,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGameInventoryIds() {
     return gameInventoryIds;
@@ -521,6 +540,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CLOSED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getClosed() {
     return closed;
@@ -544,6 +565,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrency() {
     return currency;
@@ -563,7 +586,7 @@ public class ListingDto {
 
   public ListingDto addDgoodIdsItem(Long dgoodIdsItem) {
     if (this.dgoodIds == null) {
-      this.dgoodIds = new ArrayList<Long>();
+      this.dgoodIds = new ArrayList<>();
     }
     this.dgoodIds.add(dgoodIdsItem);
     return this;
@@ -575,6 +598,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DGOOD_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Long> getDgoodIds() {
     return dgoodIds;
@@ -598,6 +623,8 @@ public class ListingDto {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SALE_AMOUNT_BASE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getSaleAmountBase() {
     return saleAmountBase;
