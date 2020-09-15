@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SalesTaxTransactionDto.JSON_PROPERTY_TRANSACTION_ID,
   SalesTaxTransactionDto.JSON_PROPERTY_TO_COUNTRY
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
 public class SalesTaxTransactionDto {
   public static final String JSON_PROPERTY_TRANSACTION_DATE = "transaction_date";
   private Long transactionDate;

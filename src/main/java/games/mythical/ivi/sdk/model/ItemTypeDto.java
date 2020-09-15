@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ItemTypeDto.JSON_PROPERTY_MAX_SUPPLY,
   ItemTypeDto.JSON_PROPERTY_CATEGORY
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
 public class ItemTypeDto {
   public static final String JSON_PROPERTY_TRANSFERABLE = "transferable";
   private Boolean transferable;

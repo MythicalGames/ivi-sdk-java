@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
   ProfilePictureDto.JSON_PROPERTY_PROFILE_IMAGE_URL
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
 public class ProfilePictureDto {
   public static final String JSON_PROPERTY_PROFILE_IMAGE_URL = "profileImageUrl";
   private String profileImageUrl;

@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdatePartnerRequest.JSON_PROPERTY_MANAGER_NAME,
   UpdatePartnerRequest.JSON_PROPERTY_EMAIL
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
 public class UpdatePartnerRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;

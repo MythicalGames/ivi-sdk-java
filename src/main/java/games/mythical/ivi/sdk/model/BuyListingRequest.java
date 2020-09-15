@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   BuyListingRequest.JSON_PROPERTY_SELLER_PLAYER_ID,
   BuyListingRequest.JSON_PROPERTY_BUYER_PLAYER_ID
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
 public class BuyListingRequest {
   public static final String JSON_PROPERTY_MARKETPLACE_ID = "marketplaceId";
   private String marketplaceId;

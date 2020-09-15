@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ElasticDgood.JSON_PROPERTY_TITLE,
   ElasticDgood.JSON_PROPERTY_RENDER
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
 public class ElasticDgood {
   public static final String JSON_PROPERTY_IMAGE_SMALL = "image_small";
   private String imageSmall;
