@@ -48,9 +48,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class ItemsApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -80,14 +79,14 @@ public class ItemsApi {
    * @return ItemActionDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ItemActionDto> burnItem (String environmentId, BurnItemRequest burnItemRequest) throws ApiException {
+  public ItemActionDto burnItem (String environmentId, BurnItemRequest burnItemRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling burnItem"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling burnItem");
     }
     // verify the required parameter 'burnItemRequest' is set
     if (burnItemRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'burnItemRequest' when calling burnItem"));
+        throw new ApiException(400, "Missing the required parameter 'burnItemRequest' when calling burnItem");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -109,27 +108,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "burnItem call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "burnItem call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -140,14 +137,14 @@ public class ItemsApi {
    * @return SoldItemDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<SoldItemDto> buyListing (String environmentId, BuyListingRequest buyListingRequest) throws ApiException {
+  public SoldItemDto buyListing (String environmentId, BuyListingRequest buyListingRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling buyListing"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling buyListing");
     }
     // verify the required parameter 'buyListingRequest' is set
     if (buyListingRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'buyListingRequest' when calling buyListing"));
+        throw new ApiException(400, "Missing the required parameter 'buyListingRequest' when calling buyListing");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -169,27 +166,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "buyListing call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SoldItemDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "buyListing call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SoldItemDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -200,14 +195,14 @@ public class ItemsApi {
    * @return ItemActionDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ItemActionDto> closeSale (String environmentId, CloseSaleRequest closeSaleRequest) throws ApiException {
+  public ItemActionDto closeSale (String environmentId, CloseSaleRequest closeSaleRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling closeSale"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling closeSale");
     }
     // verify the required parameter 'closeSaleRequest' is set
     if (closeSaleRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'closeSaleRequest' when calling closeSale"));
+        throw new ApiException(400, "Missing the required parameter 'closeSaleRequest' when calling closeSale");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -229,27 +224,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "closeSale call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "closeSale call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -260,14 +253,14 @@ public class ItemsApi {
    * @return ItemTypeDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ItemTypeDto> createItem (String environmentId, CreateItemRequest createItemRequest) throws ApiException {
+  public ItemTypeDto createItem (String environmentId, CreateItemRequest createItemRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createItem"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling createItem");
     }
     // verify the required parameter 'createItemRequest' is set
     if (createItemRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createItemRequest' when calling createItem"));
+        throw new ApiException(400, "Missing the required parameter 'createItemRequest' when calling createItem");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -289,27 +282,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createItem call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemTypeDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createItem call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemTypeDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -322,10 +313,10 @@ public class ItemsApi {
    * @return List&lt;IssuedItemDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<IssuedItemDto>> getIssuedItems (String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws ApiException {
+  public List<IssuedItemDto> getIssuedItems (String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getIssuedItems"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getIssuedItems");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -348,6 +339,7 @@ public class ItemsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -355,25 +347,26 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getIssuedItems call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<IssuedItemDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getIssuedItems call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<IssuedItemDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get all item types for an environment
@@ -384,10 +377,10 @@ public class ItemsApi {
    * @return List&lt;ItemTypeDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<ItemTypeDto>> getItemTypes (String environmentId, String category, String token) throws ApiException {
+  public List<ItemTypeDto> getItemTypes (String environmentId, String category, String token) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getItemTypes"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getItemTypes");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -409,6 +402,7 @@ public class ItemsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -416,25 +410,26 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getItemTypes call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ItemTypeDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getItemTypes call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ItemTypeDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get listed items
@@ -447,10 +442,10 @@ public class ItemsApi {
    * @return List&lt;ListingDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<ListingDto>> getListings (String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws ApiException {
+  public List<ListingDto> getListings (String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getListings"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getListings");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -474,6 +469,7 @@ public class ItemsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -481,25 +477,26 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getListings call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ListingDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getListings call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ListingDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get metadata for an issued dgood 
@@ -510,10 +507,10 @@ public class ItemsApi {
    * @return List&lt;DgoodMetadataDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<DgoodMetadataDto>> getMetadata (String environmentId, String gameInventoryId, Long dgoodId) throws ApiException {
+  public List<DgoodMetadataDto> getMetadata (String environmentId, String gameInventoryId, Long dgoodId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getMetadata"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getMetadata");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -535,6 +532,7 @@ public class ItemsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -542,25 +540,26 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getMetadata call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<DgoodMetadataDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getMetadata call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<DgoodMetadataDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get bought/sold items
@@ -574,10 +573,10 @@ public class ItemsApi {
    * @return List&lt;SoldItemDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<SoldItemDto>> getSoldItems (String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws ApiException {
+  public List<SoldItemDto> getSoldItems (String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSoldItems"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getSoldItems");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -602,6 +601,7 @@ public class ItemsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -609,25 +609,26 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getSoldItems call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<SoldItemDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getSoldItems call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<SoldItemDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Issue item
@@ -637,14 +638,14 @@ public class ItemsApi {
    * @return IssuedItemDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<IssuedItemDto> issueItem (String environmentId, IssueItemRequest issueItemRequest) throws ApiException {
+  public IssuedItemDto issueItem (String environmentId, IssueItemRequest issueItemRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling issueItem"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling issueItem");
     }
     // verify the required parameter 'issueItemRequest' is set
     if (issueItemRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'issueItemRequest' when calling issueItem"));
+        throw new ApiException(400, "Missing the required parameter 'issueItemRequest' when calling issueItem");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -666,27 +667,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "issueItem call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<IssuedItemDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "issueItem call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<IssuedItemDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -697,14 +696,14 @@ public class ItemsApi {
    * @return ListingDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ListingDto> listItem (String environmentId, ListSaleRequest listSaleRequest) throws ApiException {
+  public ListingDto listItem (String environmentId, ListSaleRequest listSaleRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling listItem"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling listItem");
     }
     // verify the required parameter 'listSaleRequest' is set
     if (listSaleRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'listSaleRequest' when calling listItem"));
+        throw new ApiException(400, "Missing the required parameter 'listSaleRequest' when calling listItem");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -726,27 +725,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "listItem call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ListingDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "listItem call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ListingDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -757,14 +754,14 @@ public class ItemsApi {
    * @return ItemActionDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ItemActionDto> transferItem (String environmentId, TransferItemRequest transferItemRequest) throws ApiException {
+  public ItemActionDto transferItem (String environmentId, TransferItemRequest transferItemRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling transferItem"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling transferItem");
     }
     // verify the required parameter 'transferItemRequest' is set
     if (transferItemRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'transferItemRequest' when calling transferItem"));
+        throw new ApiException(400, "Missing the required parameter 'transferItemRequest' when calling transferItem");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -786,27 +783,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "transferItem call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "transferItem call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ItemActionDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -817,14 +812,14 @@ public class ItemsApi {
    * @return DgoodMetadataDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<DgoodMetadataDto> updateMetadata (String environmentId, UpdateMetadataRequest updateMetadataRequest) throws ApiException {
+  public DgoodMetadataDto updateMetadata (String environmentId, UpdateMetadataRequest updateMetadataRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateMetadata"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling updateMetadata");
     }
     // verify the required parameter 'updateMetadataRequest' is set
     if (updateMetadataRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateMetadataRequest' when calling updateMetadata"));
+        throw new ApiException(400, "Missing the required parameter 'updateMetadataRequest' when calling updateMetadata");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -846,27 +841,25 @@ public class ItemsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateMetadata call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<DgoodMetadataDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateMetadata call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<DgoodMetadataDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
 }

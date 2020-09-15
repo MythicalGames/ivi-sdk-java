@@ -37,9 +37,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class ServerSecretsApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -69,14 +68,14 @@ public class ServerSecretsApi {
    * @return ServerSecretDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ServerSecretDto> createServerSecretForEnvironment (UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws ApiException {
+  public ServerSecretDto createServerSecretForEnvironment (UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createServerSecretForEnvironment"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling createServerSecretForEnvironment");
     }
     // verify the required parameter 'createServerSecretRequest' is set
     if (createServerSecretRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createServerSecretRequest' when calling createServerSecretForEnvironment"));
+        throw new ApiException(400, "Missing the required parameter 'createServerSecretRequest' when calling createServerSecretForEnvironment");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -98,27 +97,25 @@ public class ServerSecretsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createServerSecretForEnvironment call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ServerSecretDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createServerSecretForEnvironment call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ServerSecretDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -128,14 +125,14 @@ public class ServerSecretsApi {
    * @param secretId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> deleteServerSecret (UUID organizationId, String secretId) throws ApiException {
+  public void deleteServerSecret (UUID organizationId, String secretId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling deleteServerSecret"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling deleteServerSecret");
     }
     // verify the required parameter 'secretId' is set
     if (secretId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling deleteServerSecret"));
+        throw new ApiException(400, "Missing the required parameter 'secretId' when calling deleteServerSecret");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -148,6 +145,7 @@ public class ServerSecretsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -155,25 +153,25 @@ public class ServerSecretsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "deleteServerSecret call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "deleteServerSecret call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Disable server secret by secret ID
@@ -182,14 +180,14 @@ public class ServerSecretsApi {
    * @param secretId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> disableServerSecret (UUID organizationId, String secretId) throws ApiException {
+  public void disableServerSecret (UUID organizationId, String secretId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling disableServerSecret"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling disableServerSecret");
     }
     // verify the required parameter 'secretId' is set
     if (secretId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling disableServerSecret"));
+        throw new ApiException(400, "Missing the required parameter 'secretId' when calling disableServerSecret");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -202,6 +200,7 @@ public class ServerSecretsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -209,25 +208,25 @@ public class ServerSecretsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "disableServerSecret call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "disableServerSecret call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Enable server secret by secret ID
@@ -236,14 +235,14 @@ public class ServerSecretsApi {
    * @param secretId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> enableServerSecret (UUID organizationId, String secretId) throws ApiException {
+  public void enableServerSecret (UUID organizationId, String secretId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling enableServerSecret"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling enableServerSecret");
     }
     // verify the required parameter 'secretId' is set
     if (secretId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling enableServerSecret"));
+        throw new ApiException(400, "Missing the required parameter 'secretId' when calling enableServerSecret");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -256,6 +255,7 @@ public class ServerSecretsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -263,25 +263,25 @@ public class ServerSecretsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "enableServerSecret call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "enableServerSecret call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get server secret for environment by secret ID
@@ -291,14 +291,14 @@ public class ServerSecretsApi {
    * @return ServerSecretDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ServerSecretDto> getServerSecretById (UUID organizationId, String secretId) throws ApiException {
+  public ServerSecretDto getServerSecretById (UUID organizationId, String secretId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getServerSecretById"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getServerSecretById");
     }
     // verify the required parameter 'secretId' is set
     if (secretId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'secretId' when calling getServerSecretById"));
+        throw new ApiException(400, "Missing the required parameter 'secretId' when calling getServerSecretById");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -311,6 +311,7 @@ public class ServerSecretsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -318,25 +319,26 @@ public class ServerSecretsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getServerSecretById call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ServerSecretDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getServerSecretById call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ServerSecretDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get server secrets defined for organization
@@ -345,10 +347,10 @@ public class ServerSecretsApi {
    * @return List&lt;ServerSecretDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<ServerSecretDto>> getServerSecretsForEnvironment (UUID organizationId) throws ApiException {
+  public List<ServerSecretDto> getServerSecretsForEnvironment (UUID organizationId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getServerSecretsForEnvironment"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getServerSecretsForEnvironment");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -360,6 +362,7 @@ public class ServerSecretsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -367,24 +370,25 @@ public class ServerSecretsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getServerSecretsForEnvironment call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ServerSecretDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getServerSecretsForEnvironment call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<ServerSecretDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
 }

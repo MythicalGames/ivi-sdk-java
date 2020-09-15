@@ -35,9 +35,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class TransactionsApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -69,10 +68,10 @@ public class TransactionsApi {
    * @return List&lt;TransactionEventDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<TransactionEventDTO>> getAllTitleTransactions (String environmentId, String from, String to, String cursor) throws ApiException {
+  public List<TransactionEventDTO> getAllTitleTransactions (String environmentId, String from, String to, String cursor) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getAllTitleTransactions"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getAllTitleTransactions");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -95,6 +94,7 @@ public class TransactionsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -102,25 +102,26 @@ public class TransactionsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getAllTitleTransactions call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<TransactionEventDTO>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getAllTitleTransactions call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<TransactionEventDTO>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get transaction events for transaction ID in an environment.
@@ -131,14 +132,14 @@ public class TransactionsApi {
    * @return List&lt;TransactionEventDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<TransactionEventDTO>> getTransactionEventsForTitle (String environmentId, String transactionId, String cursor) throws ApiException {
+  public List<TransactionEventDTO> getTransactionEventsForTitle (String environmentId, String transactionId, String cursor) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getTransactionEventsForTitle"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getTransactionEventsForTitle");
     }
     // verify the required parameter 'transactionId' is set
     if (transactionId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'transactionId' when calling getTransactionEventsForTitle"));
+        throw new ApiException(400, "Missing the required parameter 'transactionId' when calling getTransactionEventsForTitle");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -160,6 +161,7 @@ public class TransactionsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -167,24 +169,25 @@ public class TransactionsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getTransactionEventsForTitle call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<TransactionEventDTO>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getTransactionEventsForTitle call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<TransactionEventDTO>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
 }

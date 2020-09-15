@@ -37,9 +37,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class OrdersApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -69,14 +68,14 @@ public class OrdersApi {
    * @return OrderDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<OrderDto> createOrder (String environmentId, CreateOrderRequest createOrderRequest) throws ApiException {
+  public OrderDto createOrder (String environmentId, CreateOrderRequest createOrderRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createOrder"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling createOrder");
     }
     // verify the required parameter 'createOrderRequest' is set
     if (createOrderRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createOrderRequest' when calling createOrder"));
+        throw new ApiException(400, "Missing the required parameter 'createOrderRequest' when calling createOrder");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -98,27 +97,25 @@ public class OrdersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createOrder call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createOrder call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -128,14 +125,14 @@ public class OrdersApi {
    * @param orderId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> deleteOrder (String environmentId, String orderId) throws ApiException {
+  public void deleteOrder (String environmentId, String orderId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteOrder"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteOrder");
     }
     // verify the required parameter 'orderId' is set
     if (orderId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'orderId' when calling deleteOrder"));
+        throw new ApiException(400, "Missing the required parameter 'orderId' when calling deleteOrder");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -148,6 +145,7 @@ public class OrdersApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -155,25 +153,25 @@ public class OrdersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "deleteOrder call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "deleteOrder call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get Order
@@ -183,14 +181,14 @@ public class OrdersApi {
    * @return OrderDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<OrderDto> getOrder (String environmentId, String orderId) throws ApiException {
+  public OrderDto getOrder (String environmentId, String orderId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getOrder"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getOrder");
     }
     // verify the required parameter 'orderId' is set
     if (orderId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'orderId' when calling getOrder"));
+        throw new ApiException(400, "Missing the required parameter 'orderId' when calling getOrder");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -211,6 +209,7 @@ public class OrdersApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -218,25 +217,26 @@ public class OrdersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getOrder call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getOrder call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Update Order
@@ -246,14 +246,14 @@ public class OrdersApi {
    * @return OrderDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<OrderDto> updateOrder (String environmentId, UpdateOrderRequest updateOrderRequest) throws ApiException {
+  public OrderDto updateOrder (String environmentId, UpdateOrderRequest updateOrderRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateOrder"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling updateOrder");
     }
     // verify the required parameter 'updateOrderRequest' is set
     if (updateOrderRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateOrderRequest' when calling updateOrder"));
+        throw new ApiException(400, "Missing the required parameter 'updateOrderRequest' when calling updateOrder");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -275,27 +275,25 @@ public class OrdersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateOrder call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateOrder call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrderDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
 }

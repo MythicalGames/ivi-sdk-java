@@ -45,9 +45,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class PaymentsApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -77,14 +76,14 @@ public class PaymentsApi {
    * @return PaymentDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<PaymentDto> completePayment (String environmentId, FinalizePaymentRequest finalizePaymentRequest) throws ApiException {
+  public PaymentDto completePayment (String environmentId, FinalizePaymentRequest finalizePaymentRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling completePayment"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling completePayment");
     }
     // verify the required parameter 'finalizePaymentRequest' is set
     if (finalizePaymentRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'finalizePaymentRequest' when calling completePayment"));
+        throw new ApiException(400, "Missing the required parameter 'finalizePaymentRequest' when calling completePayment");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -106,27 +105,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "completePayment call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "completePayment call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -137,14 +134,14 @@ public class PaymentsApi {
    * @return CustomerDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<CustomerDto> createCustomer (String environmentId, CreateCustomerRequest createCustomerRequest) throws ApiException {
+  public CustomerDto createCustomer (String environmentId, CreateCustomerRequest createCustomerRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling createCustomer");
     }
     // verify the required parameter 'createCustomerRequest' is set
     if (createCustomerRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createCustomerRequest' when calling createCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'createCustomerRequest' when calling createCustomer");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -166,27 +163,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createCustomer call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<CustomerDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createCustomer call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<CustomerDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -197,14 +192,14 @@ public class PaymentsApi {
    * @return PaymentMethodDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<PaymentMethodDto> createPaymentMethod (String environmentId, CreatePaymentMethodRequest createPaymentMethodRequest) throws ApiException {
+  public PaymentMethodDto createPaymentMethod (String environmentId, CreatePaymentMethodRequest createPaymentMethodRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling createPaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling createPaymentMethod");
     }
     // verify the required parameter 'createPaymentMethodRequest' is set
     if (createPaymentMethodRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createPaymentMethodRequest' when calling createPaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'createPaymentMethodRequest' when calling createPaymentMethod");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -226,27 +221,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createPaymentMethod call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentMethodDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createPaymentMethod call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentMethodDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -256,14 +249,14 @@ public class PaymentsApi {
    * @param customerId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> deleteCustomer (String environmentId, String customerId) throws ApiException {
+  public void deleteCustomer (String environmentId, String customerId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteCustomer");
     }
     // verify the required parameter 'customerId' is set
     if (customerId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'customerId' when calling deleteCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'customerId' when calling deleteCustomer");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -276,6 +269,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -283,25 +277,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "deleteCustomer call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "deleteCustomer call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Delete a Payment Method
@@ -310,14 +304,14 @@ public class PaymentsApi {
    * @param methodToken  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> deletePaymentMethod (String environmentId, String methodToken) throws ApiException {
+  public void deletePaymentMethod (String environmentId, String methodToken) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deletePaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling deletePaymentMethod");
     }
     // verify the required parameter 'methodToken' is set
     if (methodToken == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'methodToken' when calling deletePaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'methodToken' when calling deletePaymentMethod");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -330,6 +324,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -337,25 +332,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "deletePaymentMethod call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "deletePaymentMethod call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Anonymous payment token
@@ -365,10 +360,10 @@ public class PaymentsApi {
    * @return ClientPaymentTokenDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ClientPaymentTokenDto> generateClientToken (String environmentId, String customerId) throws ApiException {
+  public ClientPaymentTokenDto generateClientToken (String environmentId, String customerId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling generateClientToken"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling generateClientToken");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -389,6 +384,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -396,25 +392,26 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "generateClientToken call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ClientPaymentTokenDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "generateClientToken call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ClientPaymentTokenDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get Customer
@@ -424,14 +421,14 @@ public class PaymentsApi {
    * @return CustomerDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<CustomerDto> getCustomer (String environmentId, String customerId) throws ApiException {
+  public CustomerDto getCustomer (String environmentId, String customerId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getCustomer");
     }
     // verify the required parameter 'customerId' is set
     if (customerId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'customerId' when calling getCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'customerId' when calling getCustomer");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -452,6 +449,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -459,25 +457,26 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getCustomer call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<CustomerDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getCustomer call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<CustomerDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get Payment Method
@@ -487,14 +486,14 @@ public class PaymentsApi {
    * @return PaymentMethodDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<PaymentMethodDto> getPaymentMethod (String environmentId, String paymentMethodToken) throws ApiException {
+  public PaymentMethodDto getPaymentMethod (String environmentId, String paymentMethodToken) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getPaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getPaymentMethod");
     }
     // verify the required parameter 'paymentMethodToken' is set
     if (paymentMethodToken == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'paymentMethodToken' when calling getPaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'paymentMethodToken' when calling getPaymentMethod");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -515,6 +514,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -522,25 +522,26 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getPaymentMethod call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentMethodDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getPaymentMethod call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentMethodDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get sales tax- rate and amount based on country, state, zip code and sales amount.
@@ -553,26 +554,26 @@ public class PaymentsApi {
    * @return SalesTaxInfoDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<SalesTaxInfoDto> getSalesTaxInfo (String environmentId, String countryIsoCode, String stateIsoCode, String zipCode, Boolean isSecondaryMarketplace) throws ApiException {
+  public SalesTaxInfoDto getSalesTaxInfo (String environmentId, String countryIsoCode, String stateIsoCode, String zipCode, Boolean isSecondaryMarketplace) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSalesTaxInfo"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getSalesTaxInfo");
     }
     // verify the required parameter 'countryIsoCode' is set
     if (countryIsoCode == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'countryIsoCode' when calling getSalesTaxInfo"));
+        throw new ApiException(400, "Missing the required parameter 'countryIsoCode' when calling getSalesTaxInfo");
     }
     // verify the required parameter 'stateIsoCode' is set
     if (stateIsoCode == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'stateIsoCode' when calling getSalesTaxInfo"));
+        throw new ApiException(400, "Missing the required parameter 'stateIsoCode' when calling getSalesTaxInfo");
     }
     // verify the required parameter 'zipCode' is set
     if (zipCode == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'zipCode' when calling getSalesTaxInfo"));
+        throw new ApiException(400, "Missing the required parameter 'zipCode' when calling getSalesTaxInfo");
     }
     // verify the required parameter 'isSecondaryMarketplace' is set
     if (isSecondaryMarketplace == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'isSecondaryMarketplace' when calling getSalesTaxInfo"));
+        throw new ApiException(400, "Missing the required parameter 'isSecondaryMarketplace' when calling getSalesTaxInfo");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -596,6 +597,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -603,25 +605,26 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getSalesTaxInfo call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SalesTaxInfoDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getSalesTaxInfo call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SalesTaxInfoDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get Transaction Details
@@ -631,14 +634,14 @@ public class PaymentsApi {
    * @return SalesTaxTransactionDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<SalesTaxTransactionDto> getSalesTaxTransaction (String environmentId, String orderId) throws ApiException {
+  public SalesTaxTransactionDto getSalesTaxTransaction (String environmentId, String orderId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSalesTaxTransaction"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getSalesTaxTransaction");
     }
     // verify the required parameter 'orderId' is set
     if (orderId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'orderId' when calling getSalesTaxTransaction"));
+        throw new ApiException(400, "Missing the required parameter 'orderId' when calling getSalesTaxTransaction");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -651,6 +654,7 @@ public class PaymentsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -658,25 +662,26 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getSalesTaxTransaction call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SalesTaxTransactionDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getSalesTaxTransaction call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<SalesTaxTransactionDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Update Customer
@@ -686,14 +691,14 @@ public class PaymentsApi {
    * @return CustomerDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<CustomerDto> updateCustomer (String environmentId, UpdateCustomerRequest updateCustomerRequest) throws ApiException {
+  public CustomerDto updateCustomer (String environmentId, UpdateCustomerRequest updateCustomerRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling updateCustomer");
     }
     // verify the required parameter 'updateCustomerRequest' is set
     if (updateCustomerRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateCustomerRequest' when calling updateCustomer"));
+        throw new ApiException(400, "Missing the required parameter 'updateCustomerRequest' when calling updateCustomer");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -715,27 +720,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateCustomer call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<CustomerDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateCustomer call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<CustomerDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -746,14 +749,14 @@ public class PaymentsApi {
    * @return PaymentMethodDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<PaymentMethodDto> updatePaymentMethod (String environmentId, UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest) throws ApiException {
+  public PaymentMethodDto updatePaymentMethod (String environmentId, UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updatePaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling updatePaymentMethod");
     }
     // verify the required parameter 'updatePaymentMethodDefaultRequest' is set
     if (updatePaymentMethodDefaultRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updatePaymentMethodDefaultRequest' when calling updatePaymentMethod"));
+        throw new ApiException(400, "Missing the required parameter 'updatePaymentMethodDefaultRequest' when calling updatePaymentMethod");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -775,27 +778,25 @@ public class PaymentsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updatePaymentMethod call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentMethodDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updatePaymentMethod call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PaymentMethodDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
 }

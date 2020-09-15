@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OrderDto.JSON_PROPERTY_PAYMENT_PROVIDER_ID,
   OrderDto.JSON_PROPERTY_PAYMENT_PROVIDER_DATA
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class OrderDto {
   public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
   private String itemTypes;

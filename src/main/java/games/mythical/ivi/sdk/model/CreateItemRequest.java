@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateItemRequest.JSON_PROPERTY_AGREEMENT_IDS,
   CreateItemRequest.JSON_PROPERTY_ISSUE_TIME_SPAN
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class CreateItemRequest {
   public static final String JSON_PROPERTY_TRANSFERABLE = "transferable";
   private Boolean transferable;

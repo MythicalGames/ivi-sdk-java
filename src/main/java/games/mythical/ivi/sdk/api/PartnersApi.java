@@ -39,9 +39,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class PartnersApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -72,18 +71,18 @@ public class PartnersApi {
    * @return AgreementDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<AgreementDto> createNewAgreement (String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws ApiException {
+  public AgreementDto createNewAgreement (String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewAgreement"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewAgreement");
     }
     // verify the required parameter 'partnerId' is set
     if (partnerId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'partnerId' when calling createNewAgreement"));
+        throw new ApiException(400, "Missing the required parameter 'partnerId' when calling createNewAgreement");
     }
     // verify the required parameter 'createAgreementRequest' is set
     if (createAgreementRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createAgreementRequest' when calling createNewAgreement"));
+        throw new ApiException(400, "Missing the required parameter 'createAgreementRequest' when calling createNewAgreement");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -106,27 +105,25 @@ public class PartnersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createNewAgreement call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<AgreementDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createNewAgreement call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<AgreementDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -137,14 +134,14 @@ public class PartnersApi {
    * @return PartnerDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<PartnerDto> createNewPartner (String organizationId, CreatePartnerRequest createPartnerRequest) throws ApiException {
+  public PartnerDto createNewPartner (String organizationId, CreatePartnerRequest createPartnerRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewPartner"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewPartner");
     }
     // verify the required parameter 'createPartnerRequest' is set
     if (createPartnerRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createPartnerRequest' when calling createNewPartner"));
+        throw new ApiException(400, "Missing the required parameter 'createPartnerRequest' when calling createNewPartner");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -166,27 +163,25 @@ public class PartnersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createNewPartner call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PartnerDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createNewPartner call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PartnerDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -197,14 +192,14 @@ public class PartnersApi {
    * @return List&lt;AgreementDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<AgreementDto>> getAgreements (String organizationId, String partnerId) throws ApiException {
+  public List<AgreementDto> getAgreements (String organizationId, String partnerId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getAgreements"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getAgreements");
     }
     // verify the required parameter 'partnerId' is set
     if (partnerId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'partnerId' when calling getAgreements"));
+        throw new ApiException(400, "Missing the required parameter 'partnerId' when calling getAgreements");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -217,6 +212,7 @@ public class PartnersApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -224,25 +220,26 @@ public class PartnersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getAgreements call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<AgreementDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getAgreements call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<AgreementDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get Partners
@@ -251,10 +248,10 @@ public class PartnersApi {
    * @return List&lt;PartnerDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<PartnerDto>> getPartners (String organizationId) throws ApiException {
+  public List<PartnerDto> getPartners (String organizationId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getPartners"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getPartners");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -266,6 +263,7 @@ public class PartnersApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -273,25 +271,26 @@ public class PartnersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getPartners call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<PartnerDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getPartners call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<PartnerDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Update agreement details
@@ -302,18 +301,18 @@ public class PartnersApi {
    * @return AgreementDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<AgreementDto> updateAgreement (String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws ApiException {
+  public AgreementDto updateAgreement (String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling updateAgreement"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling updateAgreement");
     }
     // verify the required parameter 'partnerId' is set
     if (partnerId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'partnerId' when calling updateAgreement"));
+        throw new ApiException(400, "Missing the required parameter 'partnerId' when calling updateAgreement");
     }
     // verify the required parameter 'updateAgreementRequest' is set
     if (updateAgreementRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateAgreementRequest' when calling updateAgreement"));
+        throw new ApiException(400, "Missing the required parameter 'updateAgreementRequest' when calling updateAgreement");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -336,27 +335,25 @@ public class PartnersApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateAgreement call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<AgreementDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateAgreement call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<AgreementDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
 }

@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OrganizationDto.JSON_PROPERTY_OWNER_ID,
   OrganizationDto.JSON_PROPERTY_ENVIRONMENT_LIMITS
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class OrganizationDto {
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;

@@ -39,9 +39,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class AccountsApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -71,14 +70,14 @@ public class AccountsApi {
    * @return MythicalUserDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<MythicalUserDto> createMythicalUser (String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws ApiException {
+  public MythicalUserDto createMythicalUser (String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createMythicalUser"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling createMythicalUser");
     }
     // verify the required parameter 'createMythicalUserRequest' is set
     if (createMythicalUserRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createMythicalUserRequest' when calling createMythicalUser"));
+        throw new ApiException(400, "Missing the required parameter 'createMythicalUserRequest' when calling createMythicalUser");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -100,27 +99,25 @@ public class AccountsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createMythicalUser call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createMythicalUser call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -133,14 +130,14 @@ public class AccountsApi {
    * @return List&lt;MythicalUserDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<MythicalUserDto>> findMythicalUser (String organizationId, String email, String firstName, String lastName) throws ApiException {
+  public List<MythicalUserDto> findMythicalUser (String organizationId, String email, String firstName, String lastName) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling findMythicalUser"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling findMythicalUser");
     }
     // verify the required parameter 'email' is set
     if (email == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'email' when calling findMythicalUser"));
+        throw new ApiException(400, "Missing the required parameter 'email' when calling findMythicalUser");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -163,6 +160,7 @@ public class AccountsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -170,25 +168,26 @@ public class AccountsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "findMythicalUser call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<MythicalUserDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "findMythicalUser call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<MythicalUserDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get mythical platform user by id
@@ -198,14 +197,14 @@ public class AccountsApi {
    * @return MythicalUserDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<MythicalUserDto> getMythicalUser (String organizationId, String platformUserId) throws ApiException {
+  public MythicalUserDto getMythicalUser (String organizationId, String platformUserId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getMythicalUser"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getMythicalUser");
     }
     // verify the required parameter 'platformUserId' is set
     if (platformUserId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling getMythicalUser"));
+        throw new ApiException(400, "Missing the required parameter 'platformUserId' when calling getMythicalUser");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -218,6 +217,7 @@ public class AccountsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -225,25 +225,26 @@ public class AccountsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getMythicalUser call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getMythicalUser call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Reset user password
@@ -252,14 +253,14 @@ public class AccountsApi {
    * @param platformUserId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> resetPassword (String environmentId, String platformUserId) throws ApiException {
+  public void resetPassword (String environmentId, String platformUserId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling resetPassword"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling resetPassword");
     }
     // verify the required parameter 'platformUserId' is set
     if (platformUserId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling resetPassword"));
+        throw new ApiException(400, "Missing the required parameter 'platformUserId' when calling resetPassword");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -272,6 +273,7 @@ public class AccountsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -279,25 +281,25 @@ public class AccountsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "resetPassword call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "resetPassword call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Update user profile details
@@ -308,18 +310,18 @@ public class AccountsApi {
    * @return MythicalUserDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<MythicalUserDto> updateProfileDetails (String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws ApiException {
+  public MythicalUserDto updateProfileDetails (String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateProfileDetails"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling updateProfileDetails");
     }
     // verify the required parameter 'platformUserId' is set
     if (platformUserId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateProfileDetails"));
+        throw new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateProfileDetails");
     }
     // verify the required parameter 'updateMythicalUserRequest' is set
     if (updateMythicalUserRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateMythicalUserRequest' when calling updateProfileDetails"));
+        throw new ApiException(400, "Missing the required parameter 'updateMythicalUserRequest' when calling updateProfileDetails");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -342,27 +344,25 @@ public class AccountsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateProfileDetails call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateProfileDetails call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MythicalUserDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -374,18 +374,18 @@ public class AccountsApi {
    * @return ProfilePictureDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<ProfilePictureDto> updateProfilePicture (String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws ApiException {
+  public ProfilePictureDto updateProfilePicture (String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling updateProfilePicture"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling updateProfilePicture");
     }
     // verify the required parameter 'platformUserId' is set
     if (platformUserId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateProfilePicture"));
+        throw new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateProfilePicture");
     }
     // verify the required parameter 'updateProfilePictureRequest' is set
     if (updateProfilePictureRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateProfilePictureRequest' when calling updateProfilePicture"));
+        throw new ApiException(400, "Missing the required parameter 'updateProfilePictureRequest' when calling updateProfilePicture");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -408,27 +408,25 @@ public class AccountsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateProfilePicture call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ProfilePictureDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateProfilePicture call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<ProfilePictureDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
 }

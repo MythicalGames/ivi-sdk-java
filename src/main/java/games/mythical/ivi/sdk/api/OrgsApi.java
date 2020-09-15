@@ -44,9 +44,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class OrgsApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -75,14 +74,14 @@ public class OrgsApi {
    * @param inviteId  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> acceptInvitation (String organizationId, String inviteId) throws ApiException {
+  public void acceptInvitation (String organizationId, String inviteId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling acceptInvitation"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling acceptInvitation");
     }
     // verify the required parameter 'inviteId' is set
     if (inviteId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'inviteId' when calling acceptInvitation"));
+        throw new ApiException(400, "Missing the required parameter 'inviteId' when calling acceptInvitation");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -95,6 +94,7 @@ public class OrgsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -102,25 +102,25 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "acceptInvitation call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "acceptInvitation call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Create title
@@ -130,14 +130,14 @@ public class OrgsApi {
    * @return TitleDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<TitleDto> createNewTitle (String organizationId, CreateTitleRequest createTitleRequest) throws ApiException {
+  public TitleDto createNewTitle (String organizationId, CreateTitleRequest createTitleRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewTitle"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling createNewTitle");
     }
     // verify the required parameter 'createTitleRequest' is set
     if (createTitleRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createTitleRequest' when calling createNewTitle"));
+        throw new ApiException(400, "Missing the required parameter 'createTitleRequest' when calling createNewTitle");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -159,27 +159,25 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "createNewTitle call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<TitleDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "createNewTitle call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<TitleDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -189,10 +187,10 @@ public class OrgsApi {
    * @return OrganizationDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<OrganizationDto> getOrg (String organizationId) throws ApiException {
+  public OrganizationDto getOrg (String organizationId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getOrg"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getOrg");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -204,6 +202,7 @@ public class OrgsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -211,25 +210,26 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getOrg call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrganizationDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getOrg call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrganizationDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get organization pending invites
@@ -238,10 +238,10 @@ public class OrgsApi {
    * @return List&lt;InviteDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<InviteDto>> getPendingInvites (String organizationId) throws ApiException {
+  public List<InviteDto> getPendingInvites (String organizationId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getPendingInvites"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getPendingInvites");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -253,6 +253,7 @@ public class OrgsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -260,25 +261,26 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getPendingInvites call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<InviteDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getPendingInvites call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<InviteDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get titles
@@ -288,10 +290,10 @@ public class OrgsApi {
    * @return List&lt;TitleDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<TitleDto>> getTitles (String organizationId, Boolean includeInactive) throws ApiException {
+  public List<TitleDto> getTitles (String organizationId, Boolean includeInactive) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getTitles"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getTitles");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -312,6 +314,7 @@ public class OrgsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -319,25 +322,26 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getTitles call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<TitleDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getTitles call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<TitleDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get users
@@ -346,10 +350,10 @@ public class OrgsApi {
    * @return List&lt;UserDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<UserDto>> getUsersForOrganization (String organizationId) throws ApiException {
+  public List<UserDto> getUsersForOrganization (String organizationId) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling getUsersForOrganization"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling getUsersForOrganization");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -361,6 +365,7 @@ public class OrgsApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -368,25 +373,26 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getUsersForOrganization call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<UserDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getUsersForOrganization call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<UserDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Invite a user to organization
@@ -396,14 +402,14 @@ public class OrgsApi {
    * @return List&lt;InviteDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<InviteDto>> inviteUserToOrg (String organizationId, List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest) throws ApiException {
+  public List<InviteDto> inviteUserToOrg (String organizationId, List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling inviteUserToOrg"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling inviteUserToOrg");
     }
     // verify the required parameter 'inviteUserToOrganizationRequest' is set
     if (inviteUserToOrganizationRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'inviteUserToOrganizationRequest' when calling inviteUserToOrg"));
+        throw new ApiException(400, "Missing the required parameter 'inviteUserToOrganizationRequest' when calling inviteUserToOrg");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -425,27 +431,25 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "inviteUserToOrg call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<InviteDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "inviteUserToOrg call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<InviteDto>>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -456,14 +460,14 @@ public class OrgsApi {
    * @return OrganizationDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<OrganizationDto> updateOrg (String organizationId, UpdateOrganizationRequest updateOrganizationRequest) throws ApiException {
+  public OrganizationDto updateOrg (String organizationId, UpdateOrganizationRequest updateOrganizationRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling updateOrg"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling updateOrg");
     }
     // verify the required parameter 'updateOrganizationRequest' is set
     if (updateOrganizationRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateOrganizationRequest' when calling updateOrg"));
+        throw new ApiException(400, "Missing the required parameter 'updateOrganizationRequest' when calling updateOrg");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -485,27 +489,25 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateOrg call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrganizationDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateOrg call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<OrganizationDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -516,18 +518,18 @@ public class OrgsApi {
    * @param updateOrganizationRoleRequest  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> updateOrgRole (String organizationId, String platformUserId, UpdateOrganizationRoleRequest updateOrganizationRoleRequest) throws ApiException {
+  public void updateOrgRole (String organizationId, String platformUserId, UpdateOrganizationRoleRequest updateOrganizationRoleRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling updateOrgRole"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling updateOrgRole");
     }
     // verify the required parameter 'platformUserId' is set
     if (platformUserId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateOrgRole"));
+        throw new ApiException(400, "Missing the required parameter 'platformUserId' when calling updateOrgRole");
     }
     // verify the required parameter 'updateOrganizationRoleRequest' is set
     if (updateOrganizationRoleRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updateOrganizationRoleRequest' when calling updateOrgRole"));
+        throw new ApiException(400, "Missing the required parameter 'updateOrganizationRoleRequest' when calling updateOrgRole");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -550,27 +552,24 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updateOrgRole call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updateOrgRole call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -581,14 +580,14 @@ public class OrgsApi {
    * @return PartnerDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<PartnerDto> updatePartner (String organizationId, UpdatePartnerRequest updatePartnerRequest) throws ApiException {
+  public PartnerDto updatePartner (String organizationId, UpdatePartnerRequest updatePartnerRequest) throws ApiException {
     // verify the required parameter 'organizationId' is set
     if (organizationId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'organizationId' when calling updatePartner"));
+        throw new ApiException(400, "Missing the required parameter 'organizationId' when calling updatePartner");
     }
     // verify the required parameter 'updatePartnerRequest' is set
     if (updatePartnerRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'updatePartnerRequest' when calling updatePartner"));
+        throw new ApiException(400, "Missing the required parameter 'updatePartnerRequest' when calling updatePartner");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -610,27 +609,25 @@ public class OrgsApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "updatePartner call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PartnerDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "updatePartner call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PartnerDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
 }

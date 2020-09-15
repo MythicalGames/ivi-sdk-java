@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
   CoinbasePayment.JSON_PROPERTY_COINBASE_TRANSACTION_ID
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class CoinbasePayment {
   public static final String JSON_PROPERTY_COINBASE_TRANSACTION_ID = "coinbaseTransactionId";
   private String coinbaseTransactionId;

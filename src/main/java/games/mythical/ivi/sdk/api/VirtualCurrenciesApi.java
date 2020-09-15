@@ -36,9 +36,8 @@ import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
 
-import java.util.concurrent.CompletableFuture;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:43:19.928192-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T00:53:22.361116-07:00[America/Los_Angeles]")
 public class VirtualCurrenciesApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -68,14 +67,14 @@ public class VirtualCurrenciesApi {
    * @return VirtualCurrencyDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<VirtualCurrencyDto> addSupportedCurrencyForEnvironment (String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws ApiException {
+  public VirtualCurrencyDto addSupportedCurrencyForEnvironment (String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling addSupportedCurrencyForEnvironment"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling addSupportedCurrencyForEnvironment");
     }
     // verify the required parameter 'createVirtualCurrencyRequest' is set
     if (createVirtualCurrencyRequest == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'createVirtualCurrencyRequest' when calling addSupportedCurrencyForEnvironment"));
+        throw new ApiException(400, "Missing the required parameter 'createVirtualCurrencyRequest' when calling addSupportedCurrencyForEnvironment");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -97,27 +96,25 @@ public class VirtualCurrenciesApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "addSupportedCurrencyForEnvironment call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<VirtualCurrencyDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "addSupportedCurrencyForEnvironment call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<VirtualCurrencyDto>() {});
     } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
     }
   }
   /**
@@ -127,14 +124,14 @@ public class VirtualCurrenciesApi {
    * @param abbreviation  (required)
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<Void> deleteSupportedCurrencyByAbbreviation (String environmentId, String abbreviation) throws ApiException {
+  public void deleteSupportedCurrencyByAbbreviation (String environmentId, String abbreviation) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteSupportedCurrencyByAbbreviation"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling deleteSupportedCurrencyByAbbreviation");
     }
     // verify the required parameter 'abbreviation' is set
     if (abbreviation == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'abbreviation' when calling deleteSupportedCurrencyByAbbreviation"));
+        throw new ApiException(400, "Missing the required parameter 'abbreviation' when calling deleteSupportedCurrencyByAbbreviation");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -147,6 +144,7 @@ public class VirtualCurrenciesApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -154,25 +152,25 @@ public class VirtualCurrenciesApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "deleteSupportedCurrencyByAbbreviation call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          null
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "deleteSupportedCurrencyByAbbreviation call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get virtual currency for environment by abbreviation
@@ -182,14 +180,14 @@ public class VirtualCurrenciesApi {
    * @return VirtualCurrencyDto
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<VirtualCurrencyDto> getSupportedCurrencyByAbbreviation (String environmentId, String abbreviation) throws ApiException {
+  public VirtualCurrencyDto getSupportedCurrencyByAbbreviation (String environmentId, String abbreviation) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSupportedCurrencyByAbbreviation"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getSupportedCurrencyByAbbreviation");
     }
     // verify the required parameter 'abbreviation' is set
     if (abbreviation == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'abbreviation' when calling getSupportedCurrencyByAbbreviation"));
+        throw new ApiException(400, "Missing the required parameter 'abbreviation' when calling getSupportedCurrencyByAbbreviation");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -202,6 +200,7 @@ public class VirtualCurrenciesApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -209,25 +208,26 @@ public class VirtualCurrenciesApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getSupportedCurrencyByAbbreviation call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<VirtualCurrencyDto>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getSupportedCurrencyByAbbreviation call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<VirtualCurrencyDto>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
   /**
    * Get virtual currencies defined for environment
@@ -236,10 +236,10 @@ public class VirtualCurrenciesApi {
    * @return List&lt;VirtualCurrencyDto&gt;
    * @throws ApiException if fails to make API call
    */
-  public CompletableFuture<List<VirtualCurrencyDto>> getSupportedCurrencyForEnvironment (String environmentId) throws ApiException {
+  public List<VirtualCurrencyDto> getSupportedCurrencyForEnvironment (String environmentId) throws ApiException {
     // verify the required parameter 'environmentId' is set
     if (environmentId == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'environmentId' when calling getSupportedCurrencyForEnvironment"));
+        throw new ApiException(400, "Missing the required parameter 'environmentId' when calling getSupportedCurrencyForEnvironment");
     }
 
     HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -251,6 +251,7 @@ public class VirtualCurrenciesApi {
 
     localVarRequestBuilder.header("Accept", "application/json");
 
+    try {
       localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
       if (memberVarReadTimeout != null) {
         localVarRequestBuilder.timeout(memberVarReadTimeout);
@@ -258,24 +259,25 @@ public class VirtualCurrenciesApi {
       if (memberVarInterceptor != null) {
         memberVarInterceptor.accept(localVarRequestBuilder);
       }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "getSupportedCurrencyForEnvironment call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-               try {
-                  return CompletableFuture.completedFuture(
-                          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<VirtualCurrencyDto>>() {})
-                  );
-              } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+      localVarRequestBuilder.build(),
+      HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }          
+      if (localVarResponse.statusCode()/ 100 != 2) {
+          throw new ApiException(localVarResponse.statusCode(),
+              "getSupportedCurrencyForEnvironment call received non-success response",
+              localVarResponse.headers(),
+              localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<List<VirtualCurrencyDto>>() {});
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
   }
 }
