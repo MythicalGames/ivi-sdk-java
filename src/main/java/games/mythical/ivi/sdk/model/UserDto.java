@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -28,30 +29,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   UserDto.JSON_PROPERTY_ORGANIZATION_ID,
+  UserDto.JSON_PROPERTY_ROLE_ID,
   UserDto.JSON_PROPERTY_CREATED_TIMESTAMP,
-  UserDto.JSON_PROPERTY_ROLE_NAME,
-  UserDto.JSON_PROPERTY_USER_ID,
+  UserDto.JSON_PROPERTY_UPDATED_DATE,
   UserDto.JSON_PROPERTY_EMAIL
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class UserDto {
   public static final String JSON_PROPERTY_ORGANIZATION_ID = "organizationId";
-  private String organizationId;
+  private UUID organizationId;
+
+  public static final String JSON_PROPERTY_ROLE_ID = "roleId";
+  private UUID roleId;
 
   public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private String createdTimestamp;
 
-  public static final String JSON_PROPERTY_ROLE_NAME = "roleName";
-  private String roleName;
-
-  public static final String JSON_PROPERTY_USER_ID = "userId";
-  private String userId;
+  public static final String JSON_PROPERTY_UPDATED_DATE = "updatedDate";
+  private String updatedDate;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
 
 
-  public UserDto organizationId(String organizationId) {
+  public UserDto organizationId(UUID organizationId) {
     
     this.organizationId = organizationId;
     return this;
@@ -66,13 +67,38 @@ public class UserDto {
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getOrganizationId() {
+  public UUID getOrganizationId() {
     return organizationId;
   }
 
 
-  public void setOrganizationId(String organizationId) {
+  public void setOrganizationId(UUID organizationId) {
     this.organizationId = organizationId;
+  }
+
+
+  public UserDto roleId(UUID roleId) {
+    
+    this.roleId = roleId;
+    return this;
+  }
+
+   /**
+   * Get roleId
+   * @return roleId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getRoleId() {
+    return roleId;
+  }
+
+
+  public void setRoleId(UUID roleId) {
+    this.roleId = roleId;
   }
 
 
@@ -101,53 +127,28 @@ public class UserDto {
   }
 
 
-  public UserDto roleName(String roleName) {
+  public UserDto updatedDate(String updatedDate) {
     
-    this.roleName = roleName;
+    this.updatedDate = updatedDate;
     return this;
   }
 
    /**
-   * Get roleName
-   * @return roleName
+   * Get updatedDate
+   * @return updatedDate
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ROLE_NAME)
+  @JsonProperty(JSON_PROPERTY_UPDATED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRoleName() {
-    return roleName;
+  public String getUpdatedDate() {
+    return updatedDate;
   }
 
 
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
-  }
-
-
-  public UserDto userId(String userId) {
-    
-    this.userId = userId;
-    return this;
-  }
-
-   /**
-   * Get userId
-   * @return userId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUserId() {
-    return userId;
-  }
-
-
-  public void setUserId(String userId) {
-    this.userId = userId;
+  public void setUpdatedDate(String updatedDate) {
+    this.updatedDate = updatedDate;
   }
 
 
@@ -186,15 +187,15 @@ public class UserDto {
     }
     UserDto userDto = (UserDto) o;
     return Objects.equals(this.organizationId, userDto.organizationId) &&
+        Objects.equals(this.roleId, userDto.roleId) &&
         Objects.equals(this.createdTimestamp, userDto.createdTimestamp) &&
-        Objects.equals(this.roleName, userDto.roleName) &&
-        Objects.equals(this.userId, userDto.userId) &&
+        Objects.equals(this.updatedDate, userDto.updatedDate) &&
         Objects.equals(this.email, userDto.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(organizationId, createdTimestamp, roleName, userId, email);
+    return Objects.hash(organizationId, roleId, createdTimestamp, updatedDate, email);
   }
 
 
@@ -203,9 +204,9 @@ public class UserDto {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserDto {\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
+    sb.append("    roleId: ").append(toIndentedString(roleId)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
-    sb.append("    roleName: ").append(toIndentedString(roleName)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    updatedDate: ").append(toIndentedString(updatedDate)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("}");
     return sb.toString();

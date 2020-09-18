@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **additionalMetadata** | **Map&lt;String, Object&gt;** |  |  [optional]
 **gameInventoryId** | **String** |  | 
 **itemName** | **String** |  |  [optional]
-**amountPaid** | **Float** |  |  [optional]
+**amountPaid** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
 **ownerPlayerId** | **String** |  | 
 **authenticityImageUrl** | **String** |  |  [optional]
 **currency** | **String** |  | 

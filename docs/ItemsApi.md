@@ -1,6 +1,6 @@
 # ItemsApi
 
-All URIs are relative to *http://localhost:8081/api*
+All URIs are relative to *https://portal.iviengine.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -42,17 +42,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -85,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -121,17 +117,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -164,7 +156,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -200,17 +192,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -243,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -279,17 +267,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -322,7 +306,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -356,17 +340,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -403,7 +383,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -437,17 +417,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -482,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -518,17 +494,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -567,7 +539,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -603,17 +575,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -648,7 +616,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -684,17 +652,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -735,7 +699,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -771,17 +735,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -814,7 +774,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -850,17 +810,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -893,7 +849,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -929,17 +885,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -972,7 +924,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -1008,17 +960,13 @@ import games.mythical.ivi.sdk.api.ItemsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost:8081/api");
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
         api_key.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //api_key.setApiKeyPrefix("Token");
-
-        // Configure OAuth2 access token for authorization: spring_oauth
-        OAuth spring_oauth = (OAuth) defaultClient.getAuthentication("spring_oauth");
-        spring_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
         ItemsApi apiInstance = new ItemsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
@@ -1051,7 +999,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[api_key](../README.md#api_key), [spring_oauth](../README.md#spring_oauth)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

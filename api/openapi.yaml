@@ -8,10 +8,8 @@ info:
   title: IVI Engine
   version: unspecified
 servers:
-- description: Generated server url
-  url: http://localhost:8081/api
+- url: https://portal.iviengine.com/api/
 security:
-- spring_oauth: []
 - api_key: []
 paths:
   /environments/{environmentId}/orders/{orderId}:
@@ -748,39 +746,8 @@ paths:
           description: Success, no content
       summary: Update organization user role
       tags:
-      - Orgs
+      - Organizations
       x-contentType: application/json
-      x-accepts: '*/*'
-  /orgs/{organizationId}/invites/{inviteId}/accept:
-    post:
-      operationId: acceptInvitation
-      parameters:
-      - explode: false
-        in: path
-        name: organizationId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: inviteId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "400":
-          content:
-            '*/*':
-              schema:
-                type: string
-          description: Bad Request
-        "204":
-          description: Success, no content
-      summary: Accept an invitation to organization
-      tags:
-      - Orgs
       x-accepts: '*/*'
   /environments/{environmentId}/players/{platformUserId}/profile/picture:
     put:
@@ -889,35 +856,6 @@ paths:
       x-contentType: application/json
       x-accepts: '*/*'
   /orgs/{organizationId}/invites:
-    get:
-      operationId: getPendingInvites
-      parameters:
-      - explode: false
-        in: path
-        name: organizationId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                items:
-                  $ref: '#/components/schemas/InviteDto'
-                type: array
-          description: Success
-        "400":
-          content:
-            '*/*':
-              schema:
-                type: string
-          description: Bad Request
-      summary: Get organization pending invites
-      tags:
-      - Orgs
-      x-accepts: '*/*'
     post:
       operationId: inviteUserToOrg
       parameters:
@@ -926,6 +864,7 @@ paths:
         name: organizationId
         required: true
         schema:
+          format: uuid
           type: string
         style: simple
       requestBody:
@@ -942,7 +881,7 @@ paths:
             '*/*':
               schema:
                 items:
-                  $ref: '#/components/schemas/InviteDto'
+                  $ref: '#/components/schemas/UserDto'
                 type: array
           description: Success
         "400":
@@ -953,7 +892,7 @@ paths:
           description: Bad Request
       summary: Invite a user to organization
       tags:
-      - Orgs
+      - Organizations
       x-contentType: application/json
       x-accepts: '*/*'
   /environments/{environmentId}/items/issued/metadata:
@@ -1281,6 +1220,29 @@ paths:
       - User Settings
       x-contentType: application/json
       x-accepts: '*/*'
+  /orgs/roles:
+    get:
+      description: Get the default roles that can be be created for your organization
+      operationId: getDefaultRoles
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/DefaultRoleDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get default roles
+      tags:
+      - Organizations
+      x-accepts: '*/*'
   /orgs/{organizationId}/secrets/{secretId}/enable:
     put:
       operationId: enableServerSecret
@@ -1510,7 +1472,7 @@ paths:
           description: Bad Request
       summary: Get organization
       tags:
-      - Orgs
+      - Organizations
       x-accepts: '*/*'
     put:
       operationId: updateOrg
@@ -1543,7 +1505,7 @@ paths:
           description: Bad Request
       summary: Update organization details
       tags:
-      - Orgs
+      - Organizations
       x-contentType: application/json
       x-accepts: '*/*'
   /environments/{environmentId}/webhooks/{webhookId}/disable:
@@ -1795,7 +1757,7 @@ paths:
           description: Bad Request
       summary: Get titles
       tags:
-      - Orgs
+      - Organizations
       x-accepts: '*/*'
     post:
       description: Create a new title in this organization.
@@ -1829,7 +1791,7 @@ paths:
           description: Bad Request
       summary: Create title
       tags:
-      - Orgs
+      - Organizations
       x-contentType: application/json
       x-accepts: '*/*'
   /environments/{environmentId}/transactions/{transactionId}:
@@ -2606,6 +2568,38 @@ paths:
       tags:
       - Titles
       x-accepts: '*/*'
+  /orgs/{organizationId}/roles:
+    get:
+      description: Get the roles that can be be assigned to users or server secrets
+      operationId: getRolesForOrg
+      parameters:
+      - explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/Role'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get roles for organization
+      tags:
+      - Organizations
+      x-accepts: '*/*'
   /marketplace/environments/{environmentId}/items/search:
     get:
       operationId: searchItems
@@ -3083,6 +3077,29 @@ paths:
       - Payments
       x-contentType: application/json
       x-accepts: '*/*'
+  /orgs:
+    get:
+      description: Get all organizations by user
+      operationId: getOrgs
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationDto'
+                type: array
+          description: Success
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: Bad Request
+      summary: Get organizations
+      tags:
+      - Organizations
+      x-accepts: '*/*'
   /orgs/{organizationId}/partner:
     get:
       description: Get all partners for an organization
@@ -3367,19 +3384,9 @@ paths:
           description: Bad Request
       summary: Get users
       tags:
-      - Orgs
+      - Organizations
       x-accepts: '*/*'
 components:
-  parameters:
-    Version:
-      explode: false
-      in: header
-      name: Version
-      required: false
-      schema:
-        default: 0.0.1
-        type: string
-      style: simple
   schemas:
     PaymentMethodDto:
       example:
@@ -3422,21 +3429,22 @@ components:
       type: object
     UpdateOrganizationRoleRequest:
       example:
-        roleName: roleName
+        roleId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
-        roleName:
+        roleId:
+          format: uuid
           type: string
       required:
-      - roleName
+      - roleId
       type: object
     CreateServerSecretRequest:
       example:
-        roleName: WRITE
+        roleId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         description: description
         disabled: false
       properties:
-        roleName:
-          example: WRITE
+        roleId:
+          format: uuid
           type: string
         description:
           type: string
@@ -3444,7 +3452,7 @@ components:
           example: false
           type: boolean
       required:
-      - roleName
+      - roleId
       type: object
     ThemeDto:
       example:
@@ -3498,19 +3506,21 @@ components:
       type: object
     UserDto:
       example:
-        organizationId: organizationId
+        organizationId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        roleId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         createdTimestamp: createdTimestamp
-        roleName: roleName
-        userId: userId
+        updatedDate: updatedDate
         email: email
       properties:
         organizationId:
+          format: uuid
+          type: string
+        roleId:
+          format: uuid
           type: string
         createdTimestamp:
           type: string
-        roleName:
-          type: string
-        userId:
+        updatedDate:
           type: string
         email:
           type: string
@@ -3791,15 +3801,16 @@ components:
       type: object
     InviteUserToOrganizationRequest:
       example:
-        roleName: roleName
+        roleId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         userEmail: userEmail
       properties:
-        roleName:
+        roleId:
+          format: uuid
           type: string
         userEmail:
           type: string
       required:
-      - roleName
+      - roleId
       - userEmail
       type: object
     BraintreePayment:
@@ -4001,7 +4012,6 @@ components:
           type: string
         amountPaid:
           example: 7.5
-          format: float
           minimum: 0
           type: number
         ownerPlayerId:
@@ -4237,6 +4247,49 @@ components:
           type: string
         countryName:
           type: string
+      type: object
+    Role:
+      example:
+        organizationId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        displayName: displayName
+        roleName: roleName
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        apiLevel: ORG
+        targets:
+          key:
+          - CREATE
+          - CREATE
+      properties:
+        organizationId:
+          format: uuid
+          type: string
+        displayName:
+          type: string
+        roleName:
+          type: string
+        id:
+          format: uuid
+          type: string
+        apiLevel:
+          enum:
+          - ORG
+          - TITLE
+          - ENV
+          - ADMIN
+          - SUPER_ADMIN
+          type: string
+        targets:
+          additionalProperties:
+            items:
+              enum:
+              - CREATE
+              - READ
+              - UPDATE
+              - DELETE
+              type: string
+            type: array
+            uniqueItems: true
+          type: object
       type: object
     PaymentProviderData:
       example:
@@ -4494,9 +4547,10 @@ components:
         createdBy: createdBy
         createdTimestamp: createdTimestamp
         name: name
+        baseConversion: 0.8008281904610115
         fiat: true
         abbreviation: abbreviation
-        base: true
+        baseCurrency: true
       properties:
         createdBy:
           type: string
@@ -4504,11 +4558,13 @@ components:
           type: string
         name:
           type: string
+        baseConversion:
+          type: number
         fiat:
           type: boolean
         abbreviation:
           type: string
-        base:
+        baseCurrency:
           type: boolean
       type: object
     CloseSaleRequest:
@@ -4777,6 +4833,7 @@ components:
       example:
         organizationId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         createdBy: createdBy
+        roleId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         createdTimestamp: createdTimestamp
         roleName: roleName
         description: description
@@ -4788,6 +4845,9 @@ components:
           format: uuid
           type: string
         createdBy:
+          type: string
+        roleId:
+          format: uuid
           type: string
         createdTimestamp:
           type: string
@@ -4970,31 +5030,6 @@ components:
       required:
       - extension
       - imageBase64
-      type: object
-    InviteDto:
-      example:
-        organizationId: organizationId
-        expiryTimestamp: expiryTimestamp
-        createdBy: createdBy
-        createdTimestamp: createdTimestamp
-        roleName: roleName
-        userEmail: userEmail
-        id: id
-      properties:
-        organizationId:
-          type: string
-        expiryTimestamp:
-          type: string
-        createdBy:
-          type: string
-        createdTimestamp:
-          type: string
-        roleName:
-          type: string
-        userEmail:
-          type: string
-        id:
-          type: string
       type: object
     CoinbasePayment:
       example:
@@ -5361,6 +5396,33 @@ components:
         email:
           type: string
       type: object
+    DefaultRoleDto:
+      example:
+        roleName: roleName
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        targets:
+          key:
+          - CREATE
+          - CREATE
+      properties:
+        roleName:
+          type: string
+        id:
+          format: uuid
+          type: string
+        targets:
+          additionalProperties:
+            items:
+              enum:
+              - CREATE
+              - READ
+              - UPDATE
+              - DELETE
+              type: string
+            type: array
+            uniqueItems: true
+          type: object
+      type: object
     Wallet:
       example:
         owner: owner
@@ -5610,21 +5672,25 @@ components:
     CreateVirtualCurrencyRequest:
       example:
         name: BlankoBucks
+        baseConversion: 1.25
         fiat: true
         abbreviation: BB
-        base: true
+        baseCurrency: false
       properties:
         name:
           example: BlankoBucks
           type: string
+        baseConversion:
+          example: 1.25
+          type: number
         fiat:
           example: true
           type: boolean
         abbreviation:
           example: BB
           type: string
-        base:
-          example: true
+        baseCurrency:
+          example: false
           type: boolean
       required:
       - abbreviation
@@ -5712,13 +5778,4 @@ components:
       in: header
       name: API-KEY
       type: apiKey
-    spring_oauth:
-      description: Oauth2 flow
-      flows:
-        authorizationCode:
-          authorizationUrl: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/auth
-          refreshUrl: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/token
-          scopes: {}
-          tokenUrl: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/token
-      type: oauth2
 

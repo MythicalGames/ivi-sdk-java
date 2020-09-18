@@ -7,9 +7,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
+**baseConversion** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
 **fiat** | **Boolean** |  | 
 **abbreviation** | **String** |  | 
-**base** | **Boolean** |  |  [optional]
+**baseCurrency** | **Boolean** |  |  [optional]
 
 
 

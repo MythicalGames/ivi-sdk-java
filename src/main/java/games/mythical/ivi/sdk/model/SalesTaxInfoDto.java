@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SalesTaxInfoDto.JSON_PROPERTY_EXEMPT,
   SalesTaxInfoDto.JSON_PROPERTY_CITY_RATE
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class SalesTaxInfoDto {
   public static final String JSON_PROPERTY_ZIP = "zip";
   private String zip;

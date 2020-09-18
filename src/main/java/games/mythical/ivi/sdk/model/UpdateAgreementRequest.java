@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateAgreementRequest.JSON_PROPERTY_CURRENCY,
   UpdateAgreementRequest.JSON_PROPERTY_ID
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class UpdateAgreementRequest {
   public static final String JSON_PROPERTY_TIME_FRAME_START = "timeFrameStart";
   private Long timeFrameStart;

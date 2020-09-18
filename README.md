@@ -4,7 +4,7 @@ IVI Engine
 
 - API version: unspecified
 
-- Build date: 2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]
+- Build date: 2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]
 
 IVI Engine
 
@@ -105,7 +105,7 @@ public class AccountsApiExample {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:8081/api*
+All URIs are relative to *https://portal.iviengine.com/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -141,15 +141,16 @@ Class | Method | HTTP request | Description
 *OrdersApi* | [**deleteOrder**](docs/OrdersApi.md#deleteOrder) | **DELETE** /environments/{environmentId}/orders/{orderId} | Delete Order
 *OrdersApi* | [**getOrder**](docs/OrdersApi.md#getOrder) | **GET** /environments/{environmentId}/orders | Get Order
 *OrdersApi* | [**updateOrder**](docs/OrdersApi.md#updateOrder) | **PUT** /environments/{environmentId}/orders | Update Order
-*OrgsApi* | [**acceptInvitation**](docs/OrgsApi.md#acceptInvitation) | **POST** /orgs/{organizationId}/invites/{inviteId}/accept | Accept an invitation to organization
-*OrgsApi* | [**createNewTitle**](docs/OrgsApi.md#createNewTitle) | **POST** /orgs/{organizationId}/titles | Create title
-*OrgsApi* | [**getOrg**](docs/OrgsApi.md#getOrg) | **GET** /orgs/{organizationId} | Get organization
-*OrgsApi* | [**getPendingInvites**](docs/OrgsApi.md#getPendingInvites) | **GET** /orgs/{organizationId}/invites | Get organization pending invites
-*OrgsApi* | [**getTitles**](docs/OrgsApi.md#getTitles) | **GET** /orgs/{organizationId}/titles | Get titles
-*OrgsApi* | [**getUsersForOrganization**](docs/OrgsApi.md#getUsersForOrganization) | **GET** /orgs/{organizationId}/users | Get users
-*OrgsApi* | [**inviteUserToOrg**](docs/OrgsApi.md#inviteUserToOrg) | **POST** /orgs/{organizationId}/invites | Invite a user to organization
-*OrgsApi* | [**updateOrg**](docs/OrgsApi.md#updateOrg) | **PUT** /orgs/{organizationId} | Update organization details
-*OrgsApi* | [**updateOrgRole**](docs/OrgsApi.md#updateOrgRole) | **PUT** /orgs/{organizationId}/{platformUserId}/role | Update organization user role
+*OrganizationsApi* | [**createNewTitle**](docs/OrganizationsApi.md#createNewTitle) | **POST** /orgs/{organizationId}/titles | Create title
+*OrganizationsApi* | [**getDefaultRoles**](docs/OrganizationsApi.md#getDefaultRoles) | **GET** /orgs/roles | Get default roles
+*OrganizationsApi* | [**getOrg**](docs/OrganizationsApi.md#getOrg) | **GET** /orgs/{organizationId} | Get organization
+*OrganizationsApi* | [**getOrgs**](docs/OrganizationsApi.md#getOrgs) | **GET** /orgs | Get organizations
+*OrganizationsApi* | [**getRolesForOrg**](docs/OrganizationsApi.md#getRolesForOrg) | **GET** /orgs/{organizationId}/roles | Get roles for organization
+*OrganizationsApi* | [**getTitles**](docs/OrganizationsApi.md#getTitles) | **GET** /orgs/{organizationId}/titles | Get titles
+*OrganizationsApi* | [**getUsersForOrganization**](docs/OrganizationsApi.md#getUsersForOrganization) | **GET** /orgs/{organizationId}/users | Get users
+*OrganizationsApi* | [**inviteUserToOrg**](docs/OrganizationsApi.md#inviteUserToOrg) | **POST** /orgs/{organizationId}/invites | Invite a user to organization
+*OrganizationsApi* | [**updateOrg**](docs/OrganizationsApi.md#updateOrg) | **PUT** /orgs/{organizationId} | Update organization details
+*OrganizationsApi* | [**updateOrgRole**](docs/OrganizationsApi.md#updateOrgRole) | **PUT** /orgs/{organizationId}/{platformUserId}/role | Update organization user role
 *OrgsApi* | [**updatePartner**](docs/OrgsApi.md#updatePartner) | **PUT** /orgs/{organizationId}/partner | Update partner details
 *PartnersApi* | [**createNewAgreement**](docs/PartnersApi.md#createNewAgreement) | **POST** /orgs/{organizationId}/partner/{partnerId}/agreement | Create Agreement
 *PartnersApi* | [**createNewPartner**](docs/PartnersApi.md#createNewPartner) | **POST** /orgs/{organizationId}/partner | Create Partner
@@ -225,11 +226,11 @@ Class | Method | HTTP request | Description
  - [CreateVirtualCurrencyRequest](docs/CreateVirtualCurrencyRequest.md)
  - [CreateWebhookRequest](docs/CreateWebhookRequest.md)
  - [CustomerDto](docs/CustomerDto.md)
+ - [DefaultRoleDto](docs/DefaultRoleDto.md)
  - [DgoodMetadataDto](docs/DgoodMetadataDto.md)
  - [ElasticDgood](docs/ElasticDgood.md)
  - [EnvironmentInstanceDto](docs/EnvironmentInstanceDto.md)
  - [FinalizePaymentRequest](docs/FinalizePaymentRequest.md)
- - [InviteDto](docs/InviteDto.md)
  - [InviteUserToOrganizationRequest](docs/InviteUserToOrganizationRequest.md)
  - [IssueItemRequest](docs/IssueItemRequest.md)
  - [IssuedItemDto](docs/IssuedItemDto.md)
@@ -251,6 +252,7 @@ Class | Method | HTTP request | Description
  - [PlayerDto](docs/PlayerDto.md)
  - [PostalAddress](docs/PostalAddress.md)
  - [ProfilePictureDto](docs/ProfilePictureDto.md)
+ - [Role](docs/Role.md)
  - [SalesTaxInfoDto](docs/SalesTaxInfoDto.md)
  - [SalesTaxTransactionDto](docs/SalesTaxTransactionDto.md)
  - [SearchHit](docs/SearchHit.md)
@@ -290,14 +292,6 @@ Authentication schemes defined for the API:
 - **Type**: API key
 - **API key parameter name**: API-KEY
 - **Location**: HTTP header
-
-### spring_oauth
-
-
-- **Type**: OAuth
-- **Flow**: accessCode
-- **Authorization URL**: https://accounts.mythical.games/realms/mythical-dev/protocol/openid-connect/auth
-- **Scopes**: N/A
 
 
 ## Recommendation

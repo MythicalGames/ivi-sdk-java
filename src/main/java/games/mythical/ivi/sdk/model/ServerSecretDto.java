@@ -30,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
   ServerSecretDto.JSON_PROPERTY_ORGANIZATION_ID,
   ServerSecretDto.JSON_PROPERTY_CREATED_BY,
+  ServerSecretDto.JSON_PROPERTY_ROLE_ID,
   ServerSecretDto.JSON_PROPERTY_CREATED_TIMESTAMP,
   ServerSecretDto.JSON_PROPERTY_ROLE_NAME,
   ServerSecretDto.JSON_PROPERTY_DESCRIPTION,
@@ -37,13 +38,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ServerSecretDto.JSON_PROPERTY_ID,
   ServerSecretDto.JSON_PROPERTY_SECRET
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class ServerSecretDto {
   public static final String JSON_PROPERTY_ORGANIZATION_ID = "organizationId";
   private UUID organizationId;
 
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
+
+  public static final String JSON_PROPERTY_ROLE_ID = "roleId";
+  private UUID roleId;
 
   public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private String createdTimestamp;
@@ -111,6 +115,31 @@ public class ServerSecretDto {
 
   public void setCreatedBy(String createdBy) {
     this.createdBy = createdBy;
+  }
+
+
+  public ServerSecretDto roleId(UUID roleId) {
+    
+    this.roleId = roleId;
+    return this;
+  }
+
+   /**
+   * Get roleId
+   * @return roleId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getRoleId() {
+    return roleId;
+  }
+
+
+  public void setRoleId(UUID roleId) {
+    this.roleId = roleId;
   }
 
 
@@ -275,6 +304,7 @@ public class ServerSecretDto {
     ServerSecretDto serverSecretDto = (ServerSecretDto) o;
     return Objects.equals(this.organizationId, serverSecretDto.organizationId) &&
         Objects.equals(this.createdBy, serverSecretDto.createdBy) &&
+        Objects.equals(this.roleId, serverSecretDto.roleId) &&
         Objects.equals(this.createdTimestamp, serverSecretDto.createdTimestamp) &&
         Objects.equals(this.roleName, serverSecretDto.roleName) &&
         Objects.equals(this.description, serverSecretDto.description) &&
@@ -285,7 +315,7 @@ public class ServerSecretDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(organizationId, createdBy, createdTimestamp, roleName, description, disabled, id, secret);
+    return Objects.hash(organizationId, createdBy, roleId, createdTimestamp, roleName, description, disabled, id, secret);
   }
 
 
@@ -295,6 +325,7 @@ public class ServerSecretDto {
     sb.append("class ServerSecretDto {\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
+    sb.append("    roleId: ").append(toIndentedString(roleId)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
     sb.append("    roleName: ").append(toIndentedString(roleName)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

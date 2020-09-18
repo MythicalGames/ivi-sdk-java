@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**roleName** | **String** |  | 
+**roleId** | [**UUID**](UUID.md) |  | 
 
 
 

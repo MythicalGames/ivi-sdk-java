@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -28,14 +29,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   CreateVirtualCurrencyRequest.JSON_PROPERTY_NAME,
+  CreateVirtualCurrencyRequest.JSON_PROPERTY_BASE_CONVERSION,
   CreateVirtualCurrencyRequest.JSON_PROPERTY_FIAT,
   CreateVirtualCurrencyRequest.JSON_PROPERTY_ABBREVIATION,
-  CreateVirtualCurrencyRequest.JSON_PROPERTY_BASE
+  CreateVirtualCurrencyRequest.JSON_PROPERTY_BASE_CURRENCY
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class CreateVirtualCurrencyRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
+
+  public static final String JSON_PROPERTY_BASE_CONVERSION = "baseConversion";
+  private BigDecimal baseConversion;
 
   public static final String JSON_PROPERTY_FIAT = "fiat";
   private Boolean fiat;
@@ -43,8 +48,8 @@ public class CreateVirtualCurrencyRequest {
   public static final String JSON_PROPERTY_ABBREVIATION = "abbreviation";
   private String abbreviation;
 
-  public static final String JSON_PROPERTY_BASE = "base";
-  private Boolean base;
+  public static final String JSON_PROPERTY_BASE_CURRENCY = "baseCurrency";
+  private Boolean baseCurrency;
 
 
   public CreateVirtualCurrencyRequest name(String name) {
@@ -68,6 +73,31 @@ public class CreateVirtualCurrencyRequest {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+
+  public CreateVirtualCurrencyRequest baseConversion(BigDecimal baseConversion) {
+    
+    this.baseConversion = baseConversion;
+    return this;
+  }
+
+   /**
+   * Get baseConversion
+   * @return baseConversion
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1.25", value = "")
+  @JsonProperty(JSON_PROPERTY_BASE_CONVERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getBaseConversion() {
+    return baseConversion;
+  }
+
+
+  public void setBaseConversion(BigDecimal baseConversion) {
+    this.baseConversion = baseConversion;
   }
 
 
@@ -119,28 +149,28 @@ public class CreateVirtualCurrencyRequest {
   }
 
 
-  public CreateVirtualCurrencyRequest base(Boolean base) {
+  public CreateVirtualCurrencyRequest baseCurrency(Boolean baseCurrency) {
     
-    this.base = base;
+    this.baseCurrency = baseCurrency;
     return this;
   }
 
    /**
-   * Get base
-   * @return base
+   * Get baseCurrency
+   * @return baseCurrency
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "")
-  @JsonProperty(JSON_PROPERTY_BASE)
+  @ApiModelProperty(example = "false", value = "")
+  @JsonProperty(JSON_PROPERTY_BASE_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getBase() {
-    return base;
+  public Boolean getBaseCurrency() {
+    return baseCurrency;
   }
 
 
-  public void setBase(Boolean base) {
-    this.base = base;
+  public void setBaseCurrency(Boolean baseCurrency) {
+    this.baseCurrency = baseCurrency;
   }
 
 
@@ -154,14 +184,15 @@ public class CreateVirtualCurrencyRequest {
     }
     CreateVirtualCurrencyRequest createVirtualCurrencyRequest = (CreateVirtualCurrencyRequest) o;
     return Objects.equals(this.name, createVirtualCurrencyRequest.name) &&
+        Objects.equals(this.baseConversion, createVirtualCurrencyRequest.baseConversion) &&
         Objects.equals(this.fiat, createVirtualCurrencyRequest.fiat) &&
         Objects.equals(this.abbreviation, createVirtualCurrencyRequest.abbreviation) &&
-        Objects.equals(this.base, createVirtualCurrencyRequest.base);
+        Objects.equals(this.baseCurrency, createVirtualCurrencyRequest.baseCurrency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, fiat, abbreviation, base);
+    return Objects.hash(name, baseConversion, fiat, abbreviation, baseCurrency);
   }
 
 
@@ -170,9 +201,10 @@ public class CreateVirtualCurrencyRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateVirtualCurrencyRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    baseConversion: ").append(toIndentedString(baseConversion)).append("\n");
     sb.append("    fiat: ").append(toIndentedString(fiat)).append("\n");
     sb.append("    abbreviation: ").append(toIndentedString(abbreviation)).append("\n");
-    sb.append("    base: ").append(toIndentedString(base)).append("\n");
+    sb.append("    baseCurrency: ").append(toIndentedString(baseCurrency)).append("\n");
     sb.append("}");
     return sb.toString();
   }

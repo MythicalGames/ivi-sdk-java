@@ -21,20 +21,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * CreateServerSecretRequest
  */
 @JsonPropertyOrder({
-  CreateServerSecretRequest.JSON_PROPERTY_ROLE_NAME,
+  CreateServerSecretRequest.JSON_PROPERTY_ROLE_ID,
   CreateServerSecretRequest.JSON_PROPERTY_DESCRIPTION,
   CreateServerSecretRequest.JSON_PROPERTY_DISABLED
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class CreateServerSecretRequest {
-  public static final String JSON_PROPERTY_ROLE_NAME = "roleName";
-  private String roleName;
+  public static final String JSON_PROPERTY_ROLE_ID = "roleId";
+  private UUID roleId;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
@@ -43,27 +44,27 @@ public class CreateServerSecretRequest {
   private Boolean disabled;
 
 
-  public CreateServerSecretRequest roleName(String roleName) {
+  public CreateServerSecretRequest roleId(UUID roleId) {
     
-    this.roleName = roleName;
+    this.roleId = roleId;
     return this;
   }
 
    /**
-   * Get roleName
-   * @return roleName
+   * Get roleId
+   * @return roleId
   **/
-  @ApiModelProperty(example = "WRITE", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ROLE_NAME)
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_ROLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getRoleName() {
-    return roleName;
+  public UUID getRoleId() {
+    return roleId;
   }
 
 
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
+  public void setRoleId(UUID roleId) {
+    this.roleId = roleId;
   }
 
 
@@ -126,14 +127,14 @@ public class CreateServerSecretRequest {
       return false;
     }
     CreateServerSecretRequest createServerSecretRequest = (CreateServerSecretRequest) o;
-    return Objects.equals(this.roleName, createServerSecretRequest.roleName) &&
+    return Objects.equals(this.roleId, createServerSecretRequest.roleId) &&
         Objects.equals(this.description, createServerSecretRequest.description) &&
         Objects.equals(this.disabled, createServerSecretRequest.disabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(roleName, description, disabled);
+    return Objects.hash(roleId, description, disabled);
   }
 
 
@@ -141,7 +142,7 @@ public class CreateServerSecretRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateServerSecretRequest {\n");
-    sb.append("    roleName: ").append(toIndentedString(roleName)).append("\n");
+    sb.append("    roleId: ").append(toIndentedString(roleId)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("}");

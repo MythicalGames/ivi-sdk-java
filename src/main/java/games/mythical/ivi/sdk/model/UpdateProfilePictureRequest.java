@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateProfilePictureRequest.JSON_PROPERTY_IMAGE_BASE64,
   UpdateProfilePictureRequest.JSON_PROPERTY_EXTENSION
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class UpdateProfilePictureRequest {
   public static final String JSON_PROPERTY_IMAGE_BASE64 = "imageBase64";
   private String imageBase64;

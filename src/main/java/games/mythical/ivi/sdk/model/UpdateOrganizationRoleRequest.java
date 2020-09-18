@@ -21,41 +21,42 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * UpdateOrganizationRoleRequest
  */
 @JsonPropertyOrder({
-  UpdateOrganizationRoleRequest.JSON_PROPERTY_ROLE_NAME
+  UpdateOrganizationRoleRequest.JSON_PROPERTY_ROLE_ID
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-15T09:19:26.551556-07:00[America/Los_Angeles]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
 public class UpdateOrganizationRoleRequest {
-  public static final String JSON_PROPERTY_ROLE_NAME = "roleName";
-  private String roleName;
+  public static final String JSON_PROPERTY_ROLE_ID = "roleId";
+  private UUID roleId;
 
 
-  public UpdateOrganizationRoleRequest roleName(String roleName) {
+  public UpdateOrganizationRoleRequest roleId(UUID roleId) {
     
-    this.roleName = roleName;
+    this.roleId = roleId;
     return this;
   }
 
    /**
-   * Get roleName
-   * @return roleName
+   * Get roleId
+   * @return roleId
   **/
   @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ROLE_NAME)
+  @JsonProperty(JSON_PROPERTY_ROLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getRoleName() {
-    return roleName;
+  public UUID getRoleId() {
+    return roleId;
   }
 
 
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
+  public void setRoleId(UUID roleId) {
+    this.roleId = roleId;
   }
 
 
@@ -68,12 +69,12 @@ public class UpdateOrganizationRoleRequest {
       return false;
     }
     UpdateOrganizationRoleRequest updateOrganizationRoleRequest = (UpdateOrganizationRoleRequest) o;
-    return Objects.equals(this.roleName, updateOrganizationRoleRequest.roleName);
+    return Objects.equals(this.roleId, updateOrganizationRoleRequest.roleId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(roleName);
+    return Objects.hash(roleId);
   }
 
 
@@ -81,7 +82,7 @@ public class UpdateOrganizationRoleRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateOrganizationRoleRequest {\n");
-    sb.append("    roleName: ").append(toIndentedString(roleName)).append("\n");
+    sb.append("    roleId: ").append(toIndentedString(roleId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

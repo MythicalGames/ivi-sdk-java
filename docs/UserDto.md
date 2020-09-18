@@ -6,10 +6,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**organizationId** | **String** |  |  [optional]
+**organizationId** | [**UUID**](UUID.md) |  |  [optional]
+**roleId** | [**UUID**](UUID.md) |  |  [optional]
 **createdTimestamp** | **String** |  |  [optional]
-**roleName** | **String** |  |  [optional]
-**userId** | **String** |  |  [optional]
+**updatedDate** | **String** |  |  [optional]
 **email** | **String** |  |  [optional]
 
 
