@@ -1,8 +1,8 @@
 # don't generate list
 .github/
-.gitignore
 .travis.yml
 git_push.sh
 gradle.properties
-**/gradle-wrapper.properties
+build.sbt
+pom.xml
 **/AndroidManifest.xml

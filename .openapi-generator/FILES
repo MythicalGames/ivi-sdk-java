@@ -1,7 +1,7 @@
+.gitignore
 README.md
 api/openapi.yaml
 build.gradle
-build.sbt
 docs/AccountsApi.md
 docs/AgreementDto.md
 docs/ApiLevel.md
@@ -98,9 +98,9 @@ docs/Wallet.md
 docs/WebhookDto.md
 docs/WebhooksApi.md
 gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
-pom.xml
 settings.gradle
 src/main/java/games/mythical/ivi/sdk/ApiClient.java
 src/main/java/games/mythical/ivi/sdk/ApiException.java
@@ -204,5 +204,3 @@ src/main/java/games/mythical/ivi/sdk/model/UserDto.java
 src/main/java/games/mythical/ivi/sdk/model/VirtualCurrencyDto.java
 src/main/java/games/mythical/ivi/sdk/model/Wallet.java
 src/main/java/games/mythical/ivi/sdk/model/WebhookDto.java
-src/test/java/games/mythical/ivi/sdk/model/ApiLevelTest.java
-src/test/java/games/mythical/ivi/sdk/model/PermissionTest.java
