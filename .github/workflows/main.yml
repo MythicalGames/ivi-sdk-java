@@ -31,6 +31,9 @@ jobs:
         ./gradlew test
 
     - name: Build
+      env:
+        GITHUB_USER: 'Mythical Buildbot'
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         ./gradlew publish
 
