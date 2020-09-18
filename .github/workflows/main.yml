@@ -32,7 +32,7 @@ jobs:
 
     - name: Build
       run: |
-        ./gradlew release
+        ./gradlew publish
 
     - name: Slack Notification
       uses: 8398a7/action-slack@v3
