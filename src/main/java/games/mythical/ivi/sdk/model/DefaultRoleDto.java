@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DefaultRoleDto.JSON_PROPERTY_ID,
   DefaultRoleDto.JSON_PROPERTY_TARGETS
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
+
 public class DefaultRoleDto {
   public static final String JSON_PROPERTY_ROLE_NAME = "roleName";
   private String roleName;

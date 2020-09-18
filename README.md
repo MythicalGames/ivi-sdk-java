@@ -4,8 +4,6 @@ IVI Engine
 
 - API version: unspecified
 
-- Build date: 2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]
-
 IVI Engine
 
   For more information, please visit [https://www.mythical.games/](https://www.mythical.games/)

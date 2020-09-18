@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SearchHit.JSON_PROPERTY_GET_SCORE,
   SearchHit.JSON_PROPERTY_GET_ID
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
+
 public class SearchHit {
   public static final String JSON_PROPERTY_GET_INDEX = "get_index";
   private String getIndex;

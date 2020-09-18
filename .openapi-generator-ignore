@@ -4,4 +4,5 @@
 .travis.yml
 git_push.sh
 gradle.properties
+**/gradle-wrapper.properties
 **/AndroidManifest.xml

@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   TitleDto.JSON_PROPERTY_PARENT_ORGANIZATION_ID,
   TitleDto.JSON_PROPERTY_DEACTIVATED
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-17T21:49:06.785396-07:00[America/Los_Angeles]")
+
 public class TitleDto {
   public static final String JSON_PROPERTY_ENVIRONMENTS = "environments";
   private List<EnvironmentInstanceDto> environments = null;
