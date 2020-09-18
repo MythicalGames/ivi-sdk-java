@@ -6,7 +6,7 @@ info:
     url: https://www.mythical.games/
   description: IVI Engine
   title: IVI Engine
-  version: unspecified
+  version: 1.0.0-SNAPSHOT
 servers:
 - url: https://portal.iviengine.com/api/
 security:
@@ -3759,6 +3759,13 @@ components:
         saleAmountBase:
           type: number
       type: object
+    Permission:
+      enum:
+      - CREATE
+      - READ
+      - UPDATE
+      - DELETE
+      type: string
     UpdateMythicalUserRequest:
       example:
         firstName: firstName
@@ -4254,11 +4261,10 @@ components:
         displayName: displayName
         roleName: roleName
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        apiLevel: ORG
         targets:
           key:
-          - CREATE
-          - CREATE
+          - null
+          - null
       properties:
         organizationId:
           format: uuid
@@ -4271,22 +4277,11 @@ components:
           format: uuid
           type: string
         apiLevel:
-          enum:
-          - ORG
-          - TITLE
-          - ENV
-          - ADMIN
-          - SUPER_ADMIN
-          type: string
+          $ref: '#/components/schemas/ApiLevel'
         targets:
           additionalProperties:
             items:
-              enum:
-              - CREATE
-              - READ
-              - UPDATE
-              - DELETE
-              type: string
+              $ref: '#/components/schemas/Permission'
             type: array
             uniqueItems: true
           type: object
@@ -5154,6 +5149,14 @@ components:
         partnerId:
           type: string
       type: object
+    ApiLevel:
+      enum:
+      - ORG
+      - TITLE
+      - ENV
+      - ADMIN
+      - SUPER_ADMIN
+      type: string
     CreateMythicalUserRequest:
       example:
         firstName: firstName
@@ -5402,8 +5405,8 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         targets:
           key:
-          - CREATE
-          - CREATE
+          - null
+          - null
       properties:
         roleName:
           type: string
@@ -5413,12 +5416,7 @@ components:
         targets:
           additionalProperties:
             items:
-              enum:
-              - CREATE
-              - READ
-              - UPDATE
-              - DELETE
-              type: string
+              $ref: '#/components/schemas/Permission'
             type: array
             uniqueItems: true
           type: object
