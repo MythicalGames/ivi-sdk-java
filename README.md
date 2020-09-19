@@ -54,30 +54,30 @@ Please follow the [installation](#installation) instruction and execute the foll
     public class AccountsApiExample {
 
     public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://portal.iviengine.com/api");
-    
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        
+            // Configure API key authorization: api_key
+            ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+            api_key.setApiKey("YOUR API KEY");
+            // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+            //api_key.setApiKeyPrefix("Token");
 
-    AccountsApi apiInstance = new AccountsApi(defaultClient);
-        String organizationId = "organizationId_example"; // String | 
-        CreateMythicalUserRequest createMythicalUserRequest = new CreateMythicalUserRequest(); // CreateMythicalUserRequest | 
-    try {
-    MythicalUserDto result = apiInstance.createMythicalUser(organizationId, createMythicalUserRequest);
-        System.out.println(result);
-    } catch (ApiException e) {
-    System.err.println("Exception when calling AccountsApi#createMythicalUser");
-    System.err.println("Status code: " + e.getCode());
-    System.err.println("Reason: " + e.getResponseBody());
-    System.err.println("Response headers: " + e.getResponseHeaders());
-    e.printStackTrace();
+        AccountsApi apiInstance = new AccountsApi(defaultClient);
+            String organizationId = "organizationId_example"; // String | 
+            CreateMythicalUserRequest createMythicalUserRequest = new CreateMythicalUserRequest(); // CreateMythicalUserRequest | 
+        try {
+            MythicalUserDto result = apiInstance.createMythicalUser(organizationId, createMythicalUserRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AccountsApi#createMythicalUser");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
     }
-    }
-    }
+}
 
 ```
 
