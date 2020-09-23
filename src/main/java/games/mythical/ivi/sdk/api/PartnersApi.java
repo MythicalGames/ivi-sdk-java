@@ -22,6 +22,7 @@ import games.mythical.ivi.sdk.model.CreateAgreementRequest;
 import games.mythical.ivi.sdk.model.CreatePartnerRequest;
 import games.mythical.ivi.sdk.model.PartnerDto;
 import games.mythical.ivi.sdk.model.UpdateAgreementRequest;
+import games.mythical.ivi.sdk.model.UpdatePartnerRequest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -467,6 +468,90 @@ public class PartnersApi {
 
     try {
       byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateAgreementRequest);
+      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Update partner details
+   * 
+   * @param organizationId  (required)
+   * @param updatePartnerRequest  (required)
+   * @return PartnerDto
+   * @throws ApiException if fails to make API call
+   */
+  public PartnerDto updatePartner(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws ApiException {
+    ApiResponse<PartnerDto> localVarResponse = updatePartnerWithHttpInfo(organizationId, updatePartnerRequest);
+    return localVarResponse.getData();
+  }
+
+  /**
+   * Update partner details
+   * 
+   * @param organizationId  (required)
+   * @param updatePartnerRequest  (required)
+   * @return ApiResponse&lt;PartnerDto&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<PartnerDto> updatePartnerWithHttpInfo(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = updatePartnerRequestBuilder(organizationId, updatePartnerRequest);
+    try {
+      HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofInputStream());
+      if (memberVarResponseInterceptor != null) {
+        memberVarResponseInterceptor.accept(localVarResponse);
+      }
+      if (localVarResponse.statusCode()/ 100 != 2) {
+        throw new ApiException(localVarResponse.statusCode(),
+            "updatePartner call received non-success response",
+            localVarResponse.headers(),
+            localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
+      }
+      return new ApiResponse<PartnerDto>(
+          localVarResponse.statusCode(),
+          localVarResponse.headers().map(),
+          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PartnerDto>() {})
+        );
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new ApiException(e);
+    }
+  }
+
+  private HttpRequest.Builder updatePartnerRequestBuilder(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws ApiException {
+    // verify the required parameter 'organizationId' is set
+    if (organizationId == null) {
+      throw new ApiException(400, "Missing the required parameter 'organizationId' when calling updatePartner");
+    }
+    // verify the required parameter 'updatePartnerRequest' is set
+    if (updatePartnerRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updatePartnerRequest' when calling updatePartner");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/orgs/{organizationId}/partner"
+        .replace("{organizationId}", ApiClient.urlEncode(organizationId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updatePartnerRequest);
       localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
     } catch (IOException e) {
       throw new ApiException(e);

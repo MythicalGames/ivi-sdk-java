@@ -822,6 +822,19 @@ paths:
       - Players
       x-accepts: '*/*'
     post:
+      callbacks:
+        playerCallback:
+          '{$request.body#/callbackUrl}':
+            post:
+              operationId: playerCallback_Post
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/PlayerDto'
+                required: true
+              responses: {}
+              x-callback-request: true
       operationId: linkPlayerToEnvironment
       parameters:
       - explode: false
@@ -839,11 +852,7 @@ paths:
         required: true
       responses:
         "200":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/PlayerDto'
-          description: The player was successfully linked
+          description: The player linking has begun
         "400":
           content:
             '*/*':
@@ -3197,7 +3206,7 @@ paths:
           description: Bad Request
       summary: Update partner details
       tags:
-      - Orgs
+      - Partners
       x-contentType: application/json
       x-accepts: '*/*'
   /orgs/{organizationId}/secrets/{secretId}:
@@ -3400,12 +3409,15 @@ components:
           addressLine2: addressLine2
           state: state
           countryName: countryName
+        customerId: customerId
         defaultOption: true
         type: type
         token: token
       properties:
         address:
           $ref: '#/components/schemas/PostalAddress'
+        customerId:
+          type: string
         defaultOption:
           type: boolean
         type:
@@ -3416,14 +3428,18 @@ components:
     UpdatePaymentMethodDefaultRequest:
       example:
         paymentMethodToken: paymentMethodToken
+        customerId: customerId
         defaultOption: true
       properties:
         paymentMethodToken:
+          type: string
+        customerId:
           type: string
         defaultOption:
           example: true
           type: boolean
       required:
+      - customerId
       - defaultOption
       - paymentMethodToken
       type: object
@@ -4465,15 +4481,9 @@ components:
         platformUserId: platformUserId
         email: email
         playerData:
-          platformUserId: platformUserId
-          createdBy: createdBy
+          createdBy: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           createdTimestamp: 0
-          wallets:
-            key:
-              owner: owner
-              createdBy: createdBy
-              createdTimestamp: createdTimestamp
-              name: name
+          iviUserId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sidechainAccountName: sidechainAccountName
           playerId: playerId
       properties:
@@ -4492,14 +4502,24 @@ components:
       type: object
     LinkPlayerToEnvironmentRequest:
       example:
+        authHeaderKey: authHeaderKey
+        callBackUrl: callBackUrl
         platformUserId: platformUserId
+        authHeaderValue: authHeaderValue
         playerId: playerId
       properties:
+        authHeaderKey:
+          type: string
+        callBackUrl:
+          type: string
         platformUserId:
+          type: string
+        authHeaderValue:
           type: string
         playerId:
           type: string
       required:
+      - callBackUrl
       - platformUserId
       - playerId
       type: object
@@ -4581,29 +4601,21 @@ components:
       type: object
     PlayerDto:
       example:
-        platformUserId: platformUserId
-        createdBy: createdBy
+        createdBy: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         createdTimestamp: 0
-        wallets:
-          key:
-            owner: owner
-            createdBy: createdBy
-            createdTimestamp: createdTimestamp
-            name: name
+        iviUserId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         sidechainAccountName: sidechainAccountName
         playerId: playerId
       properties:
-        platformUserId:
-          type: string
         createdBy:
+          format: uuid
           type: string
         createdTimestamp:
           format: int64
           type: integer
-        wallets:
-          additionalProperties:
-            $ref: '#/components/schemas/Wallet'
-          type: object
+        iviUserId:
+          format: uuid
+          type: string
         sidechainAccountName:
           type: string
         playerId:
@@ -4689,7 +4701,7 @@ components:
         itemName: itemName
         environmentId: environmentId
         ownerSidechainAccount: ownerSidechainAccount
-        amountPaid: 5.962133916683182
+        amountPaid: amountPaid
         createdBy: createdBy
         ownerPlayerId: ownerPlayerId
         currency: currency
@@ -4725,7 +4737,7 @@ components:
         ownerSidechainAccount:
           type: string
         amountPaid:
-          type: number
+          type: string
         createdBy:
           type: string
         ownerPlayerId:
@@ -4875,6 +4887,7 @@ components:
             addressLine2: addressLine2
             state: state
             countryName: countryName
+          customerId: customerId
           defaultOption: true
           type: type
           token: token
@@ -4888,6 +4901,7 @@ components:
             addressLine2: addressLine2
             state: state
             countryName: countryName
+          customerId: customerId
           defaultOption: true
           type: type
           token: token
@@ -5182,11 +5196,23 @@ components:
       example:
         customerId: customerId
         paymentMethodNonce: paymentMethodNonce
+        billingAddress:
+          firstName: firstName
+          lastName: lastName
+          countryIsoAlpha2: countryIsoAlpha2
+          city: city
+          postalCode: postalCode
+          addressLine1: addressLine1
+          addressLine2: addressLine2
+          state: state
+          countryName: countryName
       properties:
         customerId:
           type: string
         paymentMethodNonce:
           type: string
+        billingAddress:
+          $ref: '#/components/schemas/PostalAddress'
       required:
       - paymentMethodNonce
       type: object
@@ -5420,22 +5446,6 @@ components:
             type: array
             uniqueItems: true
           type: object
-      type: object
-    Wallet:
-      example:
-        owner: owner
-        createdBy: createdBy
-        createdTimestamp: createdTimestamp
-        name: name
-      properties:
-        owner:
-          type: string
-        createdBy:
-          type: string
-        createdTimestamp:
-          type: string
-        name:
-          type: string
       type: object
     FinalizePaymentRequest:
       example:

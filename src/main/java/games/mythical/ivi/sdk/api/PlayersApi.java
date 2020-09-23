@@ -215,12 +215,10 @@ public class PlayersApi {
    * 
    * @param environmentId  (required)
    * @param linkPlayerToEnvironmentRequest  (required)
-   * @return PlayerDto
    * @throws ApiException if fails to make API call
    */
-  public PlayerDto linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
-    ApiResponse<PlayerDto> localVarResponse = linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest);
-    return localVarResponse.getData();
+  public void linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
+    linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest);
   }
 
   /**
@@ -228,10 +226,10 @@ public class PlayersApi {
    * 
    * @param environmentId  (required)
    * @param linkPlayerToEnvironmentRequest  (required)
-   * @return ApiResponse&lt;PlayerDto&gt;
+   * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<PlayerDto> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
+  public ApiResponse<Void> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws ApiException {
     HttpRequest.Builder localVarRequestBuilder = linkPlayerToEnvironmentRequestBuilder(environmentId, linkPlayerToEnvironmentRequest);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
@@ -246,10 +244,10 @@ public class PlayersApi {
             localVarResponse.headers(),
             localVarResponse.body() == null ? null : new String(localVarResponse.body().readAllBytes()));
       }
-      return new ApiResponse<PlayerDto>(
+      return new ApiResponse<Void>(
           localVarResponse.statusCode(),
           localVarResponse.headers().map(),
-          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<PlayerDto>() {})
+          null
         );
     } catch (IOException e) {
       throw new ApiException(e);

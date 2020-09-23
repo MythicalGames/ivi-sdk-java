@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import games.mythical.ivi.sdk.model.PostalAddress;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -29,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   CreatePaymentMethodRequest.JSON_PROPERTY_CUSTOMER_ID,
-  CreatePaymentMethodRequest.JSON_PROPERTY_PAYMENT_METHOD_NONCE
+  CreatePaymentMethodRequest.JSON_PROPERTY_PAYMENT_METHOD_NONCE,
+  CreatePaymentMethodRequest.JSON_PROPERTY_BILLING_ADDRESS
 })
 @JsonTypeName("CreatePaymentMethodRequest")
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -39,6 +41,9 @@ public class CreatePaymentMethodRequest {
 
   public static final String JSON_PROPERTY_PAYMENT_METHOD_NONCE = "paymentMethodNonce";
   private String paymentMethodNonce;
+
+  public static final String JSON_PROPERTY_BILLING_ADDRESS = "billingAddress";
+  private PostalAddress billingAddress;
 
 
   public CreatePaymentMethodRequest customerId(String customerId) {
@@ -90,6 +95,31 @@ public class CreatePaymentMethodRequest {
   }
 
 
+  public CreatePaymentMethodRequest billingAddress(PostalAddress billingAddress) {
+    
+    this.billingAddress = billingAddress;
+    return this;
+  }
+
+   /**
+   * Get billingAddress
+   * @return billingAddress
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BILLING_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PostalAddress getBillingAddress() {
+    return billingAddress;
+  }
+
+
+  public void setBillingAddress(PostalAddress billingAddress) {
+    this.billingAddress = billingAddress;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -100,12 +130,13 @@ public class CreatePaymentMethodRequest {
     }
     CreatePaymentMethodRequest createPaymentMethodRequest = (CreatePaymentMethodRequest) o;
     return Objects.equals(this.customerId, createPaymentMethodRequest.customerId) &&
-        Objects.equals(this.paymentMethodNonce, createPaymentMethodRequest.paymentMethodNonce);
+        Objects.equals(this.paymentMethodNonce, createPaymentMethodRequest.paymentMethodNonce) &&
+        Objects.equals(this.billingAddress, createPaymentMethodRequest.billingAddress);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customerId, paymentMethodNonce);
+    return Objects.hash(customerId, paymentMethodNonce, billingAddress);
   }
 
 
@@ -115,6 +146,7 @@ public class CreatePaymentMethodRequest {
     sb.append("class CreatePaymentMethodRequest {\n");
     sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
     sb.append("    paymentMethodNonce: ").append(toIndentedString(paymentMethodNonce)).append("\n");
+    sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
     sb.append("}");
     return sb.toString();
   }

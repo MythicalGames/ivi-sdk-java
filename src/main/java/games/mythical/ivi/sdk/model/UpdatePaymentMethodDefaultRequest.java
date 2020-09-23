@@ -29,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   UpdatePaymentMethodDefaultRequest.JSON_PROPERTY_PAYMENT_METHOD_TOKEN,
+  UpdatePaymentMethodDefaultRequest.JSON_PROPERTY_CUSTOMER_ID,
   UpdatePaymentMethodDefaultRequest.JSON_PROPERTY_DEFAULT_OPTION
 })
 @JsonTypeName("UpdatePaymentMethodDefaultRequest")
@@ -36,6 +37,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class UpdatePaymentMethodDefaultRequest {
   public static final String JSON_PROPERTY_PAYMENT_METHOD_TOKEN = "paymentMethodToken";
   private String paymentMethodToken;
+
+  public static final String JSON_PROPERTY_CUSTOMER_ID = "customerId";
+  private String customerId;
 
   public static final String JSON_PROPERTY_DEFAULT_OPTION = "defaultOption";
   private Boolean defaultOption;
@@ -62,6 +66,30 @@ public class UpdatePaymentMethodDefaultRequest {
 
   public void setPaymentMethodToken(String paymentMethodToken) {
     this.paymentMethodToken = paymentMethodToken;
+  }
+
+
+  public UpdatePaymentMethodDefaultRequest customerId(String customerId) {
+    
+    this.customerId = customerId;
+    return this;
+  }
+
+   /**
+   * Get customerId
+   * @return customerId
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
   }
 
 
@@ -99,12 +127,13 @@ public class UpdatePaymentMethodDefaultRequest {
     }
     UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest = (UpdatePaymentMethodDefaultRequest) o;
     return Objects.equals(this.paymentMethodToken, updatePaymentMethodDefaultRequest.paymentMethodToken) &&
+        Objects.equals(this.customerId, updatePaymentMethodDefaultRequest.customerId) &&
         Objects.equals(this.defaultOption, updatePaymentMethodDefaultRequest.defaultOption);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(paymentMethodToken, defaultOption);
+    return Objects.hash(paymentMethodToken, customerId, defaultOption);
   }
 
 
@@ -113,6 +142,7 @@ public class UpdatePaymentMethodDefaultRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdatePaymentMethodDefaultRequest {\n");
     sb.append("    paymentMethodToken: ").append(toIndentedString(paymentMethodToken)).append("\n");
+    sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
     sb.append("    defaultOption: ").append(toIndentedString(defaultOption)).append("\n");
     sb.append("}");
     return sb.toString();

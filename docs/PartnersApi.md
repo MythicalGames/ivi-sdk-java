@@ -14,6 +14,8 @@ Method | HTTP request | Description
 [**getPartnersWithHttpInfo**](PartnersApi.md#getPartnersWithHttpInfo) | **GET** /orgs/{organizationId}/partner | Get Partners
 [**updateAgreement**](PartnersApi.md#updateAgreement) | **PUT** /orgs/{organizationId}/partner/{partnerId}/agreement | Update agreement details
 [**updateAgreementWithHttpInfo**](PartnersApi.md#updateAgreementWithHttpInfo) | **PUT** /orgs/{organizationId}/partner/{partnerId}/agreement | Update agreement details
+[**updatePartner**](PartnersApi.md#updatePartner) | **PUT** /orgs/{organizationId}/partner | Update partner details
+[**updatePartnerWithHttpInfo**](PartnersApi.md#updatePartnerWithHttpInfo) | **PUT** /orgs/{organizationId}/partner | Update partner details
 
 
 
@@ -769,6 +771,156 @@ Name | Type | Description  | Notes
 ### Return type
 
 ApiResponse<[**AgreementDto**](AgreementDto.md)>
+
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
+
+
+## updatePartner
+
+> PartnerDto updatePartner(organizationId, updatePartnerRequest)
+
+Update partner details
+
+### Example
+
+```java
+// Import classes:
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
+import games.mythical.ivi.sdk.api.PartnersApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
+
+        PartnersApi apiInstance = new PartnersApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        UpdatePartnerRequest updatePartnerRequest = new UpdatePartnerRequest(); // UpdatePartnerRequest | 
+        try {
+            PartnerDto result = apiInstance.updatePartner(organizationId, updatePartnerRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PartnersApi#updatePartner");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organizationId** | **String**|  |
+ **updatePartnerRequest** | [**UpdatePartnerRequest**](UpdatePartnerRequest.md)|  |
+
+### Return type
+
+[**PartnerDto**](PartnerDto.md)
+
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
+
+## updatePartnerWithHttpInfo
+
+> ApiResponse<PartnerDto> updatePartner updatePartnerWithHttpInfo(organizationId, updatePartnerRequest)
+
+Update partner details
+
+### Example
+
+```java
+// Import classes:
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.ApiResponse;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
+import games.mythical.ivi.sdk.api.PartnersApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
+
+        PartnersApi apiInstance = new PartnersApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        UpdatePartnerRequest updatePartnerRequest = new UpdatePartnerRequest(); // UpdatePartnerRequest | 
+        try {
+            ApiResponse<PartnerDto> response = apiInstance.updatePartnerWithHttpInfo(organizationId, updatePartnerRequest);
+            System.out.println("Status code: " + response.getStatusCode());
+            System.out.println("Response headers: " + response.getHeaders());
+            System.out.println("Response body: " + response.getData());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PartnersApi#updatePartner");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organizationId** | **String**|  |
+ **updatePartnerRequest** | [**UpdatePartnerRequest**](UpdatePartnerRequest.md)|  |
+
+### Return type
+
+ApiResponse<[**PartnerDto**](PartnerDto.md)>
 
 
 ### Authorization

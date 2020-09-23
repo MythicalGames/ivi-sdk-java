@@ -92,7 +92,7 @@ public class IssuedItemDto {
   private String ownerSidechainAccount;
 
   public static final String JSON_PROPERTY_AMOUNT_PAID = "amountPaid";
-  private BigDecimal amountPaid;
+  private String amountPaid;
 
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
@@ -435,7 +435,7 @@ public class IssuedItemDto {
   }
 
 
-  public IssuedItemDto amountPaid(BigDecimal amountPaid) {
+  public IssuedItemDto amountPaid(String amountPaid) {
     
     this.amountPaid = amountPaid;
     return this;
@@ -450,12 +450,12 @@ public class IssuedItemDto {
   @JsonProperty(JSON_PROPERTY_AMOUNT_PAID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BigDecimal getAmountPaid() {
+  public String getAmountPaid() {
     return amountPaid;
   }
 
 
-  public void setAmountPaid(BigDecimal amountPaid) {
+  public void setAmountPaid(String amountPaid) {
     this.amountPaid = amountPaid;
   }
 

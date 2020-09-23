@@ -6,10 +6,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platformUserId** | **String** |  |  [optional]
-**createdBy** | **String** |  |  [optional]
+**createdBy** | [**UUID**](UUID.md) |  |  [optional]
 **createdTimestamp** | **Long** |  |  [optional]
-**wallets** | [**Map&lt;String, Wallet&gt;**](Wallet.md) |  |  [optional]
+**iviUserId** | [**UUID**](UUID.md) |  |  [optional]
 **sidechainAccountName** | **String** |  |  [optional]
 **playerId** | **String** |  |  [optional]
 

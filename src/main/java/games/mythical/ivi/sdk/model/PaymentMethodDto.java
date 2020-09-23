@@ -30,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   PaymentMethodDto.JSON_PROPERTY_ADDRESS,
+  PaymentMethodDto.JSON_PROPERTY_CUSTOMER_ID,
   PaymentMethodDto.JSON_PROPERTY_DEFAULT_OPTION,
   PaymentMethodDto.JSON_PROPERTY_TYPE,
   PaymentMethodDto.JSON_PROPERTY_TOKEN
@@ -39,6 +40,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class PaymentMethodDto {
   public static final String JSON_PROPERTY_ADDRESS = "address";
   private PostalAddress address;
+
+  public static final String JSON_PROPERTY_CUSTOMER_ID = "customerId";
+  private String customerId;
 
   public static final String JSON_PROPERTY_DEFAULT_OPTION = "defaultOption";
   private Boolean defaultOption;
@@ -72,6 +76,31 @@ public class PaymentMethodDto {
 
   public void setAddress(PostalAddress address) {
     this.address = address;
+  }
+
+
+  public PaymentMethodDto customerId(String customerId) {
+    
+    this.customerId = customerId;
+    return this;
+  }
+
+   /**
+   * Get customerId
+   * @return customerId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
   }
 
 
@@ -160,6 +189,7 @@ public class PaymentMethodDto {
     }
     PaymentMethodDto paymentMethodDto = (PaymentMethodDto) o;
     return Objects.equals(this.address, paymentMethodDto.address) &&
+        Objects.equals(this.customerId, paymentMethodDto.customerId) &&
         Objects.equals(this.defaultOption, paymentMethodDto.defaultOption) &&
         Objects.equals(this.type, paymentMethodDto.type) &&
         Objects.equals(this.token, paymentMethodDto.token);
@@ -167,7 +197,7 @@ public class PaymentMethodDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, defaultOption, type, token);
+    return Objects.hash(address, customerId, defaultOption, type, token);
   }
 
 
@@ -176,6 +206,7 @@ public class PaymentMethodDto {
     StringBuilder sb = new StringBuilder();
     sb.append("class PaymentMethodDto {\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
     sb.append("    defaultOption: ").append(toIndentedString(defaultOption)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    token: ").append(toIndentedString(token)).append("\n");

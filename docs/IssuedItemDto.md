@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **itemName** | **String** |  |  [optional]
 **environmentId** | **String** |  |  [optional]
 **ownerSidechainAccount** | **String** |  |  [optional]
-**amountPaid** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
+**amountPaid** | **String** |  |  [optional]
 **createdBy** | **String** |  |  [optional]
 **ownerPlayerId** | **String** |  |  [optional]
 **currency** | **String** |  |  [optional]

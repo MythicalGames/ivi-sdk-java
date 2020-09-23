@@ -311,7 +311,7 @@ ApiResponse<[**PlayerDto**](PlayerDto.md)>
 
 ## linkPlayerToEnvironment
 
-> PlayerDto linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest)
+> void linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest)
 
 Link player to environment
 
@@ -341,8 +341,7 @@ public class Example {
         String environmentId = "environmentId_example"; // String | 
         LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = new LinkPlayerToEnvironmentRequest(); // LinkPlayerToEnvironmentRequest | 
         try {
-            PlayerDto result = apiInstance.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
-            System.out.println(result);
+            apiInstance.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling PlayersApi#linkPlayerToEnvironment");
             System.err.println("Status code: " + e.getCode());
@@ -364,8 +363,8 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlayerDto**](PlayerDto.md)
 
+null (empty response body)
 
 ### Authorization
 
@@ -379,12 +378,12 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | The player was successfully linked |  -  |
+| **200** | The player linking has begun |  -  |
 | **400** | Bad Request |  -  |
 
 ## linkPlayerToEnvironmentWithHttpInfo
 
-> ApiResponse<PlayerDto> linkPlayerToEnvironment linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest)
+> ApiResponse<Void> linkPlayerToEnvironment linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest)
 
 Link player to environment
 
@@ -415,10 +414,9 @@ public class Example {
         String environmentId = "environmentId_example"; // String | 
         LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = new LinkPlayerToEnvironmentRequest(); // LinkPlayerToEnvironmentRequest | 
         try {
-            ApiResponse<PlayerDto> response = apiInstance.linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest);
+            ApiResponse<Void> response = apiInstance.linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest);
             System.out.println("Status code: " + response.getStatusCode());
             System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
         } catch (ApiException e) {
             System.err.println("Exception when calling PlayersApi#linkPlayerToEnvironment");
             System.err.println("Status code: " + e.getCode());
@@ -440,8 +438,8 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-ApiResponse<[**PlayerDto**](PlayerDto.md)>
 
+ApiResponse<Void>
 
 ### Authorization
 
@@ -455,6 +453,6 @@ ApiResponse<[**PlayerDto**](PlayerDto.md)>
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | The player was successfully linked |  -  |
+| **200** | The player linking has begun |  -  |
 | **400** | Bad Request |  -  |
 

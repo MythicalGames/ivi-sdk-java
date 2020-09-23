@@ -49,7 +49,6 @@ docs/OrderDto.md
 docs/OrdersApi.md
 docs/OrganizationDto.md
 docs/OrganizationsApi.md
-docs/OrgsApi.md
 docs/PartnerDto.md
 docs/PartnersApi.md
 docs/PaymentData.md
@@ -94,7 +93,6 @@ docs/UserDto.md
 docs/UserSettingsApi.md
 docs/VirtualCurrenciesApi.md
 docs/VirtualCurrencyDto.md
-docs/Wallet.md
 docs/WebhookDto.md
 docs/WebhooksApi.md
 gradle/wrapper/gradle-wrapper.jar
@@ -115,7 +113,6 @@ src/main/java/games/mythical/ivi/sdk/api/ItemsApi.java
 src/main/java/games/mythical/ivi/sdk/api/MarketplaceApi.java
 src/main/java/games/mythical/ivi/sdk/api/OrdersApi.java
 src/main/java/games/mythical/ivi/sdk/api/OrganizationsApi.java
-src/main/java/games/mythical/ivi/sdk/api/OrgsApi.java
 src/main/java/games/mythical/ivi/sdk/api/PartnersApi.java
 src/main/java/games/mythical/ivi/sdk/api/PaymentsApi.java
 src/main/java/games/mythical/ivi/sdk/api/PlayersApi.java
@@ -202,5 +199,4 @@ src/main/java/games/mythical/ivi/sdk/model/UpdateProfilePictureRequest.java
 src/main/java/games/mythical/ivi/sdk/model/UpdateWebhookRequest.java
 src/main/java/games/mythical/ivi/sdk/model/UserDto.java
 src/main/java/games/mythical/ivi/sdk/model/VirtualCurrencyDto.java
-src/main/java/games/mythical/ivi/sdk/model/Wallet.java
 src/main/java/games/mythical/ivi/sdk/model/WebhookDto.java

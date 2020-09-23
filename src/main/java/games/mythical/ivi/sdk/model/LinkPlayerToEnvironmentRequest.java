@@ -28,17 +28,78 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * LinkPlayerToEnvironmentRequest
  */
 @JsonPropertyOrder({
+  LinkPlayerToEnvironmentRequest.JSON_PROPERTY_AUTH_HEADER_KEY,
+  LinkPlayerToEnvironmentRequest.JSON_PROPERTY_CALL_BACK_URL,
   LinkPlayerToEnvironmentRequest.JSON_PROPERTY_PLATFORM_USER_ID,
+  LinkPlayerToEnvironmentRequest.JSON_PROPERTY_AUTH_HEADER_VALUE,
   LinkPlayerToEnvironmentRequest.JSON_PROPERTY_PLAYER_ID
 })
 @JsonTypeName("LinkPlayerToEnvironmentRequest")
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LinkPlayerToEnvironmentRequest {
+  public static final String JSON_PROPERTY_AUTH_HEADER_KEY = "authHeaderKey";
+  private String authHeaderKey;
+
+  public static final String JSON_PROPERTY_CALL_BACK_URL = "callBackUrl";
+  private String callBackUrl;
+
   public static final String JSON_PROPERTY_PLATFORM_USER_ID = "platformUserId";
   private String platformUserId;
 
+  public static final String JSON_PROPERTY_AUTH_HEADER_VALUE = "authHeaderValue";
+  private String authHeaderValue;
+
   public static final String JSON_PROPERTY_PLAYER_ID = "playerId";
   private String playerId;
+
+
+  public LinkPlayerToEnvironmentRequest authHeaderKey(String authHeaderKey) {
+    
+    this.authHeaderKey = authHeaderKey;
+    return this;
+  }
+
+   /**
+   * Get authHeaderKey
+   * @return authHeaderKey
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AUTH_HEADER_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAuthHeaderKey() {
+    return authHeaderKey;
+  }
+
+
+  public void setAuthHeaderKey(String authHeaderKey) {
+    this.authHeaderKey = authHeaderKey;
+  }
+
+
+  public LinkPlayerToEnvironmentRequest callBackUrl(String callBackUrl) {
+    
+    this.callBackUrl = callBackUrl;
+    return this;
+  }
+
+   /**
+   * Get callBackUrl
+   * @return callBackUrl
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CALL_BACK_URL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getCallBackUrl() {
+    return callBackUrl;
+  }
+
+
+  public void setCallBackUrl(String callBackUrl) {
+    this.callBackUrl = callBackUrl;
+  }
 
 
   public LinkPlayerToEnvironmentRequest platformUserId(String platformUserId) {
@@ -62,6 +123,31 @@ public class LinkPlayerToEnvironmentRequest {
 
   public void setPlatformUserId(String platformUserId) {
     this.platformUserId = platformUserId;
+  }
+
+
+  public LinkPlayerToEnvironmentRequest authHeaderValue(String authHeaderValue) {
+    
+    this.authHeaderValue = authHeaderValue;
+    return this;
+  }
+
+   /**
+   * Get authHeaderValue
+   * @return authHeaderValue
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_AUTH_HEADER_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAuthHeaderValue() {
+    return authHeaderValue;
+  }
+
+
+  public void setAuthHeaderValue(String authHeaderValue) {
+    this.authHeaderValue = authHeaderValue;
   }
 
 
@@ -98,13 +184,16 @@ public class LinkPlayerToEnvironmentRequest {
       return false;
     }
     LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = (LinkPlayerToEnvironmentRequest) o;
-    return Objects.equals(this.platformUserId, linkPlayerToEnvironmentRequest.platformUserId) &&
+    return Objects.equals(this.authHeaderKey, linkPlayerToEnvironmentRequest.authHeaderKey) &&
+        Objects.equals(this.callBackUrl, linkPlayerToEnvironmentRequest.callBackUrl) &&
+        Objects.equals(this.platformUserId, linkPlayerToEnvironmentRequest.platformUserId) &&
+        Objects.equals(this.authHeaderValue, linkPlayerToEnvironmentRequest.authHeaderValue) &&
         Objects.equals(this.playerId, linkPlayerToEnvironmentRequest.playerId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(platformUserId, playerId);
+    return Objects.hash(authHeaderKey, callBackUrl, platformUserId, authHeaderValue, playerId);
   }
 
 
@@ -112,7 +201,10 @@ public class LinkPlayerToEnvironmentRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LinkPlayerToEnvironmentRequest {\n");
+    sb.append("    authHeaderKey: ").append(toIndentedString(authHeaderKey)).append("\n");
+    sb.append("    callBackUrl: ").append(toIndentedString(callBackUrl)).append("\n");
     sb.append("    platformUserId: ").append(toIndentedString(platformUserId)).append("\n");
+    sb.append("    authHeaderValue: ").append(toIndentedString(authHeaderValue)).append("\n");
     sb.append("    playerId: ").append(toIndentedString(playerId)).append("\n");
     sb.append("}");
     return sb.toString();

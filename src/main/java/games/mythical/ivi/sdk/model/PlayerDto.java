@@ -20,39 +20,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import games.mythical.ivi.sdk.model.Wallet;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * PlayerDto
  */
 @JsonPropertyOrder({
-  PlayerDto.JSON_PROPERTY_PLATFORM_USER_ID,
   PlayerDto.JSON_PROPERTY_CREATED_BY,
   PlayerDto.JSON_PROPERTY_CREATED_TIMESTAMP,
-  PlayerDto.JSON_PROPERTY_WALLETS,
+  PlayerDto.JSON_PROPERTY_IVI_USER_ID,
   PlayerDto.JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME,
   PlayerDto.JSON_PROPERTY_PLAYER_ID
 })
 @JsonTypeName("PlayerDto")
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PlayerDto {
-  public static final String JSON_PROPERTY_PLATFORM_USER_ID = "platformUserId";
-  private String platformUserId;
-
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
-  private String createdBy;
+  private UUID createdBy;
 
   public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
 
-  public static final String JSON_PROPERTY_WALLETS = "wallets";
-  private Map<String, Wallet> wallets = null;
+  public static final String JSON_PROPERTY_IVI_USER_ID = "iviUserId";
+  private UUID iviUserId;
 
   public static final String JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME = "sidechainAccountName";
   private String sidechainAccountName;
@@ -61,32 +54,7 @@ public class PlayerDto {
   private String playerId;
 
 
-  public PlayerDto platformUserId(String platformUserId) {
-    
-    this.platformUserId = platformUserId;
-    return this;
-  }
-
-   /**
-   * Get platformUserId
-   * @return platformUserId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PLATFORM_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPlatformUserId() {
-    return platformUserId;
-  }
-
-
-  public void setPlatformUserId(String platformUserId) {
-    this.platformUserId = platformUserId;
-  }
-
-
-  public PlayerDto createdBy(String createdBy) {
+  public PlayerDto createdBy(UUID createdBy) {
     
     this.createdBy = createdBy;
     return this;
@@ -101,12 +69,12 @@ public class PlayerDto {
   @JsonProperty(JSON_PROPERTY_CREATED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCreatedBy() {
+  public UUID getCreatedBy() {
     return createdBy;
   }
 
 
-  public void setCreatedBy(String createdBy) {
+  public void setCreatedBy(UUID createdBy) {
     this.createdBy = createdBy;
   }
 
@@ -136,36 +104,28 @@ public class PlayerDto {
   }
 
 
-  public PlayerDto wallets(Map<String, Wallet> wallets) {
+  public PlayerDto iviUserId(UUID iviUserId) {
     
-    this.wallets = wallets;
-    return this;
-  }
-
-  public PlayerDto putWalletsItem(String key, Wallet walletsItem) {
-    if (this.wallets == null) {
-      this.wallets = new HashMap<>();
-    }
-    this.wallets.put(key, walletsItem);
+    this.iviUserId = iviUserId;
     return this;
   }
 
    /**
-   * Get wallets
-   * @return wallets
+   * Get iviUserId
+   * @return iviUserId
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_WALLETS)
+  @JsonProperty(JSON_PROPERTY_IVI_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Wallet> getWallets() {
-    return wallets;
+  public UUID getIviUserId() {
+    return iviUserId;
   }
 
 
-  public void setWallets(Map<String, Wallet> wallets) {
-    this.wallets = wallets;
+  public void setIviUserId(UUID iviUserId) {
+    this.iviUserId = iviUserId;
   }
 
 
@@ -228,17 +188,16 @@ public class PlayerDto {
       return false;
     }
     PlayerDto playerDto = (PlayerDto) o;
-    return Objects.equals(this.platformUserId, playerDto.platformUserId) &&
-        Objects.equals(this.createdBy, playerDto.createdBy) &&
+    return Objects.equals(this.createdBy, playerDto.createdBy) &&
         Objects.equals(this.createdTimestamp, playerDto.createdTimestamp) &&
-        Objects.equals(this.wallets, playerDto.wallets) &&
+        Objects.equals(this.iviUserId, playerDto.iviUserId) &&
         Objects.equals(this.sidechainAccountName, playerDto.sidechainAccountName) &&
         Objects.equals(this.playerId, playerDto.playerId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(platformUserId, createdBy, createdTimestamp, wallets, sidechainAccountName, playerId);
+    return Objects.hash(createdBy, createdTimestamp, iviUserId, sidechainAccountName, playerId);
   }
 
 
@@ -246,10 +205,9 @@ public class PlayerDto {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlayerDto {\n");
-    sb.append("    platformUserId: ").append(toIndentedString(platformUserId)).append("\n");
     sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
-    sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
+    sb.append("    iviUserId: ").append(toIndentedString(iviUserId)).append("\n");
     sb.append("    sidechainAccountName: ").append(toIndentedString(sidechainAccountName)).append("\n");
     sb.append("    playerId: ").append(toIndentedString(playerId)).append("\n");
     sb.append("}");

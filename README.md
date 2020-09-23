@@ -129,12 +129,12 @@ Class | Method | HTTP request | Description
 *OrganizationsApi* | [**inviteUserToOrg**](docs/OrganizationsApi.md#inviteUserToOrg) | **POST** /orgs/{organizationId}/invites | Invite a user to organization
 *OrganizationsApi* | [**updateOrg**](docs/OrganizationsApi.md#updateOrg) | **PUT** /orgs/{organizationId} | Update organization details
 *OrganizationsApi* | [**updateOrgRole**](docs/OrganizationsApi.md#updateOrgRole) | **PUT** /orgs/{organizationId}/{platformUserId}/role | Update organization user role
-*OrgsApi* | [**updatePartner**](docs/OrgsApi.md#updatePartner) | **PUT** /orgs/{organizationId}/partner | Update partner details
 *PartnersApi* | [**createNewAgreement**](docs/PartnersApi.md#createNewAgreement) | **POST** /orgs/{organizationId}/partner/{partnerId}/agreement | Create Agreement
 *PartnersApi* | [**createNewPartner**](docs/PartnersApi.md#createNewPartner) | **POST** /orgs/{organizationId}/partner | Create Partner
 *PartnersApi* | [**getAgreements**](docs/PartnersApi.md#getAgreements) | **GET** /orgs/{organizationId}/partner/{partnerId}/agreement | Get Agreements
 *PartnersApi* | [**getPartners**](docs/PartnersApi.md#getPartners) | **GET** /orgs/{organizationId}/partner | Get Partners
 *PartnersApi* | [**updateAgreement**](docs/PartnersApi.md#updateAgreement) | **PUT** /orgs/{organizationId}/partner/{partnerId}/agreement | Update agreement details
+*PartnersApi* | [**updatePartner**](docs/PartnersApi.md#updatePartner) | **PUT** /orgs/{organizationId}/partner | Update partner details
 *PaymentsApi* | [**completePayment**](docs/PaymentsApi.md#completePayment) | **POST** /environments/{environmentId}/payments/pay | Finalize Purchase
 *PaymentsApi* | [**createCustomer**](docs/PaymentsApi.md#createCustomer) | **POST** /environments/{environmentId}/payments/customer | Create Customer
 *PaymentsApi* | [**createPaymentMethod**](docs/PaymentsApi.md#createPaymentMethod) | **POST** /environments/{environmentId}/payments/customer/methods | Create Payment Method
@@ -259,7 +259,6 @@ Class | Method | HTTP request | Description
  - [UpdateWebhookRequest](docs/UpdateWebhookRequest.md)
  - [UserDto](docs/UserDto.md)
  - [VirtualCurrencyDto](docs/VirtualCurrencyDto.md)
- - [Wallet](docs/Wallet.md)
  - [WebhookDto](docs/WebhookDto.md)
 
 
