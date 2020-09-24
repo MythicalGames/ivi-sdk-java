@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateOrganizationRoleRequest.JSON_PROPERTY_ROLE_ID
 })
 @JsonTypeName("UpdateOrganizationRoleRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateOrganizationRoleRequest {
   public static final String JSON_PROPERTY_ROLE_ID = "roleId";
   private UUID roleId;

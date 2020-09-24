@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   PostalAddress.JSON_PROPERTY_COUNTRY_NAME
 })
 @JsonTypeName("PostalAddress")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PostalAddress {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;

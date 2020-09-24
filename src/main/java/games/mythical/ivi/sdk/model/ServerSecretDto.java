@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ServerSecretDto.JSON_PROPERTY_SECRET
 })
 @JsonTypeName("ServerSecretDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServerSecretDto {
   public static final String JSON_PROPERTY_ORGANIZATION_ID = "organizationId";
   private UUID organizationId;

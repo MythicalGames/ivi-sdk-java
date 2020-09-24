@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ClientPaymentTokenDto.JSON_PROPERTY_TOKEN
 })
 @JsonTypeName("ClientPaymentTokenDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ClientPaymentTokenDto {
   public static final String JSON_PROPERTY_TOKEN = "token";
   private String token;

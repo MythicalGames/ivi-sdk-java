@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ItemActionDto.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("ItemActionDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ItemActionDto {
   public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;

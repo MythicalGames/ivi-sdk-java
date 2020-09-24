@@ -5,31 +5,18 @@ All URIs are relative to *https://portal.iviengine.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**burnItem**](ItemsApi.md#burnItem) | **POST** /environments/{environmentId}/items/burn | Burn issued item
-[**burnItemWithHttpInfo**](ItemsApi.md#burnItemWithHttpInfo) | **POST** /environments/{environmentId}/items/burn | Burn issued item
 [**buyListing**](ItemsApi.md#buyListing) | **POST** /environments/{environmentId}/items/buy | Purchase an item
-[**buyListingWithHttpInfo**](ItemsApi.md#buyListingWithHttpInfo) | **POST** /environments/{environmentId}/items/buy | Purchase an item
 [**closeSale**](ItemsApi.md#closeSale) | **PUT** /environments/{environmentId}/items/listed | Close a sale
-[**closeSaleWithHttpInfo**](ItemsApi.md#closeSaleWithHttpInfo) | **PUT** /environments/{environmentId}/items/listed | Close a sale
 [**createItem**](ItemsApi.md#createItem) | **POST** /environments/{environmentId}/items/types | Create item type
-[**createItemWithHttpInfo**](ItemsApi.md#createItemWithHttpInfo) | **POST** /environments/{environmentId}/items/types | Create item type
 [**getIssuedItems**](ItemsApi.md#getIssuedItems) | **GET** /environments/{environmentId}/items/issued | Get all issued items for an environment.
-[**getIssuedItemsWithHttpInfo**](ItemsApi.md#getIssuedItemsWithHttpInfo) | **GET** /environments/{environmentId}/items/issued | Get all issued items for an environment.
 [**getItemTypes**](ItemsApi.md#getItemTypes) | **GET** /environments/{environmentId}/items/types | Get all item types for an environment
-[**getItemTypesWithHttpInfo**](ItemsApi.md#getItemTypesWithHttpInfo) | **GET** /environments/{environmentId}/items/types | Get all item types for an environment
 [**getListings**](ItemsApi.md#getListings) | **GET** /environments/{environmentId}/items/listed | Get listed items
-[**getListingsWithHttpInfo**](ItemsApi.md#getListingsWithHttpInfo) | **GET** /environments/{environmentId}/items/listed | Get listed items
 [**getMetadata**](ItemsApi.md#getMetadata) | **GET** /environments/{environmentId}/items/issued/metadata | Get metadata for an issued dgood 
-[**getMetadataWithHttpInfo**](ItemsApi.md#getMetadataWithHttpInfo) | **GET** /environments/{environmentId}/items/issued/metadata | Get metadata for an issued dgood 
 [**getSoldItems**](ItemsApi.md#getSoldItems) | **GET** /environments/{environmentId}/items/buy | Get bought/sold items
-[**getSoldItemsWithHttpInfo**](ItemsApi.md#getSoldItemsWithHttpInfo) | **GET** /environments/{environmentId}/items/buy | Get bought/sold items
 [**issueItem**](ItemsApi.md#issueItem) | **POST** /environments/{environmentId}/items/issued | Issue item
-[**issueItemWithHttpInfo**](ItemsApi.md#issueItemWithHttpInfo) | **POST** /environments/{environmentId}/items/issued | Issue item
 [**listItem**](ItemsApi.md#listItem) | **POST** /environments/{environmentId}/items/listed | List an item for sale
-[**listItemWithHttpInfo**](ItemsApi.md#listItemWithHttpInfo) | **POST** /environments/{environmentId}/items/listed | List an item for sale
 [**transferItem**](ItemsApi.md#transferItem) | **POST** /environments/{environmentId}/items/transfer | Transfer issued item
-[**transferItemWithHttpInfo**](ItemsApi.md#transferItemWithHttpInfo) | **POST** /environments/{environmentId}/items/transfer | Transfer issued item
 [**updateMetadata**](ItemsApi.md#updateMetadata) | **PUT** /environments/{environmentId}/items/issued/metadata | Update metadata for a dgood
-[**updateMetadataWithHttpInfo**](ItemsApi.md#updateMetadataWithHttpInfo) | **PUT** /environments/{environmentId}/items/issued/metadata | Update metadata for a dgood
 
 
 
@@ -91,85 +78,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ItemActionDto**](ItemActionDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## burnItemWithHttpInfo
-
-> ApiResponse<ItemActionDto> burnItem burnItemWithHttpInfo(environmentId, burnItemRequest)
-
-Burn issued item
-
-Burn an issued item
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        BurnItemRequest burnItemRequest = new BurnItemRequest(); // BurnItemRequest | 
-        try {
-            ApiResponse<ItemActionDto> response = apiInstance.burnItemWithHttpInfo(environmentId, burnItemRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#burnItem");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **burnItemRequest** | [**BurnItemRequest**](BurnItemRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**ItemActionDto**](ItemActionDto.md)>
-
 
 ### Authorization
 
@@ -246,85 +154,6 @@ Name | Type | Description  | Notes
 
 [**SoldItemDto**](SoldItemDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## buyListingWithHttpInfo
-
-> ApiResponse<SoldItemDto> buyListing buyListingWithHttpInfo(environmentId, buyListingRequest)
-
-Purchase an item
-
-Buy an item that is for sale
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        BuyListingRequest buyListingRequest = new BuyListingRequest(); // BuyListingRequest | 
-        try {
-            ApiResponse<SoldItemDto> response = apiInstance.buyListingWithHttpInfo(environmentId, buyListingRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#buyListing");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **buyListingRequest** | [**BuyListingRequest**](BuyListingRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**SoldItemDto**](SoldItemDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -399,85 +228,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ItemActionDto**](ItemActionDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **202** | The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. |  -  |
-
-## closeSaleWithHttpInfo
-
-> ApiResponse<ItemActionDto> closeSale closeSaleWithHttpInfo(environmentId, closeSaleRequest)
-
-Close a sale
-
-Close a listed item sale
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        CloseSaleRequest closeSaleRequest = new CloseSaleRequest(); // CloseSaleRequest | 
-        try {
-            ApiResponse<ItemActionDto> response = apiInstance.closeSaleWithHttpInfo(environmentId, closeSaleRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#closeSale");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **closeSaleRequest** | [**CloseSaleRequest**](CloseSaleRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**ItemActionDto**](ItemActionDto.md)>
-
 
 ### Authorization
 
@@ -554,85 +304,6 @@ Name | Type | Description  | Notes
 
 [**ItemTypeDto**](ItemTypeDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## createItemWithHttpInfo
-
-> ApiResponse<ItemTypeDto> createItem createItemWithHttpInfo(environmentId, createItemRequest)
-
-Create item type
-
-Create a new type of item on the blockchain that can be issued to players.
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        CreateItemRequest createItemRequest = new CreateItemRequest(); // CreateItemRequest | 
-        try {
-            ApiResponse<ItemTypeDto> response = apiInstance.createItemWithHttpInfo(environmentId, createItemRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#createItem");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **createItemRequest** | [**CreateItemRequest**](CreateItemRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**ItemTypeDto**](ItemTypeDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -651,7 +322,7 @@ ApiResponse<[**ItemTypeDto**](ItemTypeDto.md)>
 
 ## getIssuedItems
 
-> List<IssuedItemDto> getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId)
+> List&lt;IssuedItemDto&gt; getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId)
 
 Get all issued items for an environment.
 
@@ -710,87 +381,6 @@ Name | Type | Description  | Notes
 
 [**List&lt;IssuedItemDto&gt;**](IssuedItemDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getIssuedItemsWithHttpInfo
-
-> ApiResponse<List<IssuedItemDto>> getIssuedItems getIssuedItemsWithHttpInfo(environmentId, playerId, gameInventoryId, dgoodId)
-
-Get all issued items for an environment.
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String playerId = "playerId_example"; // String | 
-        String gameInventoryId = "gameInventoryId_example"; // String | 
-        Long dgoodId = -1lL; // Long | 
-        try {
-            ApiResponse<List<IssuedItemDto>> response = apiInstance.getIssuedItemsWithHttpInfo(environmentId, playerId, gameInventoryId, dgoodId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#getIssuedItems");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **playerId** | **String**|  | [optional]
- **gameInventoryId** | **String**|  | [optional]
- **dgoodId** | **Long**|  | [optional] [default to -1l]
-
-### Return type
-
-ApiResponse<[**List&lt;IssuedItemDto&gt;**](IssuedItemDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -809,7 +399,7 @@ ApiResponse<[**List&lt;IssuedItemDto&gt;**](IssuedItemDto.md)>
 
 ## getItemTypes
 
-> List<ItemTypeDto> getItemTypes(environmentId, category, token)
+> List&lt;ItemTypeDto&gt; getItemTypes(environmentId, category, token)
 
 Get all item types for an environment
 
@@ -866,85 +456,6 @@ Name | Type | Description  | Notes
 
 [**List&lt;ItemTypeDto&gt;**](ItemTypeDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getItemTypesWithHttpInfo
-
-> ApiResponse<List<ItemTypeDto>> getItemTypes getItemTypesWithHttpInfo(environmentId, category, token)
-
-Get all item types for an environment
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String category = "category_example"; // String | 
-        String token = "token_example"; // String | 
-        try {
-            ApiResponse<List<ItemTypeDto>> response = apiInstance.getItemTypesWithHttpInfo(environmentId, category, token);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#getItemTypes");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **category** | **String**|  | [optional]
- **token** | **String**|  | [optional]
-
-### Return type
-
-ApiResponse<[**List&lt;ItemTypeDto&gt;**](ItemTypeDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -963,7 +474,7 @@ ApiResponse<[**List&lt;ItemTypeDto&gt;**](ItemTypeDto.md)>
 
 ## getListings
 
-> List<ListingDto> getListings(environmentId, pageSize, createdTimestamp, order, playerId)
+> List&lt;ListingDto&gt; getListings(environmentId, pageSize, createdTimestamp, order, playerId)
 
 Get listed items
 
@@ -1026,91 +537,6 @@ Name | Type | Description  | Notes
 
 [**List&lt;ListingDto&gt;**](ListingDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getListingsWithHttpInfo
-
-> ApiResponse<List<ListingDto>> getListings getListingsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, playerId)
-
-Get listed items
-
-Get all listed item for sale
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        Integer pageSize = 30; // Integer | 
-        Long createdTimestamp = -1lL; // Long | 
-        String order = "DESCENDING"; // String | 
-        String playerId = "playerId_example"; // String | 
-        try {
-            ApiResponse<List<ListingDto>> response = apiInstance.getListingsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, playerId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#getListings");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **pageSize** | **Integer**|  | [optional] [default to 30]
- **createdTimestamp** | **Long**|  | [optional] [default to -1l]
- **order** | **String**|  | [optional] [default to DESCENDING] [enum: ASCENDING, DESCENDING, UNRECOGNIZED]
- **playerId** | **String**|  | [optional]
-
-### Return type
-
-ApiResponse<[**List&lt;ListingDto&gt;**](ListingDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1129,7 +555,7 @@ ApiResponse<[**List&lt;ListingDto&gt;**](ListingDto.md)>
 
 ## getMetadata
 
-> List<DgoodMetadataDto> getMetadata(environmentId, gameInventoryId, dgoodId)
+> List&lt;DgoodMetadataDto&gt; getMetadata(environmentId, gameInventoryId, dgoodId)
 
 Get metadata for an issued dgood 
 
@@ -1188,87 +614,6 @@ Name | Type | Description  | Notes
 
 [**List&lt;DgoodMetadataDto&gt;**](DgoodMetadataDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getMetadataWithHttpInfo
-
-> ApiResponse<List<DgoodMetadataDto>> getMetadata getMetadataWithHttpInfo(environmentId, gameInventoryId, dgoodId)
-
-Get metadata for an issued dgood 
-
-Get metadata for a dgood id.
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String gameInventoryId = "gameInventoryId_example"; // String | 
-        Long dgoodId = -1lL; // Long | 
-        try {
-            ApiResponse<List<DgoodMetadataDto>> response = apiInstance.getMetadataWithHttpInfo(environmentId, gameInventoryId, dgoodId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#getMetadata");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **gameInventoryId** | **String**|  | [optional]
- **dgoodId** | **Long**|  | [optional] [default to -1l]
-
-### Return type
-
-ApiResponse<[**List&lt;DgoodMetadataDto&gt;**](DgoodMetadataDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1287,7 +632,7 @@ ApiResponse<[**List&lt;DgoodMetadataDto&gt;**](DgoodMetadataDto.md)>
 
 ## getSoldItems
 
-> List<SoldItemDto> getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId)
+> List&lt;SoldItemDto&gt; getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId)
 
 Get bought/sold items
 
@@ -1351,93 +696,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;SoldItemDto&gt;**](SoldItemDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getSoldItemsWithHttpInfo
-
-> ApiResponse<List<SoldItemDto>> getSoldItems getSoldItemsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId)
-
-Get bought/sold items
-
-Get all bought/sold items for a player
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        Integer pageSize = 30; // Integer | 
-        Long createdTimestamp = -1lL; // Long | 
-        String order = "DESCENDING"; // String | 
-        String buyerPlayerId = "buyerPlayerId_example"; // String | 
-        String sellerPlayerId = "sellerPlayerId_example"; // String | 
-        try {
-            ApiResponse<List<SoldItemDto>> response = apiInstance.getSoldItemsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#getSoldItems");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **pageSize** | **Integer**|  | [optional] [default to 30]
- **createdTimestamp** | **Long**|  | [optional] [default to -1l]
- **order** | **String**|  | [optional] [default to DESCENDING] [enum: ASCENDING, DESCENDING, UNRECOGNIZED]
- **buyerPlayerId** | **String**|  | [optional]
- **sellerPlayerId** | **String**|  | [optional]
-
-### Return type
-
-ApiResponse<[**List&lt;SoldItemDto&gt;**](SoldItemDto.md)>
-
 
 ### Authorization
 
@@ -1514,85 +772,6 @@ Name | Type | Description  | Notes
 
 [**IssuedItemDto**](IssuedItemDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## issueItemWithHttpInfo
-
-> ApiResponse<IssuedItemDto> issueItem issueItemWithHttpInfo(environmentId, issueItemRequest)
-
-Issue item
-
-Issue instance(s) of an item type to a player
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        IssueItemRequest issueItemRequest = new IssueItemRequest(); // IssueItemRequest | 
-        try {
-            ApiResponse<IssuedItemDto> response = apiInstance.issueItemWithHttpInfo(environmentId, issueItemRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#issueItem");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **issueItemRequest** | [**IssueItemRequest**](IssueItemRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**IssuedItemDto**](IssuedItemDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1667,85 +846,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListingDto**](ListingDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **202** | The request was accepted. Expect a response via configured webhook. Response will contain this transactionId. |  -  |
-
-## listItemWithHttpInfo
-
-> ApiResponse<ListingDto> listItem listItemWithHttpInfo(environmentId, listSaleRequest)
-
-List an item for sale
-
-List an issued item for sale
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        ListSaleRequest listSaleRequest = new ListSaleRequest(); // ListSaleRequest | 
-        try {
-            ApiResponse<ListingDto> response = apiInstance.listItemWithHttpInfo(environmentId, listSaleRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#listItem");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **listSaleRequest** | [**ListSaleRequest**](ListSaleRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**ListingDto**](ListingDto.md)>
-
 
 ### Authorization
 
@@ -1822,85 +922,6 @@ Name | Type | Description  | Notes
 
 [**ItemActionDto**](ItemActionDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## transferItemWithHttpInfo
-
-> ApiResponse<ItemActionDto> transferItem transferItemWithHttpInfo(environmentId, transferItemRequest)
-
-Transfer issued item
-
-Transfer an issued item
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        TransferItemRequest transferItemRequest = new TransferItemRequest(); // TransferItemRequest | 
-        try {
-            ApiResponse<ItemActionDto> response = apiInstance.transferItemWithHttpInfo(environmentId, transferItemRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#transferItem");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **transferItemRequest** | [**TransferItemRequest**](TransferItemRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**ItemActionDto**](ItemActionDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1975,85 +996,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DgoodMetadataDto**](DgoodMetadataDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## updateMetadataWithHttpInfo
-
-> ApiResponse<DgoodMetadataDto> updateMetadata updateMetadataWithHttpInfo(environmentId, updateMetadataRequest)
-
-Update metadata for a dgood
-
-Update metadata for a dgood
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.ItemsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        ItemsApi apiInstance = new ItemsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        UpdateMetadataRequest updateMetadataRequest = new UpdateMetadataRequest(); // UpdateMetadataRequest | 
-        try {
-            ApiResponse<DgoodMetadataDto> response = apiInstance.updateMetadataWithHttpInfo(environmentId, updateMetadataRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ItemsApi#updateMetadata");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **updateMetadataRequest** | [**UpdateMetadataRequest**](UpdateMetadataRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**DgoodMetadataDto**](DgoodMetadataDto.md)>
-
 
 ### Authorization
 

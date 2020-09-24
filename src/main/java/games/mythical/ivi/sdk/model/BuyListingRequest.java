@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   BuyListingRequest.JSON_PROPERTY_BUYER_PLAYER_ID
 })
 @JsonTypeName("BuyListingRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BuyListingRequest {
   public static final String JSON_PROPERTY_MARKETPLACE_ID = "marketplaceId";
   private String marketplaceId;

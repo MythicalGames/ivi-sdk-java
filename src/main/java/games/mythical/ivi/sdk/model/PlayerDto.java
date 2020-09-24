@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   PlayerDto.JSON_PROPERTY_PLAYER_ID
 })
 @JsonTypeName("PlayerDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PlayerDto {
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private UUID createdBy;

@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   TitleDto.JSON_PROPERTY_DEACTIVATED
 })
 @JsonTypeName("TitleDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TitleDto {
   public static final String JSON_PROPERTY_ENVIRONMENTS = "environments";
   private List<EnvironmentInstanceDto> environments = null;

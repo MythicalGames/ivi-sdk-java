@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OrderDto.JSON_PROPERTY_PAYMENT_PROVIDER_DATA
 })
 @JsonTypeName("OrderDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class OrderDto {
   public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
   private String itemTypes;

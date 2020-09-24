@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ThemeDto.JSON_PROPERTY_THEME
 })
 @JsonTypeName("ThemeDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ThemeDto {
   /**
    * Gets or Sets theme

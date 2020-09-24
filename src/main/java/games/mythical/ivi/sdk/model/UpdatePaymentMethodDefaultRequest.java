@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdatePaymentMethodDefaultRequest.JSON_PROPERTY_DEFAULT_OPTION
 })
 @JsonTypeName("UpdatePaymentMethodDefaultRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdatePaymentMethodDefaultRequest {
   public static final String JSON_PROPERTY_PAYMENT_METHOD_TOKEN = "paymentMethodToken";
   private String paymentMethodToken;

@@ -5,29 +5,17 @@ All URIs are relative to *https://portal.iviengine.com/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**completePayment**](PaymentsApi.md#completePayment) | **POST** /environments/{environmentId}/payments/pay | Finalize Purchase
-[**completePaymentWithHttpInfo**](PaymentsApi.md#completePaymentWithHttpInfo) | **POST** /environments/{environmentId}/payments/pay | Finalize Purchase
 [**createCustomer**](PaymentsApi.md#createCustomer) | **POST** /environments/{environmentId}/payments/customer | Create Customer
-[**createCustomerWithHttpInfo**](PaymentsApi.md#createCustomerWithHttpInfo) | **POST** /environments/{environmentId}/payments/customer | Create Customer
 [**createPaymentMethod**](PaymentsApi.md#createPaymentMethod) | **POST** /environments/{environmentId}/payments/customer/methods | Create Payment Method
-[**createPaymentMethodWithHttpInfo**](PaymentsApi.md#createPaymentMethodWithHttpInfo) | **POST** /environments/{environmentId}/payments/customer/methods | Create Payment Method
 [**deleteCustomer**](PaymentsApi.md#deleteCustomer) | **DELETE** /environments/{environmentId}/payments/customer/{customerId} | Delete Customer
-[**deleteCustomerWithHttpInfo**](PaymentsApi.md#deleteCustomerWithHttpInfo) | **DELETE** /environments/{environmentId}/payments/customer/{customerId} | Delete Customer
 [**deletePaymentMethod**](PaymentsApi.md#deletePaymentMethod) | **DELETE** /environments/{environmentId}/payments/customer/methods/{methodToken} | Delete a Payment Method
-[**deletePaymentMethodWithHttpInfo**](PaymentsApi.md#deletePaymentMethodWithHttpInfo) | **DELETE** /environments/{environmentId}/payments/customer/methods/{methodToken} | Delete a Payment Method
 [**generateClientToken**](PaymentsApi.md#generateClientToken) | **GET** /environments/{environmentId}/payments/token | Anonymous payment token
-[**generateClientTokenWithHttpInfo**](PaymentsApi.md#generateClientTokenWithHttpInfo) | **GET** /environments/{environmentId}/payments/token | Anonymous payment token
 [**getCustomer**](PaymentsApi.md#getCustomer) | **GET** /environments/{environmentId}/payments/customer | Get Customer
-[**getCustomerWithHttpInfo**](PaymentsApi.md#getCustomerWithHttpInfo) | **GET** /environments/{environmentId}/payments/customer | Get Customer
 [**getPaymentMethod**](PaymentsApi.md#getPaymentMethod) | **GET** /environments/{environmentId}/payments/customer/methods | Get Payment Method
-[**getPaymentMethodWithHttpInfo**](PaymentsApi.md#getPaymentMethodWithHttpInfo) | **GET** /environments/{environmentId}/payments/customer/methods | Get Payment Method
 [**getSalesTaxInfo**](PaymentsApi.md#getSalesTaxInfo) | **GET** /environments/{environmentId}/payments/tax/rate | Get sales tax- rate and amount based on country, state, zip code and sales amount.
-[**getSalesTaxInfoWithHttpInfo**](PaymentsApi.md#getSalesTaxInfoWithHttpInfo) | **GET** /environments/{environmentId}/payments/tax/rate | Get sales tax- rate and amount based on country, state, zip code and sales amount.
 [**getSalesTaxTransaction**](PaymentsApi.md#getSalesTaxTransaction) | **GET** /environments/{environmentId}/payments/tax/transaction/{orderId} | Get Transaction Details
-[**getSalesTaxTransactionWithHttpInfo**](PaymentsApi.md#getSalesTaxTransactionWithHttpInfo) | **GET** /environments/{environmentId}/payments/tax/transaction/{orderId} | Get Transaction Details
 [**updateCustomer**](PaymentsApi.md#updateCustomer) | **PUT** /environments/{environmentId}/payments/customer | Update Customer
-[**updateCustomerWithHttpInfo**](PaymentsApi.md#updateCustomerWithHttpInfo) | **PUT** /environments/{environmentId}/payments/customer | Update Customer
 [**updatePaymentMethod**](PaymentsApi.md#updatePaymentMethod) | **PUT** /environments/{environmentId}/payments/customer/methods/default | Update the default Payment Method
-[**updatePaymentMethodWithHttpInfo**](PaymentsApi.md#updatePaymentMethodWithHttpInfo) | **PUT** /environments/{environmentId}/payments/customer/methods/default | Update the default Payment Method
 
 
 
@@ -89,88 +77,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaymentDto**](PaymentDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-| **401** | Authentication failure. |  -  |
-| **500** | Internal Server Error. |  -  |
-| **403** | You do not have the correct access rights to make this request. |  -  |
-
-## completePaymentWithHttpInfo
-
-> ApiResponse<PaymentDto> completePayment completePaymentWithHttpInfo(environmentId, finalizePaymentRequest)
-
-Finalize Purchase
-
-Make the final payment
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        FinalizePaymentRequest finalizePaymentRequest = new FinalizePaymentRequest(); // FinalizePaymentRequest | 
-        try {
-            ApiResponse<PaymentDto> response = apiInstance.completePaymentWithHttpInfo(environmentId, finalizePaymentRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#completePayment");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **finalizePaymentRequest** | [**FinalizePaymentRequest**](FinalizePaymentRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**PaymentDto**](PaymentDto.md)>
-
 
 ### Authorization
 
@@ -250,85 +156,6 @@ Name | Type | Description  | Notes
 
 [**CustomerDto**](CustomerDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## createCustomerWithHttpInfo
-
-> ApiResponse<CustomerDto> createCustomer createCustomerWithHttpInfo(environmentId, createCustomerRequest)
-
-Create Customer
-
-Create Payment Customer
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        CreateCustomerRequest createCustomerRequest = new CreateCustomerRequest(); // CreateCustomerRequest | 
-        try {
-            ApiResponse<CustomerDto> response = apiInstance.createCustomerWithHttpInfo(environmentId, createCustomerRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#createCustomer");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **createCustomerRequest** | [**CreateCustomerRequest**](CreateCustomerRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**CustomerDto**](CustomerDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -404,85 +231,6 @@ Name | Type | Description  | Notes
 
 [**PaymentMethodDto**](PaymentMethodDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## createPaymentMethodWithHttpInfo
-
-> ApiResponse<PaymentMethodDto> createPaymentMethod createPaymentMethodWithHttpInfo(environmentId, createPaymentMethodRequest)
-
-Create Payment Method
-
-Create Payment Method
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        CreatePaymentMethodRequest createPaymentMethodRequest = new CreatePaymentMethodRequest(); // CreatePaymentMethodRequest | 
-        try {
-            ApiResponse<PaymentMethodDto> response = apiInstance.createPaymentMethodWithHttpInfo(environmentId, createPaymentMethodRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#createPaymentMethod");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **createPaymentMethodRequest** | [**CreatePaymentMethodRequest**](CreatePaymentMethodRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**PaymentMethodDto**](PaymentMethodDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -501,7 +249,7 @@ ApiResponse<[**PaymentMethodDto**](PaymentMethodDto.md)>
 
 ## deleteCustomer
 
-> void deleteCustomer(environmentId, customerId)
+> deleteCustomer(environmentId, customerId)
 
 Delete Customer
 
@@ -555,85 +303,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-
 null (empty response body)
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **204** | Customer deleted |  -  |
-
-## deleteCustomerWithHttpInfo
-
-> ApiResponse<Void> deleteCustomer deleteCustomerWithHttpInfo(environmentId, customerId)
-
-Delete Customer
-
-Delete an existing Payment Customer
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String customerId = "customerId_example"; // String | 
-        try {
-            ApiResponse<Void> response = apiInstance.deleteCustomerWithHttpInfo(environmentId, customerId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#deleteCustomer");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **customerId** | **String**|  |
-
-### Return type
-
-
-ApiResponse<Void>
 
 ### Authorization
 
@@ -653,7 +323,7 @@ ApiResponse<Void>
 
 ## deletePaymentMethod
 
-> void deletePaymentMethod(environmentId, methodToken)
+> deletePaymentMethod(environmentId, methodToken)
 
 Delete a Payment Method
 
@@ -707,85 +377,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-
 null (empty response body)
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **204** | Payment Method deleted |  -  |
-
-## deletePaymentMethodWithHttpInfo
-
-> ApiResponse<Void> deletePaymentMethod deletePaymentMethodWithHttpInfo(environmentId, methodToken)
-
-Delete a Payment Method
-
-Delete an existing Payment Method
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String methodToken = "methodToken_example"; // String | 
-        try {
-            ApiResponse<Void> response = apiInstance.deletePaymentMethodWithHttpInfo(environmentId, methodToken);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#deletePaymentMethod");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **methodToken** | **String**|  |
-
-### Return type
-
-
-ApiResponse<Void>
 
 ### Authorization
 
@@ -862,85 +454,6 @@ Name | Type | Description  | Notes
 
 [**ClientPaymentTokenDto**](ClientPaymentTokenDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## generateClientTokenWithHttpInfo
-
-> ApiResponse<ClientPaymentTokenDto> generateClientToken generateClientTokenWithHttpInfo(environmentId, customerId)
-
-Anonymous payment token
-
-Get an anonymous payment token for a customer
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String customerId = "customerId_example"; // String | 
-        try {
-            ApiResponse<ClientPaymentTokenDto> response = apiInstance.generateClientTokenWithHttpInfo(environmentId, customerId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#generateClientToken");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **customerId** | **String**|  | [optional]
-
-### Return type
-
-ApiResponse<[**ClientPaymentTokenDto**](ClientPaymentTokenDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1016,85 +529,6 @@ Name | Type | Description  | Notes
 
 [**CustomerDto**](CustomerDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getCustomerWithHttpInfo
-
-> ApiResponse<CustomerDto> getCustomer getCustomerWithHttpInfo(environmentId, customerId)
-
-Get Customer
-
-Find a Payment Customer
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String customerId = "customerId_example"; // String | 
-        try {
-            ApiResponse<CustomerDto> response = apiInstance.getCustomerWithHttpInfo(environmentId, customerId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#getCustomer");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **customerId** | **String**|  |
-
-### Return type
-
-ApiResponse<[**CustomerDto**](CustomerDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1169,85 +603,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaymentMethodDto**](PaymentMethodDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getPaymentMethodWithHttpInfo
-
-> ApiResponse<PaymentMethodDto> getPaymentMethod getPaymentMethodWithHttpInfo(environmentId, paymentMethodToken)
-
-Get Payment Method
-
-Find a Payment Method for a customer
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String paymentMethodToken = "paymentMethodToken_example"; // String | 
-        try {
-            ApiResponse<PaymentMethodDto> response = apiInstance.getPaymentMethodWithHttpInfo(environmentId, paymentMethodToken);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#getPaymentMethod");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **paymentMethodToken** | **String**|  |
-
-### Return type
-
-ApiResponse<[**PaymentMethodDto**](PaymentMethodDto.md)>
-
 
 ### Authorization
 
@@ -1330,91 +685,6 @@ Name | Type | Description  | Notes
 
 [**SalesTaxInfoDto**](SalesTaxInfoDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getSalesTaxInfoWithHttpInfo
-
-> ApiResponse<SalesTaxInfoDto> getSalesTaxInfo getSalesTaxInfoWithHttpInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace)
-
-Get sales tax- rate and amount based on country, state, zip code and sales amount.
-
-Get sales tax rate and tax amount based on country ISO code, state ISO code, zip code and sales amount.
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String countryIsoCode = "countryIsoCode_example"; // String | 
-        String stateIsoCode = "stateIsoCode_example"; // String | 
-        String zipCode = "zipCode_example"; // String | 
-        Boolean isSecondaryMarketplace = true; // Boolean | 
-        try {
-            ApiResponse<SalesTaxInfoDto> response = apiInstance.getSalesTaxInfoWithHttpInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#getSalesTaxInfo");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **countryIsoCode** | **String**|  |
- **stateIsoCode** | **String**|  |
- **zipCode** | **String**|  |
- **isSecondaryMarketplace** | **Boolean**|  |
-
-### Return type
-
-ApiResponse<[**SalesTaxInfoDto**](SalesTaxInfoDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1489,85 +759,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SalesTaxTransactionDto**](SalesTaxTransactionDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## getSalesTaxTransactionWithHttpInfo
-
-> ApiResponse<SalesTaxTransactionDto> getSalesTaxTransaction getSalesTaxTransactionWithHttpInfo(environmentId, orderId)
-
-Get Transaction Details
-
-Find transaction details for a transaction id
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        String orderId = "orderId_example"; // String | 
-        try {
-            ApiResponse<SalesTaxTransactionDto> response = apiInstance.getSalesTaxTransactionWithHttpInfo(environmentId, orderId);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#getSalesTaxTransaction");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **orderId** | **String**|  |
-
-### Return type
-
-ApiResponse<[**SalesTaxTransactionDto**](SalesTaxTransactionDto.md)>
-
 
 ### Authorization
 
@@ -1644,85 +835,6 @@ Name | Type | Description  | Notes
 
 [**CustomerDto**](CustomerDto.md)
 
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## updateCustomerWithHttpInfo
-
-> ApiResponse<CustomerDto> updateCustomer updateCustomerWithHttpInfo(environmentId, updateCustomerRequest)
-
-Update Customer
-
-Update fields on an existing Payment Customer
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        UpdateCustomerRequest updateCustomerRequest = new UpdateCustomerRequest(); // UpdateCustomerRequest | 
-        try {
-            ApiResponse<CustomerDto> response = apiInstance.updateCustomerWithHttpInfo(environmentId, updateCustomerRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#updateCustomer");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **updateCustomerRequest** | [**UpdateCustomerRequest**](UpdateCustomerRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**CustomerDto**](CustomerDto.md)>
-
-
 ### Authorization
 
 [api_key](../README.md#api_key)
@@ -1797,85 +909,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaymentMethodDto**](PaymentMethodDto.md)
-
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **400** | Bad Request |  -  |
-
-## updatePaymentMethodWithHttpInfo
-
-> ApiResponse<PaymentMethodDto> updatePaymentMethod updatePaymentMethodWithHttpInfo(environmentId, updatePaymentMethodDefaultRequest)
-
-Update the default Payment Method
-
-Set a payment method as a default
-
-### Example
-
-```java
-// Import classes:
-import games.mythical.ivi.sdk.ApiClient;
-import games.mythical.ivi.sdk.ApiException;
-import games.mythical.ivi.sdk.ApiResponse;
-import games.mythical.ivi.sdk.Configuration;
-import games.mythical.ivi.sdk.auth.*;
-import games.mythical.ivi.sdk.models.*;
-import games.mythical.ivi.sdk.api.PaymentsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
-
-        PaymentsApi apiInstance = new PaymentsApi(defaultClient);
-        String environmentId = "environmentId_example"; // String | 
-        UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest = new UpdatePaymentMethodDefaultRequest(); // UpdatePaymentMethodDefaultRequest | 
-        try {
-            ApiResponse<PaymentMethodDto> response = apiInstance.updatePaymentMethodWithHttpInfo(environmentId, updatePaymentMethodDefaultRequest);
-            System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PaymentsApi#updatePaymentMethod");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **environmentId** | **String**|  |
- **updatePaymentMethodDefaultRequest** | [**UpdatePaymentMethodDefaultRequest**](UpdatePaymentMethodDefaultRequest.md)|  |
-
-### Return type
-
-ApiResponse<[**PaymentMethodDto**](PaymentMethodDto.md)>
-
 
 ### Authorization
 

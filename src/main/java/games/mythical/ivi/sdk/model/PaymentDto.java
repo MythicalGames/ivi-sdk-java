@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   PaymentDto.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("PaymentDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaymentDto {
   public static final String JSON_PROPERTY_SUCCESS = "success";
   private Boolean success;

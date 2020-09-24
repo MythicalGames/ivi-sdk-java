@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   AgreementDto.JSON_PROPERTY_PARTNER_ID
 })
 @JsonTypeName("AgreementDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AgreementDto {
   public static final String JSON_PROPERTY_TIME_FRAME_START = "timeFrameStart";
   private Long timeFrameStart;

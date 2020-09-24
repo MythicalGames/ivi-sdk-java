@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateWebhookRequest.JSON_PROPERTY_REQUIRED_QUERY_PARAMS
 })
 @JsonTypeName("UpdateWebhookRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateWebhookRequest {
   public static final String JSON_PROPERTY_REQUIRED_HEADERS = "requiredHeaders";
   private Map<String, String> requiredHeaders = null;

@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DgoodMetadataDto.JSON_PROPERTY_DGOOD_ID
 })
 @JsonTypeName("DgoodMetadataDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DgoodMetadataDto {
   public static final String JSON_PROPERTY_METADATA = "metadata";
   private Map<String, Object> metadata = null;

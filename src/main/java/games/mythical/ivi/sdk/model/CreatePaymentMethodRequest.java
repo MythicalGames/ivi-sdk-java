@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreatePaymentMethodRequest.JSON_PROPERTY_BILLING_ADDRESS
 })
 @JsonTypeName("CreatePaymentMethodRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreatePaymentMethodRequest {
   public static final String JSON_PROPERTY_CUSTOMER_ID = "customerId";
   private String customerId;

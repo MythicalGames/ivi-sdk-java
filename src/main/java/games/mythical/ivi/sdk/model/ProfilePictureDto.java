@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ProfilePictureDto.JSON_PROPERTY_PROFILE_IMAGE_URL
 })
 @JsonTypeName("ProfilePictureDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ProfilePictureDto {
   public static final String JSON_PROPERTY_PROFILE_IMAGE_URL = "profileImageUrl";
   private String profileImageUrl;

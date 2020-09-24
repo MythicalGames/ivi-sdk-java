@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateServerSecretRequest.JSON_PROPERTY_DISABLED
 })
 @JsonTypeName("CreateServerSecretRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateServerSecretRequest {
   public static final String JSON_PROPERTY_ROLE_ID = "roleId";
   private UUID roleId;

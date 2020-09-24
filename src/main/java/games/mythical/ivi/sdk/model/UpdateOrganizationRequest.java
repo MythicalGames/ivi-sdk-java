@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateOrganizationRequest.JSON_PROPERTY_ENVIRONMENT_LIMITS
 })
 @JsonTypeName("UpdateOrganizationRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateOrganizationRequest {
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   private String displayName;

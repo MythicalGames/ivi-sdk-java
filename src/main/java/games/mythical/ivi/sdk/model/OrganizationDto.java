@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OrganizationDto.JSON_PROPERTY_ENVIRONMENT_LIMITS
 })
 @JsonTypeName("OrganizationDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class OrganizationDto {
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;

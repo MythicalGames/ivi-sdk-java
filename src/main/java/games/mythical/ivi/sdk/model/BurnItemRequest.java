@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   BurnItemRequest.JSON_PROPERTY_GAME_INVENTORY_ID
 })
 @JsonTypeName("BurnItemRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BurnItemRequest {
   public static final String JSON_PROPERTY_GAME_INVENTORY_ID = "gameInventoryId";
   private String gameInventoryId;

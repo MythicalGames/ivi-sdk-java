@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   IssueItemRequest.JSON_PROPERTY_RENDER
 })
 @JsonTypeName("IssueItemRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IssueItemRequest {
   public static final String JSON_PROPERTY_IMAGE_LARGE_URL = "imageLargeUrl";
   private String imageLargeUrl;

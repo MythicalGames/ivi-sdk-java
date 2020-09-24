@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Role.JSON_PROPERTY_TARGETS
 })
 @JsonTypeName("Role")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Role {
   public static final String JSON_PROPERTY_ORGANIZATION_ID = "organizationId";
   private UUID organizationId;

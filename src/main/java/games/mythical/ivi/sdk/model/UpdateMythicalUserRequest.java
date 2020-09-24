@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateMythicalUserRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("UpdateMythicalUserRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateMythicalUserRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;

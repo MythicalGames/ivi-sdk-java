@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   PaymentData.JSON_PROPERTY_COINBASE
 })
 @JsonTypeName("PaymentData")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaymentData {
   public static final String JSON_PROPERTY_BRAINTREE = "braintree";
   private BraintreePayment braintree;

@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   WebhookDto.JSON_PROPERTY_FAILURE_COUNT
 })
 @JsonTypeName("WebhookDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WebhookDto {
   public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;

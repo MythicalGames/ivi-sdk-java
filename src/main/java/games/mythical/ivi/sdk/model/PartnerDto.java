@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   PartnerDto.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("PartnerDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PartnerDto {
   public static final String JSON_PROPERTY_ORGANIZATION_ID = "organizationId";
   private String organizationId;

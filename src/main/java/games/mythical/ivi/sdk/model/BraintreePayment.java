@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   BraintreePayment.JSON_PROPERTY_BRAINTREE_PAYMENT_NONCE
 })
 @JsonTypeName("BraintreePayment")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BraintreePayment {
   public static final String JSON_PROPERTY_BRAINTREE_PAYMENT_NONCE = "braintreePaymentNonce";
   private String braintreePaymentNonce;

@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateOrderRequest.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("UpdateOrderRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateOrderRequest {
   public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
   private List<TokenCategory> itemTypes = null;

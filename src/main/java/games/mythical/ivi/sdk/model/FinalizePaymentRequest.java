@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   FinalizePaymentRequest.JSON_PROPERTY_PAYMENT_PROVIDER_DATA
 })
 @JsonTypeName("FinalizePaymentRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FinalizePaymentRequest {
   public static final String JSON_PROPERTY_ORDER_ID = "orderId";
   private String orderId;

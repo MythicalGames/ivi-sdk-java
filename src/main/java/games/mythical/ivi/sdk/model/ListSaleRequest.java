@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ListSaleRequest.JSON_PROPERTY_CURRENCY
 })
 @JsonTypeName("ListSaleRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListSaleRequest {
   public static final String JSON_PROPERTY_SELLER_PROCEEDS = "sellerProceeds";
   private BigDecimal sellerProceeds;

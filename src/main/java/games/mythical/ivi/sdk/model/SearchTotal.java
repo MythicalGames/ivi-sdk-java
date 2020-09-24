@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SearchTotal.JSON_PROPERTY_RELATION
 })
 @JsonTypeName("SearchTotal")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SearchTotal {
   public static final String JSON_PROPERTY_VALUE = "value";
   private Integer value;

@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   TransferItemRequest.JSON_PROPERTY_GAME_INVENTORY_ID
 })
 @JsonTypeName("TransferItemRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransferItemRequest {
   public static final String JSON_PROPERTY_DEST_PLAYER_ID = "destPlayerId";
   private String destPlayerId;

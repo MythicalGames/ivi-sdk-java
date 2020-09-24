@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateItemRequest.JSON_PROPERTY_ISSUE_TIME_SPAN
 })
 @JsonTypeName("CreateItemRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateItemRequest {
   public static final String JSON_PROPERTY_TRANSFERABLE = "transferable";
   private Boolean transferable;

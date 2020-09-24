@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   TransactionEventDTO.JSON_PROPERTY_TIMESTAMP
 })
 @JsonTypeName("TransactionEventDTO")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionEventDTO {
   public static final String JSON_PROPERTY_EVENT_ID = "eventId";
   private Long eventId;

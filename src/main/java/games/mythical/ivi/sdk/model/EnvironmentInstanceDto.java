@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   EnvironmentInstanceDto.JSON_PROPERTY_DEACTIVATED
 })
 @JsonTypeName("EnvironmentInstanceDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class EnvironmentInstanceDto {
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;

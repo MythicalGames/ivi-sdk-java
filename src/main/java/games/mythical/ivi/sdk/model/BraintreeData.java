@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   BraintreeData.JSON_PROPERTY_BRAINTREE_CLIENT_TOKEN
 })
 @JsonTypeName("BraintreeData")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BraintreeData {
   public static final String JSON_PROPERTY_BRAINTREE_CLIENT_TOKEN = "braintreeClientToken";
   private String braintreeClientToken;

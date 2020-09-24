@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   MarketplaceListingDto.JSON_PROPERTY_ID
 })
 @JsonTypeName("MarketplaceListingDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MarketplaceListingDto {
   public static final String JSON_PROPERTY_SALE_AMOUNT = "saleAmount";
   private BigDecimal saleAmount;

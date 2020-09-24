@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   InviteUserToOrganizationRequest.JSON_PROPERTY_USER_EMAIL
 })
 @JsonTypeName("InviteUserToOrganizationRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InviteUserToOrganizationRequest {
   public static final String JSON_PROPERTY_ROLE_ID = "roleId";
   private UUID roleId;

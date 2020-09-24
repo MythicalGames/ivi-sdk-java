@@ -101,10 +101,8 @@ gradlew
 gradlew.bat
 settings.gradle
 src/main/java/games/mythical/ivi/sdk/ApiClient.java
-src/main/java/games/mythical/ivi/sdk/ApiException.java
-src/main/java/games/mythical/ivi/sdk/ApiResponse.java
-src/main/java/games/mythical/ivi/sdk/Configuration.java
-src/main/java/games/mythical/ivi/sdk/Pair.java
+src/main/java/games/mythical/ivi/sdk/JavaTimeFormatter.java
+src/main/java/games/mythical/ivi/sdk/RFC3339DateFormat.java
 src/main/java/games/mythical/ivi/sdk/ServerConfiguration.java
 src/main/java/games/mythical/ivi/sdk/ServerVariable.java
 src/main/java/games/mythical/ivi/sdk/api/AccountsApi.java
@@ -122,6 +120,10 @@ src/main/java/games/mythical/ivi/sdk/api/TransactionsApi.java
 src/main/java/games/mythical/ivi/sdk/api/UserSettingsApi.java
 src/main/java/games/mythical/ivi/sdk/api/VirtualCurrenciesApi.java
 src/main/java/games/mythical/ivi/sdk/api/WebhooksApi.java
+src/main/java/games/mythical/ivi/sdk/auth/ApiKeyAuth.java
+src/main/java/games/mythical/ivi/sdk/auth/Authentication.java
+src/main/java/games/mythical/ivi/sdk/auth/HttpBasicAuth.java
+src/main/java/games/mythical/ivi/sdk/auth/HttpBearerAuth.java
 src/main/java/games/mythical/ivi/sdk/model/AgreementDto.java
 src/main/java/games/mythical/ivi/sdk/model/ApiLevel.java
 src/main/java/games/mythical/ivi/sdk/model/BraintreeData.java

@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UserDto.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("UserDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UserDto {
   public static final String JSON_PROPERTY_ORGANIZATION_ID = "organizationId";
   private UUID organizationId;

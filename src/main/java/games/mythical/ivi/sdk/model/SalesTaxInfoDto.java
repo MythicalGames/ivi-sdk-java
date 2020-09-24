@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SalesTaxInfoDto.JSON_PROPERTY_CITY_RATE
 })
 @JsonTypeName("SalesTaxInfoDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SalesTaxInfoDto {
   public static final String JSON_PROPERTY_ZIP = "zip";
   private String zip;

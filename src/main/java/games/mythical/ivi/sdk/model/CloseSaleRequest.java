@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CloseSaleRequest.JSON_PROPERTY_PLAYER_ID
 })
 @JsonTypeName("CloseSaleRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CloseSaleRequest {
   public static final String JSON_PROPERTY_GAME_INVENTORY_IDS = "gameInventoryIds";
   private List<String> gameInventoryIds = new ArrayList<>();

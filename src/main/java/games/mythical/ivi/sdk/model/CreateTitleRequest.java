@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateTitleRequest.JSON_PROPERTY_INITIAL_ENVIRONMENT_TYPE
 })
 @JsonTypeName("CreateTitleRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateTitleRequest {
   public static final String JSON_PROPERTY_TITLE_NAME = "titleName";
   private String titleName;

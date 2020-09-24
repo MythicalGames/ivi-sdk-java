@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   TransactionDto.JSON_PROPERTY_DGOOD_ID
 })
 @JsonTypeName("TransactionDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionDto {
   public static final String JSON_PROPERTY_FINALIZED = "finalized";
   private Boolean finalized;

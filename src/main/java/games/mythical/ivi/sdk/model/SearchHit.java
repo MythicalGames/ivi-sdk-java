@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SearchHit.JSON_PROPERTY_GET_ID
 })
 @JsonTypeName("SearchHit")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SearchHit {
   public static final String JSON_PROPERTY_GET_INDEX = "get_index";
   private String getIndex;

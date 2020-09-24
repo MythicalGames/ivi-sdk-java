@@ -51,7 +51,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ItemTypeDto.JSON_PROPERTY_CATEGORY
 })
 @JsonTypeName("ItemTypeDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ItemTypeDto {
   public static final String JSON_PROPERTY_TRANSFERABLE = "transferable";
   private Boolean transferable;

@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   MythicalUserDto.JSON_PROPERTY_PLAYER_DATA
 })
 @JsonTypeName("MythicalUserDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MythicalUserDto {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;

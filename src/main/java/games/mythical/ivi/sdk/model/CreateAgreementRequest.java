@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateAgreementRequest.JSON_PROPERTY_CURRENCY
 })
 @JsonTypeName("CreateAgreementRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateAgreementRequest {
   public static final String JSON_PROPERTY_ITEM_TYPE_NAMES = "itemTypeNames";
   private List<String> itemTypeNames = null;

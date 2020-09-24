@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateVirtualCurrencyRequest.JSON_PROPERTY_BASE_CURRENCY
 })
 @JsonTypeName("CreateVirtualCurrencyRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVirtualCurrencyRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;

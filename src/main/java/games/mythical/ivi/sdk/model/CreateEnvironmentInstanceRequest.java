@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateEnvironmentInstanceRequest.JSON_PROPERTY_ENVIRONMENT_TYPE
 })
 @JsonTypeName("CreateEnvironmentInstanceRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateEnvironmentInstanceRequest {
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   private String displayName;

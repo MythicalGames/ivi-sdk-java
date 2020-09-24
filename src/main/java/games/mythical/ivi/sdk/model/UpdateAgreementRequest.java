@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateAgreementRequest.JSON_PROPERTY_ID
 })
 @JsonTypeName("UpdateAgreementRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateAgreementRequest {
   public static final String JSON_PROPERTY_TIME_FRAME_START = "timeFrameStart";
   private Long timeFrameStart;

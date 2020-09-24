@@ -50,7 +50,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   IssuedItemDto.JSON_PROPERTY_DGOOD_ID
 })
 @JsonTypeName("IssuedItemDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IssuedItemDto {
   public static final String JSON_PROPERTY_CURRENCY_BASE = "currencyBase";
   private String currencyBase;

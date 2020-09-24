@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CoinbaseData.JSON_PROPERTY_COINBASE_TRANSACTION_ID
 })
 @JsonTypeName("CoinbaseData")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CoinbaseData {
   public static final String JSON_PROPERTY_COINBASE_TRANSACTION_ID = "coinbaseTransactionId";
   private String coinbaseTransactionId;

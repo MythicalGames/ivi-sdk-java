@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateCustomerRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("CreateCustomerRequest")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateCustomerRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   private String firstName;

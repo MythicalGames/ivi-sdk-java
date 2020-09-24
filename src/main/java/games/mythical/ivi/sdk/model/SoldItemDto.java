@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SoldItemDto.JSON_PROPERTY_TRANSACTION_ID
 })
 @JsonTypeName("SoldItemDto")
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SoldItemDto {
   public static final String JSON_PROPERTY_MARKETPLACE_ID = "marketplaceId";
   private String marketplaceId;
