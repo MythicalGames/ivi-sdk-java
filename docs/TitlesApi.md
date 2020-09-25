@@ -1,6 +1,6 @@
 # TitlesApi
 
-All URIs are relative to *https://portal.iviengine.com/api*
+All URIs are relative to *https://api.iviengine.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -35,7 +35,7 @@ import games.mythical.ivi.sdk.api.TitlesApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -110,7 +110,7 @@ import games.mythical.ivi.sdk.api.TitlesApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -185,7 +185,7 @@ import games.mythical.ivi.sdk.api.TitlesApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -256,7 +256,7 @@ import games.mythical.ivi.sdk.api.TitlesApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -326,7 +326,7 @@ import games.mythical.ivi.sdk.api.TitlesApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -398,7 +398,7 @@ import games.mythical.ivi.sdk.api.TitlesApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");

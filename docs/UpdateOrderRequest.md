@@ -24,6 +24,7 @@ Name | Value
 ---- | -----
 BRAINTREE | &quot;BRAINTREE&quot;
 COINBASE | &quot;COINBASE&quot;
+BITPAY | &quot;BITPAY&quot;
 UNRECOGNIZED | &quot;UNRECOGNIZED&quot;
 
 

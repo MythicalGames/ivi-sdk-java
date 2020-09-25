@@ -6,7 +6,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** |  |  [optional]
+**braintree** | [**BraintreeTokenDto**](BraintreeTokenDto.md) |  |  [optional]
+**bitpay** | [**BitPayTokenDto**](BitPayTokenDto.md) |  |  [optional]
 
 
 

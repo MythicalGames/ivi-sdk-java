@@ -20,30 +20,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import games.mythical.ivi.sdk.model.BitPayTokenDto;
-import games.mythical.ivi.sdk.model.BraintreeTokenDto;
+import games.mythical.ivi.sdk.model.BitPayTokenRequestData;
+import games.mythical.ivi.sdk.model.BraintreeTokenRequestData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * ClientPaymentTokenDto
+ * TokenRequestData
  */
 @JsonPropertyOrder({
-  ClientPaymentTokenDto.JSON_PROPERTY_BRAINTREE,
-  ClientPaymentTokenDto.JSON_PROPERTY_BITPAY
+  TokenRequestData.JSON_PROPERTY_BRAINTREE,
+  TokenRequestData.JSON_PROPERTY_BITPAY
 })
-@JsonTypeName("ClientPaymentTokenDto")
+@JsonTypeName("TokenRequestData")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ClientPaymentTokenDto {
+public class TokenRequestData {
   public static final String JSON_PROPERTY_BRAINTREE = "braintree";
-  private BraintreeTokenDto braintree;
+  private BraintreeTokenRequestData braintree;
 
   public static final String JSON_PROPERTY_BITPAY = "bitpay";
-  private BitPayTokenDto bitpay;
+  private BitPayTokenRequestData bitpay;
 
 
-  public ClientPaymentTokenDto braintree(BraintreeTokenDto braintree) {
+  public TokenRequestData braintree(BraintreeTokenRequestData braintree) {
     
     this.braintree = braintree;
     return this;
@@ -58,17 +58,17 @@ public class ClientPaymentTokenDto {
   @JsonProperty(JSON_PROPERTY_BRAINTREE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BraintreeTokenDto getBraintree() {
+  public BraintreeTokenRequestData getBraintree() {
     return braintree;
   }
 
 
-  public void setBraintree(BraintreeTokenDto braintree) {
+  public void setBraintree(BraintreeTokenRequestData braintree) {
     this.braintree = braintree;
   }
 
 
-  public ClientPaymentTokenDto bitpay(BitPayTokenDto bitpay) {
+  public TokenRequestData bitpay(BitPayTokenRequestData bitpay) {
     
     this.bitpay = bitpay;
     return this;
@@ -83,12 +83,12 @@ public class ClientPaymentTokenDto {
   @JsonProperty(JSON_PROPERTY_BITPAY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BitPayTokenDto getBitpay() {
+  public BitPayTokenRequestData getBitpay() {
     return bitpay;
   }
 
 
-  public void setBitpay(BitPayTokenDto bitpay) {
+  public void setBitpay(BitPayTokenRequestData bitpay) {
     this.bitpay = bitpay;
   }
 
@@ -101,9 +101,9 @@ public class ClientPaymentTokenDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ClientPaymentTokenDto clientPaymentTokenDto = (ClientPaymentTokenDto) o;
-    return Objects.equals(this.braintree, clientPaymentTokenDto.braintree) &&
-        Objects.equals(this.bitpay, clientPaymentTokenDto.bitpay);
+    TokenRequestData tokenRequestData = (TokenRequestData) o;
+    return Objects.equals(this.braintree, tokenRequestData.braintree) &&
+        Objects.equals(this.bitpay, tokenRequestData.bitpay);
   }
 
   @Override
@@ -115,7 +115,7 @@ public class ClientPaymentTokenDto {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ClientPaymentTokenDto {\n");
+    sb.append("class TokenRequestData {\n");
     sb.append("    braintree: ").append(toIndentedString(braintree)).append("\n");
     sb.append("    bitpay: ").append(toIndentedString(bitpay)).append("\n");
     sb.append("}");

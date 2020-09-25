@@ -84,6 +84,8 @@ public class OrderDto {
     
     COINBASE("COINBASE"),
     
+    BITPAY("BITPAY"),
+    
     UNRECOGNIZED("UNRECOGNIZED");
 
     private String value;

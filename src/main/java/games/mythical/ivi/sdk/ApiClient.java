@@ -73,7 +73,7 @@ public class ApiClient extends JavaTimeFormatter {
     private HttpHeaders defaultHeaders = new HttpHeaders();
     private MultiValueMap<String, String> defaultCookies = new LinkedMultiValueMap<String, String>();
 
-    private String basePath = "https://portal.iviengine.com/api";
+    private String basePath = "https://api.iviengine.com";
 
     private RestTemplate restTemplate;
 

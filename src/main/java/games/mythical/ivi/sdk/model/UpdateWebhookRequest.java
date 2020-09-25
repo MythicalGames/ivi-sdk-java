@@ -23,8 +23,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -32,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   UpdateWebhookRequest.JSON_PROPERTY_REQUIRED_HEADERS,
+  UpdateWebhookRequest.JSON_PROPERTY_ACTIVE_ACTIONS,
   UpdateWebhookRequest.JSON_PROPERTY_NAME,
   UpdateWebhookRequest.JSON_PROPERTY_DESCRIPTION,
   UpdateWebhookRequest.JSON_PROPERTY_DISABLED,
@@ -43,6 +46,64 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class UpdateWebhookRequest {
   public static final String JSON_PROPERTY_REQUIRED_HEADERS = "requiredHeaders";
   private Map<String, String> requiredHeaders = null;
+
+  /**
+   * Gets or Sets activeActions
+   */
+  public enum ActiveActionsEnum {
+    FAILED("failed"),
+    
+    ALL("all"),
+    
+    CREATE("create"),
+    
+    ISSUE("issue"),
+    
+    TRANSFER_NFT("transfer_nft"),
+    
+    BURN_NFT("burn_nft"),
+    
+    NEW_ACCOUNT("new_account"),
+    
+    BUY_NFT("buy_nft"),
+    
+    LIST_SALE_NFT("list_sale_nft"),
+    
+    CLOSE_SALE("close_sale"),
+    
+    SOLD("sold"),
+    
+    UNRECOGNIZED("UNRECOGNIZED");
+
+    private String value;
+
+    ActiveActionsEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ActiveActionsEnum fromValue(String value) {
+      for (ActiveActionsEnum b : ActiveActionsEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_ACTIVE_ACTIONS = "activeActions";
+  private Set<ActiveActionsEnum> activeActions = null;
 
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -90,6 +151,39 @@ public class UpdateWebhookRequest {
 
   public void setRequiredHeaders(Map<String, String> requiredHeaders) {
     this.requiredHeaders = requiredHeaders;
+  }
+
+
+  public UpdateWebhookRequest activeActions(Set<ActiveActionsEnum> activeActions) {
+    
+    this.activeActions = activeActions;
+    return this;
+  }
+
+  public UpdateWebhookRequest addActiveActionsItem(ActiveActionsEnum activeActionsItem) {
+    if (this.activeActions == null) {
+      this.activeActions = new LinkedHashSet<>();
+    }
+    this.activeActions.add(activeActionsItem);
+    return this;
+  }
+
+   /**
+   * Get activeActions
+   * @return activeActions
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ACTIVE_ACTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Set<ActiveActionsEnum> getActiveActions() {
+    return activeActions;
+  }
+
+
+  public void setActiveActions(Set<ActiveActionsEnum> activeActions) {
+    this.activeActions = activeActions;
   }
 
 
@@ -234,6 +328,7 @@ public class UpdateWebhookRequest {
     }
     UpdateWebhookRequest updateWebhookRequest = (UpdateWebhookRequest) o;
     return Objects.equals(this.requiredHeaders, updateWebhookRequest.requiredHeaders) &&
+        Objects.equals(this.activeActions, updateWebhookRequest.activeActions) &&
         Objects.equals(this.name, updateWebhookRequest.name) &&
         Objects.equals(this.description, updateWebhookRequest.description) &&
         Objects.equals(this.disabled, updateWebhookRequest.disabled) &&
@@ -243,7 +338,7 @@ public class UpdateWebhookRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(requiredHeaders, name, description, disabled, url, requiredQueryParams);
+    return Objects.hash(requiredHeaders, activeActions, name, description, disabled, url, requiredQueryParams);
   }
 
 
@@ -252,6 +347,7 @@ public class UpdateWebhookRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateWebhookRequest {\n");
     sb.append("    requiredHeaders: ").append(toIndentedString(requiredHeaders)).append("\n");
+    sb.append("    activeActions: ").append(toIndentedString(activeActions)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");

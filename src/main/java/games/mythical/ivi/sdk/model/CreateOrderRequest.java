@@ -72,6 +72,8 @@ public class CreateOrderRequest {
     
     COINBASE("COINBASE"),
     
+    BITPAY("BITPAY"),
+    
     UNRECOGNIZED("UNRECOGNIZED");
 
     private String value;

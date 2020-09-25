@@ -77,6 +77,8 @@ public class UpdateOrderRequest {
     
     COINBASE("COINBASE"),
     
+    BITPAY("BITPAY"),
+    
     UNRECOGNIZED("UNRECOGNIZED");
 
     private String value;

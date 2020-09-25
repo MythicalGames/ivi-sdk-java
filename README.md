@@ -55,7 +55,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
             // Configure API key authorization: api_key
             ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -83,7 +83,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://portal.iviengine.com/api*
+All URIs are relative to *https://api.iviengine.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -140,7 +140,7 @@ Class | Method | HTTP request | Description
 *PaymentsApi* | [**createPaymentMethod**](docs/PaymentsApi.md#createPaymentMethod) | **POST** /environments/{environmentId}/payments/customer/methods | Create Payment Method
 *PaymentsApi* | [**deleteCustomer**](docs/PaymentsApi.md#deleteCustomer) | **DELETE** /environments/{environmentId}/payments/customer/{customerId} | Delete Customer
 *PaymentsApi* | [**deletePaymentMethod**](docs/PaymentsApi.md#deletePaymentMethod) | **DELETE** /environments/{environmentId}/payments/customer/methods/{methodToken} | Delete a Payment Method
-*PaymentsApi* | [**generateClientToken**](docs/PaymentsApi.md#generateClientToken) | **GET** /environments/{environmentId}/payments/token | Anonymous payment token
+*PaymentsApi* | [**generateClientToken**](docs/PaymentsApi.md#generateClientToken) | **POST** /environments/{environmentId}/payments/token | Anonymous payment token
 *PaymentsApi* | [**getCustomer**](docs/PaymentsApi.md#getCustomer) | **GET** /environments/{environmentId}/payments/customer | Get Customer
 *PaymentsApi* | [**getPaymentMethod**](docs/PaymentsApi.md#getPaymentMethod) | **GET** /environments/{environmentId}/payments/customer/methods | Get Payment Method
 *PaymentsApi* | [**getSalesTaxInfo**](docs/PaymentsApi.md#getSalesTaxInfo) | **GET** /environments/{environmentId}/payments/tax/rate | Get sales tax- rate and amount based on country, state, zip code and sales amount.
@@ -184,8 +184,12 @@ Class | Method | HTTP request | Description
 
  - [AgreementDto](docs/AgreementDto.md)
  - [ApiLevel](docs/ApiLevel.md)
+ - [BitPayTokenDto](docs/BitPayTokenDto.md)
+ - [BitPayTokenRequestData](docs/BitPayTokenRequestData.md)
  - [BraintreeData](docs/BraintreeData.md)
  - [BraintreePayment](docs/BraintreePayment.md)
+ - [BraintreeTokenDto](docs/BraintreeTokenDto.md)
+ - [BraintreeTokenRequestData](docs/BraintreeTokenRequestData.md)
  - [BurnItemRequest](docs/BurnItemRequest.md)
  - [BuyListingRequest](docs/BuyListingRequest.md)
  - [ClientPaymentTokenDto](docs/ClientPaymentTokenDto.md)
@@ -210,6 +214,7 @@ Class | Method | HTTP request | Description
  - [ElasticDgood](docs/ElasticDgood.md)
  - [EnvironmentInstanceDto](docs/EnvironmentInstanceDto.md)
  - [FinalizePaymentRequest](docs/FinalizePaymentRequest.md)
+ - [GenerateTokenRequest](docs/GenerateTokenRequest.md)
  - [InviteUserToOrganizationRequest](docs/InviteUserToOrganizationRequest.md)
  - [IssueItemRequest](docs/IssueItemRequest.md)
  - [IssuedItemDto](docs/IssuedItemDto.md)
@@ -243,6 +248,7 @@ Class | Method | HTTP request | Description
  - [ThemeDto](docs/ThemeDto.md)
  - [TitleDto](docs/TitleDto.md)
  - [TokenCategory](docs/TokenCategory.md)
+ - [TokenRequestData](docs/TokenRequestData.md)
  - [TransactionDto](docs/TransactionDto.md)
  - [TransactionEventDTO](docs/TransactionEventDTO.md)
  - [TransferItemRequest](docs/TransferItemRequest.md)

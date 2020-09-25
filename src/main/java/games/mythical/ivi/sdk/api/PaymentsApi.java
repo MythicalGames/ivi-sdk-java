@@ -7,6 +7,7 @@ import games.mythical.ivi.sdk.model.CreateCustomerRequest;
 import games.mythical.ivi.sdk.model.CreatePaymentMethodRequest;
 import games.mythical.ivi.sdk.model.CustomerDto;
 import games.mythical.ivi.sdk.model.FinalizePaymentRequest;
+import games.mythical.ivi.sdk.model.GenerateTokenRequest;
 import games.mythical.ivi.sdk.model.PaymentDto;
 import games.mythical.ivi.sdk.model.PaymentMethodDto;
 import games.mythical.ivi.sdk.model.SalesTaxInfoDto;
@@ -370,12 +371,12 @@ public class PaymentsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
-     * @param customerId  (optional)
+     * @param generateTokenRequest  (required)
      * @return ClientPaymentTokenDto
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ClientPaymentTokenDto generateClientToken(String environmentId, String customerId) throws RestClientException {
-        return generateClientTokenWithHttpInfo(environmentId, customerId).getBody();
+    public ClientPaymentTokenDto generateClientToken(String environmentId, GenerateTokenRequest generateTokenRequest) throws RestClientException {
+        return generateClientTokenWithHttpInfo(environmentId, generateTokenRequest).getBody();
     }
 
     /**
@@ -384,16 +385,21 @@ public class PaymentsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
-     * @param customerId  (optional)
+     * @param generateTokenRequest  (required)
      * @return ResponseEntity&lt;ClientPaymentTokenDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ClientPaymentTokenDto> generateClientTokenWithHttpInfo(String environmentId, String customerId) throws RestClientException {
-        Object postBody = null;
+    public ResponseEntity<ClientPaymentTokenDto> generateClientTokenWithHttpInfo(String environmentId, GenerateTokenRequest generateTokenRequest) throws RestClientException {
+        Object postBody = generateTokenRequest;
         
         // verify the required parameter 'environmentId' is set
         if (environmentId == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'environmentId' when calling generateClientToken");
+        }
+        
+        // verify the required parameter 'generateTokenRequest' is set
+        if (generateTokenRequest == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'generateTokenRequest' when calling generateClientToken");
         }
         
         // create path and map variables
@@ -406,19 +412,19 @@ public class PaymentsApi {
         final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<String, String>();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "customerId", customerId));
-
         final String[] localVarAccepts = { 
             "*/*"
          };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        final String[] contentTypes = {  };
+        final String[] contentTypes = { 
+            "application/json"
+         };
         final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
         String[] authNames = new String[] { "api_key" };
 
         ParameterizedTypeReference<ClientPaymentTokenDto> returnType = new ParameterizedTypeReference<ClientPaymentTokenDto>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, contentType, authNames, returnType);
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, contentType, authNames, returnType);
     }
     /**
      * Get Customer

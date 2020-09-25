@@ -8,7 +8,7 @@ info:
   title: IVI Engine
   version: 1.0.0-SNAPSHOT
 servers:
-- url: https://portal.iviengine.com/api/
+- url: https://api.iviengine.com/
 security:
 - api_key: []
 paths:
@@ -987,7 +987,7 @@ paths:
       x-contentType: application/json
       x-accepts: '*/*'
   /environments/{environmentId}/payments/token:
-    get:
+    post:
       description: Get an anonymous payment token for a customer
       operationId: generateClientToken
       parameters:
@@ -998,13 +998,12 @@ paths:
         schema:
           type: string
         style: simple
-      - explode: true
-        in: query
-        name: customerId
-        required: false
-        schema:
-          type: string
-        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateTokenRequest'
+        required: true
       responses:
         "200":
           content:
@@ -1021,6 +1020,7 @@ paths:
       summary: Anonymous payment token
       tags:
       - Payments
+      x-contentType: application/json
       x-accepts: '*/*'
   /environments/{environmentId}/currencies/{abbreviation}:
     delete:
@@ -3541,6 +3541,22 @@ components:
         email:
           type: string
       type: object
+    GenerateTokenRequest:
+      example:
+        tokenRequestData:
+          braintree:
+            customerId: customerId
+          bitpay:
+            facade: merchant
+            id: TfALHhgU5duM4PAtFWgNqNgYZkLhfwnf2Tj
+            label: IVI
+            pairingCode: pairingCode
+      properties:
+        tokenRequestData:
+          $ref: '#/components/schemas/TokenRequestData'
+      required:
+      - tokenRequestData
+      type: object
     BurnItemRequest:
       example:
         gameInventoryId: gameInventoryId
@@ -3554,6 +3570,9 @@ components:
       example:
         requiredHeaders:
           key: requiredHeaders
+        activeActions:
+        - failed
+        - failed
         name: name
         description: description
         disabled: false
@@ -3565,6 +3584,24 @@ components:
           additionalProperties:
             type: string
           type: object
+        activeActions:
+          items:
+            enum:
+            - failed
+            - all
+            - create
+            - issue
+            - transfer_nft
+            - burn_nft
+            - new_account
+            - buy_nft
+            - list_sale_nft
+            - close_sale
+            - sold
+            - UNRECOGNIZED
+            type: string
+          type: array
+          uniqueItems: true
         name:
           type: string
         description:
@@ -3969,6 +4006,9 @@ components:
       example:
         requiredHeaders:
           key: requiredHeaders
+        activeActions:
+        - failed
+        - failed
         name: name
         description: description
         disabled: false
@@ -3980,6 +4020,24 @@ components:
           additionalProperties:
             type: string
           type: object
+        activeActions:
+          items:
+            enum:
+            - failed
+            - all
+            - create
+            - issue
+            - transfer_nft
+            - burn_nft
+            - new_account
+            - buy_nft
+            - list_sale_nft
+            - close_sale
+            - sold
+            - UNRECOGNIZED
+            type: string
+          type: array
+          uniqueItems: true
         name:
           type: string
         description:
@@ -4418,12 +4476,39 @@ components:
         cityRate:
           type: number
       type: object
+    BitPayTokenRequestData:
+      example:
+        facade: merchant
+        id: TfALHhgU5duM4PAtFWgNqNgYZkLhfwnf2Tj
+        label: IVI
+        pairingCode: pairingCode
+      properties:
+        facade:
+          example: merchant
+          type: string
+        id:
+          example: TfALHhgU5duM4PAtFWgNqNgYZkLhfwnf2Tj
+          type: string
+        label:
+          example: IVI
+          type: string
+        pairingCode:
+          type: string
+      required:
+      - facade
+      - id
+      type: object
     ClientPaymentTokenDto:
       example:
-        token: token
+        braintree:
+          token: token
+        bitpay:
+          data: data
       properties:
-        token:
-          type: string
+        braintree:
+          $ref: '#/components/schemas/BraintreeTokenDto'
+        bitpay:
+          $ref: '#/components/schemas/BitPayTokenDto'
       type: object
     OrderDto:
       example:
@@ -4468,10 +4553,18 @@ components:
           enum:
           - BRAINTREE
           - COINBASE
+          - BITPAY
           - UNRECOGNIZED
           type: string
         paymentProviderData:
           $ref: '#/components/schemas/PaymentProviderData'
+      type: object
+    BraintreeTokenDto:
+      example:
+        token: token
+      properties:
+        token:
+          type: string
       type: object
     MythicalUserDto:
       example:
@@ -4750,6 +4843,13 @@ components:
           format: int64
           type: integer
       type: object
+    BraintreeTokenRequestData:
+      example:
+        customerId: customerId
+      properties:
+        customerId:
+          type: string
+      type: object
     CreateOrderRequest:
       example:
         itemTypes:
@@ -4801,6 +4901,7 @@ components:
           enum:
           - BRAINTREE
           - COINBASE
+          - BITPAY
           - UNRECOGNIZED
           example: BRAINTREE
           type: string
@@ -5271,6 +5372,7 @@ components:
           enum:
           - BRAINTREE
           - COINBASE
+          - BITPAY
           - UNRECOGNIZED
           example: BRAINTREE
           type: string
@@ -5284,11 +5386,21 @@ components:
       - orderId
       - paymentProviderId
       type: object
+    BitPayTokenDto:
+      example:
+        data: data
+      properties:
+        data:
+          type: string
+      type: object
     WebhookDto:
       example:
         createdTimestamp: 0
         description: description
         url: url
+        actionTypes:
+        - failed
+        - failed
         requiredQueryParams:
           key: requiredQueryParams
         lastFailureReason: lastFailureReason
@@ -5309,6 +5421,23 @@ components:
           type: string
         url:
           type: string
+        actionTypes:
+          items:
+            enum:
+            - failed
+            - all
+            - create
+            - issue
+            - transfer_nft
+            - burn_nft
+            - new_account
+            - buy_nft
+            - list_sale_nft
+            - close_sale
+            - sold
+            - UNRECOGNIZED
+            type: string
+          type: array
         requiredQueryParams:
           additionalProperties:
             type: string
@@ -5446,6 +5575,21 @@ components:
             type: array
             uniqueItems: true
           type: object
+      type: object
+    TokenRequestData:
+      example:
+        braintree:
+          customerId: customerId
+        bitpay:
+          facade: merchant
+          id: TfALHhgU5duM4PAtFWgNqNgYZkLhfwnf2Tj
+          label: IVI
+          pairingCode: pairingCode
+      properties:
+        braintree:
+          $ref: '#/components/schemas/BraintreeTokenRequestData'
+        bitpay:
+          $ref: '#/components/schemas/BitPayTokenRequestData'
       type: object
     FinalizePaymentRequest:
       example:

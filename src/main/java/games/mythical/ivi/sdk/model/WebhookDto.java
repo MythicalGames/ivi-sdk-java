@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   WebhookDto.JSON_PROPERTY_CREATED_TIMESTAMP,
   WebhookDto.JSON_PROPERTY_DESCRIPTION,
   WebhookDto.JSON_PROPERTY_URL,
+  WebhookDto.JSON_PROPERTY_ACTION_TYPES,
   WebhookDto.JSON_PROPERTY_REQUIRED_QUERY_PARAMS,
   WebhookDto.JSON_PROPERTY_LAST_FAILURE_REASON,
   WebhookDto.JSON_PROPERTY_ENVIRONMENT_ID,
@@ -56,6 +58,64 @@ public class WebhookDto {
 
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
+
+  /**
+   * Gets or Sets actionTypes
+   */
+  public enum ActionTypesEnum {
+    FAILED("failed"),
+    
+    ALL("all"),
+    
+    CREATE("create"),
+    
+    ISSUE("issue"),
+    
+    TRANSFER_NFT("transfer_nft"),
+    
+    BURN_NFT("burn_nft"),
+    
+    NEW_ACCOUNT("new_account"),
+    
+    BUY_NFT("buy_nft"),
+    
+    LIST_SALE_NFT("list_sale_nft"),
+    
+    CLOSE_SALE("close_sale"),
+    
+    SOLD("sold"),
+    
+    UNRECOGNIZED("UNRECOGNIZED");
+
+    private String value;
+
+    ActionTypesEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ActionTypesEnum fromValue(String value) {
+      for (ActionTypesEnum b : ActionTypesEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_ACTION_TYPES = "actionTypes";
+  private List<ActionTypesEnum> actionTypes = null;
 
   public static final String JSON_PROPERTY_REQUIRED_QUERY_PARAMS = "requiredQueryParams";
   private Map<String, String> requiredQueryParams = null;
@@ -160,6 +220,39 @@ public class WebhookDto {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+
+  public WebhookDto actionTypes(List<ActionTypesEnum> actionTypes) {
+    
+    this.actionTypes = actionTypes;
+    return this;
+  }
+
+  public WebhookDto addActionTypesItem(ActionTypesEnum actionTypesItem) {
+    if (this.actionTypes == null) {
+      this.actionTypes = new ArrayList<>();
+    }
+    this.actionTypes.add(actionTypesItem);
+    return this;
+  }
+
+   /**
+   * Get actionTypes
+   * @return actionTypes
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ACTION_TYPES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ActionTypesEnum> getActionTypes() {
+    return actionTypes;
+  }
+
+
+  public void setActionTypes(List<ActionTypesEnum> actionTypes) {
+    this.actionTypes = actionTypes;
   }
 
 
@@ -441,6 +534,7 @@ public class WebhookDto {
     return Objects.equals(this.createdTimestamp, webhookDto.createdTimestamp) &&
         Objects.equals(this.description, webhookDto.description) &&
         Objects.equals(this.url, webhookDto.url) &&
+        Objects.equals(this.actionTypes, webhookDto.actionTypes) &&
         Objects.equals(this.requiredQueryParams, webhookDto.requiredQueryParams) &&
         Objects.equals(this.lastFailureReason, webhookDto.lastFailureReason) &&
         Objects.equals(this.environmentId, webhookDto.environmentId) &&
@@ -455,7 +549,7 @@ public class WebhookDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdTimestamp, description, url, requiredQueryParams, lastFailureReason, environmentId, requiredHeaders, createdBy, name, disabled, lastFailureTimestamp, id, failureCount);
+    return Objects.hash(createdTimestamp, description, url, actionTypes, requiredQueryParams, lastFailureReason, environmentId, requiredHeaders, createdBy, name, disabled, lastFailureTimestamp, id, failureCount);
   }
 
 
@@ -466,6 +560,7 @@ public class WebhookDto {
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    actionTypes: ").append(toIndentedString(actionTypes)).append("\n");
     sb.append("    requiredQueryParams: ").append(toIndentedString(requiredQueryParams)).append("\n");
     sb.append("    lastFailureReason: ").append(toIndentedString(lastFailureReason)).append("\n");
     sb.append("    environmentId: ").append(toIndentedString(environmentId)).append("\n");

@@ -1,6 +1,6 @@
 # PaymentsApi
 
-All URIs are relative to *https://portal.iviengine.com/api*
+All URIs are relative to *https://api.iviengine.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**createPaymentMethod**](PaymentsApi.md#createPaymentMethod) | **POST** /environments/{environmentId}/payments/customer/methods | Create Payment Method
 [**deleteCustomer**](PaymentsApi.md#deleteCustomer) | **DELETE** /environments/{environmentId}/payments/customer/{customerId} | Delete Customer
 [**deletePaymentMethod**](PaymentsApi.md#deletePaymentMethod) | **DELETE** /environments/{environmentId}/payments/customer/methods/{methodToken} | Delete a Payment Method
-[**generateClientToken**](PaymentsApi.md#generateClientToken) | **GET** /environments/{environmentId}/payments/token | Anonymous payment token
+[**generateClientToken**](PaymentsApi.md#generateClientToken) | **POST** /environments/{environmentId}/payments/token | Anonymous payment token
 [**getCustomer**](PaymentsApi.md#getCustomer) | **GET** /environments/{environmentId}/payments/customer | Get Customer
 [**getPaymentMethod**](PaymentsApi.md#getPaymentMethod) | **GET** /environments/{environmentId}/payments/customer/methods | Get Payment Method
 [**getSalesTaxInfo**](PaymentsApi.md#getSalesTaxInfo) | **GET** /environments/{environmentId}/payments/tax/rate | Get sales tax- rate and amount based on country, state, zip code and sales amount.
@@ -41,7 +41,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -119,7 +119,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -194,7 +194,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -269,7 +269,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -343,7 +343,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -397,7 +397,7 @@ null (empty response body)
 
 ## generateClientToken
 
-> ClientPaymentTokenDto generateClientToken(environmentId, customerId)
+> ClientPaymentTokenDto generateClientToken(environmentId, generateTokenRequest)
 
 Anonymous payment token
 
@@ -417,7 +417,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -427,9 +427,9 @@ public class Example {
 
         PaymentsApi apiInstance = new PaymentsApi(defaultClient);
         String environmentId = "environmentId_example"; // String | 
-        String customerId = "customerId_example"; // String | 
+        GenerateTokenRequest generateTokenRequest = new GenerateTokenRequest(); // GenerateTokenRequest | 
         try {
-            ClientPaymentTokenDto result = apiInstance.generateClientToken(environmentId, customerId);
+            ClientPaymentTokenDto result = apiInstance.generateClientToken(environmentId, generateTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PaymentsApi#generateClientToken");
@@ -448,7 +448,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **environmentId** | **String**|  |
- **customerId** | **String**|  | [optional]
+ **generateTokenRequest** | [**GenerateTokenRequest**](GenerateTokenRequest.md)|  |
 
 ### Return type
 
@@ -460,7 +460,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: */*
 
 ### HTTP response details
@@ -492,7 +492,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -567,7 +567,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -642,7 +642,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -723,7 +723,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -798,7 +798,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
@@ -873,7 +873,7 @@ import games.mythical.ivi.sdk.api.PaymentsApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://portal.iviengine.com/api");
+        defaultClient.setBasePath("https://api.iviengine.com");
         
         // Configure API key authorization: api_key
         ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
