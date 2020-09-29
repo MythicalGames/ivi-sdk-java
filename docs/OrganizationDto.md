@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **createdTimestamp** | **String** |  |  [optional]
 **id** | **String** |  |  [optional]
 **ownerId** | **String** |  |  [optional]
-**environmentLimits** | **String** |  |  [optional]
+**environmentLimits** | **Map&lt;String, Integer&gt;** |  |  [optional]
 
 
 

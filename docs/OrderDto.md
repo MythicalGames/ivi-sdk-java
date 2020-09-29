@@ -6,18 +6,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**itemTypes** | **String** |  |  [optional]
+**itemTypes** | [**List&lt;TokenCategory&gt;**](TokenCategory.md) |  |  [optional]
 **total** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
-**metadata** | **String** |  |  [optional]
+**metadata** | **Map&lt;String, Object&gt;** |  |  [optional]
 **environmentId** | **String** |  |  [optional]
-**address** | **String** |  |  [optional]
+**address** | [**PostalAddress**](PostalAddress.md) |  |  [optional]
 **orderId** | **String** |  |  [optional]
 **createdBy** | **String** |  |  [optional]
 **createdTimestamp** | **String** |  |  [optional]
 **requestIp** | **String** |  |  [optional]
 **tax** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
 **paymentProviderId** | [**PaymentProviderIdEnum**](#PaymentProviderIdEnum) |  |  [optional]
-**paymentProviderData** | [**PaymentProviderData**](PaymentProviderData.md) |  |  [optional]
+**paymentProviderData** | [**PaymentProviderOrderDto**](PaymentProviderOrderDto.md) |  |  [optional]
 
 
 

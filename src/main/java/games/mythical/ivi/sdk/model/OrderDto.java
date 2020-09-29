@@ -20,10 +20,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import games.mythical.ivi.sdk.model.PaymentProviderData;
+import games.mythical.ivi.sdk.model.PaymentProviderOrderDto;
+import games.mythical.ivi.sdk.model.PostalAddress;
+import games.mythical.ivi.sdk.model.TokenCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -47,19 +53,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class OrderDto {
   public static final String JSON_PROPERTY_ITEM_TYPES = "itemTypes";
-  private String itemTypes;
+  private List<TokenCategory> itemTypes = null;
 
   public static final String JSON_PROPERTY_TOTAL = "total";
   private BigDecimal total;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  private String metadata;
+  private Map<String, Object> metadata = null;
 
   public static final String JSON_PROPERTY_ENVIRONMENT_ID = "environmentId";
   private String environmentId;
 
   public static final String JSON_PROPERTY_ADDRESS = "address";
-  private String address;
+  private PostalAddress address;
 
   public static final String JSON_PROPERTY_ORDER_ID = "orderId";
   private String orderId;
@@ -119,12 +125,20 @@ public class OrderDto {
   private PaymentProviderIdEnum paymentProviderId;
 
   public static final String JSON_PROPERTY_PAYMENT_PROVIDER_DATA = "paymentProviderData";
-  private PaymentProviderData paymentProviderData;
+  private PaymentProviderOrderDto paymentProviderData;
 
 
-  public OrderDto itemTypes(String itemTypes) {
+  public OrderDto itemTypes(List<TokenCategory> itemTypes) {
     
     this.itemTypes = itemTypes;
+    return this;
+  }
+
+  public OrderDto addItemTypesItem(TokenCategory itemTypesItem) {
+    if (this.itemTypes == null) {
+      this.itemTypes = new ArrayList<>();
+    }
+    this.itemTypes.add(itemTypesItem);
     return this;
   }
 
@@ -137,12 +151,12 @@ public class OrderDto {
   @JsonProperty(JSON_PROPERTY_ITEM_TYPES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getItemTypes() {
+  public List<TokenCategory> getItemTypes() {
     return itemTypes;
   }
 
 
-  public void setItemTypes(String itemTypes) {
+  public void setItemTypes(List<TokenCategory> itemTypes) {
     this.itemTypes = itemTypes;
   }
 
@@ -172,9 +186,17 @@ public class OrderDto {
   }
 
 
-  public OrderDto metadata(String metadata) {
+  public OrderDto metadata(Map<String, Object> metadata) {
     
     this.metadata = metadata;
+    return this;
+  }
+
+  public OrderDto putMetadataItem(String key, Object metadataItem) {
+    if (this.metadata == null) {
+      this.metadata = new HashMap<>();
+    }
+    this.metadata.put(key, metadataItem);
     return this;
   }
 
@@ -187,12 +209,12 @@ public class OrderDto {
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 
 
-  public void setMetadata(String metadata) {
+  public void setMetadata(Map<String, Object> metadata) {
     this.metadata = metadata;
   }
 
@@ -222,7 +244,7 @@ public class OrderDto {
   }
 
 
-  public OrderDto address(String address) {
+  public OrderDto address(PostalAddress address) {
     
     this.address = address;
     return this;
@@ -237,12 +259,12 @@ public class OrderDto {
   @JsonProperty(JSON_PROPERTY_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAddress() {
+  public PostalAddress getAddress() {
     return address;
   }
 
 
-  public void setAddress(String address) {
+  public void setAddress(PostalAddress address) {
     this.address = address;
   }
 
@@ -397,7 +419,7 @@ public class OrderDto {
   }
 
 
-  public OrderDto paymentProviderData(PaymentProviderData paymentProviderData) {
+  public OrderDto paymentProviderData(PaymentProviderOrderDto paymentProviderData) {
     
     this.paymentProviderData = paymentProviderData;
     return this;
@@ -412,12 +434,12 @@ public class OrderDto {
   @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PaymentProviderData getPaymentProviderData() {
+  public PaymentProviderOrderDto getPaymentProviderData() {
     return paymentProviderData;
   }
 
 
-  public void setPaymentProviderData(PaymentProviderData paymentProviderData) {
+  public void setPaymentProviderData(PaymentProviderOrderDto paymentProviderData) {
     this.paymentProviderData = paymentProviderData;
   }
 

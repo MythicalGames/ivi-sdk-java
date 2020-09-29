@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dgoodsMetadata** | **String** |  |  [optional]
+**dgoodsMetadata** | **Map&lt;String, Object&gt;** |  |  [optional]
 **imageLargeUrl** | **String** |  |  [optional]
 **createdTimestamp** | **Long** |  |  [optional]
 **tokenName** | **String** |  |  [optional]

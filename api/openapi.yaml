@@ -3541,6 +3541,195 @@ components:
         email:
           type: string
       type: object
+    JsonObject:
+      example:
+        asByte: asByte
+        asBigInteger: 1
+        jsonPrimitive: true
+        asCharacter: asCharacter
+        asNumber: 5.962133916683182
+        asBigDecimal: 5.637376656633329
+        jsonNull: true
+        asFloat: 2.302136
+        asLong: 7
+        asInt: 9
+        asJsonPrimitive:
+          asByte: asByte
+          asBigInteger: 3
+          asCharacter: asCharacter
+          string: true
+          jsonPrimitive: true
+          asNumber: 2.027123023002322
+          asBigDecimal: 4.145608029883936
+          jsonNull: true
+          asFloat: 7.386282
+          asLong: 1
+          asInt: 1
+          number: true
+          boolean: true
+          asJsonNull:
+            asByte: asByte
+            asBigInteger: 1
+            jsonPrimitive: true
+            asCharacter: asCharacter
+            asNumber: 6.84685269835264
+            asBigDecimal: 7.457744773683766
+            jsonNull: true
+            asFloat: 1.1730742
+            asLong: 4
+            asInt: 5
+            asShort: 9
+            asDouble: 9.369310271410669
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asShort: 6
+          asDouble: 6.878052220127876
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asJsonNull:
+          asByte: asByte
+          asBigInteger: 1
+          jsonPrimitive: true
+          asCharacter: asCharacter
+          asNumber: 6.84685269835264
+          asBigDecimal: 7.457744773683766
+          jsonNull: true
+          asFloat: 1.1730742
+          asLong: 4
+          asInt: 5
+          asShort: 9
+          asDouble: 9.369310271410669
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asShort: 5
+        asDouble: 6.704019297950036
+        asJsonArray:
+          asByte: asByte
+          asBigInteger: 6
+          asCharacter: asCharacter
+          jsonPrimitive: true
+          asNumber: 8.762042012749001
+          asBigDecimal: 9.018348186070783
+          jsonNull: true
+          asFloat: 6.4384236
+          asLong: 3
+          asInt: 6
+          asShort: 1
+          asDouble: 2.8841621266687802
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asString: asString
+        jsonObject: true
+        jsonArray: true
+        asBoolean: true
+      properties:
+        asByte:
+          format: byte
+          type: string
+        asJsonObject:
+          $ref: '#/components/schemas/JsonObject'
+        asBigInteger:
+          type: integer
+        jsonPrimitive:
+          type: boolean
+        asCharacter:
+          deprecated: true
+          type: string
+        asNumber:
+          type: number
+        asBigDecimal:
+          type: number
+        jsonNull:
+          type: boolean
+        asFloat:
+          format: float
+          type: number
+        asLong:
+          format: int64
+          type: integer
+        asInt:
+          format: int32
+          type: integer
+        asJsonPrimitive:
+          $ref: '#/components/schemas/JsonPrimitive'
+        asJsonNull:
+          $ref: '#/components/schemas/JsonNull'
+        asShort:
+          format: int32
+          type: integer
+        asDouble:
+          format: double
+          type: number
+        asJsonArray:
+          $ref: '#/components/schemas/JsonArray'
+        asString:
+          type: string
+        jsonObject:
+          type: boolean
+        jsonArray:
+          type: boolean
+        asBoolean:
+          type: boolean
+      type: object
     GenerateTokenRequest:
       example:
         tokenRequestData:
@@ -3565,6 +3754,90 @@ components:
           type: string
       required:
       - gameInventoryId
+      type: object
+    JsonNull:
+      example:
+        asByte: asByte
+        asBigInteger: 1
+        jsonPrimitive: true
+        asCharacter: asCharacter
+        asNumber: 6.84685269835264
+        asBigDecimal: 7.457744773683766
+        jsonNull: true
+        asFloat: 1.1730742
+        asLong: 4
+        asInt: 5
+        asShort: 9
+        asDouble: 9.369310271410669
+        asJsonArray:
+          asByte: asByte
+          asBigInteger: 6
+          asCharacter: asCharacter
+          jsonPrimitive: true
+          asNumber: 8.762042012749001
+          asBigDecimal: 9.018348186070783
+          jsonNull: true
+          asFloat: 6.4384236
+          asLong: 3
+          asInt: 6
+          asShort: 1
+          asDouble: 2.8841621266687802
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asString: asString
+        jsonObject: true
+        jsonArray: true
+        asBoolean: true
+      properties:
+        asByte:
+          format: byte
+          type: string
+        asJsonObject:
+          $ref: '#/components/schemas/JsonObject'
+        asBigInteger:
+          type: integer
+        jsonPrimitive:
+          type: boolean
+        asCharacter:
+          deprecated: true
+          type: string
+        asNumber:
+          type: number
+        asBigDecimal:
+          type: number
+        jsonNull:
+          type: boolean
+        asFloat:
+          format: float
+          type: number
+        asLong:
+          format: int64
+          type: integer
+        asInt:
+          format: int32
+          type: integer
+        asJsonPrimitive:
+          $ref: '#/components/schemas/JsonPrimitive'
+        asJsonNull:
+          $ref: '#/components/schemas/JsonNull'
+        asShort:
+          format: int32
+          type: integer
+        asDouble:
+          format: double
+          type: number
+        asJsonArray:
+          $ref: '#/components/schemas/JsonArray'
+        asString:
+          type: string
+        jsonObject:
+          type: boolean
+        jsonArray:
+          type: boolean
+        asBoolean:
+          type: boolean
       type: object
     UpdateWebhookRequest:
       example:
@@ -3728,13 +4001,6 @@ components:
         toCountry:
           type: string
       type: object
-    BraintreeData:
-      example:
-        braintreeClientToken: braintreeClientToken
-      properties:
-        braintreeClientToken:
-          type: string
-      type: object
     ListingDto:
       example:
         saleAmount: 0.8008281904610115
@@ -3873,12 +4139,17 @@ components:
       - roleId
       - userEmail
       type: object
-    BraintreePayment:
+    PaymentRequestData:
       example:
-        braintreePaymentNonce: braintreePaymentNonce
+        braintree:
+          braintreePaymentNonce: braintreePaymentNonce
+        coinbase:
+          coinbaseTransactionId: coinbaseTransactionId
       properties:
-        braintreePaymentNonce:
-          type: string
+        braintree:
+          $ref: '#/components/schemas/BraintreePaymentRequestData'
+        coinbase:
+          $ref: '#/components/schemas/CoinbasePaymentRequestData'
       type: object
     CreateItemRequest:
       example:
@@ -3924,17 +4195,12 @@ components:
       - tokenName
       - transferable
       type: object
-    PaymentData:
+    BraintreeOrderDto:
       example:
-        braintree:
-          braintreePaymentNonce: braintreePaymentNonce
-        coinbase:
-          coinbaseTransactionId: coinbaseTransactionId
+        braintreeClientToken: braintreeClientToken
       properties:
-        braintree:
-          $ref: '#/components/schemas/BraintreePayment'
-        coinbase:
-          $ref: '#/components/schemas/CoinbasePayment'
+        braintreeClientToken:
+          type: string
       type: object
     UpdatePartnerRequest:
       example:
@@ -4129,7 +4395,8 @@ components:
         createdTimestamp: createdTimestamp
         id: id
         ownerId: ownerId
-        environmentLimits: environmentLimits
+        environmentLimits:
+          key: 0
       properties:
         createdBy:
           type: string
@@ -4142,7 +4409,10 @@ components:
         ownerId:
           type: string
         environmentLimits:
-          type: string
+          additionalProperties:
+            format: int32
+            type: integer
+          type: object
       type: object
     ElasticDgood:
       example:
@@ -4360,18 +4630,6 @@ components:
             uniqueItems: true
           type: object
       type: object
-    PaymentProviderData:
-      example:
-        braintree:
-          braintreeClientToken: braintreeClientToken
-        coinbase:
-          coinbaseTransactionId: coinbaseTransactionId
-      properties:
-        braintree:
-          $ref: '#/components/schemas/BraintreeData'
-        coinbase:
-          $ref: '#/components/schemas/CoinbaseData'
-      type: object
     CreateAgreementRequest:
       example:
         itemTypeNames:
@@ -4476,6 +4734,290 @@ components:
         cityRate:
           type: number
       type: object
+    BitPayOrderDto:
+      example:
+        invoice:
+          asByte: asByte
+          asJsonObject:
+            asByte: asByte
+            asBigInteger: 1
+            jsonPrimitive: true
+            asCharacter: asCharacter
+            asNumber: 5.962133916683182
+            asBigDecimal: 5.637376656633329
+            jsonNull: true
+            asFloat: 2.302136
+            asLong: 7
+            asInt: 9
+            asJsonPrimitive:
+              asByte: asByte
+              asBigInteger: 3
+              asCharacter: asCharacter
+              string: true
+              jsonPrimitive: true
+              asNumber: 2.027123023002322
+              asBigDecimal: 4.145608029883936
+              jsonNull: true
+              asFloat: 7.386282
+              asLong: 1
+              asInt: 1
+              number: true
+              boolean: true
+              asJsonNull:
+                asByte: asByte
+                asBigInteger: 1
+                jsonPrimitive: true
+                asCharacter: asCharacter
+                asNumber: 6.84685269835264
+                asBigDecimal: 7.457744773683766
+                jsonNull: true
+                asFloat: 1.1730742
+                asLong: 4
+                asInt: 5
+                asShort: 9
+                asDouble: 9.369310271410669
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asShort: 6
+              asDouble: 6.878052220127876
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asJsonNull:
+              asByte: asByte
+              asBigInteger: 1
+              jsonPrimitive: true
+              asCharacter: asCharacter
+              asNumber: 6.84685269835264
+              asBigDecimal: 7.457744773683766
+              jsonNull: true
+              asFloat: 1.1730742
+              asLong: 4
+              asInt: 5
+              asShort: 9
+              asDouble: 9.369310271410669
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asShort: 5
+            asDouble: 6.704019297950036
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asBigInteger: 3
+          jsonPrimitive: true
+          asCharacter: asCharacter
+          asNumber: 3.0937452626664474
+          asBigDecimal: 7.143538047012306
+          jsonNull: true
+          asFloat: 0.8851375
+          asLong: 7
+          asInt: 6
+          asJsonPrimitive:
+            asByte: asByte
+            asBigInteger: 3
+            asCharacter: asCharacter
+            string: true
+            jsonPrimitive: true
+            asNumber: 2.027123023002322
+            asBigDecimal: 4.145608029883936
+            jsonNull: true
+            asFloat: 7.386282
+            asLong: 1
+            asInt: 1
+            number: true
+            boolean: true
+            asJsonNull:
+              asByte: asByte
+              asBigInteger: 1
+              jsonPrimitive: true
+              asCharacter: asCharacter
+              asNumber: 6.84685269835264
+              asBigDecimal: 7.457744773683766
+              jsonNull: true
+              asFloat: 1.1730742
+              asLong: 4
+              asInt: 5
+              asShort: 9
+              asDouble: 9.369310271410669
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asShort: 6
+            asDouble: 6.878052220127876
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asJsonNull:
+            asByte: asByte
+            asBigInteger: 1
+            jsonPrimitive: true
+            asCharacter: asCharacter
+            asNumber: 6.84685269835264
+            asBigDecimal: 7.457744773683766
+            jsonNull: true
+            asFloat: 1.1730742
+            asLong: 4
+            asInt: 5
+            asShort: 9
+            asDouble: 9.369310271410669
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asShort: 0
+          asDouble: 4.652396432933246
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+      properties:
+        invoice:
+          $ref: '#/components/schemas/JsonElement'
+      type: object
     BitPayTokenRequestData:
       example:
         facade: merchant
@@ -4512,11 +5054,25 @@ components:
       type: object
     OrderDto:
       example:
-        itemTypes: itemTypes
+        itemTypes:
+        - - category: blanko
+            token: seafarer.da
+        - - category: blanko
+            token: seafarer.da
         total: 0.8008281904610115
-        metadata: metadata
+        metadata:
+          key: '{}'
         environmentId: environmentId
-        address: address
+        address:
+          firstName: firstName
+          lastName: lastName
+          countryIsoAlpha2: countryIsoAlpha2
+          city: city
+          postalCode: postalCode
+          addressLine1: addressLine1
+          addressLine2: addressLine2
+          state: state
+          countryName: countryName
         orderId: orderId
         createdBy: createdBy
         createdTimestamp: createdTimestamp
@@ -4528,17 +5084,300 @@ components:
             braintreeClientToken: braintreeClientToken
           coinbase:
             coinbaseTransactionId: coinbaseTransactionId
+          bitpay:
+            invoice:
+              asByte: asByte
+              asJsonObject:
+                asByte: asByte
+                asBigInteger: 1
+                jsonPrimitive: true
+                asCharacter: asCharacter
+                asNumber: 5.962133916683182
+                asBigDecimal: 5.637376656633329
+                jsonNull: true
+                asFloat: 2.302136
+                asLong: 7
+                asInt: 9
+                asJsonPrimitive:
+                  asByte: asByte
+                  asBigInteger: 3
+                  asCharacter: asCharacter
+                  string: true
+                  jsonPrimitive: true
+                  asNumber: 2.027123023002322
+                  asBigDecimal: 4.145608029883936
+                  jsonNull: true
+                  asFloat: 7.386282
+                  asLong: 1
+                  asInt: 1
+                  number: true
+                  boolean: true
+                  asJsonNull:
+                    asByte: asByte
+                    asBigInteger: 1
+                    jsonPrimitive: true
+                    asCharacter: asCharacter
+                    asNumber: 6.84685269835264
+                    asBigDecimal: 7.457744773683766
+                    jsonNull: true
+                    asFloat: 1.1730742
+                    asLong: 4
+                    asInt: 5
+                    asShort: 9
+                    asDouble: 9.369310271410669
+                    asJsonArray:
+                      asByte: asByte
+                      asBigInteger: 6
+                      asCharacter: asCharacter
+                      jsonPrimitive: true
+                      asNumber: 8.762042012749001
+                      asBigDecimal: 9.018348186070783
+                      jsonNull: true
+                      asFloat: 6.4384236
+                      asLong: 3
+                      asInt: 6
+                      asShort: 1
+                      asDouble: 2.8841621266687802
+                      asString: asString
+                      jsonObject: true
+                      jsonArray: true
+                      asBoolean: true
+                    asString: asString
+                    jsonObject: true
+                    jsonArray: true
+                    asBoolean: true
+                  asShort: 6
+                  asDouble: 6.878052220127876
+                  asJsonArray:
+                    asByte: asByte
+                    asBigInteger: 6
+                    asCharacter: asCharacter
+                    jsonPrimitive: true
+                    asNumber: 8.762042012749001
+                    asBigDecimal: 9.018348186070783
+                    jsonNull: true
+                    asFloat: 6.4384236
+                    asLong: 3
+                    asInt: 6
+                    asShort: 1
+                    asDouble: 2.8841621266687802
+                    asString: asString
+                    jsonObject: true
+                    jsonArray: true
+                    asBoolean: true
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asJsonNull:
+                  asByte: asByte
+                  asBigInteger: 1
+                  jsonPrimitive: true
+                  asCharacter: asCharacter
+                  asNumber: 6.84685269835264
+                  asBigDecimal: 7.457744773683766
+                  jsonNull: true
+                  asFloat: 1.1730742
+                  asLong: 4
+                  asInt: 5
+                  asShort: 9
+                  asDouble: 9.369310271410669
+                  asJsonArray:
+                    asByte: asByte
+                    asBigInteger: 6
+                    asCharacter: asCharacter
+                    jsonPrimitive: true
+                    asNumber: 8.762042012749001
+                    asBigDecimal: 9.018348186070783
+                    jsonNull: true
+                    asFloat: 6.4384236
+                    asLong: 3
+                    asInt: 6
+                    asShort: 1
+                    asDouble: 2.8841621266687802
+                    asString: asString
+                    jsonObject: true
+                    jsonArray: true
+                    asBoolean: true
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asShort: 5
+                asDouble: 6.704019297950036
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asBigInteger: 3
+              jsonPrimitive: true
+              asCharacter: asCharacter
+              asNumber: 3.0937452626664474
+              asBigDecimal: 7.143538047012306
+              jsonNull: true
+              asFloat: 0.8851375
+              asLong: 7
+              asInt: 6
+              asJsonPrimitive:
+                asByte: asByte
+                asBigInteger: 3
+                asCharacter: asCharacter
+                string: true
+                jsonPrimitive: true
+                asNumber: 2.027123023002322
+                asBigDecimal: 4.145608029883936
+                jsonNull: true
+                asFloat: 7.386282
+                asLong: 1
+                asInt: 1
+                number: true
+                boolean: true
+                asJsonNull:
+                  asByte: asByte
+                  asBigInteger: 1
+                  jsonPrimitive: true
+                  asCharacter: asCharacter
+                  asNumber: 6.84685269835264
+                  asBigDecimal: 7.457744773683766
+                  jsonNull: true
+                  asFloat: 1.1730742
+                  asLong: 4
+                  asInt: 5
+                  asShort: 9
+                  asDouble: 9.369310271410669
+                  asJsonArray:
+                    asByte: asByte
+                    asBigInteger: 6
+                    asCharacter: asCharacter
+                    jsonPrimitive: true
+                    asNumber: 8.762042012749001
+                    asBigDecimal: 9.018348186070783
+                    jsonNull: true
+                    asFloat: 6.4384236
+                    asLong: 3
+                    asInt: 6
+                    asShort: 1
+                    asDouble: 2.8841621266687802
+                    asString: asString
+                    jsonObject: true
+                    jsonArray: true
+                    asBoolean: true
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asShort: 6
+                asDouble: 6.878052220127876
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asJsonNull:
+                asByte: asByte
+                asBigInteger: 1
+                jsonPrimitive: true
+                asCharacter: asCharacter
+                asNumber: 6.84685269835264
+                asBigDecimal: 7.457744773683766
+                jsonNull: true
+                asFloat: 1.1730742
+                asLong: 4
+                asInt: 5
+                asShort: 9
+                asDouble: 9.369310271410669
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asShort: 0
+              asDouble: 4.652396432933246
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
       properties:
         itemTypes:
-          type: string
+          items:
+            $ref: '#/components/schemas/TokenCategory'
+          type: array
         total:
           type: number
         metadata:
-          type: string
+          additionalProperties:
+            type: object
+          type: object
         environmentId:
           type: string
         address:
-          type: string
+          $ref: '#/components/schemas/PostalAddress'
         orderId:
           type: string
         createdBy:
@@ -4557,7 +5396,7 @@ components:
           - UNRECOGNIZED
           type: string
         paymentProviderData:
-          $ref: '#/components/schemas/PaymentProviderData'
+          $ref: '#/components/schemas/PaymentProviderOrderDto'
       type: object
     BraintreeTokenDto:
       example:
@@ -4655,8 +5494,8 @@ components:
         createdBy: createdBy
         createdTimestamp: createdTimestamp
         name: name
-        baseConversion: 0.8008281904610115
         fiat: true
+        baseExchangeRate: 0.8008281904610115
         abbreviation: abbreviation
         baseCurrency: true
       properties:
@@ -4666,10 +5505,10 @@ components:
           type: string
         name:
           type: string
-        baseConversion:
-          type: number
         fiat:
           type: boolean
+        baseExchangeRate:
+          type: number
         abbreviation:
           type: string
         baseCurrency:
@@ -4718,10 +5557,12 @@ components:
       example:
         finalized: true
         environmentId: environmentId
-        data: data
+        data:
+          key: '{}'
         createdBy: createdBy
         createdTimestamp: 0
-        action: action
+        action:
+          key: '{}'
         finalizedTimestamp: 6
         transactionId: transactionId
         dgoodId: 1
@@ -4731,14 +5572,18 @@ components:
         environmentId:
           type: string
         data:
-          type: string
+          additionalProperties:
+            type: object
+          type: object
         createdBy:
           type: string
         createdTimestamp:
           format: int64
           type: integer
         action:
-          type: string
+          additionalProperties:
+            type: object
+          type: object
         finalizedTimestamp:
           format: int64
           type: integer
@@ -4778,6 +5623,140 @@ components:
           type: number
         get_id:
           type: string
+      type: object
+    BraintreePaymentRequestData:
+      example:
+        braintreePaymentNonce: braintreePaymentNonce
+      properties:
+        braintreePaymentNonce:
+          type: string
+      type: object
+    JsonPrimitive:
+      example:
+        asByte: asByte
+        asBigInteger: 3
+        asCharacter: asCharacter
+        string: true
+        jsonPrimitive: true
+        asNumber: 2.027123023002322
+        asBigDecimal: 4.145608029883936
+        jsonNull: true
+        asFloat: 7.386282
+        asLong: 1
+        asInt: 1
+        number: true
+        boolean: true
+        asJsonNull:
+          asByte: asByte
+          asBigInteger: 1
+          jsonPrimitive: true
+          asCharacter: asCharacter
+          asNumber: 6.84685269835264
+          asBigDecimal: 7.457744773683766
+          jsonNull: true
+          asFloat: 1.1730742
+          asLong: 4
+          asInt: 5
+          asShort: 9
+          asDouble: 9.369310271410669
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asShort: 6
+        asDouble: 6.878052220127876
+        asJsonArray:
+          asByte: asByte
+          asBigInteger: 6
+          asCharacter: asCharacter
+          jsonPrimitive: true
+          asNumber: 8.762042012749001
+          asBigDecimal: 9.018348186070783
+          jsonNull: true
+          asFloat: 6.4384236
+          asLong: 3
+          asInt: 6
+          asShort: 1
+          asDouble: 2.8841621266687802
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asString: asString
+        jsonObject: true
+        jsonArray: true
+        asBoolean: true
+      properties:
+        asByte:
+          format: byte
+          type: string
+        asBigInteger:
+          type: integer
+        asJsonObject:
+          $ref: '#/components/schemas/JsonObject'
+        asCharacter:
+          deprecated: true
+          type: string
+        string:
+          type: boolean
+        jsonPrimitive:
+          type: boolean
+        asNumber:
+          type: number
+        asBigDecimal:
+          type: number
+        jsonNull:
+          type: boolean
+        asFloat:
+          format: float
+          type: number
+        asLong:
+          format: int64
+          type: integer
+        asInt:
+          format: int32
+          type: integer
+        number:
+          type: boolean
+        asJsonPrimitive:
+          $ref: '#/components/schemas/JsonPrimitive'
+        boolean:
+          type: boolean
+        asJsonNull:
+          $ref: '#/components/schemas/JsonNull'
+        asShort:
+          format: int32
+          type: integer
+        asDouble:
+          format: double
+          type: number
+        asJsonArray:
+          $ref: '#/components/schemas/JsonArray'
+        asString:
+          type: string
+        jsonObject:
+          type: boolean
+        jsonArray:
+          type: boolean
+        asBoolean:
+          type: boolean
       type: object
     IssuedItemDto:
       example:
@@ -4910,13 +5889,6 @@ components:
       - platformUserId
       - requestIp
       - subTotal
-      type: object
-    CoinbaseData:
-      example:
-        coinbaseTransactionId: coinbaseTransactionId
-      properties:
-        coinbaseTransactionId:
-          type: string
       type: object
     CreateEnvironmentInstanceRequest:
       example:
@@ -5141,16 +6113,10 @@ components:
       - extension
       - imageBase64
       type: object
-    CoinbasePayment:
-      example:
-        coinbaseTransactionId: coinbaseTransactionId
-      properties:
-        coinbaseTransactionId:
-          type: string
-      type: object
     MarketplaceItemDto:
       example:
-        dgoodsMetadata: dgoodsMetadata
+        dgoodsMetadata:
+          key: '{}'
         imageLargeUrl: imageLargeUrl
         createdTimestamp: 0
         tokenName: tokenName
@@ -5168,7 +6134,9 @@ components:
         dgoodId: 6
       properties:
         dgoodsMetadata:
-          type: string
+          additionalProperties:
+            type: object
+          type: object
         imageLargeUrl:
           type: string
         createdTimestamp:
@@ -5513,6 +6481,299 @@ components:
         deactivated:
           type: boolean
       type: object
+    PaymentProviderOrderDto:
+      example:
+        braintree:
+          braintreeClientToken: braintreeClientToken
+        coinbase:
+          coinbaseTransactionId: coinbaseTransactionId
+        bitpay:
+          invoice:
+            asByte: asByte
+            asJsonObject:
+              asByte: asByte
+              asBigInteger: 1
+              jsonPrimitive: true
+              asCharacter: asCharacter
+              asNumber: 5.962133916683182
+              asBigDecimal: 5.637376656633329
+              jsonNull: true
+              asFloat: 2.302136
+              asLong: 7
+              asInt: 9
+              asJsonPrimitive:
+                asByte: asByte
+                asBigInteger: 3
+                asCharacter: asCharacter
+                string: true
+                jsonPrimitive: true
+                asNumber: 2.027123023002322
+                asBigDecimal: 4.145608029883936
+                jsonNull: true
+                asFloat: 7.386282
+                asLong: 1
+                asInt: 1
+                number: true
+                boolean: true
+                asJsonNull:
+                  asByte: asByte
+                  asBigInteger: 1
+                  jsonPrimitive: true
+                  asCharacter: asCharacter
+                  asNumber: 6.84685269835264
+                  asBigDecimal: 7.457744773683766
+                  jsonNull: true
+                  asFloat: 1.1730742
+                  asLong: 4
+                  asInt: 5
+                  asShort: 9
+                  asDouble: 9.369310271410669
+                  asJsonArray:
+                    asByte: asByte
+                    asBigInteger: 6
+                    asCharacter: asCharacter
+                    jsonPrimitive: true
+                    asNumber: 8.762042012749001
+                    asBigDecimal: 9.018348186070783
+                    jsonNull: true
+                    asFloat: 6.4384236
+                    asLong: 3
+                    asInt: 6
+                    asShort: 1
+                    asDouble: 2.8841621266687802
+                    asString: asString
+                    jsonObject: true
+                    jsonArray: true
+                    asBoolean: true
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asShort: 6
+                asDouble: 6.878052220127876
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asJsonNull:
+                asByte: asByte
+                asBigInteger: 1
+                jsonPrimitive: true
+                asCharacter: asCharacter
+                asNumber: 6.84685269835264
+                asBigDecimal: 7.457744773683766
+                jsonNull: true
+                asFloat: 1.1730742
+                asLong: 4
+                asInt: 5
+                asShort: 9
+                asDouble: 9.369310271410669
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asShort: 5
+              asDouble: 6.704019297950036
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asBigInteger: 3
+            jsonPrimitive: true
+            asCharacter: asCharacter
+            asNumber: 3.0937452626664474
+            asBigDecimal: 7.143538047012306
+            jsonNull: true
+            asFloat: 0.8851375
+            asLong: 7
+            asInt: 6
+            asJsonPrimitive:
+              asByte: asByte
+              asBigInteger: 3
+              asCharacter: asCharacter
+              string: true
+              jsonPrimitive: true
+              asNumber: 2.027123023002322
+              asBigDecimal: 4.145608029883936
+              jsonNull: true
+              asFloat: 7.386282
+              asLong: 1
+              asInt: 1
+              number: true
+              boolean: true
+              asJsonNull:
+                asByte: asByte
+                asBigInteger: 1
+                jsonPrimitive: true
+                asCharacter: asCharacter
+                asNumber: 6.84685269835264
+                asBigDecimal: 7.457744773683766
+                jsonNull: true
+                asFloat: 1.1730742
+                asLong: 4
+                asInt: 5
+                asShort: 9
+                asDouble: 9.369310271410669
+                asJsonArray:
+                  asByte: asByte
+                  asBigInteger: 6
+                  asCharacter: asCharacter
+                  jsonPrimitive: true
+                  asNumber: 8.762042012749001
+                  asBigDecimal: 9.018348186070783
+                  jsonNull: true
+                  asFloat: 6.4384236
+                  asLong: 3
+                  asInt: 6
+                  asShort: 1
+                  asDouble: 2.8841621266687802
+                  asString: asString
+                  jsonObject: true
+                  jsonArray: true
+                  asBoolean: true
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asShort: 6
+              asDouble: 6.878052220127876
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asJsonNull:
+              asByte: asByte
+              asBigInteger: 1
+              jsonPrimitive: true
+              asCharacter: asCharacter
+              asNumber: 6.84685269835264
+              asBigDecimal: 7.457744773683766
+              jsonNull: true
+              asFloat: 1.1730742
+              asLong: 4
+              asInt: 5
+              asShort: 9
+              asDouble: 9.369310271410669
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asShort: 0
+            asDouble: 4.652396432933246
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+      properties:
+        braintree:
+          $ref: '#/components/schemas/BraintreeOrderDto'
+        coinbase:
+          $ref: '#/components/schemas/CoinbaseOrderDto'
+        bitpay:
+          $ref: '#/components/schemas/BitPayOrderDto'
+      type: object
     PartnerDto:
       example:
         organizationId: organizationId
@@ -5603,7 +6864,7 @@ components:
         orderId:
           type: string
         paymentProviderData:
-          $ref: '#/components/schemas/PaymentData'
+          $ref: '#/components/schemas/PaymentRequestData'
       required:
       - orderId
       - paymentProviderData
@@ -5721,6 +6982,80 @@ components:
           format: int64
           type: integer
       type: object
+    CoinbasePaymentRequestData:
+      example:
+        coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        coinbaseTransactionId:
+          type: string
+      type: object
+    JsonArray:
+      example:
+        asByte: asByte
+        asBigInteger: 6
+        asCharacter: asCharacter
+        jsonPrimitive: true
+        asNumber: 8.762042012749001
+        asBigDecimal: 9.018348186070783
+        jsonNull: true
+        asFloat: 6.4384236
+        asLong: 3
+        asInt: 6
+        asShort: 1
+        asDouble: 2.8841621266687802
+        asString: asString
+        jsonObject: true
+        jsonArray: true
+        asBoolean: true
+      properties:
+        asByte:
+          format: byte
+          type: string
+        asBigInteger:
+          type: integer
+        asJsonObject:
+          $ref: '#/components/schemas/JsonObject'
+        asCharacter:
+          deprecated: true
+          type: string
+        jsonPrimitive:
+          type: boolean
+        asNumber:
+          type: number
+        asBigDecimal:
+          type: number
+        jsonNull:
+          type: boolean
+        asFloat:
+          format: float
+          type: number
+        asLong:
+          format: int64
+          type: integer
+        asInt:
+          format: int32
+          type: integer
+        asJsonPrimitive:
+          $ref: '#/components/schemas/JsonPrimitive'
+        asJsonNull:
+          $ref: '#/components/schemas/JsonNull'
+        asShort:
+          format: int32
+          type: integer
+        asDouble:
+          format: double
+          type: number
+        asJsonArray:
+          $ref: '#/components/schemas/JsonArray'
+        asString:
+          type: string
+        jsonObject:
+          type: boolean
+        jsonArray:
+          type: boolean
+        asBoolean:
+          type: boolean
+      type: object
     SearchTotal:
       example:
         value: 0
@@ -5730,6 +7065,13 @@ components:
           format: int32
           type: integer
         relation:
+          type: string
+      type: object
+    CoinbaseOrderDto:
+      example:
+        coinbaseTransactionId: coinbaseTransactionId
+      properties:
+        coinbaseTransactionId:
           type: string
       type: object
     EnvironmentInstanceDto:
@@ -5766,14 +7108,16 @@ components:
     MarketplaceListingDto:
       example:
         saleAmount: 0.8008281904610115
-        dgoodsMetadata: dgoodsMetadata
+        dgoodsMetadata:
+          key: '{}'
         createdTimestamp: 6
         sellerPlayerId: sellerPlayerId
         batchId: 1
         finalized: true
         sellByDate: 5
         environmentId: environmentId
-        gameItems: gameItems
+        gameItems:
+          key: '{}'
         saleModel: FIXED_PRICE
         closed: true
         currency: currency
@@ -5785,7 +7129,9 @@ components:
         saleAmount:
           type: number
         dgoodsMetadata:
-          type: string
+          additionalProperties:
+            type: object
+          type: object
         createdTimestamp:
           format: int64
           type: integer
@@ -5802,7 +7148,9 @@ components:
         environmentId:
           type: string
         gameItems:
-          type: string
+          additionalProperties:
+            type: object
+          type: object
         saleModel:
           enum:
           - FIXED_PRICE
@@ -5821,23 +7169,351 @@ components:
           format: uuid
           type: string
       type: object
+    JsonElement:
+      example:
+        asByte: asByte
+        asJsonObject:
+          asByte: asByte
+          asBigInteger: 1
+          jsonPrimitive: true
+          asCharacter: asCharacter
+          asNumber: 5.962133916683182
+          asBigDecimal: 5.637376656633329
+          jsonNull: true
+          asFloat: 2.302136
+          asLong: 7
+          asInt: 9
+          asJsonPrimitive:
+            asByte: asByte
+            asBigInteger: 3
+            asCharacter: asCharacter
+            string: true
+            jsonPrimitive: true
+            asNumber: 2.027123023002322
+            asBigDecimal: 4.145608029883936
+            jsonNull: true
+            asFloat: 7.386282
+            asLong: 1
+            asInt: 1
+            number: true
+            boolean: true
+            asJsonNull:
+              asByte: asByte
+              asBigInteger: 1
+              jsonPrimitive: true
+              asCharacter: asCharacter
+              asNumber: 6.84685269835264
+              asBigDecimal: 7.457744773683766
+              jsonNull: true
+              asFloat: 1.1730742
+              asLong: 4
+              asInt: 5
+              asShort: 9
+              asDouble: 9.369310271410669
+              asJsonArray:
+                asByte: asByte
+                asBigInteger: 6
+                asCharacter: asCharacter
+                jsonPrimitive: true
+                asNumber: 8.762042012749001
+                asBigDecimal: 9.018348186070783
+                jsonNull: true
+                asFloat: 6.4384236
+                asLong: 3
+                asInt: 6
+                asShort: 1
+                asDouble: 2.8841621266687802
+                asString: asString
+                jsonObject: true
+                jsonArray: true
+                asBoolean: true
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asShort: 6
+            asDouble: 6.878052220127876
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asJsonNull:
+            asByte: asByte
+            asBigInteger: 1
+            jsonPrimitive: true
+            asCharacter: asCharacter
+            asNumber: 6.84685269835264
+            asBigDecimal: 7.457744773683766
+            jsonNull: true
+            asFloat: 1.1730742
+            asLong: 4
+            asInt: 5
+            asShort: 9
+            asDouble: 9.369310271410669
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asShort: 5
+          asDouble: 6.704019297950036
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asBigInteger: 3
+        jsonPrimitive: true
+        asCharacter: asCharacter
+        asNumber: 3.0937452626664474
+        asBigDecimal: 7.143538047012306
+        jsonNull: true
+        asFloat: 0.8851375
+        asLong: 7
+        asInt: 6
+        asJsonPrimitive:
+          asByte: asByte
+          asBigInteger: 3
+          asCharacter: asCharacter
+          string: true
+          jsonPrimitive: true
+          asNumber: 2.027123023002322
+          asBigDecimal: 4.145608029883936
+          jsonNull: true
+          asFloat: 7.386282
+          asLong: 1
+          asInt: 1
+          number: true
+          boolean: true
+          asJsonNull:
+            asByte: asByte
+            asBigInteger: 1
+            jsonPrimitive: true
+            asCharacter: asCharacter
+            asNumber: 6.84685269835264
+            asBigDecimal: 7.457744773683766
+            jsonNull: true
+            asFloat: 1.1730742
+            asLong: 4
+            asInt: 5
+            asShort: 9
+            asDouble: 9.369310271410669
+            asJsonArray:
+              asByte: asByte
+              asBigInteger: 6
+              asCharacter: asCharacter
+              jsonPrimitive: true
+              asNumber: 8.762042012749001
+              asBigDecimal: 9.018348186070783
+              jsonNull: true
+              asFloat: 6.4384236
+              asLong: 3
+              asInt: 6
+              asShort: 1
+              asDouble: 2.8841621266687802
+              asString: asString
+              jsonObject: true
+              jsonArray: true
+              asBoolean: true
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asShort: 6
+          asDouble: 6.878052220127876
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asJsonNull:
+          asByte: asByte
+          asBigInteger: 1
+          jsonPrimitive: true
+          asCharacter: asCharacter
+          asNumber: 6.84685269835264
+          asBigDecimal: 7.457744773683766
+          jsonNull: true
+          asFloat: 1.1730742
+          asLong: 4
+          asInt: 5
+          asShort: 9
+          asDouble: 9.369310271410669
+          asJsonArray:
+            asByte: asByte
+            asBigInteger: 6
+            asCharacter: asCharacter
+            jsonPrimitive: true
+            asNumber: 8.762042012749001
+            asBigDecimal: 9.018348186070783
+            jsonNull: true
+            asFloat: 6.4384236
+            asLong: 3
+            asInt: 6
+            asShort: 1
+            asDouble: 2.8841621266687802
+            asString: asString
+            jsonObject: true
+            jsonArray: true
+            asBoolean: true
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asShort: 0
+        asDouble: 4.652396432933246
+        asJsonArray:
+          asByte: asByte
+          asBigInteger: 6
+          asCharacter: asCharacter
+          jsonPrimitive: true
+          asNumber: 8.762042012749001
+          asBigDecimal: 9.018348186070783
+          jsonNull: true
+          asFloat: 6.4384236
+          asLong: 3
+          asInt: 6
+          asShort: 1
+          asDouble: 2.8841621266687802
+          asString: asString
+          jsonObject: true
+          jsonArray: true
+          asBoolean: true
+        asString: asString
+        jsonObject: true
+        jsonArray: true
+        asBoolean: true
+      properties:
+        asByte:
+          format: byte
+          type: string
+        asJsonObject:
+          $ref: '#/components/schemas/JsonObject'
+        asBigInteger:
+          type: integer
+        jsonPrimitive:
+          type: boolean
+        asCharacter:
+          deprecated: true
+          type: string
+        asNumber:
+          type: number
+        asBigDecimal:
+          type: number
+        jsonNull:
+          type: boolean
+        asFloat:
+          format: float
+          type: number
+        asLong:
+          format: int64
+          type: integer
+        asInt:
+          format: int32
+          type: integer
+        asJsonPrimitive:
+          $ref: '#/components/schemas/JsonPrimitive'
+        asJsonNull:
+          $ref: '#/components/schemas/JsonNull'
+        asShort:
+          format: int32
+          type: integer
+        asDouble:
+          format: double
+          type: number
+        asJsonArray:
+          $ref: '#/components/schemas/JsonArray'
+        asString:
+          type: string
+        jsonObject:
+          type: boolean
+        jsonArray:
+          type: boolean
+        asBoolean:
+          type: boolean
+      type: object
     CreateVirtualCurrencyRequest:
       example:
         name: BlankoBucks
-        baseConversion: 1.25
         fiat: true
+        baseExchangeRate: 1.25
         abbreviation: BB
         baseCurrency: false
       properties:
         name:
           example: BlankoBucks
           type: string
-        baseConversion:
-          example: 1.25
-          type: number
         fiat:
           example: true
           type: boolean
+        baseExchangeRate:
+          example: 1.25
+          type: number
         abbreviation:
           example: BB
           type: string

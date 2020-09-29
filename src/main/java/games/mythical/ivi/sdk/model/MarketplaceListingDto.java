@@ -24,7 +24,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -54,7 +56,7 @@ public class MarketplaceListingDto {
   private BigDecimal saleAmount;
 
   public static final String JSON_PROPERTY_DGOODS_METADATA = "dgoodsMetadata";
-  private String dgoodsMetadata;
+  private Map<String, Object> dgoodsMetadata = null;
 
   public static final String JSON_PROPERTY_CREATED_TIMESTAMP = "createdTimestamp";
   private Long createdTimestamp;
@@ -75,7 +77,7 @@ public class MarketplaceListingDto {
   private String environmentId;
 
   public static final String JSON_PROPERTY_GAME_ITEMS = "gameItems";
-  private String gameItems;
+  private Map<String, Object> gameItems = null;
 
   /**
    * Gets or Sets saleModel
@@ -153,9 +155,17 @@ public class MarketplaceListingDto {
   }
 
 
-  public MarketplaceListingDto dgoodsMetadata(String dgoodsMetadata) {
+  public MarketplaceListingDto dgoodsMetadata(Map<String, Object> dgoodsMetadata) {
     
     this.dgoodsMetadata = dgoodsMetadata;
+    return this;
+  }
+
+  public MarketplaceListingDto putDgoodsMetadataItem(String key, Object dgoodsMetadataItem) {
+    if (this.dgoodsMetadata == null) {
+      this.dgoodsMetadata = new HashMap<>();
+    }
+    this.dgoodsMetadata.put(key, dgoodsMetadataItem);
     return this;
   }
 
@@ -168,12 +178,12 @@ public class MarketplaceListingDto {
   @JsonProperty(JSON_PROPERTY_DGOODS_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getDgoodsMetadata() {
+  public Map<String, Object> getDgoodsMetadata() {
     return dgoodsMetadata;
   }
 
 
-  public void setDgoodsMetadata(String dgoodsMetadata) {
+  public void setDgoodsMetadata(Map<String, Object> dgoodsMetadata) {
     this.dgoodsMetadata = dgoodsMetadata;
   }
 
@@ -328,9 +338,17 @@ public class MarketplaceListingDto {
   }
 
 
-  public MarketplaceListingDto gameItems(String gameItems) {
+  public MarketplaceListingDto gameItems(Map<String, Object> gameItems) {
     
     this.gameItems = gameItems;
+    return this;
+  }
+
+  public MarketplaceListingDto putGameItemsItem(String key, Object gameItemsItem) {
+    if (this.gameItems == null) {
+      this.gameItems = new HashMap<>();
+    }
+    this.gameItems.put(key, gameItemsItem);
     return this;
   }
 
@@ -343,12 +361,12 @@ public class MarketplaceListingDto {
   @JsonProperty(JSON_PROPERTY_GAME_ITEMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getGameItems() {
+  public Map<String, Object> getGameItems() {
     return gameItems;
   }
 
 
-  public void setGameItems(String gameItems) {
+  public void setGameItems(Map<String, Object> gameItems) {
     this.gameItems = gameItems;
   }
 

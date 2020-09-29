@@ -7,7 +7,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **orderId** | **String** |  | 
-**paymentProviderData** | [**PaymentData**](PaymentData.md) |  | 
+**paymentProviderData** | [**PaymentRequestData**](PaymentRequestData.md) |  | 
 
 
 

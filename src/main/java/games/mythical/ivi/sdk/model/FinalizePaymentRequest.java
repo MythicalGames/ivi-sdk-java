@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import games.mythical.ivi.sdk.model.PaymentData;
+import games.mythical.ivi.sdk.model.PaymentRequestData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -39,7 +39,7 @@ public class FinalizePaymentRequest {
   private String orderId;
 
   public static final String JSON_PROPERTY_PAYMENT_PROVIDER_DATA = "paymentProviderData";
-  private PaymentData paymentProviderData;
+  private PaymentRequestData paymentProviderData;
 
 
   public FinalizePaymentRequest orderId(String orderId) {
@@ -66,7 +66,7 @@ public class FinalizePaymentRequest {
   }
 
 
-  public FinalizePaymentRequest paymentProviderData(PaymentData paymentProviderData) {
+  public FinalizePaymentRequest paymentProviderData(PaymentRequestData paymentProviderData) {
     
     this.paymentProviderData = paymentProviderData;
     return this;
@@ -80,12 +80,12 @@ public class FinalizePaymentRequest {
   @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public PaymentData getPaymentProviderData() {
+  public PaymentRequestData getPaymentProviderData() {
     return paymentProviderData;
   }
 
 
-  public void setPaymentProviderData(PaymentData paymentProviderData) {
+  public void setPaymentProviderData(PaymentRequestData paymentProviderData) {
     this.paymentProviderData = paymentProviderData;
   }
 

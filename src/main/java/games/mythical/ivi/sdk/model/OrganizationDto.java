@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -54,7 +57,7 @@ public class OrganizationDto {
   private String ownerId;
 
   public static final String JSON_PROPERTY_ENVIRONMENT_LIMITS = "environmentLimits";
-  private String environmentLimits;
+  private Map<String, Integer> environmentLimits = null;
 
 
   public OrganizationDto createdBy(String createdBy) {
@@ -182,9 +185,17 @@ public class OrganizationDto {
   }
 
 
-  public OrganizationDto environmentLimits(String environmentLimits) {
+  public OrganizationDto environmentLimits(Map<String, Integer> environmentLimits) {
     
     this.environmentLimits = environmentLimits;
+    return this;
+  }
+
+  public OrganizationDto putEnvironmentLimitsItem(String key, Integer environmentLimitsItem) {
+    if (this.environmentLimits == null) {
+      this.environmentLimits = new HashMap<>();
+    }
+    this.environmentLimits.put(key, environmentLimitsItem);
     return this;
   }
 
@@ -197,12 +208,12 @@ public class OrganizationDto {
   @JsonProperty(JSON_PROPERTY_ENVIRONMENT_LIMITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getEnvironmentLimits() {
+  public Map<String, Integer> getEnvironmentLimits() {
     return environmentLimits;
   }
 
 
-  public void setEnvironmentLimits(String environmentLimits) {
+  public void setEnvironmentLimits(Map<String, Integer> environmentLimits) {
     this.environmentLimits = environmentLimits;
   }
 

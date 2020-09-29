@@ -32,8 +32,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   VirtualCurrencyDto.JSON_PROPERTY_CREATED_BY,
   VirtualCurrencyDto.JSON_PROPERTY_CREATED_TIMESTAMP,
   VirtualCurrencyDto.JSON_PROPERTY_NAME,
-  VirtualCurrencyDto.JSON_PROPERTY_BASE_CONVERSION,
   VirtualCurrencyDto.JSON_PROPERTY_FIAT,
+  VirtualCurrencyDto.JSON_PROPERTY_BASE_EXCHANGE_RATE,
   VirtualCurrencyDto.JSON_PROPERTY_ABBREVIATION,
   VirtualCurrencyDto.JSON_PROPERTY_BASE_CURRENCY
 })
@@ -49,11 +49,11 @@ public class VirtualCurrencyDto {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String JSON_PROPERTY_BASE_CONVERSION = "baseConversion";
-  private BigDecimal baseConversion;
-
   public static final String JSON_PROPERTY_FIAT = "fiat";
   private Boolean fiat;
+
+  public static final String JSON_PROPERTY_BASE_EXCHANGE_RATE = "baseExchangeRate";
+  private BigDecimal baseExchangeRate;
 
   public static final String JSON_PROPERTY_ABBREVIATION = "abbreviation";
   private String abbreviation;
@@ -137,31 +137,6 @@ public class VirtualCurrencyDto {
   }
 
 
-  public VirtualCurrencyDto baseConversion(BigDecimal baseConversion) {
-    
-    this.baseConversion = baseConversion;
-    return this;
-  }
-
-   /**
-   * Get baseConversion
-   * @return baseConversion
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BASE_CONVERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getBaseConversion() {
-    return baseConversion;
-  }
-
-
-  public void setBaseConversion(BigDecimal baseConversion) {
-    this.baseConversion = baseConversion;
-  }
-
-
   public VirtualCurrencyDto fiat(Boolean fiat) {
     
     this.fiat = fiat;
@@ -184,6 +159,31 @@ public class VirtualCurrencyDto {
 
   public void setFiat(Boolean fiat) {
     this.fiat = fiat;
+  }
+
+
+  public VirtualCurrencyDto baseExchangeRate(BigDecimal baseExchangeRate) {
+    
+    this.baseExchangeRate = baseExchangeRate;
+    return this;
+  }
+
+   /**
+   * Get baseExchangeRate
+   * @return baseExchangeRate
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BASE_EXCHANGE_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getBaseExchangeRate() {
+    return baseExchangeRate;
+  }
+
+
+  public void setBaseExchangeRate(BigDecimal baseExchangeRate) {
+    this.baseExchangeRate = baseExchangeRate;
   }
 
 
@@ -249,15 +249,15 @@ public class VirtualCurrencyDto {
     return Objects.equals(this.createdBy, virtualCurrencyDto.createdBy) &&
         Objects.equals(this.createdTimestamp, virtualCurrencyDto.createdTimestamp) &&
         Objects.equals(this.name, virtualCurrencyDto.name) &&
-        Objects.equals(this.baseConversion, virtualCurrencyDto.baseConversion) &&
         Objects.equals(this.fiat, virtualCurrencyDto.fiat) &&
+        Objects.equals(this.baseExchangeRate, virtualCurrencyDto.baseExchangeRate) &&
         Objects.equals(this.abbreviation, virtualCurrencyDto.abbreviation) &&
         Objects.equals(this.baseCurrency, virtualCurrencyDto.baseCurrency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdBy, createdTimestamp, name, baseConversion, fiat, abbreviation, baseCurrency);
+    return Objects.hash(createdBy, createdTimestamp, name, fiat, baseExchangeRate, abbreviation, baseCurrency);
   }
 
 
@@ -268,8 +268,8 @@ public class VirtualCurrencyDto {
     sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    baseConversion: ").append(toIndentedString(baseConversion)).append("\n");
     sb.append("    fiat: ").append(toIndentedString(fiat)).append("\n");
+    sb.append("    baseExchangeRate: ").append(toIndentedString(baseExchangeRate)).append("\n");
     sb.append("    abbreviation: ").append(toIndentedString(abbreviation)).append("\n");
     sb.append("    baseCurrency: ").append(toIndentedString(baseCurrency)).append("\n");
     sb.append("}");

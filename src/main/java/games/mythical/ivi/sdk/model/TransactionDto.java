@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -48,7 +51,7 @@ public class TransactionDto {
   private String environmentId;
 
   public static final String JSON_PROPERTY_DATA = "data";
-  private String data;
+  private Map<String, Object> data = null;
 
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
@@ -57,7 +60,7 @@ public class TransactionDto {
   private Long createdTimestamp;
 
   public static final String JSON_PROPERTY_ACTION = "action";
-  private String action;
+  private Map<String, Object> action = null;
 
   public static final String JSON_PROPERTY_FINALIZED_TIMESTAMP = "finalizedTimestamp";
   private Long finalizedTimestamp;
@@ -119,9 +122,17 @@ public class TransactionDto {
   }
 
 
-  public TransactionDto data(String data) {
+  public TransactionDto data(Map<String, Object> data) {
     
     this.data = data;
+    return this;
+  }
+
+  public TransactionDto putDataItem(String key, Object dataItem) {
+    if (this.data == null) {
+      this.data = new HashMap<>();
+    }
+    this.data.put(key, dataItem);
     return this;
   }
 
@@ -134,12 +145,12 @@ public class TransactionDto {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getData() {
+  public Map<String, Object> getData() {
     return data;
   }
 
 
-  public void setData(String data) {
+  public void setData(Map<String, Object> data) {
     this.data = data;
   }
 
@@ -194,9 +205,17 @@ public class TransactionDto {
   }
 
 
-  public TransactionDto action(String action) {
+  public TransactionDto action(Map<String, Object> action) {
     
     this.action = action;
+    return this;
+  }
+
+  public TransactionDto putActionItem(String key, Object actionItem) {
+    if (this.action == null) {
+      this.action = new HashMap<>();
+    }
+    this.action.put(key, actionItem);
     return this;
   }
 
@@ -209,12 +228,12 @@ public class TransactionDto {
   @JsonProperty(JSON_PROPERTY_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAction() {
+  public Map<String, Object> getAction() {
     return action;
   }
 
 
-  public void setAction(String action) {
+  public void setAction(Map<String, Object> action) {
     this.action = action;
   }
 

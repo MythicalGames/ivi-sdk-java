@@ -7,8 +7,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
-**baseConversion** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
 **fiat** | **Boolean** |  | 
+**baseExchangeRate** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
 **abbreviation** | **String** |  | 
 **baseCurrency** | **Boolean** |  |  [optional]
 

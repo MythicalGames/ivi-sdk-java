@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -49,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MarketplaceItemDto {
   public static final String JSON_PROPERTY_DGOODS_METADATA = "dgoodsMetadata";
-  private String dgoodsMetadata;
+  private Map<String, Object> dgoodsMetadata = null;
 
   public static final String JSON_PROPERTY_IMAGE_LARGE_URL = "imageLargeUrl";
   private String imageLargeUrl;
@@ -97,9 +100,17 @@ public class MarketplaceItemDto {
   private Long dgoodId;
 
 
-  public MarketplaceItemDto dgoodsMetadata(String dgoodsMetadata) {
+  public MarketplaceItemDto dgoodsMetadata(Map<String, Object> dgoodsMetadata) {
     
     this.dgoodsMetadata = dgoodsMetadata;
+    return this;
+  }
+
+  public MarketplaceItemDto putDgoodsMetadataItem(String key, Object dgoodsMetadataItem) {
+    if (this.dgoodsMetadata == null) {
+      this.dgoodsMetadata = new HashMap<>();
+    }
+    this.dgoodsMetadata.put(key, dgoodsMetadataItem);
     return this;
   }
 
@@ -112,12 +123,12 @@ public class MarketplaceItemDto {
   @JsonProperty(JSON_PROPERTY_DGOODS_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getDgoodsMetadata() {
+  public Map<String, Object> getDgoodsMetadata() {
     return dgoodsMetadata;
   }
 
 
-  public void setDgoodsMetadata(String dgoodsMetadata) {
+  public void setDgoodsMetadata(Map<String, Object> dgoodsMetadata) {
     this.dgoodsMetadata = dgoodsMetadata;
   }
 

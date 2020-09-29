@@ -7,14 +7,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **saleAmount** | [**BigDecimal**](BigDecimal.md) |  |  [optional]
-**dgoodsMetadata** | **String** |  |  [optional]
+**dgoodsMetadata** | **Map&lt;String, Object&gt;** |  |  [optional]
 **createdTimestamp** | **Long** |  |  [optional]
 **sellerPlayerId** | **String** |  |  [optional]
 **batchId** | **Long** |  |  [optional]
 **finalized** | **Boolean** |  |  [optional]
 **sellByDate** | **Long** |  |  [optional]
 **environmentId** | **String** |  |  [optional]
-**gameItems** | **String** |  |  [optional]
+**gameItems** | **Map&lt;String, Object&gt;** |  |  [optional]
 **saleModel** | [**SaleModelEnum**](#SaleModelEnum) |  |  [optional]
 **closed** | **Boolean** |  |  [optional]
 **currency** | **String** |  |  [optional]
