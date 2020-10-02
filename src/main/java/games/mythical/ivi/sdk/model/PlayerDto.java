@@ -29,15 +29,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * PlayerDto
  */
 @JsonPropertyOrder({
+  PlayerDto.JSON_PROPERTY_FINALIZED,
   PlayerDto.JSON_PROPERTY_CREATED_BY,
   PlayerDto.JSON_PROPERTY_CREATED_TIMESTAMP,
   PlayerDto.JSON_PROPERTY_IVI_USER_ID,
   PlayerDto.JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME,
+  PlayerDto.JSON_PROPERTY_TRANSACTION_ID,
   PlayerDto.JSON_PROPERTY_PLAYER_ID
 })
 @JsonTypeName("PlayerDto")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PlayerDto {
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
+  private Boolean finalized;
+
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private UUID createdBy;
 
@@ -50,8 +55,36 @@ public class PlayerDto {
   public static final String JSON_PROPERTY_SIDECHAIN_ACCOUNT_NAME = "sidechainAccountName";
   private String sidechainAccountName;
 
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
+  private String transactionId;
+
   public static final String JSON_PROPERTY_PLAYER_ID = "playerId";
   private String playerId;
+
+
+  public PlayerDto finalized(Boolean finalized) {
+    
+    this.finalized = finalized;
+    return this;
+  }
+
+   /**
+   * Get finalized
+   * @return finalized
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getFinalized() {
+    return finalized;
+  }
+
+
+  public void setFinalized(Boolean finalized) {
+    this.finalized = finalized;
+  }
 
 
   public PlayerDto createdBy(UUID createdBy) {
@@ -154,6 +187,31 @@ public class PlayerDto {
   }
 
 
+  public PlayerDto transactionId(String transactionId) {
+    
+    this.transactionId = transactionId;
+    return this;
+  }
+
+   /**
+   * Get transactionId
+   * @return transactionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
+  }
+
+
   public PlayerDto playerId(String playerId) {
     
     this.playerId = playerId;
@@ -188,16 +246,18 @@ public class PlayerDto {
       return false;
     }
     PlayerDto playerDto = (PlayerDto) o;
-    return Objects.equals(this.createdBy, playerDto.createdBy) &&
+    return Objects.equals(this.finalized, playerDto.finalized) &&
+        Objects.equals(this.createdBy, playerDto.createdBy) &&
         Objects.equals(this.createdTimestamp, playerDto.createdTimestamp) &&
         Objects.equals(this.iviUserId, playerDto.iviUserId) &&
         Objects.equals(this.sidechainAccountName, playerDto.sidechainAccountName) &&
+        Objects.equals(this.transactionId, playerDto.transactionId) &&
         Objects.equals(this.playerId, playerDto.playerId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdBy, createdTimestamp, iviUserId, sidechainAccountName, playerId);
+    return Objects.hash(finalized, createdBy, createdTimestamp, iviUserId, sidechainAccountName, transactionId, playerId);
   }
 
 
@@ -205,10 +265,12 @@ public class PlayerDto {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PlayerDto {\n");
+    sb.append("    finalized: ").append(toIndentedString(finalized)).append("\n");
     sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
     sb.append("    iviUserId: ").append(toIndentedString(iviUserId)).append("\n");
     sb.append("    sidechainAccountName: ").append(toIndentedString(sidechainAccountName)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    playerId: ").append(toIndentedString(playerId)).append("\n");
     sb.append("}");
     return sb.toString();

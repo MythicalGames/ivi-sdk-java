@@ -1,14 +1,13 @@
 
 
-# LinkPlayerToEnvironmentRequest
+# BurnItemCallbackRequest
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**platformUserId** | **String** |  | 
 **callback** | [**CallbackDto**](CallbackDto.md) |  |  [optional]
-**playerId** | **String** |  | 
+**gameInventoryId** | **String** |  | 
 
 
 

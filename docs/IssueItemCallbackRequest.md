@@ -1,6 +1,6 @@
 
 
-# IssueItemRequest
+# IssueItemCallbackRequest
 
 ## Properties
 
@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **amountPaid** | [**BigDecimal**](BigDecimal.md) |  | 
 **ownerPlayerId** | **String** |  | 
 **authenticityImageUrl** | **String** |  |  [optional]
+**callback** | [**CallbackDto**](CallbackDto.md) |  |  [optional]
 **currency** | **String** |  | 
 **category** | **String** |  | 
 **render** | **String** |  |  [optional]

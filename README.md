@@ -98,15 +98,18 @@ Class | Method | HTTP request | Description
 *EnvironmentsApi* | [**setEnvironmentInstanceInactive**](docs/EnvironmentsApi.md#setEnvironmentInstanceInactive) | **PUT** /environments/{environmentId}/deactivate | Set environment to deactivated
 *EnvironmentsApi* | [**updateEnvironmentInstanceName**](docs/EnvironmentsApi.md#updateEnvironmentInstanceName) | **PUT** /environments/{environmentId} | Update instance display name for title
 *ItemsApi* | [**burnItem**](docs/ItemsApi.md#burnItem) | **POST** /environments/{environmentId}/items/burn | Burn issued item
+*ItemsApi* | [**burnItemCallback**](docs/ItemsApi.md#burnItemCallback) | **POST** /environments/{environmentId}/items/burn/callback | Burn issued item with callback
 *ItemsApi* | [**buyListing**](docs/ItemsApi.md#buyListing) | **POST** /environments/{environmentId}/items/buy | Purchase an item
 *ItemsApi* | [**closeSale**](docs/ItemsApi.md#closeSale) | **PUT** /environments/{environmentId}/items/listed | Close a sale
 *ItemsApi* | [**createItem**](docs/ItemsApi.md#createItem) | **POST** /environments/{environmentId}/items/types | Create item type
+*ItemsApi* | [**createItemCallback**](docs/ItemsApi.md#createItemCallback) | **POST** /environments/{environmentId}/items/types/callback | Create item type with callback
 *ItemsApi* | [**getIssuedItems**](docs/ItemsApi.md#getIssuedItems) | **GET** /environments/{environmentId}/items/issued | Get all issued items for an environment.
 *ItemsApi* | [**getItemTypes**](docs/ItemsApi.md#getItemTypes) | **GET** /environments/{environmentId}/items/types | Get all item types for an environment
 *ItemsApi* | [**getListings**](docs/ItemsApi.md#getListings) | **GET** /environments/{environmentId}/items/listed | Get listed items
 *ItemsApi* | [**getMetadata**](docs/ItemsApi.md#getMetadata) | **GET** /environments/{environmentId}/items/issued/metadata | Get metadata for an issued dgood 
 *ItemsApi* | [**getSoldItems**](docs/ItemsApi.md#getSoldItems) | **GET** /environments/{environmentId}/items/buy | Get bought/sold items
 *ItemsApi* | [**issueItem**](docs/ItemsApi.md#issueItem) | **POST** /environments/{environmentId}/items/issued | Issue item
+*ItemsApi* | [**issueItemCallback**](docs/ItemsApi.md#issueItemCallback) | **POST** /environments/{environmentId}/items/issued/callback | Issue item with callback
 *ItemsApi* | [**listItem**](docs/ItemsApi.md#listItem) | **POST** /environments/{environmentId}/items/listed | List an item for sale
 *ItemsApi* | [**transferItem**](docs/ItemsApi.md#transferItem) | **POST** /environments/{environmentId}/items/transfer | Transfer issued item
 *ItemsApi* | [**updateMetadata**](docs/ItemsApi.md#updateMetadata) | **PUT** /environments/{environmentId}/items/issued/metadata | Update metadata for a dgood
@@ -191,8 +194,10 @@ Class | Method | HTTP request | Description
  - [BraintreePaymentRequestData](docs/BraintreePaymentRequestData.md)
  - [BraintreeTokenDto](docs/BraintreeTokenDto.md)
  - [BraintreeTokenRequestData](docs/BraintreeTokenRequestData.md)
+ - [BurnItemCallbackRequest](docs/BurnItemCallbackRequest.md)
  - [BurnItemRequest](docs/BurnItemRequest.md)
  - [BuyListingRequest](docs/BuyListingRequest.md)
+ - [CallbackDto](docs/CallbackDto.md)
  - [ClientPaymentTokenDto](docs/ClientPaymentTokenDto.md)
  - [CloseSaleRequest](docs/CloseSaleRequest.md)
  - [CoinbaseOrderDto](docs/CoinbaseOrderDto.md)
@@ -200,6 +205,7 @@ Class | Method | HTTP request | Description
  - [CreateAgreementRequest](docs/CreateAgreementRequest.md)
  - [CreateCustomerRequest](docs/CreateCustomerRequest.md)
  - [CreateEnvironmentInstanceRequest](docs/CreateEnvironmentInstanceRequest.md)
+ - [CreateItemCallbackRequest](docs/CreateItemCallbackRequest.md)
  - [CreateItemRequest](docs/CreateItemRequest.md)
  - [CreateMythicalUserRequest](docs/CreateMythicalUserRequest.md)
  - [CreateOrderRequest](docs/CreateOrderRequest.md)
@@ -217,15 +223,11 @@ Class | Method | HTTP request | Description
  - [FinalizePaymentRequest](docs/FinalizePaymentRequest.md)
  - [GenerateTokenRequest](docs/GenerateTokenRequest.md)
  - [InviteUserToOrganizationRequest](docs/InviteUserToOrganizationRequest.md)
+ - [IssueItemCallbackRequest](docs/IssueItemCallbackRequest.md)
  - [IssueItemRequest](docs/IssueItemRequest.md)
  - [IssuedItemDto](docs/IssuedItemDto.md)
  - [ItemActionDto](docs/ItemActionDto.md)
  - [ItemTypeDto](docs/ItemTypeDto.md)
- - [JsonArray](docs/JsonArray.md)
- - [JsonElement](docs/JsonElement.md)
- - [JsonNull](docs/JsonNull.md)
- - [JsonObject](docs/JsonObject.md)
- - [JsonPrimitive](docs/JsonPrimitive.md)
  - [LinkPlayerToEnvironmentRequest](docs/LinkPlayerToEnvironmentRequest.md)
  - [ListSaleRequest](docs/ListSaleRequest.md)
  - [ListingDto](docs/ListingDto.md)

@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -39,6 +38,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   IssuedItemDto.JSON_PROPERTY_GAME_INVENTORY_ID,
   IssuedItemDto.JSON_PROPERTY_RELATIVE_URI,
   IssuedItemDto.JSON_PROPERTY_OWNER_MYTHICAL_ID,
+  IssuedItemDto.JSON_PROPERTY_FINALIZED,
   IssuedItemDto.JSON_PROPERTY_ITEM_NAME,
   IssuedItemDto.JSON_PROPERTY_ENVIRONMENT_ID,
   IssuedItemDto.JSON_PROPERTY_OWNER_SIDECHAIN_ACCOUNT,
@@ -65,7 +65,7 @@ public class IssuedItemDto {
   private String tokenName;
 
   public static final String JSON_PROPERTY_AMOUNT_PAID_BASE = "amountPaidBase";
-  private BigDecimal amountPaidBase;
+  private String amountPaidBase;
 
   public static final String JSON_PROPERTY_METADATA_URI = "metadataUri";
   private String metadataUri;
@@ -81,6 +81,9 @@ public class IssuedItemDto {
 
   public static final String JSON_PROPERTY_OWNER_MYTHICAL_ID = "ownerMythicalId";
   private String ownerMythicalId;
+
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
+  private Boolean finalized;
 
   public static final String JSON_PROPERTY_ITEM_NAME = "itemName";
   private String itemName;
@@ -210,7 +213,7 @@ public class IssuedItemDto {
   }
 
 
-  public IssuedItemDto amountPaidBase(BigDecimal amountPaidBase) {
+  public IssuedItemDto amountPaidBase(String amountPaidBase) {
     
     this.amountPaidBase = amountPaidBase;
     return this;
@@ -225,12 +228,12 @@ public class IssuedItemDto {
   @JsonProperty(JSON_PROPERTY_AMOUNT_PAID_BASE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public BigDecimal getAmountPaidBase() {
+  public String getAmountPaidBase() {
     return amountPaidBase;
   }
 
 
-  public void setAmountPaidBase(BigDecimal amountPaidBase) {
+  public void setAmountPaidBase(String amountPaidBase) {
     this.amountPaidBase = amountPaidBase;
   }
 
@@ -357,6 +360,31 @@ public class IssuedItemDto {
 
   public void setOwnerMythicalId(String ownerMythicalId) {
     this.ownerMythicalId = ownerMythicalId;
+  }
+
+
+  public IssuedItemDto finalized(Boolean finalized) {
+    
+    this.finalized = finalized;
+    return this;
+  }
+
+   /**
+   * Get finalized
+   * @return finalized
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getFinalized() {
+    return finalized;
+  }
+
+
+  public void setFinalized(Boolean finalized) {
+    this.finalized = finalized;
   }
 
 
@@ -604,6 +632,7 @@ public class IssuedItemDto {
         Objects.equals(this.gameInventoryId, issuedItemDto.gameInventoryId) &&
         Objects.equals(this.relativeUri, issuedItemDto.relativeUri) &&
         Objects.equals(this.ownerMythicalId, issuedItemDto.ownerMythicalId) &&
+        Objects.equals(this.finalized, issuedItemDto.finalized) &&
         Objects.equals(this.itemName, issuedItemDto.itemName) &&
         Objects.equals(this.environmentId, issuedItemDto.environmentId) &&
         Objects.equals(this.ownerSidechainAccount, issuedItemDto.ownerSidechainAccount) &&
@@ -617,7 +646,7 @@ public class IssuedItemDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(currencyBase, serialNumber, createdTimestamp, tokenName, amountPaidBase, metadataUri, transactionId, gameInventoryId, relativeUri, ownerMythicalId, itemName, environmentId, ownerSidechainAccount, amountPaid, createdBy, ownerPlayerId, currency, category, dgoodId);
+    return Objects.hash(currencyBase, serialNumber, createdTimestamp, tokenName, amountPaidBase, metadataUri, transactionId, gameInventoryId, relativeUri, ownerMythicalId, finalized, itemName, environmentId, ownerSidechainAccount, amountPaid, createdBy, ownerPlayerId, currency, category, dgoodId);
   }
 
 
@@ -635,6 +664,7 @@ public class IssuedItemDto {
     sb.append("    gameInventoryId: ").append(toIndentedString(gameInventoryId)).append("\n");
     sb.append("    relativeUri: ").append(toIndentedString(relativeUri)).append("\n");
     sb.append("    ownerMythicalId: ").append(toIndentedString(ownerMythicalId)).append("\n");
+    sb.append("    finalized: ").append(toIndentedString(finalized)).append("\n");
     sb.append("    itemName: ").append(toIndentedString(itemName)).append("\n");
     sb.append("    environmentId: ").append(toIndentedString(environmentId)).append("\n");
     sb.append("    ownerSidechainAccount: ").append(toIndentedString(ownerSidechainAccount)).append("\n");

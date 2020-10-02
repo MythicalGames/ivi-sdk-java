@@ -163,8 +163,8 @@ public class PlayersApi {
     /**
      * Link player to environment
      * 
-     * <p><b>200</b> - The player linking has begun
      * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - The player linking was accepted
      * @param environmentId  (required)
      * @param linkPlayerToEnvironmentRequest  (required)
      * @throws RestClientException if an error occurs while attempting to invoke the API
@@ -176,8 +176,8 @@ public class PlayersApi {
     /**
      * Link player to environment
      * 
-     * <p><b>200</b> - The player linking has begun
      * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - The player linking was accepted
      * @param environmentId  (required)
      * @param linkPlayerToEnvironmentRequest  (required)
      * @return ResponseEntity&lt;Void&gt;

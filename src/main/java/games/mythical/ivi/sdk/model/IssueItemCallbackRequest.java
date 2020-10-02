@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import games.mythical.ivi.sdk.model.CallbackDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
@@ -29,27 +30,28 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * IssueItemRequest
+ * IssueItemCallbackRequest
  */
 @JsonPropertyOrder({
-  IssueItemRequest.JSON_PROPERTY_IMAGE_LARGE_URL,
-  IssueItemRequest.JSON_PROPERTY_TOKEN_NAME,
-  IssueItemRequest.JSON_PROPERTY_DESCRIPTION,
-  IssueItemRequest.JSON_PROPERTY_MEMO,
-  IssueItemRequest.JSON_PROPERTY_IMAGE_SMALL_URL,
-  IssueItemRequest.JSON_PROPERTY_ADDITIONAL_METADATA,
-  IssueItemRequest.JSON_PROPERTY_GAME_INVENTORY_ID,
-  IssueItemRequest.JSON_PROPERTY_ITEM_NAME,
-  IssueItemRequest.JSON_PROPERTY_AMOUNT_PAID,
-  IssueItemRequest.JSON_PROPERTY_OWNER_PLAYER_ID,
-  IssueItemRequest.JSON_PROPERTY_AUTHENTICITY_IMAGE_URL,
-  IssueItemRequest.JSON_PROPERTY_CURRENCY,
-  IssueItemRequest.JSON_PROPERTY_CATEGORY,
-  IssueItemRequest.JSON_PROPERTY_RENDER
+  IssueItemCallbackRequest.JSON_PROPERTY_IMAGE_LARGE_URL,
+  IssueItemCallbackRequest.JSON_PROPERTY_TOKEN_NAME,
+  IssueItemCallbackRequest.JSON_PROPERTY_DESCRIPTION,
+  IssueItemCallbackRequest.JSON_PROPERTY_MEMO,
+  IssueItemCallbackRequest.JSON_PROPERTY_IMAGE_SMALL_URL,
+  IssueItemCallbackRequest.JSON_PROPERTY_ADDITIONAL_METADATA,
+  IssueItemCallbackRequest.JSON_PROPERTY_GAME_INVENTORY_ID,
+  IssueItemCallbackRequest.JSON_PROPERTY_ITEM_NAME,
+  IssueItemCallbackRequest.JSON_PROPERTY_AMOUNT_PAID,
+  IssueItemCallbackRequest.JSON_PROPERTY_OWNER_PLAYER_ID,
+  IssueItemCallbackRequest.JSON_PROPERTY_AUTHENTICITY_IMAGE_URL,
+  IssueItemCallbackRequest.JSON_PROPERTY_CALLBACK,
+  IssueItemCallbackRequest.JSON_PROPERTY_CURRENCY,
+  IssueItemCallbackRequest.JSON_PROPERTY_CATEGORY,
+  IssueItemCallbackRequest.JSON_PROPERTY_RENDER
 })
-@JsonTypeName("IssueItemRequest")
+@JsonTypeName("IssueItemCallbackRequest")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class IssueItemRequest {
+public class IssueItemCallbackRequest {
   public static final String JSON_PROPERTY_IMAGE_LARGE_URL = "imageLargeUrl";
   private String imageLargeUrl;
 
@@ -83,6 +85,9 @@ public class IssueItemRequest {
   public static final String JSON_PROPERTY_AUTHENTICITY_IMAGE_URL = "authenticityImageUrl";
   private String authenticityImageUrl;
 
+  public static final String JSON_PROPERTY_CALLBACK = "callback";
+  private CallbackDto callback;
+
   public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
@@ -93,7 +98,7 @@ public class IssueItemRequest {
   private String render;
 
 
-  public IssueItemRequest imageLargeUrl(String imageLargeUrl) {
+  public IssueItemCallbackRequest imageLargeUrl(String imageLargeUrl) {
     
     this.imageLargeUrl = imageLargeUrl;
     return this;
@@ -118,7 +123,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest tokenName(String tokenName) {
+  public IssueItemCallbackRequest tokenName(String tokenName) {
     
     this.tokenName = tokenName;
     return this;
@@ -142,7 +147,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest description(String description) {
+  public IssueItemCallbackRequest description(String description) {
     
     this.description = description;
     return this;
@@ -167,7 +172,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest memo(String memo) {
+  public IssueItemCallbackRequest memo(String memo) {
     
     this.memo = memo;
     return this;
@@ -192,7 +197,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest imageSmallUrl(String imageSmallUrl) {
+  public IssueItemCallbackRequest imageSmallUrl(String imageSmallUrl) {
     
     this.imageSmallUrl = imageSmallUrl;
     return this;
@@ -217,13 +222,13 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest additionalMetadata(Map<String, Object> additionalMetadata) {
+  public IssueItemCallbackRequest additionalMetadata(Map<String, Object> additionalMetadata) {
     
     this.additionalMetadata = additionalMetadata;
     return this;
   }
 
-  public IssueItemRequest putAdditionalMetadataItem(String key, Object additionalMetadataItem) {
+  public IssueItemCallbackRequest putAdditionalMetadataItem(String key, Object additionalMetadataItem) {
     if (this.additionalMetadata == null) {
       this.additionalMetadata = new HashMap<>();
     }
@@ -250,7 +255,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest gameInventoryId(String gameInventoryId) {
+  public IssueItemCallbackRequest gameInventoryId(String gameInventoryId) {
     
     this.gameInventoryId = gameInventoryId;
     return this;
@@ -274,7 +279,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest itemName(String itemName) {
+  public IssueItemCallbackRequest itemName(String itemName) {
     
     this.itemName = itemName;
     return this;
@@ -299,7 +304,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest amountPaid(BigDecimal amountPaid) {
+  public IssueItemCallbackRequest amountPaid(BigDecimal amountPaid) {
     
     this.amountPaid = amountPaid;
     return this;
@@ -324,7 +329,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest ownerPlayerId(String ownerPlayerId) {
+  public IssueItemCallbackRequest ownerPlayerId(String ownerPlayerId) {
     
     this.ownerPlayerId = ownerPlayerId;
     return this;
@@ -348,7 +353,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest authenticityImageUrl(String authenticityImageUrl) {
+  public IssueItemCallbackRequest authenticityImageUrl(String authenticityImageUrl) {
     
     this.authenticityImageUrl = authenticityImageUrl;
     return this;
@@ -373,7 +378,32 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest currency(String currency) {
+  public IssueItemCallbackRequest callback(CallbackDto callback) {
+    
+    this.callback = callback;
+    return this;
+  }
+
+   /**
+   * Get callback
+   * @return callback
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CALLBACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public CallbackDto getCallback() {
+    return callback;
+  }
+
+
+  public void setCallback(CallbackDto callback) {
+    this.callback = callback;
+  }
+
+
+  public IssueItemCallbackRequest currency(String currency) {
     
     this.currency = currency;
     return this;
@@ -397,7 +427,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest category(String category) {
+  public IssueItemCallbackRequest category(String category) {
     
     this.category = category;
     return this;
@@ -421,7 +451,7 @@ public class IssueItemRequest {
   }
 
 
-  public IssueItemRequest render(String render) {
+  public IssueItemCallbackRequest render(String render) {
     
     this.render = render;
     return this;
@@ -454,33 +484,34 @@ public class IssueItemRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    IssueItemRequest issueItemRequest = (IssueItemRequest) o;
-    return Objects.equals(this.imageLargeUrl, issueItemRequest.imageLargeUrl) &&
-        Objects.equals(this.tokenName, issueItemRequest.tokenName) &&
-        Objects.equals(this.description, issueItemRequest.description) &&
-        Objects.equals(this.memo, issueItemRequest.memo) &&
-        Objects.equals(this.imageSmallUrl, issueItemRequest.imageSmallUrl) &&
-        Objects.equals(this.additionalMetadata, issueItemRequest.additionalMetadata) &&
-        Objects.equals(this.gameInventoryId, issueItemRequest.gameInventoryId) &&
-        Objects.equals(this.itemName, issueItemRequest.itemName) &&
-        Objects.equals(this.amountPaid, issueItemRequest.amountPaid) &&
-        Objects.equals(this.ownerPlayerId, issueItemRequest.ownerPlayerId) &&
-        Objects.equals(this.authenticityImageUrl, issueItemRequest.authenticityImageUrl) &&
-        Objects.equals(this.currency, issueItemRequest.currency) &&
-        Objects.equals(this.category, issueItemRequest.category) &&
-        Objects.equals(this.render, issueItemRequest.render);
+    IssueItemCallbackRequest issueItemCallbackRequest = (IssueItemCallbackRequest) o;
+    return Objects.equals(this.imageLargeUrl, issueItemCallbackRequest.imageLargeUrl) &&
+        Objects.equals(this.tokenName, issueItemCallbackRequest.tokenName) &&
+        Objects.equals(this.description, issueItemCallbackRequest.description) &&
+        Objects.equals(this.memo, issueItemCallbackRequest.memo) &&
+        Objects.equals(this.imageSmallUrl, issueItemCallbackRequest.imageSmallUrl) &&
+        Objects.equals(this.additionalMetadata, issueItemCallbackRequest.additionalMetadata) &&
+        Objects.equals(this.gameInventoryId, issueItemCallbackRequest.gameInventoryId) &&
+        Objects.equals(this.itemName, issueItemCallbackRequest.itemName) &&
+        Objects.equals(this.amountPaid, issueItemCallbackRequest.amountPaid) &&
+        Objects.equals(this.ownerPlayerId, issueItemCallbackRequest.ownerPlayerId) &&
+        Objects.equals(this.authenticityImageUrl, issueItemCallbackRequest.authenticityImageUrl) &&
+        Objects.equals(this.callback, issueItemCallbackRequest.callback) &&
+        Objects.equals(this.currency, issueItemCallbackRequest.currency) &&
+        Objects.equals(this.category, issueItemCallbackRequest.category) &&
+        Objects.equals(this.render, issueItemCallbackRequest.render);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(imageLargeUrl, tokenName, description, memo, imageSmallUrl, additionalMetadata, gameInventoryId, itemName, amountPaid, ownerPlayerId, authenticityImageUrl, currency, category, render);
+    return Objects.hash(imageLargeUrl, tokenName, description, memo, imageSmallUrl, additionalMetadata, gameInventoryId, itemName, amountPaid, ownerPlayerId, authenticityImageUrl, callback, currency, category, render);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class IssueItemRequest {\n");
+    sb.append("class IssueItemCallbackRequest {\n");
     sb.append("    imageLargeUrl: ").append(toIndentedString(imageLargeUrl)).append("\n");
     sb.append("    tokenName: ").append(toIndentedString(tokenName)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -492,6 +523,7 @@ public class IssueItemRequest {
     sb.append("    amountPaid: ").append(toIndentedString(amountPaid)).append("\n");
     sb.append("    ownerPlayerId: ").append(toIndentedString(ownerPlayerId)).append("\n");
     sb.append("    authenticityImageUrl: ").append(toIndentedString(authenticityImageUrl)).append("\n");
+    sb.append("    callback: ").append(toIndentedString(callback)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    category: ").append(toIndentedString(category)).append("\n");
     sb.append("    render: ").append(toIndentedString(render)).append("\n");

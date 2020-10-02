@@ -26,51 +26,23 @@ import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * LinkPlayerToEnvironmentRequest
+ * BurnItemCallbackRequest
  */
 @JsonPropertyOrder({
-  LinkPlayerToEnvironmentRequest.JSON_PROPERTY_PLATFORM_USER_ID,
-  LinkPlayerToEnvironmentRequest.JSON_PROPERTY_CALLBACK,
-  LinkPlayerToEnvironmentRequest.JSON_PROPERTY_PLAYER_ID
+  BurnItemCallbackRequest.JSON_PROPERTY_CALLBACK,
+  BurnItemCallbackRequest.JSON_PROPERTY_GAME_INVENTORY_ID
 })
-@JsonTypeName("LinkPlayerToEnvironmentRequest")
+@JsonTypeName("BurnItemCallbackRequest")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class LinkPlayerToEnvironmentRequest {
-  public static final String JSON_PROPERTY_PLATFORM_USER_ID = "platformUserId";
-  private String platformUserId;
-
+public class BurnItemCallbackRequest {
   public static final String JSON_PROPERTY_CALLBACK = "callback";
   private CallbackDto callback;
 
-  public static final String JSON_PROPERTY_PLAYER_ID = "playerId";
-  private String playerId;
+  public static final String JSON_PROPERTY_GAME_INVENTORY_ID = "gameInventoryId";
+  private String gameInventoryId;
 
 
-  public LinkPlayerToEnvironmentRequest platformUserId(String platformUserId) {
-    
-    this.platformUserId = platformUserId;
-    return this;
-  }
-
-   /**
-   * Get platformUserId
-   * @return platformUserId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_PLATFORM_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPlatformUserId() {
-    return platformUserId;
-  }
-
-
-  public void setPlatformUserId(String platformUserId) {
-    this.platformUserId = platformUserId;
-  }
-
-
-  public LinkPlayerToEnvironmentRequest callback(CallbackDto callback) {
+  public BurnItemCallbackRequest callback(CallbackDto callback) {
     
     this.callback = callback;
     return this;
@@ -95,27 +67,27 @@ public class LinkPlayerToEnvironmentRequest {
   }
 
 
-  public LinkPlayerToEnvironmentRequest playerId(String playerId) {
+  public BurnItemCallbackRequest gameInventoryId(String gameInventoryId) {
     
-    this.playerId = playerId;
+    this.gameInventoryId = gameInventoryId;
     return this;
   }
 
    /**
-   * Get playerId
-   * @return playerId
+   * Get gameInventoryId
+   * @return gameInventoryId
   **/
   @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_PLAYER_ID)
+  @JsonProperty(JSON_PROPERTY_GAME_INVENTORY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getPlayerId() {
-    return playerId;
+  public String getGameInventoryId() {
+    return gameInventoryId;
   }
 
 
-  public void setPlayerId(String playerId) {
-    this.playerId = playerId;
+  public void setGameInventoryId(String gameInventoryId) {
+    this.gameInventoryId = gameInventoryId;
   }
 
 
@@ -127,25 +99,23 @@ public class LinkPlayerToEnvironmentRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = (LinkPlayerToEnvironmentRequest) o;
-    return Objects.equals(this.platformUserId, linkPlayerToEnvironmentRequest.platformUserId) &&
-        Objects.equals(this.callback, linkPlayerToEnvironmentRequest.callback) &&
-        Objects.equals(this.playerId, linkPlayerToEnvironmentRequest.playerId);
+    BurnItemCallbackRequest burnItemCallbackRequest = (BurnItemCallbackRequest) o;
+    return Objects.equals(this.callback, burnItemCallbackRequest.callback) &&
+        Objects.equals(this.gameInventoryId, burnItemCallbackRequest.gameInventoryId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(platformUserId, callback, playerId);
+    return Objects.hash(callback, gameInventoryId);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class LinkPlayerToEnvironmentRequest {\n");
-    sb.append("    platformUserId: ").append(toIndentedString(platformUserId)).append("\n");
+    sb.append("class BurnItemCallbackRequest {\n");
     sb.append("    callback: ").append(toIndentedString(callback)).append("\n");
-    sb.append("    playerId: ").append(toIndentedString(playerId)).append("\n");
+    sb.append("    gameInventoryId: ").append(toIndentedString(gameInventoryId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

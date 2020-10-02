@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**invoice** | [**JsonElement**](JsonElement.md) |  |  [optional]
+**invoice** | **Map&lt;String, Object&gt;** |  |  [optional]
 
 
 

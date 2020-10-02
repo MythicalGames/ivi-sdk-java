@@ -20,9 +20,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import games.mythical.ivi.sdk.model.JsonElement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -35,12 +37,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BitPayOrderDto {
   public static final String JSON_PROPERTY_INVOICE = "invoice";
-  private JsonElement invoice;
+  private Map<String, Object> invoice = null;
 
 
-  public BitPayOrderDto invoice(JsonElement invoice) {
+  public BitPayOrderDto invoice(Map<String, Object> invoice) {
     
     this.invoice = invoice;
+    return this;
+  }
+
+  public BitPayOrderDto putInvoiceItem(String key, Object invoiceItem) {
+    if (this.invoice == null) {
+      this.invoice = new HashMap<>();
+    }
+    this.invoice.put(key, invoiceItem);
     return this;
   }
 
@@ -53,12 +63,12 @@ public class BitPayOrderDto {
   @JsonProperty(JSON_PROPERTY_INVOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonElement getInvoice() {
+  public Map<String, Object> getInvoice() {
     return invoice;
   }
 
 
-  public void setInvoice(JsonElement invoice) {
+  public void setInvoice(Map<String, Object> invoice) {
     this.invoice = invoice;
   }
 

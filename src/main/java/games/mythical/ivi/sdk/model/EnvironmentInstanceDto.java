@@ -28,17 +28,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * EnvironmentInstanceDto
  */
 @JsonPropertyOrder({
+  EnvironmentInstanceDto.JSON_PROPERTY_FINALIZED,
   EnvironmentInstanceDto.JSON_PROPERTY_CREATED_BY,
   EnvironmentInstanceDto.JSON_PROPERTY_ENVIRONMENT_TYPE,
   EnvironmentInstanceDto.JSON_PROPERTY_DISPLAY_NAME,
   EnvironmentInstanceDto.JSON_PROPERTY_CREATED_TIMESTAMP,
   EnvironmentInstanceDto.JSON_PROPERTY_PARENT_TITLE_ID,
   EnvironmentInstanceDto.JSON_PROPERTY_ID,
+  EnvironmentInstanceDto.JSON_PROPERTY_TRANSACTION_ID,
   EnvironmentInstanceDto.JSON_PROPERTY_DEACTIVATED
 })
 @JsonTypeName("EnvironmentInstanceDto")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class EnvironmentInstanceDto {
+  public static final String JSON_PROPERTY_FINALIZED = "finalized";
+  private Boolean finalized;
+
   public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
@@ -98,8 +103,36 @@ public class EnvironmentInstanceDto {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
+  private String transactionId;
+
   public static final String JSON_PROPERTY_DEACTIVATED = "deactivated";
   private Boolean deactivated;
+
+
+  public EnvironmentInstanceDto finalized(Boolean finalized) {
+    
+    this.finalized = finalized;
+    return this;
+  }
+
+   /**
+   * Get finalized
+   * @return finalized
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_FINALIZED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getFinalized() {
+    return finalized;
+  }
+
+
+  public void setFinalized(Boolean finalized) {
+    this.finalized = finalized;
+  }
 
 
   public EnvironmentInstanceDto createdBy(String createdBy) {
@@ -252,6 +285,31 @@ public class EnvironmentInstanceDto {
   }
 
 
+  public EnvironmentInstanceDto transactionId(String transactionId) {
+    
+    this.transactionId = transactionId;
+    return this;
+  }
+
+   /**
+   * Get transactionId
+   * @return transactionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
+  }
+
+
   public EnvironmentInstanceDto deactivated(Boolean deactivated) {
     
     this.deactivated = deactivated;
@@ -286,18 +344,20 @@ public class EnvironmentInstanceDto {
       return false;
     }
     EnvironmentInstanceDto environmentInstanceDto = (EnvironmentInstanceDto) o;
-    return Objects.equals(this.createdBy, environmentInstanceDto.createdBy) &&
+    return Objects.equals(this.finalized, environmentInstanceDto.finalized) &&
+        Objects.equals(this.createdBy, environmentInstanceDto.createdBy) &&
         Objects.equals(this.environmentType, environmentInstanceDto.environmentType) &&
         Objects.equals(this.displayName, environmentInstanceDto.displayName) &&
         Objects.equals(this.createdTimestamp, environmentInstanceDto.createdTimestamp) &&
         Objects.equals(this.parentTitleId, environmentInstanceDto.parentTitleId) &&
         Objects.equals(this.id, environmentInstanceDto.id) &&
+        Objects.equals(this.transactionId, environmentInstanceDto.transactionId) &&
         Objects.equals(this.deactivated, environmentInstanceDto.deactivated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdBy, environmentType, displayName, createdTimestamp, parentTitleId, id, deactivated);
+    return Objects.hash(finalized, createdBy, environmentType, displayName, createdTimestamp, parentTitleId, id, transactionId, deactivated);
   }
 
 
@@ -305,12 +365,14 @@ public class EnvironmentInstanceDto {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EnvironmentInstanceDto {\n");
+    sb.append("    finalized: ").append(toIndentedString(finalized)).append("\n");
     sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
     sb.append("    environmentType: ").append(toIndentedString(environmentType)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
     sb.append("    parentTitleId: ").append(toIndentedString(parentTitleId)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    deactivated: ").append(toIndentedString(deactivated)).append("\n");
     sb.append("}");
     return sb.toString();

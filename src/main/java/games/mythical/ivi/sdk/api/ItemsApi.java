@@ -2,11 +2,14 @@ package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
 
+import games.mythical.ivi.sdk.model.BurnItemCallbackRequest;
 import games.mythical.ivi.sdk.model.BurnItemRequest;
 import games.mythical.ivi.sdk.model.BuyListingRequest;
 import games.mythical.ivi.sdk.model.CloseSaleRequest;
+import games.mythical.ivi.sdk.model.CreateItemCallbackRequest;
 import games.mythical.ivi.sdk.model.CreateItemRequest;
 import games.mythical.ivi.sdk.model.DgoodMetadataDto;
+import games.mythical.ivi.sdk.model.IssueItemCallbackRequest;
 import games.mythical.ivi.sdk.model.IssueItemRequest;
 import games.mythical.ivi.sdk.model.IssuedItemDto;
 import games.mythical.ivi.sdk.model.ItemActionDto;
@@ -101,6 +104,67 @@ public class ItemsApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("environmentId", environmentId);
         String path = apiClient.expandPath("/environments/{environmentId}/items/burn", uriVariables);
+
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<String, String>();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] localVarAccepts = { 
+            "*/*"
+         };
+        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] contentTypes = { 
+            "application/json"
+         };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] { "api_key" };
+
+        ParameterizedTypeReference<ItemActionDto> returnType = new ParameterizedTypeReference<ItemActionDto>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, contentType, authNames, returnType);
+    }
+    /**
+     * Burn issued item with callback
+     * Burn an issued item with callback
+     * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - Burn item accepted
+     * @param environmentId  (required)
+     * @param burnItemCallbackRequest  (required)
+     * @return ItemActionDto
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ItemActionDto burnItemCallback(String environmentId, BurnItemCallbackRequest burnItemCallbackRequest) throws RestClientException {
+        return burnItemCallbackWithHttpInfo(environmentId, burnItemCallbackRequest).getBody();
+    }
+
+    /**
+     * Burn issued item with callback
+     * Burn an issued item with callback
+     * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - Burn item accepted
+     * @param environmentId  (required)
+     * @param burnItemCallbackRequest  (required)
+     * @return ResponseEntity&lt;ItemActionDto&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ResponseEntity<ItemActionDto> burnItemCallbackWithHttpInfo(String environmentId, BurnItemCallbackRequest burnItemCallbackRequest) throws RestClientException {
+        Object postBody = burnItemCallbackRequest;
+        
+        // verify the required parameter 'environmentId' is set
+        if (environmentId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'environmentId' when calling burnItemCallback");
+        }
+        
+        // verify the required parameter 'burnItemCallbackRequest' is set
+        if (burnItemCallbackRequest == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'burnItemCallbackRequest' when calling burnItemCallback");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("environmentId", environmentId);
+        String path = apiClient.expandPath("/environments/{environmentId}/items/burn/callback", uriVariables);
 
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -284,6 +348,67 @@ public class ItemsApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("environmentId", environmentId);
         String path = apiClient.expandPath("/environments/{environmentId}/items/types", uriVariables);
+
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<String, String>();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] localVarAccepts = { 
+            "*/*"
+         };
+        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] contentTypes = { 
+            "application/json"
+         };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] { "api_key" };
+
+        ParameterizedTypeReference<ItemTypeDto> returnType = new ParameterizedTypeReference<ItemTypeDto>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, contentType, authNames, returnType);
+    }
+    /**
+     * Create item type with callback
+     * Create a new type of item on the blockchain that can be issued to players with callback.
+     * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - Create item accepted
+     * @param environmentId  (required)
+     * @param createItemCallbackRequest  (required)
+     * @return ItemTypeDto
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ItemTypeDto createItemCallback(String environmentId, CreateItemCallbackRequest createItemCallbackRequest) throws RestClientException {
+        return createItemCallbackWithHttpInfo(environmentId, createItemCallbackRequest).getBody();
+    }
+
+    /**
+     * Create item type with callback
+     * Create a new type of item on the blockchain that can be issued to players with callback.
+     * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - Create item accepted
+     * @param environmentId  (required)
+     * @param createItemCallbackRequest  (required)
+     * @return ResponseEntity&lt;ItemTypeDto&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ResponseEntity<ItemTypeDto> createItemCallbackWithHttpInfo(String environmentId, CreateItemCallbackRequest createItemCallbackRequest) throws RestClientException {
+        Object postBody = createItemCallbackRequest;
+        
+        // verify the required parameter 'environmentId' is set
+        if (environmentId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'environmentId' when calling createItemCallback");
+        }
+        
+        // verify the required parameter 'createItemCallbackRequest' is set
+        if (createItemCallbackRequest == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'createItemCallbackRequest' when calling createItemCallback");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("environmentId", environmentId);
+        String path = apiClient.expandPath("/environments/{environmentId}/items/types/callback", uriVariables);
 
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -658,6 +783,67 @@ public class ItemsApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("environmentId", environmentId);
         String path = apiClient.expandPath("/environments/{environmentId}/items/issued", uriVariables);
+
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<String, String>();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] localVarAccepts = { 
+            "*/*"
+         };
+        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] contentTypes = { 
+            "application/json"
+         };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] { "api_key" };
+
+        ParameterizedTypeReference<IssuedItemDto> returnType = new ParameterizedTypeReference<IssuedItemDto>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, contentType, authNames, returnType);
+    }
+    /**
+     * Issue item with callback
+     * Issue instance(s) of an item type to a player with callback
+     * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - Issuing started
+     * @param environmentId  (required)
+     * @param issueItemCallbackRequest  (required)
+     * @return IssuedItemDto
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public IssuedItemDto issueItemCallback(String environmentId, IssueItemCallbackRequest issueItemCallbackRequest) throws RestClientException {
+        return issueItemCallbackWithHttpInfo(environmentId, issueItemCallbackRequest).getBody();
+    }
+
+    /**
+     * Issue item with callback
+     * Issue instance(s) of an item type to a player with callback
+     * <p><b>400</b> - Bad Request
+     * <p><b>202</b> - Issuing started
+     * @param environmentId  (required)
+     * @param issueItemCallbackRequest  (required)
+     * @return ResponseEntity&lt;IssuedItemDto&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ResponseEntity<IssuedItemDto> issueItemCallbackWithHttpInfo(String environmentId, IssueItemCallbackRequest issueItemCallbackRequest) throws RestClientException {
+        Object postBody = issueItemCallbackRequest;
+        
+        // verify the required parameter 'environmentId' is set
+        if (environmentId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'environmentId' when calling issueItemCallback");
+        }
+        
+        // verify the required parameter 'issueItemCallbackRequest' is set
+        if (issueItemCallbackRequest == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'issueItemCallbackRequest' when calling issueItemCallback");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("environmentId", environmentId);
+        String path = apiClient.expandPath("/environments/{environmentId}/items/issued/callback", uriVariables);
 
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();

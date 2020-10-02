@@ -222,6 +222,6 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | The player linking has begun |  -  |
 | **400** | Bad Request |  -  |
+| **202** | The player linking was accepted |  -  |
 

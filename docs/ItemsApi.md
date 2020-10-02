@@ -5,15 +5,18 @@ All URIs are relative to *https://api.iviengine.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**burnItem**](ItemsApi.md#burnItem) | **POST** /environments/{environmentId}/items/burn | Burn issued item
+[**burnItemCallback**](ItemsApi.md#burnItemCallback) | **POST** /environments/{environmentId}/items/burn/callback | Burn issued item with callback
 [**buyListing**](ItemsApi.md#buyListing) | **POST** /environments/{environmentId}/items/buy | Purchase an item
 [**closeSale**](ItemsApi.md#closeSale) | **PUT** /environments/{environmentId}/items/listed | Close a sale
 [**createItem**](ItemsApi.md#createItem) | **POST** /environments/{environmentId}/items/types | Create item type
+[**createItemCallback**](ItemsApi.md#createItemCallback) | **POST** /environments/{environmentId}/items/types/callback | Create item type with callback
 [**getIssuedItems**](ItemsApi.md#getIssuedItems) | **GET** /environments/{environmentId}/items/issued | Get all issued items for an environment.
 [**getItemTypes**](ItemsApi.md#getItemTypes) | **GET** /environments/{environmentId}/items/types | Get all item types for an environment
 [**getListings**](ItemsApi.md#getListings) | **GET** /environments/{environmentId}/items/listed | Get listed items
 [**getMetadata**](ItemsApi.md#getMetadata) | **GET** /environments/{environmentId}/items/issued/metadata | Get metadata for an issued dgood 
 [**getSoldItems**](ItemsApi.md#getSoldItems) | **GET** /environments/{environmentId}/items/buy | Get bought/sold items
 [**issueItem**](ItemsApi.md#issueItem) | **POST** /environments/{environmentId}/items/issued | Issue item
+[**issueItemCallback**](ItemsApi.md#issueItemCallback) | **POST** /environments/{environmentId}/items/issued/callback | Issue item with callback
 [**listItem**](ItemsApi.md#listItem) | **POST** /environments/{environmentId}/items/listed | List an item for sale
 [**transferItem**](ItemsApi.md#transferItem) | **POST** /environments/{environmentId}/items/transfer | Transfer issued item
 [**updateMetadata**](ItemsApi.md#updateMetadata) | **PUT** /environments/{environmentId}/items/issued/metadata | Update metadata for a dgood
@@ -93,6 +96,81 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 | **400** | Bad Request |  -  |
+
+
+## burnItemCallback
+
+> ItemActionDto burnItemCallback(environmentId, burnItemCallbackRequest)
+
+Burn issued item with callback
+
+Burn an issued item with callback
+
+### Example
+
+```java
+// Import classes:
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
+import games.mythical.ivi.sdk.api.ItemsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.iviengine.com");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
+
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        BurnItemCallbackRequest burnItemCallbackRequest = new BurnItemCallbackRequest(); // BurnItemCallbackRequest | 
+        try {
+            ItemActionDto result = apiInstance.burnItemCallback(environmentId, burnItemCallbackRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#burnItemCallback");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **environmentId** | **String**|  |
+ **burnItemCallbackRequest** | [**BurnItemCallbackRequest**](BurnItemCallbackRequest.md)|  |
+
+### Return type
+
+[**ItemActionDto**](ItemActionDto.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **202** | Burn item accepted |  -  |
 
 
 ## buyListing
@@ -318,6 +396,81 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 | **400** | Bad Request |  -  |
+
+
+## createItemCallback
+
+> ItemTypeDto createItemCallback(environmentId, createItemCallbackRequest)
+
+Create item type with callback
+
+Create a new type of item on the blockchain that can be issued to players with callback.
+
+### Example
+
+```java
+// Import classes:
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
+import games.mythical.ivi.sdk.api.ItemsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.iviengine.com");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
+
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        CreateItemCallbackRequest createItemCallbackRequest = new CreateItemCallbackRequest(); // CreateItemCallbackRequest | 
+        try {
+            ItemTypeDto result = apiInstance.createItemCallback(environmentId, createItemCallbackRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#createItemCallback");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **environmentId** | **String**|  |
+ **createItemCallbackRequest** | [**CreateItemCallbackRequest**](CreateItemCallbackRequest.md)|  |
+
+### Return type
+
+[**ItemTypeDto**](ItemTypeDto.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **202** | Create item accepted |  -  |
 
 
 ## getIssuedItems
@@ -786,6 +939,81 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 | **400** | Bad Request |  -  |
+
+
+## issueItemCallback
+
+> IssuedItemDto issueItemCallback(environmentId, issueItemCallbackRequest)
+
+Issue item with callback
+
+Issue instance(s) of an item type to a player with callback
+
+### Example
+
+```java
+// Import classes:
+import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.ApiException;
+import games.mythical.ivi.sdk.Configuration;
+import games.mythical.ivi.sdk.auth.*;
+import games.mythical.ivi.sdk.models.*;
+import games.mythical.ivi.sdk.api.ItemsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.iviengine.com");
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
+
+        ItemsApi apiInstance = new ItemsApi(defaultClient);
+        String environmentId = "environmentId_example"; // String | 
+        IssueItemCallbackRequest issueItemCallbackRequest = new IssueItemCallbackRequest(); // IssueItemCallbackRequest | 
+        try {
+            IssuedItemDto result = apiInstance.issueItemCallback(environmentId, issueItemCallbackRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ItemsApi#issueItemCallback");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **environmentId** | **String**|  |
+ **issueItemCallbackRequest** | [**IssueItemCallbackRequest**](IssueItemCallbackRequest.md)|  |
+
+### Return type
+
+[**IssuedItemDto**](IssuedItemDto.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **202** | Issuing started |  -  |
 
 
 ## listItem
