@@ -7,7 +7,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **platformUserId** | **String** |  | 
-**callback** | [**CallbackDto**](CallbackDto.md) |  |  [optional]
+**callback** | [**CallbackData**](CallbackData.md) |  |  [optional]
 **playerId** | **String** |  | 
 
 

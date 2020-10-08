@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import games.mythical.ivi.sdk.model.CallbackDto;
+import games.mythical.ivi.sdk.model.CallbackData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
@@ -86,7 +86,7 @@ public class IssueItemCallbackRequest {
   private String authenticityImageUrl;
 
   public static final String JSON_PROPERTY_CALLBACK = "callback";
-  private CallbackDto callback;
+  private CallbackData callback;
 
   public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
@@ -378,7 +378,7 @@ public class IssueItemCallbackRequest {
   }
 
 
-  public IssueItemCallbackRequest callback(CallbackDto callback) {
+  public IssueItemCallbackRequest callback(CallbackData callback) {
     
     this.callback = callback;
     return this;
@@ -393,12 +393,12 @@ public class IssueItemCallbackRequest {
   @JsonProperty(JSON_PROPERTY_CALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public CallbackDto getCallback() {
+  public CallbackData getCallback() {
     return callback;
   }
 
 
-  public void setCallback(CallbackDto callback) {
+  public void setCallback(CallbackData callback) {
     this.callback = callback;
   }
 

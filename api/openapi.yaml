@@ -3582,7 +3582,7 @@ components:
         gameInventoryId: gameInventoryId
       properties:
         callback:
-          $ref: '#/components/schemas/CallbackDto'
+          $ref: '#/components/schemas/CallbackData'
         gameInventoryId:
           type: string
       required:
@@ -3728,7 +3728,7 @@ components:
         burnable:
           type: boolean
         callback:
-          $ref: '#/components/schemas/CallbackDto'
+          $ref: '#/components/schemas/CallbackData'
         maxSupply:
           example: 1000
           format: int32
@@ -4838,7 +4838,7 @@ components:
         platformUserId:
           type: string
         callback:
-          $ref: '#/components/schemas/CallbackDto'
+          $ref: '#/components/schemas/CallbackData'
         playerId:
           type: string
       required:
@@ -5372,6 +5372,21 @@ components:
       - timeFrameStart
       - titleId
       type: object
+    CallbackData:
+      example:
+        authHeaderKey: authHeaderKey
+        authHeaderValue: authHeaderValue
+        url: url
+      properties:
+        authHeaderKey:
+          type: string
+        authHeaderValue:
+          type: string
+        url:
+          type: string
+      required:
+      - url
+      type: object
     UpdateProfilePictureRequest:
       example:
         imageBase64: imageBase64
@@ -5704,21 +5719,6 @@ components:
         failureCount:
           format: int64
           type: integer
-      type: object
-    CallbackDto:
-      example:
-        authHeaderKey: authHeaderKey
-        authHeaderValue: authHeaderValue
-        url: url
-      properties:
-        authHeaderKey:
-          type: string
-        authHeaderValue:
-          type: string
-        url:
-          type: string
-      required:
-      - url
       type: object
     TitleDto:
       example:
@@ -6172,7 +6172,7 @@ components:
         authenticityImageUrl:
           type: string
         callback:
-          $ref: '#/components/schemas/CallbackDto'
+          $ref: '#/components/schemas/CallbackData'
         currency:
           example: BB
           type: string

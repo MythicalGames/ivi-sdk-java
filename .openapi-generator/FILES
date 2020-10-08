@@ -15,7 +15,7 @@ docs/BraintreeTokenRequestData.md
 docs/BurnItemCallbackRequest.md
 docs/BurnItemRequest.md
 docs/BuyListingRequest.md
-docs/CallbackDto.md
+docs/CallbackData.md
 docs/ClientPaymentTokenDto.md
 docs/CloseSaleRequest.md
 docs/CoinbaseOrderDto.md
@@ -147,7 +147,7 @@ src/main/java/games/mythical/ivi/sdk/model/BraintreeTokenRequestData.java
 src/main/java/games/mythical/ivi/sdk/model/BurnItemCallbackRequest.java
 src/main/java/games/mythical/ivi/sdk/model/BurnItemRequest.java
 src/main/java/games/mythical/ivi/sdk/model/BuyListingRequest.java
-src/main/java/games/mythical/ivi/sdk/model/CallbackDto.java
+src/main/java/games/mythical/ivi/sdk/model/CallbackData.java
 src/main/java/games/mythical/ivi/sdk/model/ClientPaymentTokenDto.java
 src/main/java/games/mythical/ivi/sdk/model/CloseSaleRequest.java
 src/main/java/games/mythical/ivi/sdk/model/CoinbaseOrderDto.java
@@ -224,7 +224,4 @@ src/main/java/games/mythical/ivi/sdk/model/UpdateWebhookRequest.java
 src/main/java/games/mythical/ivi/sdk/model/UserDto.java
 src/main/java/games/mythical/ivi/sdk/model/VirtualCurrencyDto.java
 src/main/java/games/mythical/ivi/sdk/model/WebhookDto.java
-src/test/java/games/mythical/ivi/sdk/model/BurnItemCallbackRequestTest.java
-src/test/java/games/mythical/ivi/sdk/model/CallbackDtoTest.java
-src/test/java/games/mythical/ivi/sdk/model/CreateItemCallbackRequestTest.java
-src/test/java/games/mythical/ivi/sdk/model/IssueItemCallbackRequestTest.java
+src/test/java/games/mythical/ivi/sdk/model/CallbackDataTest.java

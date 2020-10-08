@@ -197,7 +197,7 @@ Class | Method | HTTP request | Description
  - [BurnItemCallbackRequest](docs/BurnItemCallbackRequest.md)
  - [BurnItemRequest](docs/BurnItemRequest.md)
  - [BuyListingRequest](docs/BuyListingRequest.md)
- - [CallbackDto](docs/CallbackDto.md)
+ - [CallbackData](docs/CallbackData.md)
  - [ClientPaymentTokenDto](docs/ClientPaymentTokenDto.md)
  - [CloseSaleRequest](docs/CloseSaleRequest.md)
  - [CoinbaseOrderDto](docs/CoinbaseOrderDto.md)

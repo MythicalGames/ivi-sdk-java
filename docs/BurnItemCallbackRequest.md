@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**callback** | [**CallbackDto**](CallbackDto.md) |  |  [optional]
+**callback** | [**CallbackData**](CallbackData.md) |  |  [optional]
 **gameInventoryId** | **String** |  | 
 
 
