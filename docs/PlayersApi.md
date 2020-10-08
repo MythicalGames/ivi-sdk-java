@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## linkPlayerToEnvironment
 
-> linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest)
+> PlayerDto linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest)
 
 Link player to environment
 
@@ -186,7 +186,8 @@ public class Example {
         String environmentId = "environmentId_example"; // String | 
         LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = new LinkPlayerToEnvironmentRequest(); // LinkPlayerToEnvironmentRequest | 
         try {
-            apiInstance.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
+            PlayerDto result = apiInstance.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PlayersApi#linkPlayerToEnvironment");
             System.err.println("Status code: " + e.getCode());
@@ -208,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**PlayerDto**](PlayerDto.md)
 
 ### Authorization
 

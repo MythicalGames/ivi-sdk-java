@@ -30,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
   PaymentDto.JSON_PROPERTY_SUCCESS,
   PaymentDto.JSON_PROPERTY_PAYMENT_INSTRUMENT_TYPE,
+  PaymentDto.JSON_PROPERTY_TRANSACTION_ID,
   PaymentDto.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("PaymentDto")
@@ -40,6 +41,9 @@ public class PaymentDto {
 
   public static final String JSON_PROPERTY_PAYMENT_INSTRUMENT_TYPE = "paymentInstrumentType";
   private String paymentInstrumentType;
+
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transactionId";
+  private String transactionId;
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private String status;
@@ -95,6 +99,31 @@ public class PaymentDto {
   }
 
 
+  public PaymentDto transactionId(String transactionId) {
+    
+    this.transactionId = transactionId;
+    return this;
+  }
+
+   /**
+   * Get transactionId
+   * @return transactionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
+  }
+
+
   public PaymentDto status(String status) {
     
     this.status = status;
@@ -131,12 +160,13 @@ public class PaymentDto {
     PaymentDto paymentDto = (PaymentDto) o;
     return Objects.equals(this.success, paymentDto.success) &&
         Objects.equals(this.paymentInstrumentType, paymentDto.paymentInstrumentType) &&
+        Objects.equals(this.transactionId, paymentDto.transactionId) &&
         Objects.equals(this.status, paymentDto.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, paymentInstrumentType, status);
+    return Objects.hash(success, paymentInstrumentType, transactionId, status);
   }
 
 
@@ -146,6 +176,7 @@ public class PaymentDto {
     sb.append("class PaymentDto {\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("    paymentInstrumentType: ").append(toIndentedString(paymentInstrumentType)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

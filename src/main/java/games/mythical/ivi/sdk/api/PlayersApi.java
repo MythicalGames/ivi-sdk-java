@@ -167,10 +167,11 @@ public class PlayersApi {
      * <p><b>202</b> - The player linking was accepted
      * @param environmentId  (required)
      * @param linkPlayerToEnvironmentRequest  (required)
+     * @return PlayerDto
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws RestClientException {
-        linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest);
+    public PlayerDto linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws RestClientException {
+        return linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest).getBody();
     }
 
     /**
@@ -180,10 +181,10 @@ public class PlayersApi {
      * <p><b>202</b> - The player linking was accepted
      * @param environmentId  (required)
      * @param linkPlayerToEnvironmentRequest  (required)
-     * @return ResponseEntity&lt;Void&gt;
+     * @return ResponseEntity&lt;PlayerDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws RestClientException {
+    public ResponseEntity<PlayerDto> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws RestClientException {
         Object postBody = linkPlayerToEnvironmentRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -217,7 +218,7 @@ public class PlayersApi {
 
         String[] authNames = new String[] { "api_key" };
 
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        ParameterizedTypeReference<PlayerDto> returnType = new ParameterizedTypeReference<PlayerDto>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, contentType, authNames, returnType);
     }
 }

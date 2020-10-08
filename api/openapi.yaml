@@ -826,7 +826,7 @@ paths:
         playerCallback:
           '{$request.body#/callback.url}':
             post:
-              operationId: playerCallback_Post
+              operationId: playerCallback_POST
               requestBody:
                 content:
                   application/json:
@@ -858,6 +858,10 @@ paths:
                 type: string
           description: Bad Request
         "202":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PlayerDto'
           description: The player linking was accepted
       summary: Link player to environment
       tags:
@@ -1159,10 +1163,10 @@ paths:
   /environments/{environmentId}/items/burn/callback:
     post:
       callbacks:
-        createItemCallback:
+        burnItemCallback:
           '{$request.body#/callback.url}':
             post:
-              operationId: createItemCallback_Post
+              operationId: burnItemCallback_POST
               requestBody:
                 content:
                   application/json:
@@ -3264,7 +3268,7 @@ paths:
         issueItemCallback:
           '{$request.body#/callback.url}':
             post:
-              operationId: issueItemCallback_Post
+              operationId: issueItemCallback_POST
               requestBody:
                 content:
                   application/json:
@@ -3313,7 +3317,7 @@ paths:
         createItemCallback:
           '{$request.body#/callback.url}':
             post:
-              operationId: createItemCallback_Post
+              operationId: createItemCallback_POST
               requestBody:
                 content:
                   application/json:
@@ -5950,11 +5954,14 @@ components:
       example:
         success: true
         paymentInstrumentType: paymentInstrumentType
+        transactionId: transactionId
         status: status
       properties:
         success:
           type: boolean
         paymentInstrumentType:
+          type: string
+        transactionId:
           type: string
         status:
           type: string

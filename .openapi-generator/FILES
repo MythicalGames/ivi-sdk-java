@@ -224,4 +224,3 @@ src/main/java/games/mythical/ivi/sdk/model/UpdateWebhookRequest.java
 src/main/java/games/mythical/ivi/sdk/model/UserDto.java
 src/main/java/games/mythical/ivi/sdk/model/VirtualCurrencyDto.java
 src/main/java/games/mythical/ivi/sdk/model/WebhookDto.java
-src/test/java/games/mythical/ivi/sdk/model/CallbackDataTest.java
