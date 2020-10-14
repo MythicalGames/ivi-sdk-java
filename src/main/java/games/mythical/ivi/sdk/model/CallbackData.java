@@ -105,7 +105,7 @@ public class CallbackData {
    * Get url
    * @return url
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

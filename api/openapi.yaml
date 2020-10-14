@@ -1729,59 +1729,6 @@ paths:
       - Titles
       x-contentType: application/json
       x-accepts: '*/*'
-  /environments/{environmentId}/transactions:
-    get:
-      description: Get all transaction events for an environment with an optional
-        time period specified.
-      operationId: getAllTitleTransactions
-      parameters:
-      - explode: false
-        in: path
-        name: environmentId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: from
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: to
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: cursor
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                items:
-                  $ref: '#/components/schemas/TransactionEventDTO'
-                type: array
-          description: Success
-        "400":
-          content:
-            '*/*':
-              schema:
-                type: string
-          description: Bad Request
-      summary: Get all transaction events for an environment.
-      tags:
-      - Transactions
-      x-accepts: '*/*'
   /orgs/{organizationId}/titles:
     get:
       description: Get titles for organization
@@ -1855,51 +1802,6 @@ paths:
       tags:
       - Organizations
       x-contentType: application/json
-      x-accepts: '*/*'
-  /environments/{environmentId}/transactions/{transactionId}:
-    get:
-      description: Get transaction events for transaction ID in an environment.
-      operationId: getTransactionEventsForTitle
-      parameters:
-      - explode: false
-        in: path
-        name: environmentId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: transactionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: cursor
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                items:
-                  $ref: '#/components/schemas/TransactionEventDTO'
-                type: array
-          description: Success
-        "400":
-          content:
-            '*/*':
-              schema:
-                type: string
-          description: Bad Request
-      summary: Get transaction events for transaction ID in an environment.
-      tags:
-      - Transactions
       x-accepts: '*/*'
   /environments/{environmentId}/payments/customer/methods/default:
     put:
@@ -3582,7 +3484,7 @@ components:
         callback:
           authHeaderKey: authHeaderKey
           authHeaderValue: authHeaderValue
-          url: url
+          url: https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function
         gameInventoryId: gameInventoryId
       properties:
         callback:
@@ -3716,7 +3618,7 @@ components:
         callback:
           authHeaderKey: authHeaderKey
           authHeaderValue: authHeaderValue
-          url: url
+          url: https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function
         maxSupply: 1000
         sellable: true
         category: category
@@ -4836,7 +4738,7 @@ components:
         callback:
           authHeaderKey: authHeaderKey
           authHeaderValue: authHeaderValue
-          url: url
+          url: https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function
         playerId: playerId
       properties:
         platformUserId:
@@ -5380,13 +5282,14 @@ components:
       example:
         authHeaderKey: authHeaderKey
         authHeaderValue: authHeaderValue
-        url: url
+        url: https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function
       properties:
         authHeaderKey:
           type: string
         authHeaderValue:
           type: string
         url:
+          example: https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function
           type: string
       required:
       - url
@@ -5888,30 +5791,6 @@ components:
       - orderId
       - paymentProviderData
       type: object
-    TransactionEventDTO:
-      example:
-        eventId: 0
-        chainName: chainName
-        environmentId: environmentId
-        eventDetails: eventDetails
-        transactionId: transactionId
-        timestamp: 6
-      properties:
-        eventId:
-          format: int64
-          type: integer
-        chainName:
-          type: string
-        environmentId:
-          type: string
-        eventDetails:
-          type: string
-        transactionId:
-          type: string
-        timestamp:
-          format: int64
-          type: integer
-      type: object
     CreateCustomerRequest:
       example:
         firstName: first
@@ -6147,7 +6026,7 @@ components:
         callback:
           authHeaderKey: authHeaderKey
           authHeaderValue: authHeaderValue
-          url: url
+          url: https://us-central1-mycl-platform-dev.cloudfunctions.net/callback-function
         currency: BB
         category: category
         render: render

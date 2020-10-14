@@ -165,8 +165,6 @@ Class | Method | HTTP request | Description
 *TitlesApi* | [**setTitleActive**](docs/TitlesApi.md#setTitleActive) | **PUT** /titles/{titleId}/activate | Set title to activated
 *TitlesApi* | [**setTitleInactive**](docs/TitlesApi.md#setTitleInactive) | **PUT** /titles/{titleId}/deactivate | Set title to deactivated
 *TitlesApi* | [**updateTitle**](docs/TitlesApi.md#updateTitle) | **PUT** /titles/{titleId} | Update title
-*TransactionsApi* | [**getAllTitleTransactions**](docs/TransactionsApi.md#getAllTitleTransactions) | **GET** /environments/{environmentId}/transactions | Get all transaction events for an environment.
-*TransactionsApi* | [**getTransactionEventsForTitle**](docs/TransactionsApi.md#getTransactionEventsForTitle) | **GET** /environments/{environmentId}/transactions/{transactionId} | Get transaction events for transaction ID in an environment.
 *UserSettingsApi* | [**getTheme**](docs/UserSettingsApi.md#getTheme) | **GET** /users/settings/theme | Get the display theme
 *UserSettingsApi* | [**setTheme**](docs/UserSettingsApi.md#setTheme) | **POST** /users/settings/theme | Set the display theme
 *UserSettingsApi* | [**updateTheme**](docs/UserSettingsApi.md#updateTheme) | **PUT** /users/settings/theme | Update the display theme
@@ -258,7 +256,6 @@ Class | Method | HTTP request | Description
  - [TokenCategory](docs/TokenCategory.md)
  - [TokenRequestData](docs/TokenRequestData.md)
  - [TransactionDto](docs/TransactionDto.md)
- - [TransactionEventDTO](docs/TransactionEventDTO.md)
  - [TransferItemRequest](docs/TransferItemRequest.md)
  - [UpdateAgreementRequest](docs/UpdateAgreementRequest.md)
  - [UpdateCustomerRequest](docs/UpdateCustomerRequest.md)
