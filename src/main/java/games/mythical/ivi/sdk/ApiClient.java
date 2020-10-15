@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -537,13 +538,21 @@ public class ApiClient extends JavaTimeFormatter {
 
         RequestEntity<Object> requestEntity = requestBuilder.body(selectBody(body, formParams, contentType));
 
-        ResponseEntity<T> responseEntity = restTemplate.exchange(requestEntity, returnType);
+        ResponseEntity<T> responseEntity;
+        try {
+            responseEntity = restTemplate.exchange(requestEntity, returnType);
+        } catch (HttpClientErrorException e) {
+            throw new IVIException(e.getRawStatusCode(),
+                    String.format("API returned %s error code", e.getRawStatusCode()),
+                    e.getResponseHeaders(),
+                    e.getResponseBodyAsString());
+        }
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity;
         } else {
-            throw new IVIException(responseEntity.getStatusCode().value(),
-                    "API returned " + responseEntity.getStatusCode() + " and it wasn't handled by the RestTemplate error handler",
+            throw new IVIException(responseEntity.getStatusCodeValue(),
+                    String.format("API returned %s error code", responseEntity.getStatusCodeValue()),
                     responseEntity.getHeaders(),
                     (String) responseEntity.getBody());
         }
@@ -611,6 +620,7 @@ public class ApiClient extends JavaTimeFormatter {
      * @param authNames The authentications to apply
      * @param queryParams The query parameters
      * @param headerParams The header parameters
+     * @param cookieParams The cookie parameters
      */
     protected void updateParamsForAuth(String[] authNames, MultiValueMap<String, String> queryParams, HttpHeaders headerParams, MultiValueMap<String, String> cookieParams) throws IVIException {
         for (String authName : authNames) {
