@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.MarketplaceItemDto;
 import games.mythical.ivi.sdk.model.MarketplaceListingDto;
@@ -19,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -61,9 +61,9 @@ public class MarketplaceApi {
      * @param createdTimestamp  (optional, default to -1l)
      * @param order  (optional, default to DESCENDING)
      * @return List&lt;MarketplaceListingDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<MarketplaceListingDto> getAllListings(String environmentId, Integer pageSize, Long createdTimestamp, String order) throws RestClientException {
+    public List<MarketplaceListingDto> getAllListings(String environmentId, Integer pageSize, Long createdTimestamp, String order) throws IVIException {
         return getAllListingsWithHttpInfo(environmentId, pageSize, createdTimestamp, order).getBody();
     }
 
@@ -77,9 +77,9 @@ public class MarketplaceApi {
      * @param createdTimestamp  (optional, default to -1l)
      * @param order  (optional, default to DESCENDING)
      * @return ResponseEntity&lt;List&lt;MarketplaceListingDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<MarketplaceListingDto>> getAllListingsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order) throws RestClientException {
+    public ResponseEntity<List<MarketplaceListingDto>> getAllListingsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -122,9 +122,9 @@ public class MarketplaceApi {
      * @param gameInventoryId  (optional)
      * @param dgoodId  (optional, default to -1l)
      * @return List&lt;TransactionDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<TransactionDto> getItemHistory(String environmentId, String gameInventoryId, Long dgoodId) throws RestClientException {
+    public List<TransactionDto> getItemHistory(String environmentId, String gameInventoryId, Long dgoodId) throws IVIException {
         return getItemHistoryWithHttpInfo(environmentId, gameInventoryId, dgoodId).getBody();
     }
 
@@ -137,9 +137,9 @@ public class MarketplaceApi {
      * @param gameInventoryId  (optional)
      * @param dgoodId  (optional, default to -1l)
      * @return ResponseEntity&lt;List&lt;TransactionDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<TransactionDto>> getItemHistoryWithHttpInfo(String environmentId, String gameInventoryId, Long dgoodId) throws RestClientException {
+    public ResponseEntity<List<TransactionDto>> getItemHistoryWithHttpInfo(String environmentId, String gameInventoryId, Long dgoodId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -180,9 +180,9 @@ public class MarketplaceApi {
      * @param environmentId  (required)
      * @param listingId  (required)
      * @return MarketplaceListingDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public MarketplaceListingDto getListing(String environmentId, String listingId) throws RestClientException {
+    public MarketplaceListingDto getListing(String environmentId, String listingId) throws IVIException {
         return getListingWithHttpInfo(environmentId, listingId).getBody();
     }
 
@@ -194,9 +194,9 @@ public class MarketplaceApi {
      * @param environmentId  (required)
      * @param listingId  (required)
      * @return ResponseEntity&lt;MarketplaceListingDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<MarketplaceListingDto> getListingWithHttpInfo(String environmentId, String listingId) throws RestClientException {
+    public ResponseEntity<MarketplaceListingDto> getListingWithHttpInfo(String environmentId, String listingId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -241,9 +241,9 @@ public class MarketplaceApi {
      * @param mythicalId  (optional)
      * @param playerId  (optional)
      * @return List&lt;MarketplaceItemDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<MarketplaceItemDto> getMarketplaceItems(String environmentId, UUID mythicalId, String playerId) throws RestClientException {
+    public List<MarketplaceItemDto> getMarketplaceItems(String environmentId, UUID mythicalId, String playerId) throws IVIException {
         return getMarketplaceItemsWithHttpInfo(environmentId, mythicalId, playerId).getBody();
     }
 
@@ -256,9 +256,9 @@ public class MarketplaceApi {
      * @param mythicalId  (optional)
      * @param playerId  (optional)
      * @return ResponseEntity&lt;List&lt;MarketplaceItemDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<MarketplaceItemDto>> getMarketplaceItemsWithHttpInfo(String environmentId, UUID mythicalId, String playerId) throws RestClientException {
+    public ResponseEntity<List<MarketplaceItemDto>> getMarketplaceItemsWithHttpInfo(String environmentId, UUID mythicalId, String playerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -309,9 +309,9 @@ public class MarketplaceApi {
      * @param pageSize  (optional, default to 30)
      * @param pageNum  (optional, default to 0)
      * @return SearchResponse
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public SearchResponse searchItems(String environmentId, String query, Boolean filters, String artists, String rarity, String levels, String category, String tokenName, String price, String status, Integer pageSize, Integer pageNum) throws RestClientException {
+    public SearchResponse searchItems(String environmentId, String query, Boolean filters, String artists, String rarity, String levels, String category, String tokenName, String price, String status, Integer pageSize, Integer pageNum) throws IVIException {
         return searchItemsWithHttpInfo(environmentId, query, filters, artists, rarity, levels, category, tokenName, price, status, pageSize, pageNum).getBody();
     }
 
@@ -333,9 +333,9 @@ public class MarketplaceApi {
      * @param pageSize  (optional, default to 30)
      * @param pageNum  (optional, default to 0)
      * @return ResponseEntity&lt;SearchResponse&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<SearchResponse> searchItemsWithHttpInfo(String environmentId, String query, Boolean filters, String artists, String rarity, String levels, String category, String tokenName, String price, String status, Integer pageSize, Integer pageNum) throws RestClientException {
+    public ResponseEntity<SearchResponse> searchItemsWithHttpInfo(String environmentId, String query, Boolean filters, String artists, String rarity, String levels, String category, String tokenName, String price, String status, Integer pageSize, Integer pageNum) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set

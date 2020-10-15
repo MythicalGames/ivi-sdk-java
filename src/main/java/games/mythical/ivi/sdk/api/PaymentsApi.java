@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.ClientPaymentTokenDto;
 import games.mythical.ivi.sdk.model.CreateCustomerRequest;
@@ -26,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -69,9 +69,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param finalizePaymentRequest  (required)
      * @return PaymentDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PaymentDto completePayment(String environmentId, FinalizePaymentRequest finalizePaymentRequest) throws RestClientException {
+    public PaymentDto completePayment(String environmentId, FinalizePaymentRequest finalizePaymentRequest) throws IVIException {
         return completePaymentWithHttpInfo(environmentId, finalizePaymentRequest).getBody();
     }
 
@@ -86,9 +86,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param finalizePaymentRequest  (required)
      * @return ResponseEntity&lt;PaymentDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PaymentDto> completePaymentWithHttpInfo(String environmentId, FinalizePaymentRequest finalizePaymentRequest) throws RestClientException {
+    public ResponseEntity<PaymentDto> completePaymentWithHttpInfo(String environmentId, FinalizePaymentRequest finalizePaymentRequest) throws IVIException {
         Object postBody = finalizePaymentRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -133,9 +133,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param createCustomerRequest  (required)
      * @return CustomerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public CustomerDto createCustomer(String environmentId, CreateCustomerRequest createCustomerRequest) throws RestClientException {
+    public CustomerDto createCustomer(String environmentId, CreateCustomerRequest createCustomerRequest) throws IVIException {
         return createCustomerWithHttpInfo(environmentId, createCustomerRequest).getBody();
     }
 
@@ -147,9 +147,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param createCustomerRequest  (required)
      * @return ResponseEntity&lt;CustomerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<CustomerDto> createCustomerWithHttpInfo(String environmentId, CreateCustomerRequest createCustomerRequest) throws RestClientException {
+    public ResponseEntity<CustomerDto> createCustomerWithHttpInfo(String environmentId, CreateCustomerRequest createCustomerRequest) throws IVIException {
         Object postBody = createCustomerRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -194,9 +194,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param createPaymentMethodRequest  (required)
      * @return PaymentMethodDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PaymentMethodDto createPaymentMethod(String environmentId, CreatePaymentMethodRequest createPaymentMethodRequest) throws RestClientException {
+    public PaymentMethodDto createPaymentMethod(String environmentId, CreatePaymentMethodRequest createPaymentMethodRequest) throws IVIException {
         return createPaymentMethodWithHttpInfo(environmentId, createPaymentMethodRequest).getBody();
     }
 
@@ -208,9 +208,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param createPaymentMethodRequest  (required)
      * @return ResponseEntity&lt;PaymentMethodDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PaymentMethodDto> createPaymentMethodWithHttpInfo(String environmentId, CreatePaymentMethodRequest createPaymentMethodRequest) throws RestClientException {
+    public ResponseEntity<PaymentMethodDto> createPaymentMethodWithHttpInfo(String environmentId, CreatePaymentMethodRequest createPaymentMethodRequest) throws IVIException {
         Object postBody = createPaymentMethodRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -254,9 +254,9 @@ public class PaymentsApi {
      * <p><b>204</b> - Customer deleted
      * @param environmentId  (required)
      * @param customerId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void deleteCustomer(String environmentId, String customerId) throws RestClientException {
+    public void deleteCustomer(String environmentId, String customerId) throws IVIException {
         deleteCustomerWithHttpInfo(environmentId, customerId);
     }
 
@@ -268,9 +268,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param customerId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> deleteCustomerWithHttpInfo(String environmentId, String customerId) throws RestClientException {
+    public ResponseEntity<Void> deleteCustomerWithHttpInfo(String environmentId, String customerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -313,9 +313,9 @@ public class PaymentsApi {
      * <p><b>204</b> - Payment Method deleted
      * @param environmentId  (required)
      * @param methodToken  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void deletePaymentMethod(String environmentId, String methodToken) throws RestClientException {
+    public void deletePaymentMethod(String environmentId, String methodToken) throws IVIException {
         deletePaymentMethodWithHttpInfo(environmentId, methodToken);
     }
 
@@ -327,9 +327,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param methodToken  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> deletePaymentMethodWithHttpInfo(String environmentId, String methodToken) throws RestClientException {
+    public ResponseEntity<Void> deletePaymentMethodWithHttpInfo(String environmentId, String methodToken) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -373,9 +373,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param generateTokenRequest  (required)
      * @return ClientPaymentTokenDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ClientPaymentTokenDto generateClientToken(String environmentId, GenerateTokenRequest generateTokenRequest) throws RestClientException {
+    public ClientPaymentTokenDto generateClientToken(String environmentId, GenerateTokenRequest generateTokenRequest) throws IVIException {
         return generateClientTokenWithHttpInfo(environmentId, generateTokenRequest).getBody();
     }
 
@@ -387,9 +387,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param generateTokenRequest  (required)
      * @return ResponseEntity&lt;ClientPaymentTokenDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ClientPaymentTokenDto> generateClientTokenWithHttpInfo(String environmentId, GenerateTokenRequest generateTokenRequest) throws RestClientException {
+    public ResponseEntity<ClientPaymentTokenDto> generateClientTokenWithHttpInfo(String environmentId, GenerateTokenRequest generateTokenRequest) throws IVIException {
         Object postBody = generateTokenRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -434,9 +434,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param customerId  (required)
      * @return CustomerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public CustomerDto getCustomer(String environmentId, String customerId) throws RestClientException {
+    public CustomerDto getCustomer(String environmentId, String customerId) throws IVIException {
         return getCustomerWithHttpInfo(environmentId, customerId).getBody();
     }
 
@@ -448,9 +448,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param customerId  (required)
      * @return ResponseEntity&lt;CustomerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<CustomerDto> getCustomerWithHttpInfo(String environmentId, String customerId) throws RestClientException {
+    public ResponseEntity<CustomerDto> getCustomerWithHttpInfo(String environmentId, String customerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -495,9 +495,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param paymentMethodToken  (required)
      * @return PaymentMethodDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PaymentMethodDto getPaymentMethod(String environmentId, String paymentMethodToken) throws RestClientException {
+    public PaymentMethodDto getPaymentMethod(String environmentId, String paymentMethodToken) throws IVIException {
         return getPaymentMethodWithHttpInfo(environmentId, paymentMethodToken).getBody();
     }
 
@@ -509,9 +509,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param paymentMethodToken  (required)
      * @return ResponseEntity&lt;PaymentMethodDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PaymentMethodDto> getPaymentMethodWithHttpInfo(String environmentId, String paymentMethodToken) throws RestClientException {
+    public ResponseEntity<PaymentMethodDto> getPaymentMethodWithHttpInfo(String environmentId, String paymentMethodToken) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -559,9 +559,9 @@ public class PaymentsApi {
      * @param zipCode  (required)
      * @param isSecondaryMarketplace  (required)
      * @return SalesTaxInfoDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public SalesTaxInfoDto getSalesTaxInfo(String environmentId, String countryIsoCode, String stateIsoCode, String zipCode, Boolean isSecondaryMarketplace) throws RestClientException {
+    public SalesTaxInfoDto getSalesTaxInfo(String environmentId, String countryIsoCode, String stateIsoCode, String zipCode, Boolean isSecondaryMarketplace) throws IVIException {
         return getSalesTaxInfoWithHttpInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace).getBody();
     }
 
@@ -576,9 +576,9 @@ public class PaymentsApi {
      * @param zipCode  (required)
      * @param isSecondaryMarketplace  (required)
      * @return ResponseEntity&lt;SalesTaxInfoDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<SalesTaxInfoDto> getSalesTaxInfoWithHttpInfo(String environmentId, String countryIsoCode, String stateIsoCode, String zipCode, Boolean isSecondaryMarketplace) throws RestClientException {
+    public ResponseEntity<SalesTaxInfoDto> getSalesTaxInfoWithHttpInfo(String environmentId, String countryIsoCode, String stateIsoCode, String zipCode, Boolean isSecondaryMarketplace) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -641,9 +641,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param orderId  (required)
      * @return SalesTaxTransactionDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public SalesTaxTransactionDto getSalesTaxTransaction(String environmentId, String orderId) throws RestClientException {
+    public SalesTaxTransactionDto getSalesTaxTransaction(String environmentId, String orderId) throws IVIException {
         return getSalesTaxTransactionWithHttpInfo(environmentId, orderId).getBody();
     }
 
@@ -655,9 +655,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param orderId  (required)
      * @return ResponseEntity&lt;SalesTaxTransactionDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<SalesTaxTransactionDto> getSalesTaxTransactionWithHttpInfo(String environmentId, String orderId) throws RestClientException {
+    public ResponseEntity<SalesTaxTransactionDto> getSalesTaxTransactionWithHttpInfo(String environmentId, String orderId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -701,9 +701,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param updateCustomerRequest  (required)
      * @return CustomerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public CustomerDto updateCustomer(String environmentId, UpdateCustomerRequest updateCustomerRequest) throws RestClientException {
+    public CustomerDto updateCustomer(String environmentId, UpdateCustomerRequest updateCustomerRequest) throws IVIException {
         return updateCustomerWithHttpInfo(environmentId, updateCustomerRequest).getBody();
     }
 
@@ -715,9 +715,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param updateCustomerRequest  (required)
      * @return ResponseEntity&lt;CustomerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<CustomerDto> updateCustomerWithHttpInfo(String environmentId, UpdateCustomerRequest updateCustomerRequest) throws RestClientException {
+    public ResponseEntity<CustomerDto> updateCustomerWithHttpInfo(String environmentId, UpdateCustomerRequest updateCustomerRequest) throws IVIException {
         Object postBody = updateCustomerRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -762,9 +762,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param updatePaymentMethodDefaultRequest  (required)
      * @return PaymentMethodDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PaymentMethodDto updatePaymentMethod(String environmentId, UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest) throws RestClientException {
+    public PaymentMethodDto updatePaymentMethod(String environmentId, UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest) throws IVIException {
         return updatePaymentMethodWithHttpInfo(environmentId, updatePaymentMethodDefaultRequest).getBody();
     }
 
@@ -776,9 +776,9 @@ public class PaymentsApi {
      * @param environmentId  (required)
      * @param updatePaymentMethodDefaultRequest  (required)
      * @return ResponseEntity&lt;PaymentMethodDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PaymentMethodDto> updatePaymentMethodWithHttpInfo(String environmentId, UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest) throws RestClientException {
+    public ResponseEntity<PaymentMethodDto> updatePaymentMethodWithHttpInfo(String environmentId, UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest) throws IVIException {
         Object postBody = updatePaymentMethodDefaultRequest;
         
         // verify the required parameter 'environmentId' is set

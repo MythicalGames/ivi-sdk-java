@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateServerSecretRequest;
 import games.mythical.ivi.sdk.model.ServerSecretDto;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -57,9 +57,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param createServerSecretRequest  (required)
      * @return ServerSecretDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ServerSecretDto createServerSecretForEnvironment(UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws RestClientException {
+    public ServerSecretDto createServerSecretForEnvironment(UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws IVIException {
         return createServerSecretForEnvironmentWithHttpInfo(organizationId, createServerSecretRequest).getBody();
     }
 
@@ -71,9 +71,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param createServerSecretRequest  (required)
      * @return ResponseEntity&lt;ServerSecretDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ServerSecretDto> createServerSecretForEnvironmentWithHttpInfo(UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws RestClientException {
+    public ResponseEntity<ServerSecretDto> createServerSecretForEnvironmentWithHttpInfo(UUID organizationId, CreateServerSecretRequest createServerSecretRequest) throws IVIException {
         Object postBody = createServerSecretRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -117,9 +117,9 @@ public class ServerSecretsApi {
      * <p><b>204</b> - Secret deleted successfully.
      * @param organizationId  (required)
      * @param secretId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void deleteServerSecret(UUID organizationId, String secretId) throws RestClientException {
+    public void deleteServerSecret(UUID organizationId, String secretId) throws IVIException {
         deleteServerSecretWithHttpInfo(organizationId, secretId);
     }
 
@@ -131,9 +131,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param secretId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> deleteServerSecretWithHttpInfo(UUID organizationId, String secretId) throws RestClientException {
+    public ResponseEntity<Void> deleteServerSecretWithHttpInfo(UUID organizationId, String secretId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -176,9 +176,9 @@ public class ServerSecretsApi {
      * <p><b>204</b> - Secret disabled successfully.
      * @param organizationId  (required)
      * @param secretId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void disableServerSecret(UUID organizationId, String secretId) throws RestClientException {
+    public void disableServerSecret(UUID organizationId, String secretId) throws IVIException {
         disableServerSecretWithHttpInfo(organizationId, secretId);
     }
 
@@ -190,9 +190,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param secretId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> disableServerSecretWithHttpInfo(UUID organizationId, String secretId) throws RestClientException {
+    public ResponseEntity<Void> disableServerSecretWithHttpInfo(UUID organizationId, String secretId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -235,9 +235,9 @@ public class ServerSecretsApi {
      * <p><b>204</b> - Secret enabled successfully.
      * @param organizationId  (required)
      * @param secretId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void enableServerSecret(UUID organizationId, String secretId) throws RestClientException {
+    public void enableServerSecret(UUID organizationId, String secretId) throws IVIException {
         enableServerSecretWithHttpInfo(organizationId, secretId);
     }
 
@@ -249,9 +249,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param secretId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> enableServerSecretWithHttpInfo(UUID organizationId, String secretId) throws RestClientException {
+    public ResponseEntity<Void> enableServerSecretWithHttpInfo(UUID organizationId, String secretId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -295,9 +295,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param secretId  (required)
      * @return ServerSecretDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ServerSecretDto getServerSecretById(UUID organizationId, String secretId) throws RestClientException {
+    public ServerSecretDto getServerSecretById(UUID organizationId, String secretId) throws IVIException {
         return getServerSecretByIdWithHttpInfo(organizationId, secretId).getBody();
     }
 
@@ -309,9 +309,9 @@ public class ServerSecretsApi {
      * @param organizationId  (required)
      * @param secretId  (required)
      * @return ResponseEntity&lt;ServerSecretDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ServerSecretDto> getServerSecretByIdWithHttpInfo(UUID organizationId, String secretId) throws RestClientException {
+    public ResponseEntity<ServerSecretDto> getServerSecretByIdWithHttpInfo(UUID organizationId, String secretId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -354,9 +354,9 @@ public class ServerSecretsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return List&lt;ServerSecretDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<ServerSecretDto> getServerSecretsForEnvironment(UUID organizationId) throws RestClientException {
+    public List<ServerSecretDto> getServerSecretsForEnvironment(UUID organizationId) throws IVIException {
         return getServerSecretsForEnvironmentWithHttpInfo(organizationId).getBody();
     }
 
@@ -367,9 +367,9 @@ public class ServerSecretsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return ResponseEntity&lt;List&lt;ServerSecretDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<ServerSecretDto>> getServerSecretsForEnvironmentWithHttpInfo(UUID organizationId) throws RestClientException {
+    public ResponseEntity<List<ServerSecretDto>> getServerSecretsForEnvironmentWithHttpInfo(UUID organizationId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set

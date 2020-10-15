@@ -16,140 +16,142 @@ package games.mythical.ivi.sdk.api;
 import games.mythical.ivi.sdk.model.CreateWebhookRequest;
 import games.mythical.ivi.sdk.model.UpdateWebhookRequest;
 import games.mythical.ivi.sdk.model.WebhookDto;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for WebhooksApi
- */
+* API tests for WebhooksApi
+*/
 @Ignore
 public class WebhooksApiTest {
 
-    private final WebhooksApi api = new WebhooksApi();
+private final WebhooksApi api = new WebhooksApi();
 
-    
+
     /**
-     * Create webhook
-     *
-     * Define a new webhook that will be called to inform a game backend of platform events.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create webhook
+    *
+    * Define a new webhook that will be called to inform a game backend of platform events.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createNewWebhookTest() {
         String environmentId = null;
         CreateWebhookRequest createWebhookRequest = null;
-        WebhookDto response = api.createNewWebhook(environmentId, createWebhookRequest);
+    WebhookDto response = api.createNewWebhook(environmentId, createWebhookRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Delete webhook
-     *
-     * Delete a webhook
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Delete webhook
+    *
+    * Delete a webhook
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void deleteWebhookTest() {
         String environmentId = null;
         String webhookId = null;
-        api.deleteWebhook(environmentId, webhookId);
+    api.deleteWebhook(environmentId, webhookId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Disable webhook
-     *
-     * Set a webhook to disabled.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Disable webhook
+    *
+    * Set a webhook to disabled.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void disableWebhookTest() {
         String environmentId = null;
         String webhookId = null;
-        api.disableWebhook(environmentId, webhookId);
+    api.disableWebhook(environmentId, webhookId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Enable webhook
-     *
-     * Set a webhook to enabled.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Enable webhook
+    *
+    * Set a webhook to enabled.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void enableWebhookTest() {
         String environmentId = null;
         String webhookId = null;
-        api.enableWebhook(environmentId, webhookId);
+    api.enableWebhook(environmentId, webhookId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get webhook
-     *
-     * Get details for a webhook
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get webhook
+    *
+    * Get details for a webhook
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getWebhookTest() {
         String environmentId = null;
         String webhookId = null;
-        WebhookDto response = api.getWebhook(environmentId, webhookId);
+    WebhookDto response = api.getWebhook(environmentId, webhookId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get all webhooks for environment
-     *
-     * Get details for all webhooks defined for this environment.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all webhooks for environment
+    *
+    * Get details for all webhooks defined for this environment.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getWebhooksForTitleIdTest() {
         String environmentId = null;
-        List<WebhookDto> response = api.getWebhooksForTitleId(environmentId);
+    List<WebhookDto> response = api.getWebhooksForTitleId(environmentId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update webhook
-     *
-     * Update an existing webhook. All details must be included in the request, not just what is being updated.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update webhook
+    *
+    * Update an existing webhook. All details must be included in the request, not just what is being updated.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateWebhookTest() {
         String environmentId = null;
         String webhookId = null;
         UpdateWebhookRequest updateWebhookRequest = null;
-        WebhookDto response = api.updateWebhook(environmentId, webhookId, updateWebhookRequest);
+    WebhookDto response = api.updateWebhook(environmentId, webhookId, updateWebhookRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}

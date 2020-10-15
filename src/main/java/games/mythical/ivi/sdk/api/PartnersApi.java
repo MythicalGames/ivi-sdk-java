@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.AgreementDto;
 import games.mythical.ivi.sdk.model.CreateAgreementRequest;
@@ -20,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -61,9 +61,9 @@ public class PartnersApi {
      * @param partnerId  (required)
      * @param createAgreementRequest  (required)
      * @return AgreementDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public AgreementDto createNewAgreement(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws RestClientException {
+    public AgreementDto createNewAgreement(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws IVIException {
         return createNewAgreementWithHttpInfo(organizationId, partnerId, createAgreementRequest).getBody();
     }
 
@@ -76,9 +76,9 @@ public class PartnersApi {
      * @param partnerId  (required)
      * @param createAgreementRequest  (required)
      * @return ResponseEntity&lt;AgreementDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<AgreementDto> createNewAgreementWithHttpInfo(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws RestClientException {
+    public ResponseEntity<AgreementDto> createNewAgreementWithHttpInfo(String organizationId, String partnerId, CreateAgreementRequest createAgreementRequest) throws IVIException {
         Object postBody = createAgreementRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -129,9 +129,9 @@ public class PartnersApi {
      * @param organizationId  (required)
      * @param createPartnerRequest  (required)
      * @return PartnerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PartnerDto createNewPartner(String organizationId, CreatePartnerRequest createPartnerRequest) throws RestClientException {
+    public PartnerDto createNewPartner(String organizationId, CreatePartnerRequest createPartnerRequest) throws IVIException {
         return createNewPartnerWithHttpInfo(organizationId, createPartnerRequest).getBody();
     }
 
@@ -143,9 +143,9 @@ public class PartnersApi {
      * @param organizationId  (required)
      * @param createPartnerRequest  (required)
      * @return ResponseEntity&lt;PartnerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PartnerDto> createNewPartnerWithHttpInfo(String organizationId, CreatePartnerRequest createPartnerRequest) throws RestClientException {
+    public ResponseEntity<PartnerDto> createNewPartnerWithHttpInfo(String organizationId, CreatePartnerRequest createPartnerRequest) throws IVIException {
         Object postBody = createPartnerRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -190,9 +190,9 @@ public class PartnersApi {
      * @param organizationId  (required)
      * @param partnerId  (required)
      * @return List&lt;AgreementDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<AgreementDto> getAgreements(String organizationId, String partnerId) throws RestClientException {
+    public List<AgreementDto> getAgreements(String organizationId, String partnerId) throws IVIException {
         return getAgreementsWithHttpInfo(organizationId, partnerId).getBody();
     }
 
@@ -204,9 +204,9 @@ public class PartnersApi {
      * @param organizationId  (required)
      * @param partnerId  (required)
      * @return ResponseEntity&lt;List&lt;AgreementDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<AgreementDto>> getAgreementsWithHttpInfo(String organizationId, String partnerId) throws RestClientException {
+    public ResponseEntity<List<AgreementDto>> getAgreementsWithHttpInfo(String organizationId, String partnerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -249,9 +249,9 @@ public class PartnersApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return List&lt;PartnerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<PartnerDto> getPartners(String organizationId) throws RestClientException {
+    public List<PartnerDto> getPartners(String organizationId) throws IVIException {
         return getPartnersWithHttpInfo(organizationId).getBody();
     }
 
@@ -262,9 +262,9 @@ public class PartnersApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return ResponseEntity&lt;List&lt;PartnerDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<PartnerDto>> getPartnersWithHttpInfo(String organizationId) throws RestClientException {
+    public ResponseEntity<List<PartnerDto>> getPartnersWithHttpInfo(String organizationId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -303,9 +303,9 @@ public class PartnersApi {
      * @param partnerId  (required)
      * @param updateAgreementRequest  (required)
      * @return AgreementDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public AgreementDto updateAgreement(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws RestClientException {
+    public AgreementDto updateAgreement(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws IVIException {
         return updateAgreementWithHttpInfo(organizationId, partnerId, updateAgreementRequest).getBody();
     }
 
@@ -318,9 +318,9 @@ public class PartnersApi {
      * @param partnerId  (required)
      * @param updateAgreementRequest  (required)
      * @return ResponseEntity&lt;AgreementDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<AgreementDto> updateAgreementWithHttpInfo(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws RestClientException {
+    public ResponseEntity<AgreementDto> updateAgreementWithHttpInfo(String organizationId, String partnerId, UpdateAgreementRequest updateAgreementRequest) throws IVIException {
         Object postBody = updateAgreementRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -371,9 +371,9 @@ public class PartnersApi {
      * @param organizationId  (required)
      * @param updatePartnerRequest  (required)
      * @return PartnerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PartnerDto updatePartner(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws RestClientException {
+    public PartnerDto updatePartner(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws IVIException {
         return updatePartnerWithHttpInfo(organizationId, updatePartnerRequest).getBody();
     }
 
@@ -385,9 +385,9 @@ public class PartnersApi {
      * @param organizationId  (required)
      * @param updatePartnerRequest  (required)
      * @return ResponseEntity&lt;PartnerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PartnerDto> updatePartnerWithHttpInfo(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws RestClientException {
+    public ResponseEntity<PartnerDto> updatePartnerWithHttpInfo(String organizationId, UpdatePartnerRequest updatePartnerRequest) throws IVIException {
         Object postBody = updatePartnerRequest;
         
         // verify the required parameter 'organizationId' is set

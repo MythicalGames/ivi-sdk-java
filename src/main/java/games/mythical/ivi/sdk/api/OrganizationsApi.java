@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateTitleRequest;
 import games.mythical.ivi.sdk.model.DefaultRoleDto;
@@ -24,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -64,9 +64,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param createTitleRequest  (required)
      * @return TitleDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public TitleDto createNewTitle(String organizationId, CreateTitleRequest createTitleRequest) throws RestClientException {
+    public TitleDto createNewTitle(String organizationId, CreateTitleRequest createTitleRequest) throws IVIException {
         return createNewTitleWithHttpInfo(organizationId, createTitleRequest).getBody();
     }
 
@@ -78,9 +78,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param createTitleRequest  (required)
      * @return ResponseEntity&lt;TitleDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<TitleDto> createNewTitleWithHttpInfo(String organizationId, CreateTitleRequest createTitleRequest) throws RestClientException {
+    public ResponseEntity<TitleDto> createNewTitleWithHttpInfo(String organizationId, CreateTitleRequest createTitleRequest) throws IVIException {
         Object postBody = createTitleRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -123,9 +123,9 @@ public class OrganizationsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @return List&lt;DefaultRoleDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<DefaultRoleDto> getDefaultRoles() throws RestClientException {
+    public List<DefaultRoleDto> getDefaultRoles() throws IVIException {
         return getDefaultRolesWithHttpInfo().getBody();
     }
 
@@ -135,9 +135,9 @@ public class OrganizationsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @return ResponseEntity&lt;List&lt;DefaultRoleDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<DefaultRoleDto>> getDefaultRolesWithHttpInfo() throws RestClientException {
+    public ResponseEntity<List<DefaultRoleDto>> getDefaultRolesWithHttpInfo() throws IVIException {
         Object postBody = null;
         
         String path = apiClient.expandPath("/orgs/roles", Collections.<String, Object>emptyMap());
@@ -166,9 +166,9 @@ public class OrganizationsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return OrganizationDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public OrganizationDto getOrg(String organizationId) throws RestClientException {
+    public OrganizationDto getOrg(String organizationId) throws IVIException {
         return getOrgWithHttpInfo(organizationId).getBody();
     }
 
@@ -179,9 +179,9 @@ public class OrganizationsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return ResponseEntity&lt;OrganizationDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<OrganizationDto> getOrgWithHttpInfo(String organizationId) throws RestClientException {
+    public ResponseEntity<OrganizationDto> getOrgWithHttpInfo(String organizationId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -217,9 +217,9 @@ public class OrganizationsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @return List&lt;OrganizationDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<OrganizationDto> getOrgs() throws RestClientException {
+    public List<OrganizationDto> getOrgs() throws IVIException {
         return getOrgsWithHttpInfo().getBody();
     }
 
@@ -229,9 +229,9 @@ public class OrganizationsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @return ResponseEntity&lt;List&lt;OrganizationDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<OrganizationDto>> getOrgsWithHttpInfo() throws RestClientException {
+    public ResponseEntity<List<OrganizationDto>> getOrgsWithHttpInfo() throws IVIException {
         Object postBody = null;
         
         String path = apiClient.expandPath("/orgs", Collections.<String, Object>emptyMap());
@@ -260,9 +260,9 @@ public class OrganizationsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return List&lt;Role&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<Role> getRolesForOrg(UUID organizationId) throws RestClientException {
+    public List<Role> getRolesForOrg(UUID organizationId) throws IVIException {
         return getRolesForOrgWithHttpInfo(organizationId).getBody();
     }
 
@@ -273,9 +273,9 @@ public class OrganizationsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return ResponseEntity&lt;List&lt;Role&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<Role>> getRolesForOrgWithHttpInfo(UUID organizationId) throws RestClientException {
+    public ResponseEntity<List<Role>> getRolesForOrgWithHttpInfo(UUID organizationId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -313,9 +313,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param includeInactive  (optional, default to true)
      * @return List&lt;TitleDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<TitleDto> getTitles(String organizationId, Boolean includeInactive) throws RestClientException {
+    public List<TitleDto> getTitles(String organizationId, Boolean includeInactive) throws IVIException {
         return getTitlesWithHttpInfo(organizationId, includeInactive).getBody();
     }
 
@@ -327,9 +327,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param includeInactive  (optional, default to true)
      * @return ResponseEntity&lt;List&lt;TitleDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<TitleDto>> getTitlesWithHttpInfo(String organizationId, Boolean includeInactive) throws RestClientException {
+    public ResponseEntity<List<TitleDto>> getTitlesWithHttpInfo(String organizationId, Boolean includeInactive) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -368,9 +368,9 @@ public class OrganizationsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return List&lt;UserDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<UserDto> getUsersForOrganization(String organizationId) throws RestClientException {
+    public List<UserDto> getUsersForOrganization(String organizationId) throws IVIException {
         return getUsersForOrganizationWithHttpInfo(organizationId).getBody();
     }
 
@@ -381,9 +381,9 @@ public class OrganizationsApi {
      * <p><b>400</b> - Bad Request
      * @param organizationId  (required)
      * @return ResponseEntity&lt;List&lt;UserDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<UserDto>> getUsersForOrganizationWithHttpInfo(String organizationId) throws RestClientException {
+    public ResponseEntity<List<UserDto>> getUsersForOrganizationWithHttpInfo(String organizationId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -421,9 +421,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param inviteUserToOrganizationRequest  (required)
      * @return List&lt;UserDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<UserDto> inviteUserToOrg(UUID organizationId, List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest) throws RestClientException {
+    public List<UserDto> inviteUserToOrg(UUID organizationId, List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest) throws IVIException {
         return inviteUserToOrgWithHttpInfo(organizationId, inviteUserToOrganizationRequest).getBody();
     }
 
@@ -435,9 +435,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param inviteUserToOrganizationRequest  (required)
      * @return ResponseEntity&lt;List&lt;UserDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<UserDto>> inviteUserToOrgWithHttpInfo(UUID organizationId, List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest) throws RestClientException {
+    public ResponseEntity<List<UserDto>> inviteUserToOrgWithHttpInfo(UUID organizationId, List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest) throws IVIException {
         Object postBody = inviteUserToOrganizationRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -482,9 +482,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param updateOrganizationRequest  (required)
      * @return OrganizationDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public OrganizationDto updateOrg(String organizationId, UpdateOrganizationRequest updateOrganizationRequest) throws RestClientException {
+    public OrganizationDto updateOrg(String organizationId, UpdateOrganizationRequest updateOrganizationRequest) throws IVIException {
         return updateOrgWithHttpInfo(organizationId, updateOrganizationRequest).getBody();
     }
 
@@ -496,9 +496,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param updateOrganizationRequest  (required)
      * @return ResponseEntity&lt;OrganizationDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<OrganizationDto> updateOrgWithHttpInfo(String organizationId, UpdateOrganizationRequest updateOrganizationRequest) throws RestClientException {
+    public ResponseEntity<OrganizationDto> updateOrgWithHttpInfo(String organizationId, UpdateOrganizationRequest updateOrganizationRequest) throws IVIException {
         Object postBody = updateOrganizationRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -543,9 +543,9 @@ public class OrganizationsApi {
      * @param organizationId  (required)
      * @param platformUserId  (required)
      * @param updateOrganizationRoleRequest  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void updateOrgRole(String organizationId, String platformUserId, UpdateOrganizationRoleRequest updateOrganizationRoleRequest) throws RestClientException {
+    public void updateOrgRole(String organizationId, String platformUserId, UpdateOrganizationRoleRequest updateOrganizationRoleRequest) throws IVIException {
         updateOrgRoleWithHttpInfo(organizationId, platformUserId, updateOrganizationRoleRequest);
     }
 
@@ -558,9 +558,9 @@ public class OrganizationsApi {
      * @param platformUserId  (required)
      * @param updateOrganizationRoleRequest  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> updateOrgRoleWithHttpInfo(String organizationId, String platformUserId, UpdateOrganizationRoleRequest updateOrganizationRoleRequest) throws RestClientException {
+    public ResponseEntity<Void> updateOrgRoleWithHttpInfo(String organizationId, String platformUserId, UpdateOrganizationRoleRequest updateOrganizationRoleRequest) throws IVIException {
         Object postBody = updateOrganizationRoleRequest;
         
         // verify the required parameter 'organizationId' is set

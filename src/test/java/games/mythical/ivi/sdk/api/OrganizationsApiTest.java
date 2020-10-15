@@ -23,185 +23,187 @@ import java.util.UUID;
 import games.mythical.ivi.sdk.model.UpdateOrganizationRequest;
 import games.mythical.ivi.sdk.model.UpdateOrganizationRoleRequest;
 import games.mythical.ivi.sdk.model.UserDto;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for OrganizationsApi
- */
+* API tests for OrganizationsApi
+*/
 @Ignore
 public class OrganizationsApiTest {
 
-    private final OrganizationsApi api = new OrganizationsApi();
+private final OrganizationsApi api = new OrganizationsApi();
 
-    
+
     /**
-     * Create title
-     *
-     * Create a new title in this organization.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create title
+    *
+    * Create a new title in this organization.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createNewTitleTest() {
         String organizationId = null;
         CreateTitleRequest createTitleRequest = null;
-        TitleDto response = api.createNewTitle(organizationId, createTitleRequest);
+    TitleDto response = api.createNewTitle(organizationId, createTitleRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get default roles
-     *
-     * Get the default roles that can be be created for your organization
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get default roles
+    *
+    * Get the default roles that can be be created for your organization
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getDefaultRolesTest() {
-        List<DefaultRoleDto> response = api.getDefaultRoles();
+    List<DefaultRoleDto> response = api.getDefaultRoles();
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get organization
-     *
-     * Get organization by id
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get organization
+    *
+    * Get organization by id
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getOrgTest() {
         String organizationId = null;
-        OrganizationDto response = api.getOrg(organizationId);
+    OrganizationDto response = api.getOrg(organizationId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get organizations
-     *
-     * Get all organizations by user
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get organizations
+    *
+    * Get all organizations by user
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getOrgsTest() {
-        List<OrganizationDto> response = api.getOrgs();
+    List<OrganizationDto> response = api.getOrgs();
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get roles for organization
-     *
-     * Get the roles that can be be assigned to users or server secrets
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get roles for organization
+    *
+    * Get the roles that can be be assigned to users or server secrets
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getRolesForOrgTest() {
         UUID organizationId = null;
-        List<Role> response = api.getRolesForOrg(organizationId);
+    List<Role> response = api.getRolesForOrg(organizationId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get titles
-     *
-     * Get titles for organization
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get titles
+    *
+    * Get titles for organization
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getTitlesTest() {
         String organizationId = null;
         Boolean includeInactive = null;
-        List<TitleDto> response = api.getTitles(organizationId, includeInactive);
+    List<TitleDto> response = api.getTitles(organizationId, includeInactive);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get users
-     *
-     * Get users for organization
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get users
+    *
+    * Get users for organization
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getUsersForOrganizationTest() {
         String organizationId = null;
-        List<UserDto> response = api.getUsersForOrganization(organizationId);
+    List<UserDto> response = api.getUsersForOrganization(organizationId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Invite a user to organization
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Invite a user to organization
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void inviteUserToOrgTest() {
         UUID organizationId = null;
         List<InviteUserToOrganizationRequest> inviteUserToOrganizationRequest = null;
-        List<UserDto> response = api.inviteUserToOrg(organizationId, inviteUserToOrganizationRequest);
+    List<UserDto> response = api.inviteUserToOrg(organizationId, inviteUserToOrganizationRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update organization details
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update organization details
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateOrgTest() {
         String organizationId = null;
         UpdateOrganizationRequest updateOrganizationRequest = null;
-        OrganizationDto response = api.updateOrg(organizationId, updateOrganizationRequest);
+    OrganizationDto response = api.updateOrg(organizationId, updateOrganizationRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update organization user role
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update organization user role
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateOrgRoleTest() {
         String organizationId = null;
         String platformUserId = null;
         UpdateOrganizationRoleRequest updateOrganizationRoleRequest = null;
-        api.updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest);
+    api.updateOrgRole(organizationId, platformUserId, updateOrganizationRoleRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}

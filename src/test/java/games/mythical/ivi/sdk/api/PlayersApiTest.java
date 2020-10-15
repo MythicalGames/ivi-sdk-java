@@ -15,71 +15,73 @@ package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.model.LinkPlayerToEnvironmentRequest;
 import games.mythical.ivi.sdk.model.PlayerDto;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for PlayersApi
- */
+* API tests for PlayersApi
+*/
 @Ignore
 public class PlayersApiTest {
 
-    private final PlayersApi api = new PlayersApi();
+private final PlayersApi api = new PlayersApi();
 
-    
+
     /**
-     * Get all players for a environment
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all players for a environment
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getAllPlayersTest() {
         String environmentId = null;
-        List<PlayerDto> response = api.getAllPlayers(environmentId);
+    List<PlayerDto> response = api.getAllPlayers(environmentId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get player data
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get player data
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getPlayerDataTest() {
         String environmentId = null;
         String playerId = null;
-        PlayerDto response = api.getPlayerData(environmentId, playerId);
+    PlayerDto response = api.getPlayerData(environmentId, playerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Link player to environment
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Link player to environment
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void linkPlayerToEnvironmentTest() {
         String environmentId = null;
         LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest = null;
-        PlayerDto response = api.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
+    PlayerDto response = api.linkPlayerToEnvironment(environmentId, linkPlayerToEnvironmentRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}

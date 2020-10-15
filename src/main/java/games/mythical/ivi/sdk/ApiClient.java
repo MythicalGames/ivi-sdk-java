@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -496,7 +495,7 @@ public class ApiClient extends JavaTimeFormatter {
      * @param returnType The return type into which to deserialize the response
      * @return ResponseEntity&lt;T&gt; The response of the chosen type
      */
-    public <T> ResponseEntity<T> invokeAPI(String path, HttpMethod method, MultiValueMap<String, String> queryParams, Object body, HttpHeaders headerParams, MultiValueMap<String, String> cookieParams, MultiValueMap<String, Object> formParams, List<MediaType> accept, MediaType contentType, String[] authNames, ParameterizedTypeReference<T> returnType) throws RestClientException {
+    public <T> ResponseEntity<T> invokeAPI(String path, HttpMethod method, MultiValueMap<String, String> queryParams, Object body, HttpHeaders headerParams, MultiValueMap<String, String> cookieParams, MultiValueMap<String, Object> formParams, List<MediaType> accept, MediaType contentType, String[] authNames, ParameterizedTypeReference<T> returnType) throws IVIException {
         updateParamsForAuth(authNames, queryParams, headerParams, cookieParams);
 
         final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(basePath).path(path);
@@ -520,7 +519,7 @@ public class ApiClient extends JavaTimeFormatter {
         try {
             uri = new URI(builder.build().toUriString());
         } catch(URISyntaxException ex)  {
-            throw new RestClientException("Could not build URL: " + builder.toUriString(), ex);
+            throw new IVIException(-1, "Could not build URL: " + builder.toUriString());
         }
 
         final BodyBuilder requestBuilder = RequestEntity.method(method, uri);
@@ -543,8 +542,10 @@ public class ApiClient extends JavaTimeFormatter {
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity;
         } else {
-            // The error handler built into the RestTemplate should handle 400 and 500 series errors.
-            throw new RestClientException("API returned " + responseEntity.getStatusCode() + " and it wasn't handled by the RestTemplate error handler");
+            throw new IVIException(responseEntity.getStatusCode().value(),
+                    "API returned " + responseEntity.getStatusCode() + " and it wasn't handled by the RestTemplate error handler",
+                    responseEntity.getHeaders(),
+                    (String) responseEntity.getBody());
         }
     }
 
@@ -611,11 +612,11 @@ public class ApiClient extends JavaTimeFormatter {
      * @param queryParams The query parameters
      * @param headerParams The header parameters
      */
-    protected void updateParamsForAuth(String[] authNames, MultiValueMap<String, String> queryParams, HttpHeaders headerParams, MultiValueMap<String, String> cookieParams) {
+    protected void updateParamsForAuth(String[] authNames, MultiValueMap<String, String> queryParams, HttpHeaders headerParams, MultiValueMap<String, String> cookieParams) throws IVIException {
         for (String authName : authNames) {
             Authentication auth = authentications.get(authName);
             if (auth == null) {
-                throw new RestClientException("Authentication undefined: " + authName);
+                throw new IVIException(-1, "Authentication undefined: " + authName);
             }
             auth.applyToParams(queryParams, headerParams, cookieParams);
         }

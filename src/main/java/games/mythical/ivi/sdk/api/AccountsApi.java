@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateMythicalUserRequest;
 import games.mythical.ivi.sdk.model.MythicalUserDto;
@@ -19,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -59,9 +59,9 @@ public class AccountsApi {
      * @param organizationId  (required)
      * @param createMythicalUserRequest  (required)
      * @return MythicalUserDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public MythicalUserDto createMythicalUser(String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws RestClientException {
+    public MythicalUserDto createMythicalUser(String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws IVIException {
         return createMythicalUserWithHttpInfo(organizationId, createMythicalUserRequest).getBody();
     }
 
@@ -73,9 +73,9 @@ public class AccountsApi {
      * @param organizationId  (required)
      * @param createMythicalUserRequest  (required)
      * @return ResponseEntity&lt;MythicalUserDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<MythicalUserDto> createMythicalUserWithHttpInfo(String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws RestClientException {
+    public ResponseEntity<MythicalUserDto> createMythicalUserWithHttpInfo(String organizationId, CreateMythicalUserRequest createMythicalUserRequest) throws IVIException {
         Object postBody = createMythicalUserRequest;
         
         // verify the required parameter 'organizationId' is set
@@ -122,9 +122,9 @@ public class AccountsApi {
      * @param firstName  (optional)
      * @param lastName  (optional)
      * @return List&lt;MythicalUserDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<MythicalUserDto> findMythicalUser(String organizationId, String email, String firstName, String lastName) throws RestClientException {
+    public List<MythicalUserDto> findMythicalUser(String organizationId, String email, String firstName, String lastName) throws IVIException {
         return findMythicalUserWithHttpInfo(organizationId, email, firstName, lastName).getBody();
     }
 
@@ -138,9 +138,9 @@ public class AccountsApi {
      * @param firstName  (optional)
      * @param lastName  (optional)
      * @return ResponseEntity&lt;List&lt;MythicalUserDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<MythicalUserDto>> findMythicalUserWithHttpInfo(String organizationId, String email, String firstName, String lastName) throws RestClientException {
+    public ResponseEntity<List<MythicalUserDto>> findMythicalUserWithHttpInfo(String organizationId, String email, String firstName, String lastName) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -187,9 +187,9 @@ public class AccountsApi {
      * @param organizationId  (required)
      * @param platformUserId  (required)
      * @return MythicalUserDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public MythicalUserDto getMythicalUser(String organizationId, String platformUserId) throws RestClientException {
+    public MythicalUserDto getMythicalUser(String organizationId, String platformUserId) throws IVIException {
         return getMythicalUserWithHttpInfo(organizationId, platformUserId).getBody();
     }
 
@@ -201,9 +201,9 @@ public class AccountsApi {
      * @param organizationId  (required)
      * @param platformUserId  (required)
      * @return ResponseEntity&lt;MythicalUserDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<MythicalUserDto> getMythicalUserWithHttpInfo(String organizationId, String platformUserId) throws RestClientException {
+    public ResponseEntity<MythicalUserDto> getMythicalUserWithHttpInfo(String organizationId, String platformUserId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'organizationId' is set
@@ -246,9 +246,9 @@ public class AccountsApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @param platformUserId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void resetPassword(String environmentId, String platformUserId) throws RestClientException {
+    public void resetPassword(String environmentId, String platformUserId) throws IVIException {
         resetPasswordWithHttpInfo(environmentId, platformUserId);
     }
 
@@ -260,9 +260,9 @@ public class AccountsApi {
      * @param environmentId  (required)
      * @param platformUserId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> resetPasswordWithHttpInfo(String environmentId, String platformUserId) throws RestClientException {
+    public ResponseEntity<Void> resetPasswordWithHttpInfo(String environmentId, String platformUserId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -307,9 +307,9 @@ public class AccountsApi {
      * @param platformUserId  (required)
      * @param updateMythicalUserRequest  (required)
      * @return MythicalUserDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public MythicalUserDto updateProfileDetails(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws RestClientException {
+    public MythicalUserDto updateProfileDetails(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws IVIException {
         return updateProfileDetailsWithHttpInfo(environmentId, platformUserId, updateMythicalUserRequest).getBody();
     }
 
@@ -322,9 +322,9 @@ public class AccountsApi {
      * @param platformUserId  (required)
      * @param updateMythicalUserRequest  (required)
      * @return ResponseEntity&lt;MythicalUserDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<MythicalUserDto> updateProfileDetailsWithHttpInfo(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws RestClientException {
+    public ResponseEntity<MythicalUserDto> updateProfileDetailsWithHttpInfo(String environmentId, String platformUserId, UpdateMythicalUserRequest updateMythicalUserRequest) throws IVIException {
         Object postBody = updateMythicalUserRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -376,9 +376,9 @@ public class AccountsApi {
      * @param platformUserId  (required)
      * @param updateProfilePictureRequest  (required)
      * @return ProfilePictureDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ProfilePictureDto updateProfilePicture(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws RestClientException {
+    public ProfilePictureDto updateProfilePicture(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws IVIException {
         return updateProfilePictureWithHttpInfo(environmentId, platformUserId, updateProfilePictureRequest).getBody();
     }
 
@@ -391,9 +391,9 @@ public class AccountsApi {
      * @param platformUserId  (required)
      * @param updateProfilePictureRequest  (required)
      * @return ResponseEntity&lt;ProfilePictureDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ProfilePictureDto> updateProfilePictureWithHttpInfo(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws RestClientException {
+    public ResponseEntity<ProfilePictureDto> updateProfilePictureWithHttpInfo(String environmentId, String platformUserId, UpdateProfilePictureRequest updateProfilePictureRequest) throws IVIException {
         Object postBody = updateProfilePictureRequest;
         
         // verify the required parameter 'environmentId' is set

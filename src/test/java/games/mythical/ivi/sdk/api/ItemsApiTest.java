@@ -30,170 +30,172 @@ import games.mythical.ivi.sdk.model.ListingDto;
 import games.mythical.ivi.sdk.model.SoldItemDto;
 import games.mythical.ivi.sdk.model.TransferItemRequest;
 import games.mythical.ivi.sdk.model.UpdateMetadataRequest;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for ItemsApi
- */
+* API tests for ItemsApi
+*/
 @Ignore
 public class ItemsApiTest {
 
-    private final ItemsApi api = new ItemsApi();
+private final ItemsApi api = new ItemsApi();
 
-    
+
     /**
-     * Burn issued item
-     *
-     * Burn an issued item
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Burn issued item
+    *
+    * Burn an issued item
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void burnItemTest() {
         String environmentId = null;
         BurnItemRequest burnItemRequest = null;
-        ItemActionDto response = api.burnItem(environmentId, burnItemRequest);
+    ItemActionDto response = api.burnItem(environmentId, burnItemRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Burn issued item with callback
-     *
-     * Burn an issued item with callback
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Burn issued item with callback
+    *
+    * Burn an issued item with callback
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void burnItemCallbackTest() {
         String environmentId = null;
         BurnItemCallbackRequest burnItemCallbackRequest = null;
-        ItemActionDto response = api.burnItemCallback(environmentId, burnItemCallbackRequest);
+    ItemActionDto response = api.burnItemCallback(environmentId, burnItemCallbackRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Purchase an item
-     *
-     * Buy an item that is for sale
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Purchase an item
+    *
+    * Buy an item that is for sale
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void buyListingTest() {
         String environmentId = null;
         BuyListingRequest buyListingRequest = null;
-        SoldItemDto response = api.buyListing(environmentId, buyListingRequest);
+    SoldItemDto response = api.buyListing(environmentId, buyListingRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Close a sale
-     *
-     * Close a listed item sale
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Close a sale
+    *
+    * Close a listed item sale
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void closeSaleTest() {
         String environmentId = null;
         CloseSaleRequest closeSaleRequest = null;
-        ItemActionDto response = api.closeSale(environmentId, closeSaleRequest);
+    ItemActionDto response = api.closeSale(environmentId, closeSaleRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Create item type
-     *
-     * Create a new type of item on the blockchain that can be issued to players.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create item type
+    *
+    * Create a new type of item on the blockchain that can be issued to players.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createItemTest() {
         String environmentId = null;
         CreateItemRequest createItemRequest = null;
-        ItemTypeDto response = api.createItem(environmentId, createItemRequest);
+    ItemTypeDto response = api.createItem(environmentId, createItemRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Create item type with callback
-     *
-     * Create a new type of item on the blockchain that can be issued to players with callback.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create item type with callback
+    *
+    * Create a new type of item on the blockchain that can be issued to players with callback.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createItemCallbackTest() {
         String environmentId = null;
         CreateItemCallbackRequest createItemCallbackRequest = null;
-        ItemTypeDto response = api.createItemCallback(environmentId, createItemCallbackRequest);
+    ItemTypeDto response = api.createItemCallback(environmentId, createItemCallbackRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get all issued items for an environment.
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all issued items for an environment.
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getIssuedItemsTest() {
         String environmentId = null;
         String playerId = null;
         String gameInventoryId = null;
         Long dgoodId = null;
-        List<IssuedItemDto> response = api.getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId);
+    List<IssuedItemDto> response = api.getIssuedItems(environmentId, playerId, gameInventoryId, dgoodId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get all item types for an environment
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all item types for an environment
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getItemTypesTest() {
         String environmentId = null;
         String category = null;
         String token = null;
-        List<ItemTypeDto> response = api.getItemTypes(environmentId, category, token);
+    List<ItemTypeDto> response = api.getItemTypes(environmentId, category, token);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get listed items
-     *
-     * Get all listed item for sale
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get listed items
+    *
+    * Get all listed item for sale
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getListingsTest() {
         String environmentId = null;
@@ -201,37 +203,37 @@ public class ItemsApiTest {
         Long createdTimestamp = null;
         String order = null;
         String playerId = null;
-        List<ListingDto> response = api.getListings(environmentId, pageSize, createdTimestamp, order, playerId);
+    List<ListingDto> response = api.getListings(environmentId, pageSize, createdTimestamp, order, playerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get metadata for an issued dgood 
-     *
-     * Get metadata for a dgood id.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get metadata for an issued dgood 
+    *
+    * Get metadata for a dgood id.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getMetadataTest() {
         String environmentId = null;
         String gameInventoryId = null;
         Long dgoodId = null;
-        List<DgoodMetadataDto> response = api.getMetadata(environmentId, gameInventoryId, dgoodId);
+    List<DgoodMetadataDto> response = api.getMetadata(environmentId, gameInventoryId, dgoodId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get bought/sold items
-     *
-     * Get all bought/sold items for a player
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get bought/sold items
+    *
+    * Get all bought/sold items for a player
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getSoldItemsTest() {
         String environmentId = null;
@@ -240,94 +242,94 @@ public class ItemsApiTest {
         String order = null;
         String buyerPlayerId = null;
         String sellerPlayerId = null;
-        List<SoldItemDto> response = api.getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
+    List<SoldItemDto> response = api.getSoldItems(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Issue item
-     *
-     * Issue instance(s) of an item type to a player
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Issue item
+    *
+    * Issue instance(s) of an item type to a player
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void issueItemTest() {
         String environmentId = null;
         IssueItemRequest issueItemRequest = null;
-        IssuedItemDto response = api.issueItem(environmentId, issueItemRequest);
+    IssuedItemDto response = api.issueItem(environmentId, issueItemRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Issue item with callback
-     *
-     * Issue instance(s) of an item type to a player with callback
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Issue item with callback
+    *
+    * Issue instance(s) of an item type to a player with callback
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void issueItemCallbackTest() {
         String environmentId = null;
         IssueItemCallbackRequest issueItemCallbackRequest = null;
-        IssuedItemDto response = api.issueItemCallback(environmentId, issueItemCallbackRequest);
+    IssuedItemDto response = api.issueItemCallback(environmentId, issueItemCallbackRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * List an item for sale
-     *
-     * List an issued item for sale
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * List an item for sale
+    *
+    * List an issued item for sale
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void listItemTest() {
         String environmentId = null;
         ListSaleRequest listSaleRequest = null;
-        ListingDto response = api.listItem(environmentId, listSaleRequest);
+    ListingDto response = api.listItem(environmentId, listSaleRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Transfer issued item
-     *
-     * Transfer an issued item
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Transfer issued item
+    *
+    * Transfer an issued item
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void transferItemTest() {
         String environmentId = null;
         TransferItemRequest transferItemRequest = null;
-        ItemActionDto response = api.transferItem(environmentId, transferItemRequest);
+    ItemActionDto response = api.transferItem(environmentId, transferItemRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update metadata for a dgood
-     *
-     * Update metadata for a dgood
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update metadata for a dgood
+    *
+    * Update metadata for a dgood
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateMetadataTest() {
         String environmentId = null;
         UpdateMetadataRequest updateMetadataRequest = null;
-        DgoodMetadataDto response = api.updateMetadata(environmentId, updateMetadataRequest);
+    DgoodMetadataDto response = api.updateMetadata(environmentId, updateMetadataRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}

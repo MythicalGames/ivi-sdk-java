@@ -16,122 +16,124 @@ package games.mythical.ivi.sdk.api;
 import games.mythical.ivi.sdk.model.CreateServerSecretRequest;
 import games.mythical.ivi.sdk.model.ServerSecretDto;
 import java.util.UUID;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for ServerSecretsApi
- */
+* API tests for ServerSecretsApi
+*/
 @Ignore
 public class ServerSecretsApiTest {
 
-    private final ServerSecretsApi api = new ServerSecretsApi();
+private final ServerSecretsApi api = new ServerSecretsApi();
 
-    
+
     /**
-     * Create server secret for organization
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create server secret for organization
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createServerSecretForEnvironmentTest() {
         UUID organizationId = null;
         CreateServerSecretRequest createServerSecretRequest = null;
-        ServerSecretDto response = api.createServerSecretForEnvironment(organizationId, createServerSecretRequest);
+    ServerSecretDto response = api.createServerSecretForEnvironment(organizationId, createServerSecretRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Delete server secret for environment by secret ID
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Delete server secret for environment by secret ID
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void deleteServerSecretTest() {
         UUID organizationId = null;
         String secretId = null;
-        api.deleteServerSecret(organizationId, secretId);
+    api.deleteServerSecret(organizationId, secretId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Disable server secret by secret ID
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Disable server secret by secret ID
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void disableServerSecretTest() {
         UUID organizationId = null;
         String secretId = null;
-        api.disableServerSecret(organizationId, secretId);
+    api.disableServerSecret(organizationId, secretId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Enable server secret by secret ID
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Enable server secret by secret ID
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void enableServerSecretTest() {
         UUID organizationId = null;
         String secretId = null;
-        api.enableServerSecret(organizationId, secretId);
+    api.enableServerSecret(organizationId, secretId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get server secret for environment by secret ID
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get server secret for environment by secret ID
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getServerSecretByIdTest() {
         UUID organizationId = null;
         String secretId = null;
-        ServerSecretDto response = api.getServerSecretById(organizationId, secretId);
+    ServerSecretDto response = api.getServerSecretById(organizationId, secretId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get server secrets defined for organization
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get server secrets defined for organization
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getServerSecretsForEnvironmentTest() {
         UUID organizationId = null;
-        List<ServerSecretDto> response = api.getServerSecretsForEnvironment(organizationId);
+    List<ServerSecretDto> response = api.getServerSecretsForEnvironment(organizationId);
 
         // TODO: test validations
+        }
+
     }
-    
-}

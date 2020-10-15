@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.BurnItemCallbackRequest;
 import games.mythical.ivi.sdk.model.BurnItemRequest;
@@ -31,7 +32,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -71,9 +71,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param burnItemRequest  (required)
      * @return ItemActionDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ItemActionDto burnItem(String environmentId, BurnItemRequest burnItemRequest) throws RestClientException {
+    public ItemActionDto burnItem(String environmentId, BurnItemRequest burnItemRequest) throws IVIException {
         return burnItemWithHttpInfo(environmentId, burnItemRequest).getBody();
     }
 
@@ -85,9 +85,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param burnItemRequest  (required)
      * @return ResponseEntity&lt;ItemActionDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ItemActionDto> burnItemWithHttpInfo(String environmentId, BurnItemRequest burnItemRequest) throws RestClientException {
+    public ResponseEntity<ItemActionDto> burnItemWithHttpInfo(String environmentId, BurnItemRequest burnItemRequest) throws IVIException {
         Object postBody = burnItemRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -132,9 +132,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param burnItemCallbackRequest  (required)
      * @return ItemActionDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ItemActionDto burnItemCallback(String environmentId, BurnItemCallbackRequest burnItemCallbackRequest) throws RestClientException {
+    public ItemActionDto burnItemCallback(String environmentId, BurnItemCallbackRequest burnItemCallbackRequest) throws IVIException {
         return burnItemCallbackWithHttpInfo(environmentId, burnItemCallbackRequest).getBody();
     }
 
@@ -146,9 +146,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param burnItemCallbackRequest  (required)
      * @return ResponseEntity&lt;ItemActionDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ItemActionDto> burnItemCallbackWithHttpInfo(String environmentId, BurnItemCallbackRequest burnItemCallbackRequest) throws RestClientException {
+    public ResponseEntity<ItemActionDto> burnItemCallbackWithHttpInfo(String environmentId, BurnItemCallbackRequest burnItemCallbackRequest) throws IVIException {
         Object postBody = burnItemCallbackRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -193,9 +193,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param buyListingRequest  (required)
      * @return SoldItemDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public SoldItemDto buyListing(String environmentId, BuyListingRequest buyListingRequest) throws RestClientException {
+    public SoldItemDto buyListing(String environmentId, BuyListingRequest buyListingRequest) throws IVIException {
         return buyListingWithHttpInfo(environmentId, buyListingRequest).getBody();
     }
 
@@ -207,9 +207,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param buyListingRequest  (required)
      * @return ResponseEntity&lt;SoldItemDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<SoldItemDto> buyListingWithHttpInfo(String environmentId, BuyListingRequest buyListingRequest) throws RestClientException {
+    public ResponseEntity<SoldItemDto> buyListingWithHttpInfo(String environmentId, BuyListingRequest buyListingRequest) throws IVIException {
         Object postBody = buyListingRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -254,9 +254,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param closeSaleRequest  (required)
      * @return ItemActionDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ItemActionDto closeSale(String environmentId, CloseSaleRequest closeSaleRequest) throws RestClientException {
+    public ItemActionDto closeSale(String environmentId, CloseSaleRequest closeSaleRequest) throws IVIException {
         return closeSaleWithHttpInfo(environmentId, closeSaleRequest).getBody();
     }
 
@@ -268,9 +268,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param closeSaleRequest  (required)
      * @return ResponseEntity&lt;ItemActionDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ItemActionDto> closeSaleWithHttpInfo(String environmentId, CloseSaleRequest closeSaleRequest) throws RestClientException {
+    public ResponseEntity<ItemActionDto> closeSaleWithHttpInfo(String environmentId, CloseSaleRequest closeSaleRequest) throws IVIException {
         Object postBody = closeSaleRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -315,9 +315,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param createItemRequest  (required)
      * @return ItemTypeDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ItemTypeDto createItem(String environmentId, CreateItemRequest createItemRequest) throws RestClientException {
+    public ItemTypeDto createItem(String environmentId, CreateItemRequest createItemRequest) throws IVIException {
         return createItemWithHttpInfo(environmentId, createItemRequest).getBody();
     }
 
@@ -329,9 +329,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param createItemRequest  (required)
      * @return ResponseEntity&lt;ItemTypeDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ItemTypeDto> createItemWithHttpInfo(String environmentId, CreateItemRequest createItemRequest) throws RestClientException {
+    public ResponseEntity<ItemTypeDto> createItemWithHttpInfo(String environmentId, CreateItemRequest createItemRequest) throws IVIException {
         Object postBody = createItemRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -376,9 +376,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param createItemCallbackRequest  (required)
      * @return ItemTypeDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ItemTypeDto createItemCallback(String environmentId, CreateItemCallbackRequest createItemCallbackRequest) throws RestClientException {
+    public ItemTypeDto createItemCallback(String environmentId, CreateItemCallbackRequest createItemCallbackRequest) throws IVIException {
         return createItemCallbackWithHttpInfo(environmentId, createItemCallbackRequest).getBody();
     }
 
@@ -390,9 +390,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param createItemCallbackRequest  (required)
      * @return ResponseEntity&lt;ItemTypeDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ItemTypeDto> createItemCallbackWithHttpInfo(String environmentId, CreateItemCallbackRequest createItemCallbackRequest) throws RestClientException {
+    public ResponseEntity<ItemTypeDto> createItemCallbackWithHttpInfo(String environmentId, CreateItemCallbackRequest createItemCallbackRequest) throws IVIException {
         Object postBody = createItemCallbackRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -439,9 +439,9 @@ public class ItemsApi {
      * @param gameInventoryId  (optional)
      * @param dgoodId  (optional, default to -1l)
      * @return List&lt;IssuedItemDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<IssuedItemDto> getIssuedItems(String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws RestClientException {
+    public List<IssuedItemDto> getIssuedItems(String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws IVIException {
         return getIssuedItemsWithHttpInfo(environmentId, playerId, gameInventoryId, dgoodId).getBody();
     }
 
@@ -455,9 +455,9 @@ public class ItemsApi {
      * @param gameInventoryId  (optional)
      * @param dgoodId  (optional, default to -1l)
      * @return ResponseEntity&lt;List&lt;IssuedItemDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<IssuedItemDto>> getIssuedItemsWithHttpInfo(String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws RestClientException {
+    public ResponseEntity<List<IssuedItemDto>> getIssuedItemsWithHttpInfo(String environmentId, String playerId, String gameInventoryId, Long dgoodId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -500,9 +500,9 @@ public class ItemsApi {
      * @param category  (optional)
      * @param token  (optional)
      * @return List&lt;ItemTypeDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<ItemTypeDto> getItemTypes(String environmentId, String category, String token) throws RestClientException {
+    public List<ItemTypeDto> getItemTypes(String environmentId, String category, String token) throws IVIException {
         return getItemTypesWithHttpInfo(environmentId, category, token).getBody();
     }
 
@@ -515,9 +515,9 @@ public class ItemsApi {
      * @param category  (optional)
      * @param token  (optional)
      * @return ResponseEntity&lt;List&lt;ItemTypeDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<ItemTypeDto>> getItemTypesWithHttpInfo(String environmentId, String category, String token) throws RestClientException {
+    public ResponseEntity<List<ItemTypeDto>> getItemTypesWithHttpInfo(String environmentId, String category, String token) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -561,9 +561,9 @@ public class ItemsApi {
      * @param order  (optional, default to DESCENDING)
      * @param playerId  (optional)
      * @return List&lt;ListingDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<ListingDto> getListings(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws RestClientException {
+    public List<ListingDto> getListings(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws IVIException {
         return getListingsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, playerId).getBody();
     }
 
@@ -578,9 +578,9 @@ public class ItemsApi {
      * @param order  (optional, default to DESCENDING)
      * @param playerId  (optional)
      * @return ResponseEntity&lt;List&lt;ListingDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<ListingDto>> getListingsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws RestClientException {
+    public ResponseEntity<List<ListingDto>> getListingsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order, String playerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -624,9 +624,9 @@ public class ItemsApi {
      * @param gameInventoryId  (optional)
      * @param dgoodId  (optional, default to -1l)
      * @return List&lt;DgoodMetadataDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<DgoodMetadataDto> getMetadata(String environmentId, String gameInventoryId, Long dgoodId) throws RestClientException {
+    public List<DgoodMetadataDto> getMetadata(String environmentId, String gameInventoryId, Long dgoodId) throws IVIException {
         return getMetadataWithHttpInfo(environmentId, gameInventoryId, dgoodId).getBody();
     }
 
@@ -639,9 +639,9 @@ public class ItemsApi {
      * @param gameInventoryId  (optional)
      * @param dgoodId  (optional, default to -1l)
      * @return ResponseEntity&lt;List&lt;DgoodMetadataDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<DgoodMetadataDto>> getMetadataWithHttpInfo(String environmentId, String gameInventoryId, Long dgoodId) throws RestClientException {
+    public ResponseEntity<List<DgoodMetadataDto>> getMetadataWithHttpInfo(String environmentId, String gameInventoryId, Long dgoodId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -686,9 +686,9 @@ public class ItemsApi {
      * @param buyerPlayerId  (optional)
      * @param sellerPlayerId  (optional)
      * @return List&lt;SoldItemDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<SoldItemDto> getSoldItems(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws RestClientException {
+    public List<SoldItemDto> getSoldItems(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws IVIException {
         return getSoldItemsWithHttpInfo(environmentId, pageSize, createdTimestamp, order, buyerPlayerId, sellerPlayerId).getBody();
     }
 
@@ -704,9 +704,9 @@ public class ItemsApi {
      * @param buyerPlayerId  (optional)
      * @param sellerPlayerId  (optional)
      * @return ResponseEntity&lt;List&lt;SoldItemDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<SoldItemDto>> getSoldItemsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws RestClientException {
+    public ResponseEntity<List<SoldItemDto>> getSoldItemsWithHttpInfo(String environmentId, Integer pageSize, Long createdTimestamp, String order, String buyerPlayerId, String sellerPlayerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -750,9 +750,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param issueItemRequest  (required)
      * @return IssuedItemDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public IssuedItemDto issueItem(String environmentId, IssueItemRequest issueItemRequest) throws RestClientException {
+    public IssuedItemDto issueItem(String environmentId, IssueItemRequest issueItemRequest) throws IVIException {
         return issueItemWithHttpInfo(environmentId, issueItemRequest).getBody();
     }
 
@@ -764,9 +764,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param issueItemRequest  (required)
      * @return ResponseEntity&lt;IssuedItemDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<IssuedItemDto> issueItemWithHttpInfo(String environmentId, IssueItemRequest issueItemRequest) throws RestClientException {
+    public ResponseEntity<IssuedItemDto> issueItemWithHttpInfo(String environmentId, IssueItemRequest issueItemRequest) throws IVIException {
         Object postBody = issueItemRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -811,9 +811,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param issueItemCallbackRequest  (required)
      * @return IssuedItemDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public IssuedItemDto issueItemCallback(String environmentId, IssueItemCallbackRequest issueItemCallbackRequest) throws RestClientException {
+    public IssuedItemDto issueItemCallback(String environmentId, IssueItemCallbackRequest issueItemCallbackRequest) throws IVIException {
         return issueItemCallbackWithHttpInfo(environmentId, issueItemCallbackRequest).getBody();
     }
 
@@ -825,9 +825,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param issueItemCallbackRequest  (required)
      * @return ResponseEntity&lt;IssuedItemDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<IssuedItemDto> issueItemCallbackWithHttpInfo(String environmentId, IssueItemCallbackRequest issueItemCallbackRequest) throws RestClientException {
+    public ResponseEntity<IssuedItemDto> issueItemCallbackWithHttpInfo(String environmentId, IssueItemCallbackRequest issueItemCallbackRequest) throws IVIException {
         Object postBody = issueItemCallbackRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -872,9 +872,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param listSaleRequest  (required)
      * @return ListingDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ListingDto listItem(String environmentId, ListSaleRequest listSaleRequest) throws RestClientException {
+    public ListingDto listItem(String environmentId, ListSaleRequest listSaleRequest) throws IVIException {
         return listItemWithHttpInfo(environmentId, listSaleRequest).getBody();
     }
 
@@ -886,9 +886,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param listSaleRequest  (required)
      * @return ResponseEntity&lt;ListingDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ListingDto> listItemWithHttpInfo(String environmentId, ListSaleRequest listSaleRequest) throws RestClientException {
+    public ResponseEntity<ListingDto> listItemWithHttpInfo(String environmentId, ListSaleRequest listSaleRequest) throws IVIException {
         Object postBody = listSaleRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -933,9 +933,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param transferItemRequest  (required)
      * @return ItemActionDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ItemActionDto transferItem(String environmentId, TransferItemRequest transferItemRequest) throws RestClientException {
+    public ItemActionDto transferItem(String environmentId, TransferItemRequest transferItemRequest) throws IVIException {
         return transferItemWithHttpInfo(environmentId, transferItemRequest).getBody();
     }
 
@@ -947,9 +947,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param transferItemRequest  (required)
      * @return ResponseEntity&lt;ItemActionDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ItemActionDto> transferItemWithHttpInfo(String environmentId, TransferItemRequest transferItemRequest) throws RestClientException {
+    public ResponseEntity<ItemActionDto> transferItemWithHttpInfo(String environmentId, TransferItemRequest transferItemRequest) throws IVIException {
         Object postBody = transferItemRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -994,9 +994,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param updateMetadataRequest  (required)
      * @return DgoodMetadataDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public DgoodMetadataDto updateMetadata(String environmentId, UpdateMetadataRequest updateMetadataRequest) throws RestClientException {
+    public DgoodMetadataDto updateMetadata(String environmentId, UpdateMetadataRequest updateMetadataRequest) throws IVIException {
         return updateMetadataWithHttpInfo(environmentId, updateMetadataRequest).getBody();
     }
 
@@ -1008,9 +1008,9 @@ public class ItemsApi {
      * @param environmentId  (required)
      * @param updateMetadataRequest  (required)
      * @return ResponseEntity&lt;DgoodMetadataDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<DgoodMetadataDto> updateMetadataWithHttpInfo(String environmentId, UpdateMetadataRequest updateMetadataRequest) throws RestClientException {
+    public ResponseEntity<DgoodMetadataDto> updateMetadataWithHttpInfo(String environmentId, UpdateMetadataRequest updateMetadataRequest) throws IVIException {
         Object postBody = updateMetadataRequest;
         
         // verify the required parameter 'environmentId' is set

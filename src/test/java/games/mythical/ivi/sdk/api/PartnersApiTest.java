@@ -19,124 +19,126 @@ import games.mythical.ivi.sdk.model.CreatePartnerRequest;
 import games.mythical.ivi.sdk.model.PartnerDto;
 import games.mythical.ivi.sdk.model.UpdateAgreementRequest;
 import games.mythical.ivi.sdk.model.UpdatePartnerRequest;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for PartnersApi
- */
+* API tests for PartnersApi
+*/
 @Ignore
 public class PartnersApiTest {
 
-    private final PartnersApi api = new PartnersApi();
+private final PartnersApi api = new PartnersApi();
 
-    
+
     /**
-     * Create Agreement
-     *
-     * Create a new agreement for a partner
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create Agreement
+    *
+    * Create a new agreement for a partner
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createNewAgreementTest() {
         String organizationId = null;
         String partnerId = null;
         CreateAgreementRequest createAgreementRequest = null;
-        AgreementDto response = api.createNewAgreement(organizationId, partnerId, createAgreementRequest);
+    AgreementDto response = api.createNewAgreement(organizationId, partnerId, createAgreementRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Create Partner
-     *
-     * Create a new partner for an organization
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create Partner
+    *
+    * Create a new partner for an organization
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createNewPartnerTest() {
         String organizationId = null;
         CreatePartnerRequest createPartnerRequest = null;
-        PartnerDto response = api.createNewPartner(organizationId, createPartnerRequest);
+    PartnerDto response = api.createNewPartner(organizationId, createPartnerRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get Agreements
-     *
-     * Get all agreements for an partner
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get Agreements
+    *
+    * Get all agreements for an partner
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getAgreementsTest() {
         String organizationId = null;
         String partnerId = null;
-        List<AgreementDto> response = api.getAgreements(organizationId, partnerId);
+    List<AgreementDto> response = api.getAgreements(organizationId, partnerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get Partners
-     *
-     * Get all partners for an organization
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get Partners
+    *
+    * Get all partners for an organization
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getPartnersTest() {
         String organizationId = null;
-        List<PartnerDto> response = api.getPartners(organizationId);
+    List<PartnerDto> response = api.getPartners(organizationId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update agreement details
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update agreement details
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateAgreementTest() {
         String organizationId = null;
         String partnerId = null;
         UpdateAgreementRequest updateAgreementRequest = null;
-        AgreementDto response = api.updateAgreement(organizationId, partnerId, updateAgreementRequest);
+    AgreementDto response = api.updateAgreement(organizationId, partnerId, updateAgreementRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update partner details
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update partner details
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updatePartnerTest() {
         String organizationId = null;
         UpdatePartnerRequest updatePartnerRequest = null;
-        PartnerDto response = api.updatePartner(organizationId, updatePartnerRequest);
+    PartnerDto response = api.updatePartner(organizationId, updatePartnerRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}

@@ -14,68 +14,70 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.model.ThemeDto;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for UserSettingsApi
- */
+* API tests for UserSettingsApi
+*/
 @Ignore
 public class UserSettingsApiTest {
 
-    private final UserSettingsApi api = new UserSettingsApi();
+private final UserSettingsApi api = new UserSettingsApi();
 
-    
+
     /**
-     * Get the display theme
-     *
-     * Returns the user&#39;s preferred display theme: DARK or LIGHT.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get the display theme
+    *
+    * Returns the user&#39;s preferred display theme: DARK or LIGHT.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getThemeTest() {
-        ThemeDto response = api.getTheme();
+    ThemeDto response = api.getTheme();
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Set the display theme
-     *
-     * Set the user&#39;s preferred display theme: DARK or LIGHT.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Set the display theme
+    *
+    * Set the user&#39;s preferred display theme: DARK or LIGHT.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void setThemeTest() {
         String body = null;
-        api.setTheme(body);
+    api.setTheme(body);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update the display theme
-     *
-     * Update the user&#39;s preferred display theme: DARK or LIGHT.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update the display theme
+    *
+    * Update the user&#39;s preferred display theme: DARK or LIGHT.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateThemeTest() {
         String body = null;
-        api.updateTheme(body);
+    api.updateTheme(body);
 
         // TODO: test validations
+        }
+
     }
-    
-}

@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateEnvironmentInstanceRequest;
 import games.mythical.ivi.sdk.model.CreateTitleRequest;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -58,9 +58,9 @@ public class TitlesApi {
      * @param titleId  (required)
      * @param createEnvironmentInstanceRequest  (required)
      * @return EnvironmentInstanceDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public EnvironmentInstanceDto addEnvironmentInstance(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws RestClientException {
+    public EnvironmentInstanceDto addEnvironmentInstance(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws IVIException {
         return addEnvironmentInstanceWithHttpInfo(titleId, createEnvironmentInstanceRequest).getBody();
     }
 
@@ -72,9 +72,9 @@ public class TitlesApi {
      * @param titleId  (required)
      * @param createEnvironmentInstanceRequest  (required)
      * @return ResponseEntity&lt;EnvironmentInstanceDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<EnvironmentInstanceDto> addEnvironmentInstanceWithHttpInfo(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws RestClientException {
+    public ResponseEntity<EnvironmentInstanceDto> addEnvironmentInstanceWithHttpInfo(String titleId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws IVIException {
         Object postBody = createEnvironmentInstanceRequest;
         
         // verify the required parameter 'titleId' is set
@@ -119,9 +119,9 @@ public class TitlesApi {
      * @param titleId  (required)
      * @param includeInactive  (optional)
      * @return List&lt;EnvironmentInstanceDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<EnvironmentInstanceDto> getEnvironmentInstancesForTitle(String titleId, Boolean includeInactive) throws RestClientException {
+    public List<EnvironmentInstanceDto> getEnvironmentInstancesForTitle(String titleId, Boolean includeInactive) throws IVIException {
         return getEnvironmentInstancesForTitleWithHttpInfo(titleId, includeInactive).getBody();
     }
 
@@ -133,9 +133,9 @@ public class TitlesApi {
      * @param titleId  (required)
      * @param includeInactive  (optional)
      * @return ResponseEntity&lt;List&lt;EnvironmentInstanceDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<EnvironmentInstanceDto>> getEnvironmentInstancesForTitleWithHttpInfo(String titleId, Boolean includeInactive) throws RestClientException {
+    public ResponseEntity<List<EnvironmentInstanceDto>> getEnvironmentInstancesForTitleWithHttpInfo(String titleId, Boolean includeInactive) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'titleId' is set
@@ -174,9 +174,9 @@ public class TitlesApi {
      * <p><b>400</b> - Bad Request
      * @param titleId  (required)
      * @return TitleDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public TitleDto getTitleById(String titleId) throws RestClientException {
+    public TitleDto getTitleById(String titleId) throws IVIException {
         return getTitleByIdWithHttpInfo(titleId).getBody();
     }
 
@@ -187,9 +187,9 @@ public class TitlesApi {
      * <p><b>400</b> - Bad Request
      * @param titleId  (required)
      * @return ResponseEntity&lt;TitleDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<TitleDto> getTitleByIdWithHttpInfo(String titleId) throws RestClientException {
+    public ResponseEntity<TitleDto> getTitleByIdWithHttpInfo(String titleId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'titleId' is set
@@ -225,9 +225,9 @@ public class TitlesApi {
      * <p><b>400</b> - Bad Request
      * <p><b>204</b> - Title state updated.
      * @param titleId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void setTitleActive(String titleId) throws RestClientException {
+    public void setTitleActive(String titleId) throws IVIException {
         setTitleActiveWithHttpInfo(titleId);
     }
 
@@ -238,9 +238,9 @@ public class TitlesApi {
      * <p><b>204</b> - Title state updated.
      * @param titleId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> setTitleActiveWithHttpInfo(String titleId) throws RestClientException {
+    public ResponseEntity<Void> setTitleActiveWithHttpInfo(String titleId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'titleId' is set
@@ -276,9 +276,9 @@ public class TitlesApi {
      * <p><b>400</b> - Bad Request
      * <p><b>204</b> - Title state updated.
      * @param titleId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void setTitleInactive(String titleId) throws RestClientException {
+    public void setTitleInactive(String titleId) throws IVIException {
         setTitleInactiveWithHttpInfo(titleId);
     }
 
@@ -289,9 +289,9 @@ public class TitlesApi {
      * <p><b>204</b> - Title state updated.
      * @param titleId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> setTitleInactiveWithHttpInfo(String titleId) throws RestClientException {
+    public ResponseEntity<Void> setTitleInactiveWithHttpInfo(String titleId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'titleId' is set
@@ -328,9 +328,9 @@ public class TitlesApi {
      * <p><b>204</b> - The title was updated successfully.
      * @param titleId  (required)
      * @param createTitleRequest  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void updateTitle(String titleId, CreateTitleRequest createTitleRequest) throws RestClientException {
+    public void updateTitle(String titleId, CreateTitleRequest createTitleRequest) throws IVIException {
         updateTitleWithHttpInfo(titleId, createTitleRequest);
     }
 
@@ -342,9 +342,9 @@ public class TitlesApi {
      * @param titleId  (required)
      * @param createTitleRequest  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> updateTitleWithHttpInfo(String titleId, CreateTitleRequest createTitleRequest) throws RestClientException {
+    public ResponseEntity<Void> updateTitleWithHttpInfo(String titleId, CreateTitleRequest createTitleRequest) throws IVIException {
         Object postBody = createTitleRequest;
         
         // verify the required parameter 'titleId' is set

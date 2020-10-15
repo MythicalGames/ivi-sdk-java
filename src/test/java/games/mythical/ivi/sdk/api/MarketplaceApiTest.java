@@ -18,103 +18,105 @@ import games.mythical.ivi.sdk.model.MarketplaceListingDto;
 import games.mythical.ivi.sdk.model.SearchResponse;
 import games.mythical.ivi.sdk.model.TransactionDto;
 import java.util.UUID;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for MarketplaceApi
- */
+* API tests for MarketplaceApi
+*/
 @Ignore
 public class MarketplaceApiTest {
 
-    private final MarketplaceApi api = new MarketplaceApi();
+private final MarketplaceApi api = new MarketplaceApi();
 
-    
+
     /**
-     * Get all items of an environment
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all items of an environment
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getAllListingsTest() {
         String environmentId = null;
         Integer pageSize = null;
         Long createdTimestamp = null;
         String order = null;
-        List<MarketplaceListingDto> response = api.getAllListings(environmentId, pageSize, createdTimestamp, order);
+    List<MarketplaceListingDto> response = api.getAllListings(environmentId, pageSize, createdTimestamp, order);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get the history of an item by DGood ID or Game ID
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get the history of an item by DGood ID or Game ID
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getItemHistoryTest() {
         String environmentId = null;
         String gameInventoryId = null;
         Long dgoodId = null;
-        List<TransactionDto> response = api.getItemHistory(environmentId, gameInventoryId, dgoodId);
+    List<TransactionDto> response = api.getItemHistory(environmentId, gameInventoryId, dgoodId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get all information for the listing with the given id
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all information for the listing with the given id
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getListingTest() {
         String environmentId = null;
         String listingId = null;
-        MarketplaceListingDto response = api.getListing(environmentId, listingId);
+    MarketplaceListingDto response = api.getListing(environmentId, listingId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get all items owned by the logged in user.
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get all items owned by the logged in user.
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getMarketplaceItemsTest() {
         String environmentId = null;
         UUID mythicalId = null;
         String playerId = null;
-        List<MarketplaceItemDto> response = api.getMarketplaceItems(environmentId, mythicalId, playerId);
+    List<MarketplaceItemDto> response = api.getMarketplaceItems(environmentId, mythicalId, playerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Search items
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Search items
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void searchItemsTest() {
         String environmentId = null;
@@ -129,9 +131,9 @@ public class MarketplaceApiTest {
         String status = null;
         Integer pageSize = null;
         Integer pageNum = null;
-        SearchResponse response = api.searchItems(environmentId, query, filters, artists, rarity, levels, category, tokenName, price, status, pageSize, pageNum);
+    SearchResponse response = api.searchItems(environmentId, query, filters, artists, rarity, levels, category, tokenName, price, status, pageSize, pageNum);
 
         // TODO: test validations
+        }
+
     }
-    
-}

@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.ThemeDto;
 
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -53,9 +53,9 @@ public class UserSettingsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @return ThemeDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ThemeDto getTheme() throws RestClientException {
+    public ThemeDto getTheme() throws IVIException {
         return getThemeWithHttpInfo().getBody();
     }
 
@@ -65,9 +65,9 @@ public class UserSettingsApi {
      * <p><b>200</b> - Success
      * <p><b>400</b> - Bad Request
      * @return ResponseEntity&lt;ThemeDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ThemeDto> getThemeWithHttpInfo() throws RestClientException {
+    public ResponseEntity<ThemeDto> getThemeWithHttpInfo() throws IVIException {
         Object postBody = null;
         
         String path = apiClient.expandPath("/users/settings/theme", Collections.<String, Object>emptyMap());
@@ -95,9 +95,9 @@ public class UserSettingsApi {
      * <p><b>200</b> - Display theme successfully set.
      * <p><b>400</b> - Bad Request
      * @param body  (optional)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void setTheme(String body) throws RestClientException {
+    public void setTheme(String body) throws IVIException {
         setThemeWithHttpInfo(body);
     }
 
@@ -108,9 +108,9 @@ public class UserSettingsApi {
      * <p><b>400</b> - Bad Request
      * @param body  (optional)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> setThemeWithHttpInfo(String body) throws RestClientException {
+    public ResponseEntity<Void> setThemeWithHttpInfo(String body) throws IVIException {
         Object postBody = body;
         
         String path = apiClient.expandPath("/users/settings/theme", Collections.<String, Object>emptyMap());
@@ -140,9 +140,9 @@ public class UserSettingsApi {
      * <p><b>200</b> - Display theme successfully updated.
      * <p><b>400</b> - Bad Request
      * @param body  (optional)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void updateTheme(String body) throws RestClientException {
+    public void updateTheme(String body) throws IVIException {
         updateThemeWithHttpInfo(body);
     }
 
@@ -153,9 +153,9 @@ public class UserSettingsApi {
      * <p><b>400</b> - Bad Request
      * @param body  (optional)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> updateThemeWithHttpInfo(String body) throws RestClientException {
+    public ResponseEntity<Void> updateThemeWithHttpInfo(String body) throws IVIException {
         Object postBody = body;
         
         String path = apiClient.expandPath("/users/settings/theme", Collections.<String, Object>emptyMap());

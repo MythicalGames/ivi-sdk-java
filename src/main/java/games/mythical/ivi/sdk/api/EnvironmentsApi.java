@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateEnvironmentInstanceRequest;
 import games.mythical.ivi.sdk.model.EnvironmentInstanceDto;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -55,9 +55,9 @@ public class EnvironmentsApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return EnvironmentInstanceDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public EnvironmentInstanceDto getEnvironmentInstance(String environmentId) throws RestClientException {
+    public EnvironmentInstanceDto getEnvironmentInstance(String environmentId) throws IVIException {
         return getEnvironmentInstanceWithHttpInfo(environmentId).getBody();
     }
 
@@ -68,9 +68,9 @@ public class EnvironmentsApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return ResponseEntity&lt;EnvironmentInstanceDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<EnvironmentInstanceDto> getEnvironmentInstanceWithHttpInfo(String environmentId) throws RestClientException {
+    public ResponseEntity<EnvironmentInstanceDto> getEnvironmentInstanceWithHttpInfo(String environmentId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -106,9 +106,9 @@ public class EnvironmentsApi {
      * <p><b>400</b> - Bad Request
      * <p><b>204</b> - Environment state updated.
      * @param environmentId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void setEnvironmentInstanceActive(String environmentId) throws RestClientException {
+    public void setEnvironmentInstanceActive(String environmentId) throws IVIException {
         setEnvironmentInstanceActiveWithHttpInfo(environmentId);
     }
 
@@ -119,9 +119,9 @@ public class EnvironmentsApi {
      * <p><b>204</b> - Environment state updated.
      * @param environmentId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> setEnvironmentInstanceActiveWithHttpInfo(String environmentId) throws RestClientException {
+    public ResponseEntity<Void> setEnvironmentInstanceActiveWithHttpInfo(String environmentId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -157,9 +157,9 @@ public class EnvironmentsApi {
      * <p><b>400</b> - Bad Request
      * <p><b>204</b> - Environment state updated.
      * @param environmentId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void setEnvironmentInstanceInactive(String environmentId) throws RestClientException {
+    public void setEnvironmentInstanceInactive(String environmentId) throws IVIException {
         setEnvironmentInstanceInactiveWithHttpInfo(environmentId);
     }
 
@@ -170,9 +170,9 @@ public class EnvironmentsApi {
      * <p><b>204</b> - Environment state updated.
      * @param environmentId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> setEnvironmentInstanceInactiveWithHttpInfo(String environmentId) throws RestClientException {
+    public ResponseEntity<Void> setEnvironmentInstanceInactiveWithHttpInfo(String environmentId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -209,9 +209,9 @@ public class EnvironmentsApi {
      * <p><b>204</b> - Environment name updated.
      * @param environmentId  (required)
      * @param createEnvironmentInstanceRequest  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void updateEnvironmentInstanceName(String environmentId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws RestClientException {
+    public void updateEnvironmentInstanceName(String environmentId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws IVIException {
         updateEnvironmentInstanceNameWithHttpInfo(environmentId, createEnvironmentInstanceRequest);
     }
 
@@ -223,9 +223,9 @@ public class EnvironmentsApi {
      * @param environmentId  (required)
      * @param createEnvironmentInstanceRequest  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> updateEnvironmentInstanceNameWithHttpInfo(String environmentId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws RestClientException {
+    public ResponseEntity<Void> updateEnvironmentInstanceNameWithHttpInfo(String environmentId, CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest) throws IVIException {
         Object postBody = createEnvironmentInstanceRequest;
         
         // verify the required parameter 'environmentId' is set

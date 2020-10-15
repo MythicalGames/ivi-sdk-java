@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.LinkPlayerToEnvironmentRequest;
 import games.mythical.ivi.sdk.model.PlayerDto;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -55,9 +55,9 @@ public class PlayersApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return List&lt;PlayerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<PlayerDto> getAllPlayers(String environmentId) throws RestClientException {
+    public List<PlayerDto> getAllPlayers(String environmentId) throws IVIException {
         return getAllPlayersWithHttpInfo(environmentId).getBody();
     }
 
@@ -68,9 +68,9 @@ public class PlayersApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return ResponseEntity&lt;List&lt;PlayerDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<PlayerDto>> getAllPlayersWithHttpInfo(String environmentId) throws RestClientException {
+    public ResponseEntity<List<PlayerDto>> getAllPlayersWithHttpInfo(String environmentId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -108,9 +108,9 @@ public class PlayersApi {
      * @param environmentId  (required)
      * @param playerId  (required)
      * @return PlayerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PlayerDto getPlayerData(String environmentId, String playerId) throws RestClientException {
+    public PlayerDto getPlayerData(String environmentId, String playerId) throws IVIException {
         return getPlayerDataWithHttpInfo(environmentId, playerId).getBody();
     }
 
@@ -122,9 +122,9 @@ public class PlayersApi {
      * @param environmentId  (required)
      * @param playerId  (required)
      * @return ResponseEntity&lt;PlayerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PlayerDto> getPlayerDataWithHttpInfo(String environmentId, String playerId) throws RestClientException {
+    public ResponseEntity<PlayerDto> getPlayerDataWithHttpInfo(String environmentId, String playerId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -168,9 +168,9 @@ public class PlayersApi {
      * @param environmentId  (required)
      * @param linkPlayerToEnvironmentRequest  (required)
      * @return PlayerDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public PlayerDto linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws RestClientException {
+    public PlayerDto linkPlayerToEnvironment(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws IVIException {
         return linkPlayerToEnvironmentWithHttpInfo(environmentId, linkPlayerToEnvironmentRequest).getBody();
     }
 
@@ -182,9 +182,9 @@ public class PlayersApi {
      * @param environmentId  (required)
      * @param linkPlayerToEnvironmentRequest  (required)
      * @return ResponseEntity&lt;PlayerDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<PlayerDto> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws RestClientException {
+    public ResponseEntity<PlayerDto> linkPlayerToEnvironmentWithHttpInfo(String environmentId, LinkPlayerToEnvironmentRequest linkPlayerToEnvironmentRequest) throws IVIException {
         Object postBody = linkPlayerToEnvironmentRequest;
         
         // verify the required parameter 'environmentId' is set

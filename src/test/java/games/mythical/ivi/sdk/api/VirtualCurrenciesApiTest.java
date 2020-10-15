@@ -15,88 +15,90 @@ package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.model.CreateVirtualCurrencyRequest;
 import games.mythical.ivi.sdk.model.VirtualCurrencyDto;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for VirtualCurrenciesApi
- */
+* API tests for VirtualCurrenciesApi
+*/
 @Ignore
 public class VirtualCurrenciesApiTest {
 
-    private final VirtualCurrenciesApi api = new VirtualCurrenciesApi();
+private final VirtualCurrenciesApi api = new VirtualCurrenciesApi();
 
-    
+
     /**
-     * Add new virtual currency to environment
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Add new virtual currency to environment
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void addSupportedCurrencyForEnvironmentTest() {
         String environmentId = null;
         CreateVirtualCurrencyRequest createVirtualCurrencyRequest = null;
-        VirtualCurrencyDto response = api.addSupportedCurrencyForEnvironment(environmentId, createVirtualCurrencyRequest);
+    VirtualCurrencyDto response = api.addSupportedCurrencyForEnvironment(environmentId, createVirtualCurrencyRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Delete virtual currency for environment by abbreviation
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Delete virtual currency for environment by abbreviation
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void deleteSupportedCurrencyByAbbreviationTest() {
         String environmentId = null;
         String abbreviation = null;
-        api.deleteSupportedCurrencyByAbbreviation(environmentId, abbreviation);
+    api.deleteSupportedCurrencyByAbbreviation(environmentId, abbreviation);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get virtual currency for environment by abbreviation
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get virtual currency for environment by abbreviation
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getSupportedCurrencyByAbbreviationTest() {
         String environmentId = null;
         String abbreviation = null;
-        VirtualCurrencyDto response = api.getSupportedCurrencyByAbbreviation(environmentId, abbreviation);
+    VirtualCurrencyDto response = api.getSupportedCurrencyByAbbreviation(environmentId, abbreviation);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get virtual currencies defined for environment
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get virtual currencies defined for environment
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getSupportedCurrencyForEnvironmentTest() {
         String environmentId = null;
-        List<VirtualCurrencyDto> response = api.getSupportedCurrencyForEnvironment(environmentId);
+    List<VirtualCurrencyDto> response = api.getSupportedCurrencyForEnvironment(environmentId);
 
         // TODO: test validations
+        }
+
     }
-    
-}

@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateVirtualCurrencyRequest;
 import games.mythical.ivi.sdk.model.VirtualCurrencyDto;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -56,9 +56,9 @@ public class VirtualCurrenciesApi {
      * @param environmentId  (required)
      * @param createVirtualCurrencyRequest  (required)
      * @return VirtualCurrencyDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public VirtualCurrencyDto addSupportedCurrencyForEnvironment(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws RestClientException {
+    public VirtualCurrencyDto addSupportedCurrencyForEnvironment(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws IVIException {
         return addSupportedCurrencyForEnvironmentWithHttpInfo(environmentId, createVirtualCurrencyRequest).getBody();
     }
 
@@ -70,9 +70,9 @@ public class VirtualCurrenciesApi {
      * @param environmentId  (required)
      * @param createVirtualCurrencyRequest  (required)
      * @return ResponseEntity&lt;VirtualCurrencyDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<VirtualCurrencyDto> addSupportedCurrencyForEnvironmentWithHttpInfo(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws RestClientException {
+    public ResponseEntity<VirtualCurrencyDto> addSupportedCurrencyForEnvironmentWithHttpInfo(String environmentId, CreateVirtualCurrencyRequest createVirtualCurrencyRequest) throws IVIException {
         Object postBody = createVirtualCurrencyRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -116,9 +116,9 @@ public class VirtualCurrenciesApi {
      * <p><b>204</b> - Currency deleted successfully.
      * @param environmentId  (required)
      * @param abbreviation  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void deleteSupportedCurrencyByAbbreviation(String environmentId, String abbreviation) throws RestClientException {
+    public void deleteSupportedCurrencyByAbbreviation(String environmentId, String abbreviation) throws IVIException {
         deleteSupportedCurrencyByAbbreviationWithHttpInfo(environmentId, abbreviation);
     }
 
@@ -130,9 +130,9 @@ public class VirtualCurrenciesApi {
      * @param environmentId  (required)
      * @param abbreviation  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> deleteSupportedCurrencyByAbbreviationWithHttpInfo(String environmentId, String abbreviation) throws RestClientException {
+    public ResponseEntity<Void> deleteSupportedCurrencyByAbbreviationWithHttpInfo(String environmentId, String abbreviation) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -176,9 +176,9 @@ public class VirtualCurrenciesApi {
      * @param environmentId  (required)
      * @param abbreviation  (required)
      * @return VirtualCurrencyDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public VirtualCurrencyDto getSupportedCurrencyByAbbreviation(String environmentId, String abbreviation) throws RestClientException {
+    public VirtualCurrencyDto getSupportedCurrencyByAbbreviation(String environmentId, String abbreviation) throws IVIException {
         return getSupportedCurrencyByAbbreviationWithHttpInfo(environmentId, abbreviation).getBody();
     }
 
@@ -190,9 +190,9 @@ public class VirtualCurrenciesApi {
      * @param environmentId  (required)
      * @param abbreviation  (required)
      * @return ResponseEntity&lt;VirtualCurrencyDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<VirtualCurrencyDto> getSupportedCurrencyByAbbreviationWithHttpInfo(String environmentId, String abbreviation) throws RestClientException {
+    public ResponseEntity<VirtualCurrencyDto> getSupportedCurrencyByAbbreviationWithHttpInfo(String environmentId, String abbreviation) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -235,9 +235,9 @@ public class VirtualCurrenciesApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return List&lt;VirtualCurrencyDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<VirtualCurrencyDto> getSupportedCurrencyForEnvironment(String environmentId) throws RestClientException {
+    public List<VirtualCurrencyDto> getSupportedCurrencyForEnvironment(String environmentId) throws IVIException {
         return getSupportedCurrencyForEnvironmentWithHttpInfo(environmentId).getBody();
     }
 
@@ -248,9 +248,9 @@ public class VirtualCurrenciesApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return ResponseEntity&lt;List&lt;VirtualCurrencyDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<VirtualCurrencyDto>> getSupportedCurrencyForEnvironmentWithHttpInfo(String environmentId) throws RestClientException {
+    public ResponseEntity<List<VirtualCurrencyDto>> getSupportedCurrencyForEnvironmentWithHttpInfo(String environmentId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set

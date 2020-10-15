@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateOrderRequest;
 import games.mythical.ivi.sdk.model.OrderDto;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -57,9 +57,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param createOrderRequest  (required)
      * @return OrderDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public OrderDto createOrder(String environmentId, CreateOrderRequest createOrderRequest) throws RestClientException {
+    public OrderDto createOrder(String environmentId, CreateOrderRequest createOrderRequest) throws IVIException {
         return createOrderWithHttpInfo(environmentId, createOrderRequest).getBody();
     }
 
@@ -71,9 +71,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param createOrderRequest  (required)
      * @return ResponseEntity&lt;OrderDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<OrderDto> createOrderWithHttpInfo(String environmentId, CreateOrderRequest createOrderRequest) throws RestClientException {
+    public ResponseEntity<OrderDto> createOrderWithHttpInfo(String environmentId, CreateOrderRequest createOrderRequest) throws IVIException {
         Object postBody = createOrderRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -117,9 +117,9 @@ public class OrdersApi {
      * <p><b>204</b> - Order deleted
      * @param environmentId  (required)
      * @param orderId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void deleteOrder(String environmentId, String orderId) throws RestClientException {
+    public void deleteOrder(String environmentId, String orderId) throws IVIException {
         deleteOrderWithHttpInfo(environmentId, orderId);
     }
 
@@ -131,9 +131,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param orderId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> deleteOrderWithHttpInfo(String environmentId, String orderId) throws RestClientException {
+    public ResponseEntity<Void> deleteOrderWithHttpInfo(String environmentId, String orderId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -177,9 +177,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param orderId  (required)
      * @return OrderDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public OrderDto getOrder(String environmentId, String orderId) throws RestClientException {
+    public OrderDto getOrder(String environmentId, String orderId) throws IVIException {
         return getOrderWithHttpInfo(environmentId, orderId).getBody();
     }
 
@@ -191,9 +191,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param orderId  (required)
      * @return ResponseEntity&lt;OrderDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<OrderDto> getOrderWithHttpInfo(String environmentId, String orderId) throws RestClientException {
+    public ResponseEntity<OrderDto> getOrderWithHttpInfo(String environmentId, String orderId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -238,9 +238,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param updateOrderRequest  (required)
      * @return OrderDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public OrderDto updateOrder(String environmentId, UpdateOrderRequest updateOrderRequest) throws RestClientException {
+    public OrderDto updateOrder(String environmentId, UpdateOrderRequest updateOrderRequest) throws IVIException {
         return updateOrderWithHttpInfo(environmentId, updateOrderRequest).getBody();
     }
 
@@ -252,9 +252,9 @@ public class OrdersApi {
      * @param environmentId  (required)
      * @param updateOrderRequest  (required)
      * @return ResponseEntity&lt;OrderDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<OrderDto> updateOrderWithHttpInfo(String environmentId, UpdateOrderRequest updateOrderRequest) throws RestClientException {
+    public ResponseEntity<OrderDto> updateOrderWithHttpInfo(String environmentId, UpdateOrderRequest updateOrderRequest) throws IVIException {
         Object postBody = updateOrderRequest;
         
         // verify the required parameter 'environmentId' is set

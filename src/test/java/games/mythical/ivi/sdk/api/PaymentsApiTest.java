@@ -25,167 +25,169 @@ import games.mythical.ivi.sdk.model.SalesTaxInfoDto;
 import games.mythical.ivi.sdk.model.SalesTaxTransactionDto;
 import games.mythical.ivi.sdk.model.UpdateCustomerRequest;
 import games.mythical.ivi.sdk.model.UpdatePaymentMethodDefaultRequest;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for PaymentsApi
- */
+* API tests for PaymentsApi
+*/
 @Ignore
 public class PaymentsApiTest {
 
-    private final PaymentsApi api = new PaymentsApi();
+private final PaymentsApi api = new PaymentsApi();
 
-    
+
     /**
-     * Finalize Purchase
-     *
-     * Make the final payment
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Finalize Purchase
+    *
+    * Make the final payment
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void completePaymentTest() {
         String environmentId = null;
         FinalizePaymentRequest finalizePaymentRequest = null;
-        PaymentDto response = api.completePayment(environmentId, finalizePaymentRequest);
+    PaymentDto response = api.completePayment(environmentId, finalizePaymentRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Create Customer
-     *
-     * Create Payment Customer
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create Customer
+    *
+    * Create Payment Customer
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createCustomerTest() {
         String environmentId = null;
         CreateCustomerRequest createCustomerRequest = null;
-        CustomerDto response = api.createCustomer(environmentId, createCustomerRequest);
+    CustomerDto response = api.createCustomer(environmentId, createCustomerRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Create Payment Method
-     *
-     * Create Payment Method
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Create Payment Method
+    *
+    * Create Payment Method
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void createPaymentMethodTest() {
         String environmentId = null;
         CreatePaymentMethodRequest createPaymentMethodRequest = null;
-        PaymentMethodDto response = api.createPaymentMethod(environmentId, createPaymentMethodRequest);
+    PaymentMethodDto response = api.createPaymentMethod(environmentId, createPaymentMethodRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Delete Customer
-     *
-     * Delete an existing Payment Customer
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Delete Customer
+    *
+    * Delete an existing Payment Customer
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void deleteCustomerTest() {
         String environmentId = null;
         String customerId = null;
-        api.deleteCustomer(environmentId, customerId);
+    api.deleteCustomer(environmentId, customerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Delete a Payment Method
-     *
-     * Delete an existing Payment Method
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Delete a Payment Method
+    *
+    * Delete an existing Payment Method
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void deletePaymentMethodTest() {
         String environmentId = null;
         String methodToken = null;
-        api.deletePaymentMethod(environmentId, methodToken);
+    api.deletePaymentMethod(environmentId, methodToken);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Anonymous payment token
-     *
-     * Get an anonymous payment token for a customer
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Anonymous payment token
+    *
+    * Get an anonymous payment token for a customer
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void generateClientTokenTest() {
         String environmentId = null;
         GenerateTokenRequest generateTokenRequest = null;
-        ClientPaymentTokenDto response = api.generateClientToken(environmentId, generateTokenRequest);
+    ClientPaymentTokenDto response = api.generateClientToken(environmentId, generateTokenRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get Customer
-     *
-     * Find a Payment Customer
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get Customer
+    *
+    * Find a Payment Customer
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getCustomerTest() {
         String environmentId = null;
         String customerId = null;
-        CustomerDto response = api.getCustomer(environmentId, customerId);
+    CustomerDto response = api.getCustomer(environmentId, customerId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get Payment Method
-     *
-     * Find a Payment Method for a customer
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get Payment Method
+    *
+    * Find a Payment Method for a customer
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getPaymentMethodTest() {
         String environmentId = null;
         String paymentMethodToken = null;
-        PaymentMethodDto response = api.getPaymentMethod(environmentId, paymentMethodToken);
+    PaymentMethodDto response = api.getPaymentMethod(environmentId, paymentMethodToken);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get sales tax- rate and amount based on country, state, zip code and sales amount.
-     *
-     * Get sales tax rate and tax amount based on country ISO code, state ISO code, zip code and sales amount.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get sales tax- rate and amount based on country, state, zip code and sales amount.
+    *
+    * Get sales tax rate and tax amount based on country ISO code, state ISO code, zip code and sales amount.
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getSalesTaxInfoTest() {
         String environmentId = null;
@@ -193,60 +195,60 @@ public class PaymentsApiTest {
         String stateIsoCode = null;
         String zipCode = null;
         Boolean isSecondaryMarketplace = null;
-        SalesTaxInfoDto response = api.getSalesTaxInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace);
+    SalesTaxInfoDto response = api.getSalesTaxInfo(environmentId, countryIsoCode, stateIsoCode, zipCode, isSecondaryMarketplace);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Get Transaction Details
-     *
-     * Find transaction details for a transaction id
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get Transaction Details
+    *
+    * Find transaction details for a transaction id
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getSalesTaxTransactionTest() {
         String environmentId = null;
         String orderId = null;
-        SalesTaxTransactionDto response = api.getSalesTaxTransaction(environmentId, orderId);
+    SalesTaxTransactionDto response = api.getSalesTaxTransaction(environmentId, orderId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update Customer
-     *
-     * Update fields on an existing Payment Customer
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update Customer
+    *
+    * Update fields on an existing Payment Customer
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateCustomerTest() {
         String environmentId = null;
         UpdateCustomerRequest updateCustomerRequest = null;
-        CustomerDto response = api.updateCustomer(environmentId, updateCustomerRequest);
+    CustomerDto response = api.updateCustomer(environmentId, updateCustomerRequest);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update the default Payment Method
-     *
-     * Set a payment method as a default
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update the default Payment Method
+    *
+    * Set a payment method as a default
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updatePaymentMethodTest() {
         String environmentId = null;
         UpdatePaymentMethodDefaultRequest updatePaymentMethodDefaultRequest = null;
-        PaymentMethodDto response = api.updatePaymentMethod(environmentId, updatePaymentMethodDefaultRequest);
+    PaymentMethodDto response = api.updatePaymentMethod(environmentId, updatePaymentMethodDefaultRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}

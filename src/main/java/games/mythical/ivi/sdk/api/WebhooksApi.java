@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.ApiClient;
+import games.mythical.ivi.sdk.IVIException;
 
 import games.mythical.ivi.sdk.model.CreateWebhookRequest;
 import games.mythical.ivi.sdk.model.UpdateWebhookRequest;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -57,9 +57,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param createWebhookRequest  (required)
      * @return WebhookDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public WebhookDto createNewWebhook(String environmentId, CreateWebhookRequest createWebhookRequest) throws RestClientException {
+    public WebhookDto createNewWebhook(String environmentId, CreateWebhookRequest createWebhookRequest) throws IVIException {
         return createNewWebhookWithHttpInfo(environmentId, createWebhookRequest).getBody();
     }
 
@@ -71,9 +71,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param createWebhookRequest  (required)
      * @return ResponseEntity&lt;WebhookDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<WebhookDto> createNewWebhookWithHttpInfo(String environmentId, CreateWebhookRequest createWebhookRequest) throws RestClientException {
+    public ResponseEntity<WebhookDto> createNewWebhookWithHttpInfo(String environmentId, CreateWebhookRequest createWebhookRequest) throws IVIException {
         Object postBody = createWebhookRequest;
         
         // verify the required parameter 'environmentId' is set
@@ -117,9 +117,9 @@ public class WebhooksApi {
      * <p><b>204</b> - Webhook successfully deleted
      * @param environmentId  (required)
      * @param webhookId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void deleteWebhook(String environmentId, String webhookId) throws RestClientException {
+    public void deleteWebhook(String environmentId, String webhookId) throws IVIException {
         deleteWebhookWithHttpInfo(environmentId, webhookId);
     }
 
@@ -131,9 +131,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param webhookId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> deleteWebhookWithHttpInfo(String environmentId, String webhookId) throws RestClientException {
+    public ResponseEntity<Void> deleteWebhookWithHttpInfo(String environmentId, String webhookId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -176,9 +176,9 @@ public class WebhooksApi {
      * <p><b>204</b> - Webhook successfully disabled
      * @param environmentId  (required)
      * @param webhookId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void disableWebhook(String environmentId, String webhookId) throws RestClientException {
+    public void disableWebhook(String environmentId, String webhookId) throws IVIException {
         disableWebhookWithHttpInfo(environmentId, webhookId);
     }
 
@@ -190,9 +190,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param webhookId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> disableWebhookWithHttpInfo(String environmentId, String webhookId) throws RestClientException {
+    public ResponseEntity<Void> disableWebhookWithHttpInfo(String environmentId, String webhookId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -235,9 +235,9 @@ public class WebhooksApi {
      * <p><b>204</b> - Webhook successfully enabled
      * @param environmentId  (required)
      * @param webhookId  (required)
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public void enableWebhook(String environmentId, String webhookId) throws RestClientException {
+    public void enableWebhook(String environmentId, String webhookId) throws IVIException {
         enableWebhookWithHttpInfo(environmentId, webhookId);
     }
 
@@ -249,9 +249,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param webhookId  (required)
      * @return ResponseEntity&lt;Void&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> enableWebhookWithHttpInfo(String environmentId, String webhookId) throws RestClientException {
+    public ResponseEntity<Void> enableWebhookWithHttpInfo(String environmentId, String webhookId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -295,9 +295,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param webhookId  (required)
      * @return WebhookDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public WebhookDto getWebhook(String environmentId, String webhookId) throws RestClientException {
+    public WebhookDto getWebhook(String environmentId, String webhookId) throws IVIException {
         return getWebhookWithHttpInfo(environmentId, webhookId).getBody();
     }
 
@@ -309,9 +309,9 @@ public class WebhooksApi {
      * @param environmentId  (required)
      * @param webhookId  (required)
      * @return ResponseEntity&lt;WebhookDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<WebhookDto> getWebhookWithHttpInfo(String environmentId, String webhookId) throws RestClientException {
+    public ResponseEntity<WebhookDto> getWebhookWithHttpInfo(String environmentId, String webhookId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -354,9 +354,9 @@ public class WebhooksApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return List&lt;WebhookDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public List<WebhookDto> getWebhooksForTitleId(String environmentId) throws RestClientException {
+    public List<WebhookDto> getWebhooksForTitleId(String environmentId) throws IVIException {
         return getWebhooksForTitleIdWithHttpInfo(environmentId).getBody();
     }
 
@@ -367,9 +367,9 @@ public class WebhooksApi {
      * <p><b>400</b> - Bad Request
      * @param environmentId  (required)
      * @return ResponseEntity&lt;List&lt;WebhookDto&gt;&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<WebhookDto>> getWebhooksForTitleIdWithHttpInfo(String environmentId) throws RestClientException {
+    public ResponseEntity<List<WebhookDto>> getWebhooksForTitleIdWithHttpInfo(String environmentId) throws IVIException {
         Object postBody = null;
         
         // verify the required parameter 'environmentId' is set
@@ -408,9 +408,9 @@ public class WebhooksApi {
      * @param webhookId  (required)
      * @param updateWebhookRequest  (required)
      * @return WebhookDto
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public WebhookDto updateWebhook(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws RestClientException {
+    public WebhookDto updateWebhook(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws IVIException {
         return updateWebhookWithHttpInfo(environmentId, webhookId, updateWebhookRequest).getBody();
     }
 
@@ -423,9 +423,9 @@ public class WebhooksApi {
      * @param webhookId  (required)
      * @param updateWebhookRequest  (required)
      * @return ResponseEntity&lt;WebhookDto&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
+     * @throws IVIException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<WebhookDto> updateWebhookWithHttpInfo(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws RestClientException {
+    public ResponseEntity<WebhookDto> updateWebhookWithHttpInfo(String environmentId, String webhookId, UpdateWebhookRequest updateWebhookRequest) throws IVIException {
         Object postBody = updateWebhookRequest;
         
         // verify the required parameter 'environmentId' is set

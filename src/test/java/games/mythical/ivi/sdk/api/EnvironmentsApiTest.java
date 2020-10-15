@@ -15,86 +15,88 @@ package games.mythical.ivi.sdk.api;
 
 import games.mythical.ivi.sdk.model.CreateEnvironmentInstanceRequest;
 import games.mythical.ivi.sdk.model.EnvironmentInstanceDto;
+import games.mythical.ivi.sdk.IVIException;
+
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 /**
- * API tests for EnvironmentsApi
- */
+* API tests for EnvironmentsApi
+*/
 @Ignore
 public class EnvironmentsApiTest {
 
-    private final EnvironmentsApi api = new EnvironmentsApi();
+private final EnvironmentsApi api = new EnvironmentsApi();
 
-    
+
     /**
-     * Get title environment instance
-     *
-     * Get environment instance details
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Get title environment instance
+    *
+    * Get environment instance details
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void getEnvironmentInstanceTest() {
         String environmentId = null;
-        EnvironmentInstanceDto response = api.getEnvironmentInstance(environmentId);
+    EnvironmentInstanceDto response = api.getEnvironmentInstance(environmentId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Set environment to activated
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Set environment to activated
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void setEnvironmentInstanceActiveTest() {
         String environmentId = null;
-        api.setEnvironmentInstanceActive(environmentId);
+    api.setEnvironmentInstanceActive(environmentId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Set environment to deactivated
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Set environment to deactivated
+    *
+    * 
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void setEnvironmentInstanceInactiveTest() {
         String environmentId = null;
-        api.setEnvironmentInstanceInactive(environmentId);
+    api.setEnvironmentInstanceInactive(environmentId);
 
         // TODO: test validations
-    }
-    
+        }
+
     /**
-     * Update instance display name for title
-     *
-     * Update environment instance display name for a title
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+    * Update instance display name for title
+    *
+    * Update environment instance display name for a title
+    *
+    * @throws IVIException
+    *          if the Api call fails
+    */
     @Test
     public void updateEnvironmentInstanceNameTest() {
         String environmentId = null;
         CreateEnvironmentInstanceRequest createEnvironmentInstanceRequest = null;
-        api.updateEnvironmentInstanceName(environmentId, createEnvironmentInstanceRequest);
+    api.updateEnvironmentInstanceName(environmentId, createEnvironmentInstanceRequest);
 
         // TODO: test validations
+        }
+
     }
-    
-}
