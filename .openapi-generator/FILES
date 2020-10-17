@@ -6,6 +6,8 @@ docs/AccountsApi.md
 docs/AgreementDto.md
 docs/ApiLevel.md
 docs/BitPayOrderDto.md
+docs/BitPayOrderRequestData.md
+docs/BitPayPaymentRequestData.md
 docs/BitPayTokenDto.md
 docs/BitPayTokenRequestData.md
 docs/BraintreeOrderDto.md
@@ -56,6 +58,7 @@ docs/MarketplaceItemDto.md
 docs/MarketplaceListingDto.md
 docs/MythicalUserDto.md
 docs/OrderDto.md
+docs/OrderRequestProviderData.md
 docs/OrdersApi.md
 docs/OrganizationDto.md
 docs/OrganizationsApi.md
@@ -135,6 +138,8 @@ src/main/java/games/mythical/ivi/sdk/auth/HttpBearerAuth.java
 src/main/java/games/mythical/ivi/sdk/model/AgreementDto.java
 src/main/java/games/mythical/ivi/sdk/model/ApiLevel.java
 src/main/java/games/mythical/ivi/sdk/model/BitPayOrderDto.java
+src/main/java/games/mythical/ivi/sdk/model/BitPayOrderRequestData.java
+src/main/java/games/mythical/ivi/sdk/model/BitPayPaymentRequestData.java
 src/main/java/games/mythical/ivi/sdk/model/BitPayTokenDto.java
 src/main/java/games/mythical/ivi/sdk/model/BitPayTokenRequestData.java
 src/main/java/games/mythical/ivi/sdk/model/BraintreeOrderDto.java
@@ -182,6 +187,7 @@ src/main/java/games/mythical/ivi/sdk/model/MarketplaceItemDto.java
 src/main/java/games/mythical/ivi/sdk/model/MarketplaceListingDto.java
 src/main/java/games/mythical/ivi/sdk/model/MythicalUserDto.java
 src/main/java/games/mythical/ivi/sdk/model/OrderDto.java
+src/main/java/games/mythical/ivi/sdk/model/OrderRequestProviderData.java
 src/main/java/games/mythical/ivi/sdk/model/OrganizationDto.java
 src/main/java/games/mythical/ivi/sdk/model/PartnerDto.java
 src/main/java/games/mythical/ivi/sdk/model/PaymentDto.java
@@ -220,3 +226,6 @@ src/main/java/games/mythical/ivi/sdk/model/UpdateWebhookRequest.java
 src/main/java/games/mythical/ivi/sdk/model/UserDto.java
 src/main/java/games/mythical/ivi/sdk/model/VirtualCurrencyDto.java
 src/main/java/games/mythical/ivi/sdk/model/WebhookDto.java
+src/test/java/games/mythical/ivi/sdk/model/BitPayOrderRequestDataTest.java
+src/test/java/games/mythical/ivi/sdk/model/BitPayPaymentRequestDataTest.java
+src/test/java/games/mythical/ivi/sdk/model/OrderRequestProviderDataTest.java

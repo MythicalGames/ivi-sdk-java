@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **requestIp** | **String** |  | 
 **subTotal** | [**BigDecimal**](BigDecimal.md) |  | 
 **paymentProviderId** | [**PaymentProviderIdEnum**](#PaymentProviderIdEnum) |  | 
+**paymentProviderData** | [**OrderRequestProviderData**](OrderRequestProviderData.md) |  |  [optional]
 
 
 

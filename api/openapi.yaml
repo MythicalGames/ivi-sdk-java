@@ -3589,6 +3589,15 @@ components:
       - gameInventoryIds
       - ownerPlayerId
       type: object
+    OrderRequestProviderData:
+      example:
+        bitpay:
+          notificationUrl: notificationUrl
+          redirectUrl: redirectUrl
+      properties:
+        bitpay:
+          $ref: '#/components/schemas/BitPayOrderRequestData'
+      type: object
     UserDto:
       example:
         organizationId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -3991,11 +4000,15 @@ components:
           braintreePaymentNonce: braintreePaymentNonce
         coinbase:
           coinbaseTransactionId: coinbaseTransactionId
+        bitpay:
+          invoiceId: invoiceId
       properties:
         braintree:
           $ref: '#/components/schemas/BraintreePaymentRequestData'
         coinbase:
           $ref: '#/components/schemas/CoinbasePaymentRequestData'
+        bitpay:
+          $ref: '#/components/schemas/BitPayPaymentRequestData'
       type: object
     CreateItemRequest:
       example:
@@ -4548,6 +4561,16 @@ components:
       - revShareResale
       - titleId
       type: object
+    BitPayOrderRequestData:
+      example:
+        notificationUrl: notificationUrl
+        redirectUrl: redirectUrl
+      properties:
+        notificationUrl:
+          type: string
+        redirectUrl:
+          type: string
+      type: object
     SalesTaxInfoDto:
       example:
         zip: zip
@@ -4933,6 +4956,13 @@ components:
         braintreePaymentNonce:
           type: string
       type: object
+    BitPayPaymentRequestData:
+      example:
+        invoiceId: invoiceId
+      properties:
+        invoiceId:
+          type: string
+      type: object
     IssuedItemDto:
       example:
         currencyBase: currencyBase
@@ -5013,7 +5043,11 @@ components:
         - category: blanko
           token: seafarer.da
         metadata:
-          dgood_id: 1
+          cart:
+          - quantity: 2
+            sku: boss_dino
+          - quantity: 1
+            sku: tako
         address:
           firstName: firstName
           lastName: lastName
@@ -5028,6 +5062,10 @@ components:
         requestIp: 104.172.16.113
         subTotal: 19.99
         paymentProviderId: BRAINTREE
+        paymentProviderData:
+          bitpay:
+            notificationUrl: notificationUrl
+            redirectUrl: redirectUrl
       properties:
         itemTypes:
           example:
@@ -5039,10 +5077,18 @@ components:
         metadata:
           additionalProperties:
             example:
-              dgood_id: 1
+              cart:
+              - quantity: 2
+                sku: boss_dino
+              - quantity: 1
+                sku: tako
             type: object
           example:
-            dgood_id: 1
+            cart:
+            - quantity: 2
+              sku: boss_dino
+            - quantity: 1
+              sku: tako
           type: object
         address:
           $ref: '#/components/schemas/PostalAddress'
@@ -5062,6 +5108,8 @@ components:
           - UNRECOGNIZED
           example: BRAINTREE
           type: string
+        paymentProviderData:
+          $ref: '#/components/schemas/OrderRequestProviderData'
       required:
       - paymentProviderId
       - platformUserId
@@ -5782,6 +5830,8 @@ components:
             braintreePaymentNonce: braintreePaymentNonce
           coinbase:
             coinbaseTransactionId: coinbaseTransactionId
+          bitpay:
+            invoiceId: invoiceId
       properties:
         orderId:
           type: string

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import games.mythical.ivi.sdk.model.OrderRequestProviderData;
 import games.mythical.ivi.sdk.model.PostalAddress;
 import games.mythical.ivi.sdk.model.TokenCategory;
 import io.swagger.annotations.ApiModel;
@@ -41,7 +42,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CreateOrderRequest.JSON_PROPERTY_PLATFORM_USER_ID,
   CreateOrderRequest.JSON_PROPERTY_REQUEST_IP,
   CreateOrderRequest.JSON_PROPERTY_SUB_TOTAL,
-  CreateOrderRequest.JSON_PROPERTY_PAYMENT_PROVIDER_ID
+  CreateOrderRequest.JSON_PROPERTY_PAYMENT_PROVIDER_ID,
+  CreateOrderRequest.JSON_PROPERTY_PAYMENT_PROVIDER_DATA
 })
 @JsonTypeName("CreateOrderRequest")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -106,6 +108,9 @@ public class CreateOrderRequest {
   public static final String JSON_PROPERTY_PAYMENT_PROVIDER_ID = "paymentProviderId";
   private PaymentProviderIdEnum paymentProviderId;
 
+  public static final String JSON_PROPERTY_PAYMENT_PROVIDER_DATA = "paymentProviderData";
+  private OrderRequestProviderData paymentProviderData;
+
 
   public CreateOrderRequest itemTypes(List<TokenCategory> itemTypes) {
     
@@ -159,7 +164,7 @@ public class CreateOrderRequest {
    * @return metadata
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "{\"dgood_id\":1}", value = "")
+  @ApiModelProperty(example = "{\"cart\":[{\"quantity\":2,\"sku\":\"boss_dino\"},{\"quantity\":1,\"sku\":\"tako\"}]}", value = "")
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -294,6 +299,31 @@ public class CreateOrderRequest {
   }
 
 
+  public CreateOrderRequest paymentProviderData(OrderRequestProviderData paymentProviderData) {
+    
+    this.paymentProviderData = paymentProviderData;
+    return this;
+  }
+
+   /**
+   * Get paymentProviderData
+   * @return paymentProviderData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PAYMENT_PROVIDER_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OrderRequestProviderData getPaymentProviderData() {
+    return paymentProviderData;
+  }
+
+
+  public void setPaymentProviderData(OrderRequestProviderData paymentProviderData) {
+    this.paymentProviderData = paymentProviderData;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -309,12 +339,13 @@ public class CreateOrderRequest {
         Objects.equals(this.platformUserId, createOrderRequest.platformUserId) &&
         Objects.equals(this.requestIp, createOrderRequest.requestIp) &&
         Objects.equals(this.subTotal, createOrderRequest.subTotal) &&
-        Objects.equals(this.paymentProviderId, createOrderRequest.paymentProviderId);
+        Objects.equals(this.paymentProviderId, createOrderRequest.paymentProviderId) &&
+        Objects.equals(this.paymentProviderData, createOrderRequest.paymentProviderData);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itemTypes, metadata, address, platformUserId, requestIp, subTotal, paymentProviderId);
+    return Objects.hash(itemTypes, metadata, address, platformUserId, requestIp, subTotal, paymentProviderId, paymentProviderData);
   }
 
 
@@ -329,6 +360,7 @@ public class CreateOrderRequest {
     sb.append("    requestIp: ").append(toIndentedString(requestIp)).append("\n");
     sb.append("    subTotal: ").append(toIndentedString(subTotal)).append("\n");
     sb.append("    paymentProviderId: ").append(toIndentedString(paymentProviderId)).append("\n");
+    sb.append("    paymentProviderData: ").append(toIndentedString(paymentProviderData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import games.mythical.ivi.sdk.model.BitPayPaymentRequestData;
 import games.mythical.ivi.sdk.model.BraintreePaymentRequestData;
 import games.mythical.ivi.sdk.model.CoinbasePaymentRequestData;
 import io.swagger.annotations.ApiModel;
@@ -31,7 +32,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
   PaymentRequestData.JSON_PROPERTY_BRAINTREE,
-  PaymentRequestData.JSON_PROPERTY_COINBASE
+  PaymentRequestData.JSON_PROPERTY_COINBASE,
+  PaymentRequestData.JSON_PROPERTY_BITPAY
 })
 @JsonTypeName("PaymentRequestData")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -41,6 +43,9 @@ public class PaymentRequestData {
 
   public static final String JSON_PROPERTY_COINBASE = "coinbase";
   private CoinbasePaymentRequestData coinbase;
+
+  public static final String JSON_PROPERTY_BITPAY = "bitpay";
+  private BitPayPaymentRequestData bitpay;
 
 
   public PaymentRequestData braintree(BraintreePaymentRequestData braintree) {
@@ -93,6 +98,31 @@ public class PaymentRequestData {
   }
 
 
+  public PaymentRequestData bitpay(BitPayPaymentRequestData bitpay) {
+    
+    this.bitpay = bitpay;
+    return this;
+  }
+
+   /**
+   * Get bitpay
+   * @return bitpay
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BITPAY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BitPayPaymentRequestData getBitpay() {
+    return bitpay;
+  }
+
+
+  public void setBitpay(BitPayPaymentRequestData bitpay) {
+    this.bitpay = bitpay;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -103,12 +133,13 @@ public class PaymentRequestData {
     }
     PaymentRequestData paymentRequestData = (PaymentRequestData) o;
     return Objects.equals(this.braintree, paymentRequestData.braintree) &&
-        Objects.equals(this.coinbase, paymentRequestData.coinbase);
+        Objects.equals(this.coinbase, paymentRequestData.coinbase) &&
+        Objects.equals(this.bitpay, paymentRequestData.bitpay);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(braintree, coinbase);
+    return Objects.hash(braintree, coinbase, bitpay);
   }
 
 
@@ -118,6 +149,7 @@ public class PaymentRequestData {
     sb.append("class PaymentRequestData {\n");
     sb.append("    braintree: ").append(toIndentedString(braintree)).append("\n");
     sb.append("    coinbase: ").append(toIndentedString(coinbase)).append("\n");
+    sb.append("    bitpay: ").append(toIndentedString(bitpay)).append("\n");
     sb.append("}");
     return sb.toString();
   }
