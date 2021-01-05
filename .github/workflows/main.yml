@@ -39,6 +39,14 @@ jobs:
       run: |
         ./gradlew build snapshot :publishGprPublicationToGitHubPackagesRepository
 
+    - name: Build Release
+      if: github.ref == 'refs/heads/develop'
+      env:
+        GITHUB_USER: 'Mythical Buildbot'
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        ./gradlew build snapshot :publishGprPublicationToGitHubPackagesRepository
+
     - name: Slack Notification
       uses: 8398a7/action-slack@v3
       if: always()
