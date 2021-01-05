@@ -5,6 +5,8 @@ on:
     branches:
       - master
       - develop
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
 
 jobs:
   build:
@@ -32,7 +34,7 @@ jobs:
         ./gradlew test
 
     - name: Build Snapshot
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
       env:
         GITHUB_USER: 'Mythical Buildbot'
         GITHUB_TOKEN: ${{ github.token }}
@@ -40,12 +42,12 @@ jobs:
         ./gradlew build snapshot :publishGprPublicationToGitHubPackagesRepository
 
     - name: Build Release
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       env:
         GITHUB_USER: 'Mythical Buildbot'
         GITHUB_TOKEN: ${{ github.token }}
       run: |
-        ./gradlew build snapshot :publishGprPublicationToGitHubPackagesRepository
+        ./gradlew build final :publishGprPublicationToGitHubPackagesRepository
 
     - name: Slack Notification
       uses: 8398a7/action-slack@v3
