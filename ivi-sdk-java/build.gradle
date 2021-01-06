@@ -78,8 +78,9 @@ tasks.withType(Sign) {
 }
 
 signing {
-    // useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
-    useGpgCmd()
+    // switch to this and comment out the following line to test signing locally
+    // useGpgCmd()
+    useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
     sign publishing.publications.mavenJava
 }
 
