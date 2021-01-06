@@ -41,6 +41,8 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
         ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
         ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+        ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
+        ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
         ./gradlew publishMavenJavaPublicationToMavenCentralRepository
 
@@ -53,6 +55,8 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
         ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
         ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+        ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
+        ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
         ./gradlew build final :publishGprPublicationToGitHubPackagesRepository
 
