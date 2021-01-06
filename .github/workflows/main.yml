@@ -35,18 +35,18 @@ jobs:
     - name: Build Snapshot
       if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
       env:
-        GITHUB_USER: 'Mythical Buildbot'
-        GITHUB_TOKEN: ${{ github.token }}
+        GRGIT_USER: 'Mythical Buildbot'
+        GRGIT_PASS: ${{ github.token }}
       run: |
         ./gradlew --info build snapshot :publishGprPublicationToGitHubPackagesRepository
 
     - name: Build Release
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       env:
-        GITHUB_USER: 'Mythical Buildbot'
-        GITHUB_TOKEN: ${{ github.token }}
+        GRGIT_USER: 'Mythical Buildbot'
+        GRGIT_PASS: ${{ github.token }}
       run: |
-        ./gradlew --info build final :publishGprPublicationToGitHubPackagesRepository
+        ./gradlew build final :publishGprPublicationToGitHubPackagesRepository
 
     - name: Slack Notification
       uses: 8398a7/action-slack@v3
