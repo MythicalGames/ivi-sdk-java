@@ -46,7 +46,7 @@ jobs:
         GITHUB_USER: 'Mythical Buildbot'
         GITHUB_TOKEN: ${{ github.token }}
       run: |
-        ./gradlew build final :publishGprPublicationToGitHubPackagesRepository
+        ./gradlew --info build final :publishGprPublicationToGitHubPackagesRepository
 
     - name: Slack Notification
       uses: 8398a7/action-slack@v3
