@@ -37,6 +37,7 @@ jobs:
       env:
         GRGIT_USER: 'Mythical Buildbot'
         GRGIT_PASS: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         ./gradlew --info build snapshot :publishGprPublicationToGitHubPackagesRepository
 
@@ -45,6 +46,7 @@ jobs:
       env:
         GRGIT_USER: 'Mythical Buildbot'
         GRGIT_PASS: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         ./gradlew build final :publishGprPublicationToGitHubPackagesRepository
 
