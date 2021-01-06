@@ -37,10 +37,36 @@ publishing {
                 password = project.findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
             }
         }
+        maven {
+            name = 'MavenCentral'
+            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = project.findProperty('ossrhUsername')
+                password = project.findProperty('ossrhPassword')
+            }
+        }
     }
     publications {
-        gpr(MavenPublication) {
-            from(components.java)
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'IVI SDK'
+                description = 'The IVI integration SDK for Java game servers'
+                url = 'https://mythical.games'
+                from components.java
+
+                scm {
+                    connection = 'https://github.com/MythicalGames/ivi-sdk-java.git'
+                    developerConnection = 'https://github.com/MythicalGames/ivi-sdk-java.git'
+                    url = 'https://github.com/MythicalGames/ivi-sdk-java.git'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
         }
     }
 }
@@ -73,9 +99,11 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
 }
 
+tasks.withType(Sign) {
+    onlyIf { project.hasProperty('signingKey') && project.hasProperty('signingPassword') }
+}
+
 signing {
-    if (project.hasProperty('signingKey') && project.hasProperty('signingPassword')) {
-        useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
-        sign configurations.archives
-    }
+    useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
+    sign configurations.archives
 }

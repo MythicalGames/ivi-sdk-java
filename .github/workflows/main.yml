@@ -42,7 +42,7 @@ jobs:
         ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
         ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
-        ./gradlew build signArchives # snapshot :publishGprPublicationToGitHubPackagesRepository
+        ./gradlew publishMavenJavaPublicationToMavenCentralRepository
 
     - name: Build Release
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
