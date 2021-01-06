@@ -39,6 +39,8 @@ jobs:
         GRGIT_PASS: ${{ github.token }}
         GITHUB_USER: 'Mythical Buildbot'
         GITHUB_TOKEN: ${{ github.token }}
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
         ./gradlew build signArchives # snapshot :publishGprPublicationToGitHubPackagesRepository
 
@@ -49,6 +51,8 @@ jobs:
         GRGIT_PASS: ${{ github.token }}
         GITHUB_USER: 'Mythical Buildbot'
         GITHUB_TOKEN: ${{ github.token }}
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
         ./gradlew build final :publishGprPublicationToGitHubPackagesRepository
 
