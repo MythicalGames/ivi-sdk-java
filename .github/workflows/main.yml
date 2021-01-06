@@ -58,7 +58,7 @@ jobs:
         ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
         ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
-        ./gradlew publishMavenJavaPublicationToMavenCentralRepository
+        ./gradlew final publishMavenJavaPublicationToMavenCentralRepository
 
     - name: Slack Notification
       uses: 8398a7/action-slack@v3
