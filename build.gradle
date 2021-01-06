@@ -114,5 +114,6 @@ tasks.withType(Sign) {
 
 signing {
     useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
-    sign configurations.archives
+    // useGpgCmd()
+    sign publishing.publications.mavenJava
 }
