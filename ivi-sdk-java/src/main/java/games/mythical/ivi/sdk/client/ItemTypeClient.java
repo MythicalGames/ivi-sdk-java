@@ -12,20 +12,18 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ItemTypeClient extends AbstractIVIClient {
     private ItemTypeServiceGrpc.ItemTypeServiceBlockingStub serviceBlockingStub;
     private final ItemTypeExecutor itemTypeExecutor;
 
+    @SuppressWarnings("unused")
     public ItemTypeClient(ItemTypeExecutor itemTypeExecutor) throws IVIException {
         super();
 
         this.itemTypeExecutor = itemTypeExecutor;
         var channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(10, TimeUnit.SECONDS)
-                .keepAliveTimeout(2, TimeUnit.SECONDS)
                 .build();
 
         initStub(channel);
@@ -66,7 +64,7 @@ public class ItemTypeClient extends AbstractIVIClient {
                         boolean transferable,
                         boolean sellable,
                         Collection<String> agreementIds) {
-        log.debug("ItemTypeClient.createItemType called");
+        log.trace("ItemTypeClient.createItemType called for {}:{}", tokenName, category);
         var request = CreateItemTypeRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setTokenName(tokenName)
@@ -89,6 +87,7 @@ public class ItemTypeClient extends AbstractIVIClient {
     }
 
     void freezeItemType(String itemTypeId) {
+        log.trace("ItemTypeClient.freezeItemType called for {}", itemTypeId);
         var request = FreezeItemTypeRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setItemTypeId(itemTypeId)

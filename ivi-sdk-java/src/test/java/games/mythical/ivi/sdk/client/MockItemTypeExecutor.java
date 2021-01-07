@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.ItemTypeExecutor;
+import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import lombok.Builder;
 import lombok.Data;
@@ -40,5 +41,15 @@ public class MockItemTypeExecutor implements ItemTypeExecutor {
         this.itemTypeId = itemTypeId;
         this.trackingId = trackingId;
         this.itemTypeState = itemTypeState;
+    }
+
+    public void setFromItemType(ItemType itemType) {
+            this.itemTypeId = itemType.getItemTypeId();
+            this.currentSupply = itemType.getCurrentSupply();
+            this.issuedSupply = itemType.getIssuedSupply();
+            this.baseUri = itemType.getBaseUri();
+            this.issueTimeSpan = itemType.getIssueTimeSpan();
+            this.trackingId = itemType.getTrackingId();
+            this.itemTypeState = itemType.getItemTypeState();
     }
 }

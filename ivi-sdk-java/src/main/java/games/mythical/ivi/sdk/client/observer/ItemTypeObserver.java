@@ -4,6 +4,8 @@ import games.mythical.ivi.sdk.client.executor.ItemTypeExecutor;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +22,7 @@ public class ItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate> {
 
     @Override
     public void onNext(ItemTypeStatusUpdate message) {
-        log.debug("ItemTypeObserver.onNext for item_type id: {}", message.getItemTypeId());
+        log.trace("ItemTypeObserver.onNext for item_type id: {}", message.getItemTypeId());
         try {
             itemTypeExecutor.updateItemType(message.getItemTypeId(),
                     message.getCurrentSupply(),
@@ -38,6 +40,7 @@ public class ItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate> {
     @Override
     public void onError(Throwable t) {
         log.error("ItemTypeObserver.onError", t);
+        throw new StatusRuntimeException(Status.UNKNOWN);
     }
 
     @Override

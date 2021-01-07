@@ -1,40 +1,40 @@
 package games.mythical.ivi.sdk.config;
 
 public class IVIConfiguration {
-    private static String EnvironmentId;
-    private static String ApiKey;
-    private static String Host = "api.iviengine.com";
-    private static Integer Port = 10081;
+    private static String environmentId;
+    private static String apiKey;
+    private static String host = "api.iviengine.com";
+    private static Integer port = 10081;
 
     public static String getEnvironmentId() {
-        return EnvironmentId;
+        return IVIConfiguration.environmentId;
     }
 
     public static void setEnvironmentId(String environmentId) {
-        EnvironmentId = environmentId;
+        IVIConfiguration.environmentId = environmentId;
     }
 
     public static String getApiKey() {
-        return ApiKey;
+        return IVIConfiguration.apiKey;
     }
 
     public static void setApiKey(String apiKey) {
-        ApiKey = apiKey;
+        IVIConfiguration.apiKey = apiKey;
     }
 
     public static String getHost() {
-        return Host;
+        return IVIConfiguration.host;
     }
 
     public static void setHost(String host) {
-        Host = host;
+        IVIConfiguration.host = host;
     }
 
     public static Integer getPort() {
-        return Port;
+        return IVIConfiguration.port;
     }
 
     public static void setPort(Integer port) {
-        Port = port;
+        IVIConfiguration.port = port;
     }
 }
