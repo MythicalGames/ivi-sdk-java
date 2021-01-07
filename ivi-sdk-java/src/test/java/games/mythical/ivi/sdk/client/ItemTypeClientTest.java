@@ -9,6 +9,7 @@ import games.mythical.ivi.sdk.proto.api.itemtype.ItemTypeServiceGrpc;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
+import games.mythical.ivi.sdk.util.LockDelay;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.UUID;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.grpcmock.GrpcMock.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,10 +75,12 @@ class ItemTypeClientTest extends AbstractClientTest {
                 .setItemTypeState(ItemTypeState.CREATED)
                 .build();
 
+        var lock = new ReentrantLock();
+        lock.lock();
         stubFor(unaryMethod(ItemTypeServiceGrpc.getCreateItemTypeMethod())
                 .willReturn(mockResponse));
         stubFor(serverStreamingMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod())
-                .willReturn(stream(response(mockStreamResponse).withFixedDelay(250))));
+                .willReturn(stream(response(mockStreamResponse).withDelay(new LockDelay(lock)))));
         stubFor(unaryMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusConfirmationMethod())
                 .willReturn(Empty.getDefaultInstance()));
 
@@ -95,9 +99,8 @@ class ItemTypeClientTest extends AbstractClientTest {
         verifyThat(ItemTypeServiceGrpc.getCreateItemTypeMethod(), times(1));
 
         // wait for server message back
-        System.out.println("Start: " + System.currentTimeMillis());
-        Thread.sleep(1500);
-        System.out.println("End: " + System.currentTimeMillis());
+        lock.unlock();
+        Thread.sleep(100);
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
@@ -132,10 +135,12 @@ class ItemTypeClientTest extends AbstractClientTest {
                 .setItemTypeState(ItemTypeState.FROZEN)
                 .build();
 
+        var lock = new ReentrantLock();
+        lock.lock();
         stubFor(unaryMethod(ItemTypeServiceGrpc.getFreezeItemTypeMethod())
                 .willReturn(mockResponse));
         stubFor(serverStreamingMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod())
-                .willReturn(stream(response(mockStreamResponse).withFixedDelay(250))));
+                .willReturn(stream(response(mockStreamResponse).withDelay(new LockDelay(lock)))));
         stubFor(unaryMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusConfirmationMethod())
                 .willReturn(Empty.getDefaultInstance()));
 
@@ -147,7 +152,8 @@ class ItemTypeClientTest extends AbstractClientTest {
         verifyThat(ItemTypeServiceGrpc.getFreezeItemTypeMethod(), times(1));
 
         // wait for server message back
-        Thread.sleep(1500);
+        lock.unlock();
+        Thread.sleep(100);
 
         assertEquals(ItemTypeState.FROZEN, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
