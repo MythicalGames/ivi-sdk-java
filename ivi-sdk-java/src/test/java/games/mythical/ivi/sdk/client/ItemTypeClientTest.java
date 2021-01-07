@@ -95,7 +95,9 @@ class ItemTypeClientTest extends AbstractClientTest {
         verifyThat(ItemTypeServiceGrpc.getCreateItemTypeMethod(), times(1));
 
         // wait for server message back
+        System.out.println("Start: " + System.currentTimeMillis());
         Thread.sleep(1500);
+        System.out.println("End: " + System.currentTimeMillis());
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
