@@ -100,7 +100,7 @@ class ItemTypeClientTest extends AbstractClientTest {
 
         // wait for server message back
         lock.unlock();
-        Thread.sleep(100);
+        Thread.sleep(250);
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
@@ -153,7 +153,7 @@ class ItemTypeClientTest extends AbstractClientTest {
 
         // wait for server message back
         lock.unlock();
-        Thread.sleep(100);
+        Thread.sleep(250);
 
         assertEquals(ItemTypeState.FROZEN, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
