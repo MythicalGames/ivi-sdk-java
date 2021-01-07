@@ -1,119 +1,53 @@
-plugins {
-    id 'java'
-    id 'java-library'
-    id 'idea'
-    id 'maven-publish'
-    id 'nebula.release' version '15.2.0'
-    id 'signing'
-}
-
-group = 'games.mythical'
-
-repositories {
-    mavenCentral()
-    jcenter()
-    maven {
-        name = 'GitHubPackages'
-        url = uri('https://maven.pkg.github.com/MythicalGames/ivi-sdk-java')
-        credentials {
-            username = project.findProperty('github.user') ?: System.getenv('GITHUB_USER')
-            password = project.findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
-        }
-    }
-}
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-publishing {
+buildscript {
     repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = uri('https://maven.pkg.github.com/MythicalGames/ivi-sdk-java')
-            credentials {
-                username = project.findProperty('github.user') ?: System.getenv('GITHUB_USER')
-                password = project.findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
-            }
-        }
-        maven {
-            name = 'MavenCentral'
-            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-            credentials {
-                username = project.findProperty('ossrhUsername')
-                password = project.findProperty('ossrhPassword')
-            }
-        }
+        mavenCentral()
+        jcenter()
     }
-    publications {
-        mavenJava(MavenPublication) {
-            pom {
-                name = 'IVI SDK'
-                description = 'The IVI integration SDK for Java game servers'
-                url = 'https://mythical.games'
-                from components.java
 
-                scm {
-                    connection = 'https://github.com/MythicalGames/ivi-sdk-java.git'
-                    developerConnection = 'https://github.com/MythicalGames/ivi-sdk-java.git'
-                    url = 'https://github.com/MythicalGames/ivi-sdk-java.git'
-                }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.14'
+        classpath 'com.netflix.nebula:nebula-release-plugin:15.2.0'
+    }
 
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        name = 'Keith Miller'
-                        email = 'keith@mythical.games'
-                        organization = 'Mythical Games'
-                        organizationUrl = 'https://mythical.games'
-                    }
-                }
-            }
-        }
+    ext {
+        grpc_version = '1.34.0'
+        protobuf_version = '3.14.0'
+        javax_annotation_version = '1.3.1'
+        lombok_version = '1.18.16'
+        junit_version = '5.7.0'
+        jackson_version = '2.12.0'
+        commons_lang_version = '3.11'
+        grpc_mock_version = '0.3.6'
+        slf4j_version = '1.7.30'
+        log4j2_version = '2.14.0'
     }
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 
-ext {
-    swagger_annotations_version = "1.5.22"
-    jackson_version = "2.10.4"
-    jackson_databind_version = "2.10.4"
-    jackson_databind_nullable_version = "0.2.1"
-    spring_web_version = "5.2.5.RELEASE"
-    jodatime_version = "2.9.9"
-    junit_version = "4.13"
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+    apply plugin: 'nebula.release'
 }
 
-dependencies {
-    implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
-    implementation "com.google.code.findbugs:jsr305:3.0.2"
-    implementation "org.springframework:spring-web:$spring_web_version"
-    implementation "org.springframework:spring-context:$spring_web_version"
-    implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
-    implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
-    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version"
-    implementation "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jackson_version"
-    implementation "org.openapitools:jackson-databind-nullable:$jackson_databind_nullable_version"
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
-    implementation 'javax.annotation:javax.annotation-api:1.3.2'
-    testImplementation "junit:junit:$junit_version"
-}
+subprojects {
+    group 'games.mythical'
 
-tasks.withType(Sign) {
-    onlyIf { project.hasProperty('signingKey') && project.hasProperty('signingPassword') }
-}
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
-signing {
-    useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
-    // useGpgCmd()
-    sign publishing.publications.mavenJava
+    dependencies {
+        implementation group: 'org.projectlombok', name: 'lombok', version: "${lombok_version}"
+
+        annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok_version}"
+
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: "${junit_version}"
+
+        testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok_version}"
+    }
 }

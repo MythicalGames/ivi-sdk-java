@@ -1,8 +1,0 @@
-# don't generate list
-.github/
-.travis.yml
-git_push.sh
-gradle.properties
-build.sbt
-pom.xml
-**/AndroidManifest.xml

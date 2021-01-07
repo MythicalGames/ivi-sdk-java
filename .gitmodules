@@ -1,0 +1,4 @@
+[submodule "ivi-sdk-proto/src/main/proto"]
+	path = ivi-sdk-proto/src/main/proto
+	url = git@github.com:MythicalGames/ivi-sdk-proto.git
+	branch = develop

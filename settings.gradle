@@ -1,1 +1,4 @@
 rootProject.name = "ivi-sdk-java"
+
+include 'ivi-sdk-proto'
+include 'ivi-sdk-java'
