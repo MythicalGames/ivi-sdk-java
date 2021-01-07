@@ -95,7 +95,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         verifyThat(ItemTypeServiceGrpc.getCreateItemTypeMethod(), times(1));
 
         // wait for server message back
-        Thread.sleep(1000);
+        Thread.sleep(1500);
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
@@ -145,7 +145,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         verifyThat(ItemTypeServiceGrpc.getFreezeItemTypeMethod(), times(1));
 
         // wait for server message back
-        Thread.sleep(1000);
+        Thread.sleep(1500);
 
         assertEquals(ItemTypeState.FROZEN, itemTypeExecutor.getItemTypeState());
         verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
