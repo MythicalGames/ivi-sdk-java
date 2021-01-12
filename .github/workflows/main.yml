@@ -44,7 +44,7 @@ jobs:
         ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
         ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
-        ./gradlew snapshot publishMavenJavaPublicationToGitHubPackagesRepository
+        ./gradlew build :ivi-sdk-java:publishMavenJavaPublicationToGitHubPackagesRepository
 
     - name: Build Release
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -58,7 +58,11 @@ jobs:
         ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
         ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
-        ./gradlew final publishMavenJavaPublicationToMavenCentralRepository
+        ./gradlew build :ivi-sdk-java:publishMavenJavaPublicationToMavenCentralRepository
+        ./gradlew :ivi-sdk-java:printVersionToFile
+        version=$(cat version.txt)
+        git tag -a v${version} -m "Releasing version ${version}"
+        git push --tags
 
     - name: Slack Notification
       uses: 8398a7/action-slack@v3

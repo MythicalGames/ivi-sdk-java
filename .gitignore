@@ -31,3 +31,6 @@ out/
 
 # MacOS ignores
 .DS_Store
+
+# version file
+version.txt

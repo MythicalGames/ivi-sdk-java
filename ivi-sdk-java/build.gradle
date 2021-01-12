@@ -1,6 +1,8 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
+version = '2.0.0-SNAPSHOT'
+
 dependencies {
     implementation project(':ivi-sdk-proto')
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson_version}"
@@ -84,3 +86,8 @@ signing {
     sign publishing.publications.mavenJava
 }
 
+task printVersionToFile {
+    doLast {
+        file("${rootDir}/version.txt").text = "${project.version}"
+    }
+}
