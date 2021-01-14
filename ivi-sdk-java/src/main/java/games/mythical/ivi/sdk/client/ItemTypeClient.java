@@ -11,7 +11,9 @@ import io.grpc.ManagedChannelBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class ItemTypeClient extends AbstractIVIClient {
@@ -45,6 +47,15 @@ public class ItemTypeClient extends AbstractIVIClient {
                 .build();
         streamStub.itemTypeStatusStream(subscribe, new ItemTypeObserver(itemTypeExecutor,
                 ItemTypeStatusStreamGrpc.newBlockingStub(channel)));
+    }
+
+    public Optional<ItemType> getItemType(String itemTypeId) {
+        var result = getItemTypes(Collections.singletonList(itemTypeId));
+        if(result.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(result.get(0));
+        }
     }
 
     public List<ItemType> getItemTypes(Collection<String> itemTypeIds) {
@@ -101,5 +112,7 @@ public class ItemTypeClient extends AbstractIVIClient {
             log.error("Exception calling updateItemType on createItemType, item type will be in an invalid state!", e);
         }
     }
+
+
 }
 

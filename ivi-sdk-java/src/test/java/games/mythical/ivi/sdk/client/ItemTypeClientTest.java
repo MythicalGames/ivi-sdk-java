@@ -1,48 +1,35 @@
 package games.mythical.ivi.sdk.client;
 
-import com.google.protobuf.Empty;
-import games.mythical.ivi.sdk.config.IVIConfiguration;
-import games.mythical.ivi.sdk.proto.api.itemtype.CreateItemAsyncResponse;
-import games.mythical.ivi.sdk.proto.api.itemtype.FreezeItemTypeAsyncResponse;
-import games.mythical.ivi.sdk.proto.api.itemtype.FreezeItemTypeRequest;
-import games.mythical.ivi.sdk.proto.api.itemtype.ItemTypeServiceGrpc;
+import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
-import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
-import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
-import games.mythical.ivi.sdk.util.LockDelay;
-import io.grpc.ManagedChannel;
+import games.mythical.ivi.sdk.server.itemtype.MockItemTypeServer;
+import games.mythical.ivi.sdk.server.itemtype.MockItemTypeStreamImpl;
 import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.grpcmock.GrpcMock;
-import org.grpcmock.junit5.GrpcMockExtension;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.*;
 
-import java.util.UUID;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.grpcmock.GrpcMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(GrpcMockExtension.class)
 class ItemTypeClientTest extends AbstractClientTest {
-    private static final String host = "localhost";
-    private static final int port = GrpcMock.getGlobalPort();
-    private static final String apiKey = "MOCK_API_KEY";
-    private static final String environmentId = "MOCK_ENV_ID";
+    private MockItemTypeServer itemTypeServer;
     private MockItemTypeExecutor itemTypeExecutor;
     private ItemTypeClient itemTypeClient;
-    private ManagedChannel channel;
+    private Map<String, ItemType> itemTypes;
 
     @BeforeEach
     void setUp() throws Exception {
-        IVIConfiguration.setHost(host);
-        IVIConfiguration.setPort(port);
-        IVIConfiguration.setApiKey(apiKey);
-        IVIConfiguration.setEnvironmentId(environmentId);
+        itemTypeServer = new MockItemTypeServer();
+        itemTypeServer.start();
+        port = itemTypeServer.getPort();
+        setUpConfig();
+
+        itemTypes = generateItemTypes(3);
+        itemTypeServer.getItemTypeService().setItemTypes(itemTypes.values());
 
         channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext()
@@ -53,36 +40,13 @@ class ItemTypeClientTest extends AbstractClientTest {
     }
 
     @AfterEach
-    void tearDown() { }
+    void tearDown() throws Exception {
+        itemTypeServer.stop();
+    }
 
     @Test
     void testCreateItemType() throws Exception {
-        var itemTypeId = UUID.randomUUID().toString();
-        var trackingId = RandomStringUtils.randomAlphanumeric(30);
-
-        var mockItemType = generateItemType(environmentId);
-
-        var mockResponse = CreateItemAsyncResponse.newBuilder()
-                .setItemTypeId(itemTypeId)
-                .setTrackingId(trackingId)
-                .setItemTypeState(ItemTypeState.PENDING_CREATE)
-                .build();
-
-        var mockStreamResponse = ItemTypeStatusUpdate.newBuilder()
-                .setItemTypeId(itemTypeId)
-                .setTrackingId(trackingId)
-                .setBaseUri(RandomStringUtils.randomAlphanumeric(30))
-                .setItemTypeState(ItemTypeState.CREATED)
-                .build();
-
-        var lock = new ReentrantLock();
-        lock.lock();
-        stubFor(unaryMethod(ItemTypeServiceGrpc.getCreateItemTypeMethod())
-                .willReturn(mockResponse));
-        stubFor(serverStreamingMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod())
-                .willReturn(stream(response(mockStreamResponse).withDelay(new LockDelay(lock)))));
-        stubFor(unaryMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusConfirmationMethod())
-                .willReturn(Empty.getDefaultInstance()));
+        var mockItemType = generateNewItemType();
 
         itemTypeClient.createItemType(mockItemType.getTokenName(),
                 mockItemType.getCategory(),
@@ -93,71 +57,142 @@ class ItemTypeClientTest extends AbstractClientTest {
                 mockItemType.getSellable(),
                 mockItemType.getAgreementIdsList());
 
-        assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
-        assertEquals(trackingId, itemTypeExecutor.getTrackingId());
+        assertFalse(StringUtils.isEmpty(itemTypeExecutor.getItemTypeId()));
+        assertFalse(StringUtils.isEmpty(itemTypeExecutor.getTrackingId()));
         assertEquals(ItemTypeState.PENDING_CREATE, itemTypeExecutor.getItemTypeState());
-        verifyThat(ItemTypeServiceGrpc.getCreateItemTypeMethod(), times(1));
 
-        // wait for server message back
-        lock.unlock();
-        Thread.sleep(250);
+        itemTypeServer.verifyCalls("CreateItemType", 1);
+
+        var itemTypeId = itemTypeExecutor.getItemTypeId();
+        var trackingId = itemTypeExecutor.getTrackingId();
+        var baseUrl = RandomStringUtils.randomAlphanumeric(30);
+        var issueTimeSpan = RandomUtils.nextInt(10, 50);
+        var maxSupply = mockItemType.getMaxSupply();
+
+        var finished = new AtomicBoolean();
+        finished.set(false);
+        MockItemTypeStreamImpl.finished.put(trackingId, finished);
+
+        itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
+                .setItemTypeId(itemTypeId)
+                .setCurrentSupply(maxSupply)
+                .setIssuedSupply(0)
+                .setBaseUri(baseUrl)
+                .setIssueTimeSpan(issueTimeSpan)
+                .setTrackingId(trackingId)
+                .build(), ItemTypeState.CREATED);
+
+        while (!finished.compareAndSet(true, false)) {
+            Thread.sleep(10);
+        }
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
-        verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
+        assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
+        assertEquals(trackingId, itemTypeExecutor.getTrackingId());
+        assertEquals(baseUrl, itemTypeExecutor.getBaseUri());
+        assertEquals(issueTimeSpan, itemTypeExecutor.getIssueTimeSpan());
+        assertEquals(maxSupply, itemTypeExecutor.getCurrentSupply());
+        assertEquals(0, itemTypeExecutor.getIssuedSupply());
 
-        verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusConfirmationMethod(), times(1));
+        itemTypeServer.verifyCalls("ItemTypeStatusStream", 1);
+        itemTypeServer.verifyCalls("ItemTypeStatusConfirmation", 1);
     }
 
     @Test
     void testFreezeItemType() throws Exception {
-        var maxSupply = RandomUtils.nextInt();
+        var maxSupply = RandomUtils.nextInt(10, 100);
         var currentSupply = RandomUtils.nextInt(0, maxSupply);
         var issuedSupply = maxSupply - currentSupply;
-        var itemTypeId = UUID.randomUUID().toString();
         var trackingId = RandomStringUtils.randomAlphanumeric(30);
 
-        var mockItemType = generateItemType(environmentId, itemTypeId, trackingId, maxSupply, currentSupply,
+        var mockItemType = generateItemType(trackingId, maxSupply, currentSupply,
                 issuedSupply, ItemTypeState.CREATED);
+        var itemTypeId = mockItemType.getItemTypeId();
 
         // set the starting state of the item type
         itemTypeExecutor.setFromItemType(mockItemType);
 
-        var mockTrackingId = RandomStringUtils.randomAlphanumeric(30);
-        var mockResponse = FreezeItemTypeAsyncResponse.newBuilder()
-                .setTrackingId(mockTrackingId)
-                .setItemTypeState(ItemTypeState.PENDING_FREEZE)
-                .build();
-
-        var mockStreamResponse = ItemTypeStatusUpdate.newBuilder()
-                .setItemTypeId(itemTypeId)
-                .setTrackingId(mockTrackingId)
-                .setBaseUri(mockItemType.getBaseUri())
-                .setItemTypeState(ItemTypeState.FROZEN)
-                .build();
-
-        var lock = new ReentrantLock();
-        lock.lock();
-        stubFor(unaryMethod(ItemTypeServiceGrpc.getFreezeItemTypeMethod())
-                .willReturn(mockResponse));
-        stubFor(serverStreamingMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod())
-                .willReturn(stream(response(mockStreamResponse).withDelay(new LockDelay(lock)))));
-        stubFor(unaryMethod(ItemTypeStatusStreamGrpc.getItemTypeStatusConfirmationMethod())
-                .willReturn(Empty.getDefaultInstance()));
-
         itemTypeClient.freezeItemType(itemTypeId);
 
+        assertNotEquals(itemTypeExecutor.getTrackingId(), trackingId);
         assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
-        assertEquals(mockTrackingId, itemTypeExecutor.getTrackingId());
         assertEquals(ItemTypeState.PENDING_FREEZE, itemTypeExecutor.getItemTypeState());
-        verifyThat(ItemTypeServiceGrpc.getFreezeItemTypeMethod(), times(1));
 
-        // wait for server message back
-        lock.unlock();
-        Thread.sleep(250);
+        itemTypeServer.verifyCalls("FreezeItemType", 1);
+
+        var newTrackingId = itemTypeExecutor.getTrackingId();
+        var baseUrl = RandomStringUtils.randomAlphanumeric(30);
+        var issueTimeSpan = RandomUtils.nextInt(10, 50);
+
+        var finished = new AtomicBoolean();
+        finished.set(false);
+        MockItemTypeStreamImpl.finished.put(newTrackingId, finished);
+
+        itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
+                .setItemTypeId(itemTypeId)
+                .setCurrentSupply(currentSupply)
+                .setIssuedSupply(issuedSupply)
+                .setBaseUri(baseUrl)
+                .setIssueTimeSpan(issueTimeSpan)
+                .setTrackingId(newTrackingId)
+                .build(), ItemTypeState.FROZEN);
+
+        while (!finished.compareAndSet(true, false)) {
+            Thread.sleep(10);
+        }
 
         assertEquals(ItemTypeState.FROZEN, itemTypeExecutor.getItemTypeState());
-        verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusStreamMethod(), times(1));
+        assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
+        assertEquals(newTrackingId, itemTypeExecutor.getTrackingId());
+        assertEquals(baseUrl, itemTypeExecutor.getBaseUri());
+        assertEquals(issueTimeSpan, itemTypeExecutor.getIssueTimeSpan());
+        assertEquals(currentSupply, itemTypeExecutor.getCurrentSupply());
+        assertEquals(issuedSupply, itemTypeExecutor.getIssuedSupply());
 
-        verifyThat(ItemTypeStatusStreamGrpc.getItemTypeStatusConfirmationMethod(), times(1));
+        itemTypeServer.verifyCalls("ItemTypeStatusStream", 1);
+        itemTypeServer.verifyCalls("ItemTypeStatusConfirmation", 1);
+    }
+
+    @Test
+    void getItemType() {
+        var mockItemType = itemTypes.entrySet().iterator().next().getValue();
+        var itemType = itemTypeClient.getItemType(mockItemType.getItemTypeId());
+
+        assertTrue(itemType.isPresent());
+        assertEquals(mockItemType.getItemTypeState(), itemType.get().getItemTypeState());
+        assertEquals(mockItemType.getItemTypeId(), itemType.get().getItemTypeId());
+        assertEquals(mockItemType.getTrackingId(), itemType.get().getTrackingId());
+        assertEquals(mockItemType.getBaseUri(), itemType.get().getBaseUri());
+        assertEquals(mockItemType.getIssueTimeSpan(), itemType.get().getIssueTimeSpan());
+        assertEquals(mockItemType.getCurrentSupply(), itemType.get().getCurrentSupply());
+        assertEquals(mockItemType.getIssuedSupply(), itemType.get().getIssuedSupply());
+
+        itemTypeServer.verifyCalls("GetItemTypes", 1);
+    }
+
+    @Test
+    void getItemTypeNonExisting() {
+        var itemType = itemTypeClient.getItemType(RandomStringUtils.randomAlphanumeric(30));
+
+        assertTrue(itemType.isEmpty());
+
+        itemTypeServer.verifyCalls("GetItemTypes", 1);
+    }
+
+    @Test
+    void getItemTypes() {
+        var result = itemTypeClient.getItemTypes(itemTypes.keySet());
+
+        for(var itemType : result) {
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getItemTypeState(), itemType.getItemTypeState());
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getItemTypeId(), itemType.getItemTypeId());
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getTrackingId(), itemType.getTrackingId());
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getBaseUri(), itemType.getBaseUri());
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getIssueTimeSpan(), itemType.getIssueTimeSpan());
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getCurrentSupply(), itemType.getCurrentSupply());
+            assertEquals(itemTypes.get(itemType.getItemTypeId()).getIssuedSupply(), itemType.getIssuedSupply());
+        }
+
+        itemTypeServer.verifyCalls("GetItemTypes", 1);
     }
 }
