@@ -14,7 +14,6 @@ import io.grpc.ManagedChannelBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +68,7 @@ public class PlayerClient extends AbstractIVIClient {
 
     public Optional<IVIPlayer> getPlayer(String playerId) {
         log.trace("PlayerClient.getPlayer called from player: {}", playerId);
-        var result = getPlayers(Collections.singletonList(playerId));
+        var result = getPlayers(List.of(playerId));
         if(result.isEmpty()) {
             return Optional.empty();
         } else {

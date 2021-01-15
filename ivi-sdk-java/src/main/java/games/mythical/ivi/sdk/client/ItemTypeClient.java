@@ -11,7 +11,6 @@ import io.grpc.ManagedChannelBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class ItemTypeClient extends AbstractIVIClient {
     }
 
     public Optional<ItemType> getItemType(String itemTypeId) {
-        var result = getItemTypes(Collections.singletonList(itemTypeId));
+        var result = getItemTypes(List.of(itemTypeId));
         if(result.isEmpty()) {
             return Optional.empty();
         } else {
