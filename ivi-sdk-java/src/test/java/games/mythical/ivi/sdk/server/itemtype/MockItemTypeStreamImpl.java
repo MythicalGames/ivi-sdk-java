@@ -7,15 +7,14 @@ import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
+import games.mythical.ivi.sdk.util.ConcurrentFinisher;
 import io.grpc.stub.StreamObserver;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MockItemTypeStreamImpl extends ItemTypeStatusStreamGrpc.ItemTypeStatusStreamImplBase {
     private final Map<String, StreamObserver<ItemTypeStatusUpdate>> streamObservers = new ConcurrentHashMap<>();
-    public static final Map<String, AtomicBoolean> finished = new ConcurrentHashMap<>();
 
     @Override
     public void itemTypeStatusStream(Subscribe request, StreamObserver<ItemTypeStatusUpdate> responseObserver) {
@@ -27,9 +26,7 @@ public class MockItemTypeStreamImpl extends ItemTypeStatusStreamGrpc.ItemTypeSta
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
 
-        if(finished.containsKey(request.getTrackingId())) {
-            finished.get(request.getTrackingId()).set(true);
-        }
+        ConcurrentFinisher.finish(request.getTrackingId());
     }
 
     public void sendStatus(String environmentId, ItemType itemType, ItemTypeState state) {
@@ -54,6 +51,5 @@ public class MockItemTypeStreamImpl extends ItemTypeStatusStreamGrpc.ItemTypeSta
         }
 
         streamObservers.clear();
-        finished.clear();
     }
 }

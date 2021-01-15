@@ -3,7 +3,7 @@ package games.mythical.ivi.sdk.client;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.server.itemtype.MockItemTypeServer;
-import games.mythical.ivi.sdk.server.itemtype.MockItemTypeStreamImpl;
+import games.mythical.ivi.sdk.util.ConcurrentFinisher;
 import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
 
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,6 +41,7 @@ class ItemTypeClientTest extends AbstractClientTest {
     @AfterEach
     void tearDown() throws Exception {
         itemTypeServer.stop();
+        ConcurrentFinisher.reset();
     }
 
     @Test
@@ -69,9 +69,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         var issueTimeSpan = RandomUtils.nextInt(10, 50);
         var maxSupply = mockItemType.getMaxSupply();
 
-        var finished = new AtomicBoolean();
-        finished.set(false);
-        MockItemTypeStreamImpl.finished.put(trackingId, finished);
+        ConcurrentFinisher.start(trackingId);
 
         itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
                 .setItemTypeId(itemTypeId)
@@ -82,9 +80,7 @@ class ItemTypeClientTest extends AbstractClientTest {
                 .setTrackingId(trackingId)
                 .build(), ItemTypeState.CREATED);
 
-        while (!finished.compareAndSet(true, false)) {
-            Thread.sleep(10);
-        }
+        ConcurrentFinisher.wait(trackingId);
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
         assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
@@ -124,9 +120,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         var baseUrl = RandomStringUtils.randomAlphanumeric(30);
         var issueTimeSpan = RandomUtils.nextInt(10, 50);
 
-        var finished = new AtomicBoolean();
-        finished.set(false);
-        MockItemTypeStreamImpl.finished.put(newTrackingId, finished);
+        ConcurrentFinisher.start(newTrackingId);
 
         itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
                 .setItemTypeId(itemTypeId)
@@ -137,9 +131,7 @@ class ItemTypeClientTest extends AbstractClientTest {
                 .setTrackingId(newTrackingId)
                 .build(), ItemTypeState.FROZEN);
 
-        while (!finished.compareAndSet(true, false)) {
-            Thread.sleep(10);
-        }
+        ConcurrentFinisher.wait(newTrackingId);
 
         assertEquals(ItemTypeState.FROZEN, itemTypeExecutor.getItemTypeState());
         assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
