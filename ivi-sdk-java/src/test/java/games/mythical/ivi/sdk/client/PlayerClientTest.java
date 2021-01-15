@@ -3,7 +3,7 @@ package games.mythical.ivi.sdk.client;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 import games.mythical.ivi.sdk.server.player.MockPlayerServer;
-import games.mythical.ivi.sdk.server.player.MockPlayerStreamImpl;
+import games.mythical.ivi.sdk.util.ConcurrentFinisher;
 import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,6 +43,7 @@ class PlayerClientTest extends AbstractClientTest {
     @AfterEach
     void tearDown() throws Exception {
         playerServer.stop();
+        ConcurrentFinisher.reset();
     }
 
     @Test
@@ -63,18 +63,14 @@ class PlayerClientTest extends AbstractClientTest {
 
         playerServer.verifyCalls("LinkPlayer", 1);
 
-        var finished = new AtomicBoolean();
-        finished.set(false);
-        MockPlayerStreamImpl.finished.put(playerExecutor.getTrackingId(), finished);
+        ConcurrentFinisher.start(playerExecutor.getTrackingId());
         playerServer.getPlayerStream().sendStatus(environmentId, IVIPlayer.newBuilder()
                 .setPlayerId(playerId)
                 .setIviUserId(iviUserId)
                 .setTrackingId(playerExecutor.getTrackingId())
                 .build(), PlayerState.LINKED);
 
-        while (!finished.compareAndSet(true, false)) {
-            Thread.sleep(10);
-        }
+        ConcurrentFinisher.wait(playerExecutor.getTrackingId());
 
         assertEquals(playerId, playerExecutor.getPlayerId());
         assertEquals(iviUserId, playerExecutor.getIviUserId());
