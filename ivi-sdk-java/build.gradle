@@ -9,7 +9,6 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: "${commons_lang_version}"
     implementation group: 'org.slf4j', name: 'slf4j-api', version: "${slf4j_version}"
 
-    testImplementation group: 'org.grpcmock', name: 'grpcmock-junit5', version: "${grpc_mock_version}"
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: "${slf4j_version}"
 }
 
