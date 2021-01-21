@@ -28,16 +28,12 @@ jobs:
       run: |
         git config user.name "Mythical Buildbot"
         git config user.email "buildbot@mythical.games"
-    - name: Run unit tests and generate code coverage
-      run: |
-        ./gradlew :ivi-sdk-java:test :ivi-sdk-java:jacocoTestReport
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./ivi-sdk-java/build/reports/jacoco/report.xml
-        flags: unittests
+    - name: Run unit tests and generate code coverage
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: |
+        ./gradlew :ivi-sdk-java:test :ivi-sdk-java:jacocoTestReport :ivi-sdk-java:coverallsJacoco
 
     - name: Build Snapshot
       if: github.ref == 'refs/heads/develop' && github.event_name == 'push'

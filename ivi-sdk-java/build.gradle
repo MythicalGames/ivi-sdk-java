@@ -1,6 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'jacoco'
+apply plugin: 'com.github.nbaztec.coveralls-jacoco'
 
 version = '2.0.0-SNAPSHOT'
 
@@ -103,4 +104,8 @@ jacocoTestReport {
         html.enabled false
         csv.enabled false
     }
+}
+
+coverallsJacoco {
+    reportPath = "${buildDir}/reports/jacoco/report.xml"
 }
