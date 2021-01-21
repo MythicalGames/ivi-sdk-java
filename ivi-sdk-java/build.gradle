@@ -1,5 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply plugin: 'jacoco'
 
 version = '2.0.0-SNAPSHOT'
 
@@ -88,5 +89,18 @@ signing {
 task printVersionToFile {
     doLast {
         file("${rootDir}/version.txt").text = "${project.version}"
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    executionData fileTree(projectDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    reports {
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled false
+        csv.enabled false
     }
 }
