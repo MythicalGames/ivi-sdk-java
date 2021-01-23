@@ -1,5 +1,6 @@
 package games.mythical.ivi.sdk.client;
 
+import games.mythical.ivi.sdk.client.executor.MockItemTypeExecutor;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.server.itemtype.MockItemTypeServer;

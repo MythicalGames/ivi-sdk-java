@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.client.observer;
 
 import games.mythical.ivi.sdk.client.executor.PlayerExecutor;
+import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
@@ -46,8 +47,10 @@ public class PlayerObserver implements StreamObserver<PlayerStatusUpdate> {
         log.info("PlayerObserver stream closed");
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void updatePlayerConfirmation(String playerId, String trackingId) {
         var request = PlayerStatusConfirmRequest.newBuilder()
+                .setEnvironmentId(IVIConfiguration.getEnvironmentId())
                 .setPlayerId(playerId)
                 .setTrackingId(trackingId)
                 .build();

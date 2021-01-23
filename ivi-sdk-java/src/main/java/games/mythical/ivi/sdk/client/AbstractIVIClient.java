@@ -4,11 +4,7 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.concurrent.TimeUnit;
-
 
 public abstract class AbstractIVIClient {
     protected final String host;

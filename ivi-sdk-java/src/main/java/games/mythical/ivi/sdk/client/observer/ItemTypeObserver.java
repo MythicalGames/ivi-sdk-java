@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.client.observer;
 
 import games.mythical.ivi.sdk.client.executor.ItemTypeExecutor;
+import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
@@ -48,8 +49,10 @@ public class ItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate> {
         log.info("ItemTypeObserver stream closed");
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void updateItemTypeConfirmation(String itemTypeId, String trackingId) {
         var request = ItemTypeStatusConfirmRequest.newBuilder()
+                .setEnvironmentId(IVIConfiguration.getEnvironmentId())
                 .setItemTypeId(itemTypeId)
                 .setTrackingId(trackingId)
                 .build();
