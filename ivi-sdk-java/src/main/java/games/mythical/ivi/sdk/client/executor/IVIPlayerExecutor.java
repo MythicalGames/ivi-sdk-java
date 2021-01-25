@@ -2,7 +2,7 @@ package games.mythical.ivi.sdk.client.executor;
 
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 
-public interface PlayerExecutor {
+public interface IVIPlayerExecutor {
     void updatePlayer(String playerId,
                       String iviUserId,
                       String sidechainAccountName,

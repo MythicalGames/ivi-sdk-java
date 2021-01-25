@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerClientTest extends AbstractClientTest {
     private MockPlayerServer playerServer;
     private MockPlayerExecutor playerExecutor;
-    private PlayerClient playerClient;
+    private IVIPlayerClient playerClient;
     private Map<String, IVIPlayer> iviPlayers;
 
     @BeforeEach
@@ -38,7 +38,7 @@ class PlayerClientTest extends AbstractClientTest {
                 .build();
 
         playerExecutor = MockPlayerExecutor.builder().build();
-        playerClient = new PlayerClient(playerExecutor, channel);
+        playerClient = new IVIPlayerClient(playerExecutor, channel);
     }
 
     @AfterEach

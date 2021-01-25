@@ -1,6 +1,6 @@
 package games.mythical.ivi.sdk.client.observer;
 
-import games.mythical.ivi.sdk.client.executor.PlayerExecutor;
+import games.mythical.ivi.sdk.client.executor.IVIPlayerExecutor;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusUpdate;
@@ -11,12 +11,12 @@ import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class PlayerObserver implements StreamObserver<PlayerStatusUpdate> {
-    private final PlayerExecutor playerExecutor;
+public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
+    private final IVIPlayerExecutor playerExecutor;
     private final PlayerStreamGrpc.PlayerStreamBlockingStub streamBlockingStub;
 
-    public PlayerObserver(PlayerExecutor playerExecutor,
-                          PlayerStreamGrpc.PlayerStreamBlockingStub playerStreamBlockingStub) {
+    public IVIPlayerObserver(IVIPlayerExecutor playerExecutor,
+                             PlayerStreamGrpc.PlayerStreamBlockingStub playerStreamBlockingStub) {
         this.playerExecutor = playerExecutor;
         this.streamBlockingStub = playerStreamBlockingStub;
     }

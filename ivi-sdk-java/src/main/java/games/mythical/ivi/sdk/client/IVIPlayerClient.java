@@ -1,7 +1,7 @@
 package games.mythical.ivi.sdk.client;
 
-import games.mythical.ivi.sdk.client.executor.PlayerExecutor;
-import games.mythical.ivi.sdk.client.observer.PlayerObserver;
+import games.mythical.ivi.sdk.client.executor.IVIPlayerExecutor;
+import games.mythical.ivi.sdk.client.observer.IVIPlayerObserver;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.player.GetPlayersRequest;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public class PlayerClient extends AbstractIVIClient {
+public class IVIPlayerClient extends AbstractIVIClient {
     private PlayerServiceGrpc.PlayerServiceBlockingStub serviceBlockingStub;
-    private PlayerExecutor playerExecutor;
+    private IVIPlayerExecutor playerExecutor;
 
     @SuppressWarnings("unused")
-    protected PlayerClient(PlayerExecutor playerExecutor) throws IVIException {
+    protected IVIPlayerClient(IVIPlayerExecutor playerExecutor) throws IVIException {
         super();
 
         this.playerExecutor = playerExecutor;
@@ -33,7 +33,7 @@ public class PlayerClient extends AbstractIVIClient {
         initStub(channel);
     }
 
-    PlayerClient(PlayerExecutor playerExecutor, ManagedChannel channel) throws IVIException {
+    IVIPlayerClient(IVIPlayerExecutor playerExecutor, ManagedChannel channel) throws IVIException {
         this.playerExecutor = playerExecutor;
         initStub(channel);
     }
@@ -47,7 +47,7 @@ public class PlayerClient extends AbstractIVIClient {
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.playerStatusStream(subscribe, new PlayerObserver(playerExecutor,
+        streamStub.playerStatusStream(subscribe, new IVIPlayerObserver(playerExecutor,
                 PlayerStreamGrpc.newBlockingStub(channel)));
     }
 

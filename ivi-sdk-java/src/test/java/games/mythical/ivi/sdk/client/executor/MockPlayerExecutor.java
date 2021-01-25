@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MockPlayerExecutor implements PlayerExecutor {
+public class MockPlayerExecutor implements IVIPlayerExecutor {
     private String playerId;
     private String iviUserId;
     private String sidechainAccountName;
