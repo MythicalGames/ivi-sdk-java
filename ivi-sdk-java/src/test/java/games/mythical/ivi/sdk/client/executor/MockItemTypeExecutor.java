@@ -1,6 +1,5 @@
-package games.mythical.ivi.sdk.client;
+package games.mythical.ivi.sdk.client.executor;
 
-import games.mythical.ivi.sdk.client.executor.ItemTypeExecutor;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import lombok.Builder;

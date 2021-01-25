@@ -1,8 +1,10 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.config.IVIConfiguration;
+import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
+import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 import io.grpc.ManagedChannel;
@@ -11,7 +13,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -64,6 +65,7 @@ public abstract class AbstractClientTest {
                 .build();
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected Map<String, ItemType> generateItemTypes(int count) {
         var result = new HashMap<String, ItemType>();
 
@@ -96,6 +98,49 @@ public abstract class AbstractClientTest {
         for(var i = 0; i < count; i++) {
             var player = generateIVIPlayer();
             result.put(player.getPlayerId(), player);
+        }
+        return result;
+    }
+
+    protected Item generateItem(long dGoodsId,
+                                String sideChainAccount,
+                                int serialNumber,
+                                String metadataUri,
+                                String trackingId,
+                                ItemState state) {
+        return Item.newBuilder()
+                .setGameInventoryId(RandomStringUtils.randomAlphanumeric(30))
+                .setCategory(RandomStringUtils.randomAlphanumeric(30))
+                .setTokenName(RandomStringUtils.randomAlphanumeric(30))
+                .setDgoodsId(dGoodsId)
+                .setItemName(RandomStringUtils.randomAlphanumeric(30))
+                .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
+                .setOwnerSidechainAccount(sideChainAccount)
+                .setSerialNumber(serialNumber)
+                .setAmountPaid(String.valueOf(RandomUtils.nextDouble()))
+                .setCurrency(RandomStringUtils.randomAlphanumeric(30))
+                .setMetadataUri(metadataUri)
+                .setTrackingId(trackingId)
+                .setItemState(state)
+                .build();
+    }
+
+    protected Item generateNewItem() {
+        return generateItem(0, "", 0, "", "", ItemState.PENDING_ISSUED);
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    protected Map<String, Item> generateItems(int count) {
+        var result = new HashMap<String, Item>();
+        for(var i = 0; i < count; i++) {
+            var dGoodsId = RandomUtils.nextInt(100, 1000);
+            var sidechain = RandomStringUtils.randomAlphanumeric(30);
+            var serialNumber = RandomUtils.nextInt(10, 100);
+            var metadataUri = RandomStringUtils.randomAlphanumeric(30);
+            var trackingId = RandomStringUtils.randomAlphanumeric(30);
+            var state = ItemState.ISSUED;
+            var item = generateItem(dGoodsId, sidechain, serialNumber, metadataUri, trackingId, state);
+            result.put(item.getGameInventoryId(), item);
         }
         return result;
     }
