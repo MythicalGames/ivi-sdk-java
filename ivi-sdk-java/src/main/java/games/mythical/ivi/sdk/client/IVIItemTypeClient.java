@@ -1,7 +1,7 @@
 package games.mythical.ivi.sdk.client;
 
-import games.mythical.ivi.sdk.client.executor.ItemTypeExecutor;
-import games.mythical.ivi.sdk.client.observer.ItemTypeObserver;
+import games.mythical.ivi.sdk.client.executor.IVIItemTypeExecutor;
+import games.mythical.ivi.sdk.client.observer.IVIItemTypeObserver;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.itemtype.*;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public class ItemTypeClient extends AbstractIVIClient {
+public class IVIItemTypeClient extends AbstractIVIClient {
     private ItemTypeServiceGrpc.ItemTypeServiceBlockingStub serviceBlockingStub;
-    private final ItemTypeExecutor itemTypeExecutor;
+    private final IVIItemTypeExecutor itemTypeExecutor;
 
     @SuppressWarnings("unused")
-    public ItemTypeClient(ItemTypeExecutor itemTypeExecutor) throws IVIException {
+    public IVIItemTypeClient(IVIItemTypeExecutor itemTypeExecutor) throws IVIException {
         super();
 
         this.itemTypeExecutor = itemTypeExecutor;
@@ -30,7 +30,7 @@ public class ItemTypeClient extends AbstractIVIClient {
         initStub(channel);
     }
 
-    ItemTypeClient(ItemTypeExecutor itemTypeExecutor, ManagedChannel channel) throws IVIException {
+    IVIItemTypeClient(IVIItemTypeExecutor itemTypeExecutor, ManagedChannel channel) throws IVIException {
         this.itemTypeExecutor = itemTypeExecutor;
         initStub(channel);
     }
@@ -44,7 +44,7 @@ public class ItemTypeClient extends AbstractIVIClient {
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(this.environmentId)
                 .build();
-        streamStub.itemTypeStatusStream(subscribe, new ItemTypeObserver(itemTypeExecutor,
+        streamStub.itemTypeStatusStream(subscribe, new IVIItemTypeObserver(itemTypeExecutor,
                 ItemTypeStatusStreamGrpc.newBlockingStub(channel)));
     }
 

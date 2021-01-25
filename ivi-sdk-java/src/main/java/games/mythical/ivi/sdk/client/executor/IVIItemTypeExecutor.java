@@ -2,7 +2,7 @@ package games.mythical.ivi.sdk.client.executor;
 
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 
-public interface ItemTypeExecutor {
+public interface IVIItemTypeExecutor {
     void updateItemType(String itemTypeId,
                         int currentSupply,
                         int issuedSupply,

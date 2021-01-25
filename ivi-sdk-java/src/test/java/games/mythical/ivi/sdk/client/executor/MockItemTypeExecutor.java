@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MockItemTypeExecutor implements ItemTypeExecutor {
+public class MockItemTypeExecutor implements IVIItemTypeExecutor {
     private String itemTypeId;
     private int currentSupply;
     private int issuedSupply;

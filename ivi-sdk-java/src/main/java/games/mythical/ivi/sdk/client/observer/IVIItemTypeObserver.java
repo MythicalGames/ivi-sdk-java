@@ -1,6 +1,6 @@
 package games.mythical.ivi.sdk.client.observer;
 
-import games.mythical.ivi.sdk.client.executor.ItemTypeExecutor;
+import games.mythical.ivi.sdk.client.executor.IVIItemTypeExecutor;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
@@ -11,12 +11,12 @@ import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate> {
-    private final ItemTypeExecutor itemTypeExecutor;
+public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate> {
+    private final IVIItemTypeExecutor itemTypeExecutor;
     private final ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub;
 
-    public ItemTypeObserver(ItemTypeExecutor itemTypeExecutor,
-                            ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub) {
+    public IVIItemTypeObserver(IVIItemTypeExecutor itemTypeExecutor,
+                               ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub) {
         this.streamBlockingStub = streamBlockingStub;
         this.itemTypeExecutor = itemTypeExecutor;
     }

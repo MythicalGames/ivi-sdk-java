@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemTypeClientTest extends AbstractClientTest {
     private MockItemTypeServer itemTypeServer;
     private MockItemTypeExecutor itemTypeExecutor;
-    private ItemTypeClient itemTypeClient;
+    private IVIItemTypeClient itemTypeClient;
     private Map<String, ItemType> itemTypes;
 
     @BeforeEach
@@ -36,7 +36,7 @@ class ItemTypeClientTest extends AbstractClientTest {
                 .build();
 
         itemTypeExecutor = MockItemTypeExecutor.builder().build();
-        itemTypeClient = new ItemTypeClient(itemTypeExecutor, channel);
+        itemTypeClient = new IVIItemTypeClient(itemTypeExecutor, channel);
     }
 
     @AfterEach
