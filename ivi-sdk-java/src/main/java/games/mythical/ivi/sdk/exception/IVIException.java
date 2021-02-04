@@ -29,6 +29,10 @@ public class IVIException extends Exception {
         this.code = code;
     }
 
+    public IVIErrorCode getCode() {
+        return code;
+    }
+
     public static IVIException fromGrpcException(StatusRuntimeException exception) {
         // TODO: figure out mapping, or if we need it
         switch (exception.getStatus().getCode()) {

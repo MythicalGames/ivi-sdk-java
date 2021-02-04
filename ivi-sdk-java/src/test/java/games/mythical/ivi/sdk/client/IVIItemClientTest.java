@@ -1,7 +1,6 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockItemExecutor;
-import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import games.mythical.ivi.sdk.server.item.MockItemServer;
@@ -16,13 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class IVIItemClientTest extends AbstractClientTest {
-    private static final String currency = "BB";
     private MockItemServer itemServer;
     private MockItemExecutor itemExecutor;
     private IVIItemClient itemClient;
@@ -55,12 +52,9 @@ class IVIItemClientTest extends AbstractClientTest {
     void issueItem() throws Exception {
         var item = generateNewItem();
 
-        var metadata = new HashMap<String, Object>();
-        for(var i = 0; i < 5; i++) {
-            metadata.put(RandomStringUtils.randomAlphanumeric(10), RandomStringUtils.randomAlphanumeric(30));
-        }
+        var metadata = generateProperties(5);
 
-        itemClient.issueItem(item.getGameInventoryId(), item.getPlayerId(), item.getItemName(), item.getTokenName(),
+        itemClient.issueItem(item.getGameInventoryId(), item.getItemTypeId(), item.getPlayerId(), item.getItemName(),
                 metadata, BigDecimal.valueOf(Double.parseDouble(item.getAmountPaid())), currency);
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
@@ -77,10 +71,10 @@ class IVIItemClientTest extends AbstractClientTest {
         var metadataUri= RandomStringUtils.randomAlphanumeric(30);
         itemServer.getItemStream().sendStatus(environmentId, Item.newBuilder()
                 .setGameInventoryId(item.getGameInventoryId())
+                .setItemTypeId(item.getItemTypeId())
                 .setPlayerId(item.getPlayerId())
                 .setDgoodsId(dGoodsId)
                 .setSerialNumber(serialNumber)
-                .setTokenName(item.getTokenName())
                 .setMetadataUri(metadataUri)
                 .setTrackingId(trackingId)
                 .build(), ItemState.ISSUED);
@@ -103,13 +97,12 @@ class IVIItemClientTest extends AbstractClientTest {
         var gameInventoryId= items.keySet().iterator().next();
         var item = items.get(gameInventoryId);
         var newPlayerId = RandomStringUtils.randomAlphanumeric(30);
-        var memo = RandomStringUtils.randomAlphanumeric(60);
         var initialTrackingId = item.getTrackingId();
 
         // init item in the executor as if it's an existing db entry
         itemExecutor.setFromItem(item);
 
-        itemClient.transferItem(gameInventoryId, item.getPlayerId(), newPlayerId, memo);
+        itemClient.transferItem(gameInventoryId, item.getPlayerId(), newPlayerId);
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertNotEquals(initialTrackingId, itemExecutor.getTrackingId());
@@ -125,10 +118,10 @@ class IVIItemClientTest extends AbstractClientTest {
         var trackingId = itemExecutor.getTrackingId();
         itemServer.getItemStream().sendStatus(environmentId, Item.newBuilder()
                 .setGameInventoryId(gameInventoryId)
+                .setItemTypeId(item.getItemTypeId())
                 .setPlayerId(newPlayerId)
                 .setDgoodsId(item.getDgoodsId())
                 .setSerialNumber(item.getSerialNumber())
-                .setTokenName(item.getTokenName())
                 .setMetadataUri(item.getMetadataUri())
                 .setTrackingId(trackingId)
                 .build(), ItemState.TRANSFERRED);
@@ -175,10 +168,10 @@ class IVIItemClientTest extends AbstractClientTest {
         var trackingId = itemExecutor.getTrackingId();
         itemServer.getItemStream().sendStatus(environmentId, Item.newBuilder()
                 .setGameInventoryId(gameInventoryId)
+                .setItemTypeId(item.getItemTypeId())
                 .setPlayerId(item.getPlayerId())
                 .setDgoodsId(item.getDgoodsId())
                 .setSerialNumber(item.getSerialNumber())
-                .setTokenName(item.getTokenName())
                 .setMetadataUri(item.getMetadataUri())
                 .setTrackingId(trackingId)
                 .build(), ItemState.BURNED);
