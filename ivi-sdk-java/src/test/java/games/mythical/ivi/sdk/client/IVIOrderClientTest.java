@@ -220,7 +220,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     void verifyOrder(IVIOrder expectedOrder, IVIOrder actualOrder) {
         assertEquals(expectedOrder.getOrderId(), actualOrder.getOrderId());
         assertEquals(expectedOrder.getStoreId(), actualOrder.getStoreId());
-        assertEquals(expectedOrder.getPlayerId(), actualOrder.getPlayerId());
+        assertEquals(expectedOrder.getBuyerPlayerId(), actualOrder.getBuyerPlayerId());
         assertEquals(expectedOrder.getTax(), actualOrder.getTax());
         assertEquals(expectedOrder.getTotal(), actualOrder.getTotal());
         assertEquals(expectedOrder.getPaymentProviderId(), actualOrder.getPaymentProviderId());

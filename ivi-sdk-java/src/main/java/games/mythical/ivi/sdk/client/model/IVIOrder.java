@@ -18,7 +18,7 @@ import java.util.List;
 public class IVIOrder {
     private final String orderId;
     private final String storeId;
-    private final String playerId;
+    private final String buyerPlayerId;
     private final BigDecimal tax;
     private final BigDecimal total;
     private final IVIOrderAddress address;
@@ -30,7 +30,7 @@ public class IVIOrder {
     IVIOrder(Order order) throws IVIException {
         orderId = order.getOrderId();
         storeId = order.getStoreId();
-        playerId = order.getPlayerId();
+        buyerPlayerId = order.getBuyerPlayerId();
         tax = new BigDecimal(order.getTax());
         total = new BigDecimal(order.getTotal());
         address = IVIOrderAddress.fromProto(order.getAddress());

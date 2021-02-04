@@ -74,7 +74,7 @@ public class IVIOrderClient extends AbstractIVIClient {
     }
 
     public void createPrimaryOrder(String storeId,
-                            String playerId,
+                            String buyerPlayerId,
                             BigDecimal subTotal,
                             IVIOrderAddress address,
                             PaymentProviderId paymentProviderId,
@@ -82,7 +82,7 @@ public class IVIOrderClient extends AbstractIVIClient {
         var request = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
-                .setPlayerId(playerId)
+                .setBuyerPlayerId(buyerPlayerId)
                 .setSubTotal(subTotal.toString())
                 .setAddress(address.toProto())
                 .setPaymentProviderId(paymentProviderId)
@@ -95,7 +95,7 @@ public class IVIOrderClient extends AbstractIVIClient {
     }
 
     public void createSecondaryOrder(String storeId,
-                                   String playerId,
+                                   String buyerPlayerId,
                                    BigDecimal subTotal,
                                    IVIOrderAddress address,
                                    PaymentProviderId paymentProviderId,
@@ -103,7 +103,7 @@ public class IVIOrderClient extends AbstractIVIClient {
         var request = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
-                .setPlayerId(playerId)
+                .setBuyerPlayerId(buyerPlayerId)
                 .setSubTotal(subTotal.toString())
                 .setAddress(address.toProto())
                 .setPaymentProviderId(paymentProviderId)

@@ -163,7 +163,7 @@ public abstract class AbstractClientTest {
             var orderBuilder = Order.newBuilder()
                     .setOrderId(RandomStringUtils.randomAlphanumeric(30))
                     .setStoreId(RandomStringUtils.randomAlphanumeric(30))
-                    .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
+                    .setBuyerPlayerId(RandomStringUtils.randomAlphanumeric(30))
                     .setTax(String.valueOf(RandomUtils.nextDouble(0, 10)))
                     .setTotal(String.valueOf(RandomUtils.nextDouble(0, 200)))
                     .setAddress(generateAddress().toProto())
