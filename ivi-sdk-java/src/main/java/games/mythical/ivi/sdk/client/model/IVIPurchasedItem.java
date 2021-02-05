@@ -1,13 +1,6 @@
 package games.mythical.ivi.sdk.client.model;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Struct;
-import com.google.protobuf.util.JsonFormat;
-import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.PurchasedItem;
 import games.mythical.ivi.sdk.proto.common.item.OptionalInformation;
@@ -18,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Objects;
+
+import static games.mythical.ivi.sdk.util.ConversionUtils.convertProperties;
 
 @Slf4j
 @Data
@@ -45,18 +40,6 @@ public class IVIPurchasedItem {
     public void setProperties(Map<String, String> properties) throws IVIException {
         this.properties = properties;
         this._properties = convertProperties(properties);
-    }
-
-    private static Struct convertProperties(Map<String, String> properties) throws IVIException {
-        try {
-            var metadata = (JsonObject) new Gson().toJsonTree(properties);
-            var structBuilder = Struct.newBuilder();
-            JsonFormat.parser().merge(metadata.toString(), structBuilder);
-            return structBuilder.build();
-        } catch (InvalidProtocolBufferException e) {
-            log.error("setProperties: couldn't convert item properties!", e);
-            throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
-        }
     }
 
     public static class IVIPurchasedItemBuilder {
@@ -130,16 +113,7 @@ public class IVIPurchasedItem {
 
         var iviPurchasedItem = iviPurchasedItemBuilder.build();
         iviPurchasedItem._properties = purchasedItem.getProperties();
-
-        try {
-            var objectMapper = new ObjectMapper();
-            var propertiesString = JsonFormat.printer().print(purchasedItem.getProperties());
-            iviPurchasedItem.properties = objectMapper.readValue(propertiesString, new TypeReference<>() {});
-
-            return iviPurchasedItem;
-        } catch (Exception  e) {
-            log.error("IVIPurchasedItem: couldn't convert item properties!", e);
-            throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
-        }
+        iviPurchasedItem.properties = convertProperties(purchasedItem.getProperties());
+        return iviPurchasedItem;
     }
 }
