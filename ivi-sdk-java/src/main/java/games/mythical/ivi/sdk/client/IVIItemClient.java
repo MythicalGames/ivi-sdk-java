@@ -61,12 +61,12 @@ public class IVIItemClient extends AbstractIVIClient {
     public void issueItem(String gameInventoryId,
                           String playerId,
                           String itemName,
-                          String tokenName,
-                          Map<String, Object> additionalMetadata,
+                          String itemTypeId,
+                          Map<String, String> properties,
                           BigDecimal amountPaid,
                           String currency) throws IVIException {
         try {
-            var metadata = (JsonObject) new Gson().toJsonTree(additionalMetadata);
+            var metadata = (JsonObject) new Gson().toJsonTree(properties);
             var structBuilder = Struct.newBuilder();
             JsonFormat.parser().merge(metadata.toString(), structBuilder);
             var request = IssueItemRequest.newBuilder()
@@ -74,8 +74,8 @@ public class IVIItemClient extends AbstractIVIClient {
                     .setGameInventoryId(gameInventoryId)
                     .setPlayerId(playerId)
                     .setItemName(itemName)
-                    .setTokenName(tokenName)
-                    .setAdditionalMetadata(structBuilder)
+                    .setItemTypeId(itemTypeId)
+                    .setProperties(structBuilder)
                     .setAmountPaid(amountPaid.toString())
                     .setCurrency(currency)
                     .build();
@@ -92,14 +92,12 @@ public class IVIItemClient extends AbstractIVIClient {
 
     public void transferItem(String gameInventoryId,
                              String sourcePlayerId,
-                             String destPlayerId,
-                             String memo) throws IVIException {
+                             String destPlayerId) throws IVIException {
         var request = TransferItemRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setGameItemInventoryId(gameInventoryId)
                 .setSourcePlayerId(sourcePlayerId)
                 .setDestinationPlayerId(destPlayerId)
-                .setMemo(memo)
                 .build();
 
         try {

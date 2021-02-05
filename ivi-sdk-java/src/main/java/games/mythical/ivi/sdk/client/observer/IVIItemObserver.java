@@ -26,10 +26,10 @@ public class IVIItemObserver implements StreamObserver<ItemStatusUpdate> {
         log.trace("ItemObserver.onNext for item: {}", message.getGameInventoryId());
         try {
             IVIItemExecutor.updateItem(message.getGameInventoryId(),
+                    message.getItemTypeId(),
                     message.getPlayerId(),
                     message.getDgoodsId(),
                     message.getSerialNumber(),
-                    message.getTokenName(),
                     message.getMetadataUri(),
                     message.getTrackingId(),
                     message.getItemState());

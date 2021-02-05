@@ -7,5 +7,6 @@ public enum IVIErrorCode {
     PORT_NOT_SET,
     NOT_FOUND,
     LOCAL_EXCEPTION,
+    PARSING_DATA_EXCEPTION,
     UNKNOWN_GRPC_ERROR
 }

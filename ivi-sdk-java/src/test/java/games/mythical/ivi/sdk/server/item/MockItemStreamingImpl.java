@@ -37,7 +37,7 @@ public class MockItemStreamingImpl extends ItemStreamGrpc.ItemStreamImplBase {
                     .setPlayerId(item.getPlayerId())
                     .setDgoodsId(item.getDgoodsId())
                     .setSerialNumber(item.getSerialNumber())
-                    .setTokenName(item.getTokenName())
+                    .setItemTypeId(item.getItemTypeId())
                     .setMetadataUri(item.getMetadataUri())
                     .setTrackingId(item.getTrackingId())
                     .setItemState(itemState)
