@@ -1,8 +1,6 @@
 package games.mythical.ivi.sdk.client;
 
-import games.mythical.ivi.sdk.client.model.IVIOrder;
-import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
-import games.mythical.ivi.sdk.client.model.IVIPurchasedItem;
+import games.mythical.ivi.sdk.client.model.*;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
@@ -12,15 +10,18 @@ import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.order.PurchasedItems;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
+import games.mythical.ivi.sdk.proto.common.item.OptionalInformation;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
+import games.mythical.ivi.sdk.util.ConversionUtils;
 import io.grpc.ManagedChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -114,13 +115,15 @@ public abstract class AbstractClientTest {
         return result;
     }
 
-    protected Item generateItem(long dGoodsId,
+    protected IVIItem generateItem(long dGoodsId,
                                 String sideChainAccount,
                                 int serialNumber,
                                 String metadataUri,
                                 String trackingId,
-                                ItemState state) {
-        return Item.newBuilder()
+                                ItemState state) throws IVIException {
+        var itemMetadata = generateItemMetadata(1).get(0);
+
+        var item = Item.newBuilder()
                 .setGameInventoryId(RandomStringUtils.randomAlphanumeric(30))
                 .setItemTypeId(RandomStringUtils.randomAlphanumeric(30))
                 .setDgoodsId(dGoodsId)
@@ -128,21 +131,32 @@ public abstract class AbstractClientTest {
                 .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
                 .setOwnerSidechainAccount(sideChainAccount)
                 .setSerialNumber(serialNumber)
-                .setAmountPaid(String.valueOf(RandomUtils.nextDouble()))
-                .setCurrency(RandomStringUtils.randomAlphanumeric(30))
+                .setCurrencyBase(RandomStringUtils.randomAlphanumeric(30))
                 .setMetadataUri(metadataUri)
                 .setTrackingId(trackingId)
+                .setProperties(ConversionUtils.convertProperties(generateProperties(5)))
+                .setOptionalInformation(OptionalInformation.newBuilder()
+                        .setDescription(itemMetadata.getDescription())
+                        .setImageLarge(itemMetadata.getImageLargeUrl())
+                        .setImageSmall(itemMetadata.getImageSmallUrl())
+                        .setRender(itemMetadata.getRender())
+                        .setAuthenticityImage(itemMetadata.getAuthenticityImage())
+                        .build())
                 .setItemState(state)
+                .setCreatedTimestamp(Instant.now().getEpochSecond() - 86400)
+                .setUpdatedTimestamp(Instant.now().getEpochSecond())
                 .build();
+
+        return IVIItem.fromProto(item);
     }
 
-    protected Item generateNewItem() {
+    protected IVIItem generateNewItem() throws IVIException {
         return generateItem(0, "", 0, "", "", ItemState.PENDING_ISSUED);
     }
 
     @SuppressWarnings("SameParameterValue")
-    protected Map<String, Item> generateItems(int count) {
-        var result = new HashMap<String, Item>();
+    protected Map<String, IVIItem> generateItems(int count) throws IVIException {
+        var result = new HashMap<String, IVIItem>();
         for(var i = 0; i < count; i++) {
             var dGoodsId = RandomUtils.nextInt(100, 1000);
             var sidechain = RandomStringUtils.randomAlphanumeric(30);
@@ -236,5 +250,21 @@ public abstract class AbstractClientTest {
         }
 
         return properties;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    protected List<IVIItemMetadata> generateItemMetadata(int count) {
+        var metadataList = new ArrayList<IVIItemMetadata>();
+        for(var i = 0; i < count; i++) {
+            metadataList.add(IVIItemMetadata.builder()
+                    .description(RandomStringUtils.randomAlphanumeric(30))
+                    .imageLargeUrl(RandomStringUtils.randomAlphanumeric(30))
+                    .imageSmallUrl(RandomStringUtils.randomAlphanumeric(30))
+                    .render(RandomStringUtils.randomAlphanumeric(30))
+                    .authenticityImage(RandomStringUtils.randomAlphanumeric(30))
+                    .build());
+        }
+
+        return metadataList;
     }
 }

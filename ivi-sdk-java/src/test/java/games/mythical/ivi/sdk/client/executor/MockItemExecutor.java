@@ -1,6 +1,6 @@
 package games.mythical.ivi.sdk.client.executor;
 
-import games.mythical.ivi.sdk.proto.api.item.Item;
+import games.mythical.ivi.sdk.client.model.IVIItem;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +25,7 @@ public class MockItemExecutor implements IVIItemExecutor {
                            int serialNumber,
                            String metadataUri,
                            String trackingId,
-                           ItemState itemState) throws Exception {
+                           ItemState itemState) {
         this.gameInventoryId = gameInventoryId;
         this.playerId = playerId;
         this.dGoodsId = dGoodsId;
@@ -37,17 +37,17 @@ public class MockItemExecutor implements IVIItemExecutor {
     }
 
     @Override
-    public void updateItemState(String gameInventoryId, String trackingId, ItemState itemState) throws Exception {
+    public void updateItemState(String gameInventoryId, String trackingId, ItemState itemState) {
         this.gameInventoryId = gameInventoryId;
         this.trackingId = trackingId;
         this.itemState = itemState;
     }
 
-    public void setFromItem(Item item) throws Exception {
+    public void setFromItem(IVIItem item) {
         updateItem(item.getGameInventoryId(),
                 item.getItemTypeId(),
                 item.getPlayerId(),
-                item.getDgoodsId(),
+                item.getDGoodsId(),
                 item.getSerialNumber(),
                 item.getMetadataUri(),
                 item.getTrackingId(),

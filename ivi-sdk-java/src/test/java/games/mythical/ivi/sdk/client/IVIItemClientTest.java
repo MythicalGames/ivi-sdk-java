@@ -1,6 +1,10 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockItemExecutor;
+import games.mythical.ivi.sdk.client.model.IVIItem;
+import games.mythical.ivi.sdk.client.model.IVIItemMetadata;
+import games.mythical.ivi.sdk.exception.IVIErrorCode;
+import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import games.mythical.ivi.sdk.server.item.MockItemServer;
@@ -23,7 +27,7 @@ class IVIItemClientTest extends AbstractClientTest {
     private MockItemServer itemServer;
     private MockItemExecutor itemExecutor;
     private IVIItemClient itemClient;
-    private Map<String, Item> items;
+    private Map<String, IVIItem> items;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -52,10 +56,15 @@ class IVIItemClientTest extends AbstractClientTest {
     void issueItem() throws Exception {
         var item = generateNewItem();
 
-        var metadata = generateProperties(5);
+        var properties = generateProperties(5);
 
-        itemClient.issueItem(item.getGameInventoryId(), item.getItemTypeId(), item.getPlayerId(), item.getItemName(),
-                metadata, BigDecimal.valueOf(Double.parseDouble(item.getAmountPaid())), currency);
+        itemClient.issueItem(item.getGameInventoryId(),
+                item.getPlayerId(),
+                item.getItemName(),
+                item.getItemTypeId(),
+                properties,
+                BigDecimal.valueOf(RandomUtils.nextDouble(0, 100)),
+                currency);
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertFalse(StringUtils.isEmpty(itemExecutor.getTrackingId()));
@@ -106,7 +115,7 @@ class IVIItemClientTest extends AbstractClientTest {
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertNotEquals(initialTrackingId, itemExecutor.getTrackingId());
-        assertEquals(item.getDgoodsId(), itemExecutor.getDGoodsId());
+        assertEquals(item.getDGoodsId(), itemExecutor.getDGoodsId());
         assertEquals(item.getSerialNumber(), itemExecutor.getSerialNumber());
         assertEquals(item.getMetadataUri(), itemExecutor.getMetadataUri());
         assertEquals(ItemState.PENDING_TRANSFERRED, itemExecutor.getItemState());
@@ -120,7 +129,7 @@ class IVIItemClientTest extends AbstractClientTest {
                 .setGameInventoryId(gameInventoryId)
                 .setItemTypeId(item.getItemTypeId())
                 .setPlayerId(newPlayerId)
-                .setDgoodsId(item.getDgoodsId())
+                .setDgoodsId(item.getDGoodsId())
                 .setSerialNumber(item.getSerialNumber())
                 .setMetadataUri(item.getMetadataUri())
                 .setTrackingId(trackingId)
@@ -130,7 +139,7 @@ class IVIItemClientTest extends AbstractClientTest {
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertEquals(trackingId, itemExecutor.getTrackingId());
-        assertEquals(item.getDgoodsId(), itemExecutor.getDGoodsId());
+        assertEquals(item.getDGoodsId(), itemExecutor.getDGoodsId());
         assertEquals(item.getSerialNumber(), itemExecutor.getSerialNumber());
         assertEquals(item.getMetadataUri(), itemExecutor.getMetadataUri());
         assertEquals(ItemState.TRANSFERRED, itemExecutor.getItemState());
@@ -156,7 +165,7 @@ class IVIItemClientTest extends AbstractClientTest {
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertNotEquals(initialTrackingId, itemExecutor.getTrackingId());
-        assertEquals(item.getDgoodsId(), itemExecutor.getDGoodsId());
+        assertEquals(item.getDGoodsId(), itemExecutor.getDGoodsId());
         assertEquals(item.getSerialNumber(), itemExecutor.getSerialNumber());
         assertEquals(item.getMetadataUri(), itemExecutor.getMetadataUri());
         assertEquals(ItemState.PENDING_BURNED, itemExecutor.getItemState());
@@ -170,7 +179,7 @@ class IVIItemClientTest extends AbstractClientTest {
                 .setGameInventoryId(gameInventoryId)
                 .setItemTypeId(item.getItemTypeId())
                 .setPlayerId(item.getPlayerId())
-                .setDgoodsId(item.getDgoodsId())
+                .setDgoodsId(item.getDGoodsId())
                 .setSerialNumber(item.getSerialNumber())
                 .setMetadataUri(item.getMetadataUri())
                 .setTrackingId(trackingId)
@@ -180,7 +189,7 @@ class IVIItemClientTest extends AbstractClientTest {
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertEquals(trackingId, itemExecutor.getTrackingId());
-        assertEquals(item.getDgoodsId(), itemExecutor.getDGoodsId());
+        assertEquals(item.getDGoodsId(), itemExecutor.getDGoodsId());
         assertEquals(item.getSerialNumber(), itemExecutor.getSerialNumber());
         assertEquals(item.getMetadataUri(), itemExecutor.getMetadataUri());
         assertEquals(ItemState.BURNED, itemExecutor.getItemState());
@@ -218,14 +227,97 @@ class IVIItemClientTest extends AbstractClientTest {
         assertEquals(itemIds.size() - 1, itemResult.size());
 
         for (var item : itemResult) {
-            assertEquals(items.get(item.getGameInventoryId()).getGameInventoryId(), item.getGameInventoryId());
-            assertEquals(items.get(item.getGameInventoryId()).getTrackingId(), item.getTrackingId());
-            assertEquals(items.get(item.getGameInventoryId()).getDgoodsId(), item.getDgoodsId());
-            assertEquals(items.get(item.getGameInventoryId()).getSerialNumber(), item.getSerialNumber());
-            assertEquals(items.get(item.getGameInventoryId()).getMetadataUri(), item.getMetadataUri());
-            assertEquals(items.get(item.getGameInventoryId()).getItemState(), item.getItemState());
+            verifyItem(items.get(item.getGameInventoryId()), item);
         }
 
         itemServer.verifyCalls("GetItems", 1);
+    }
+
+    @Test
+    public void updateItemMetadata() throws Exception {
+        var item= items.values().iterator().next();
+
+        item.setProperties(generateProperties(3));
+
+        itemClient.updateItemMetadata(item.getGameInventoryId(), item.getProperties());
+
+        itemServer.verifyCalls("UpdateItemMetadata", 1);
+
+        var newItem = itemClient.getItem(item.getGameInventoryId());
+
+        assertTrue(newItem.isPresent());
+        verifyItem(item, newItem.get());
+
+        itemServer.verifyCalls("GetItem", 1);
+    }
+
+    @Test
+    public void updateItemMetadataComplete() throws Exception {
+        var item= items.values().iterator().next();
+
+        item.setProperties(generateProperties(3));
+        item.setMetadata(generateItemMetadata(1).get(0));
+
+        itemClient.updateItemMetadataComplete(item.getGameInventoryId(), item.getProperties(), item.getMetadata());
+
+        itemServer.verifyCalls("UpdateItemMetadata", 1);
+
+        var newItem = itemClient.getItem(item.getGameInventoryId());
+
+        assertTrue(newItem.isPresent());
+        verifyItem(item, newItem.get());
+
+        itemServer.verifyCalls("GetItem", 1);
+    }
+
+    @Test
+    public void updateItemMetadataNotFound() {
+        var itemId = RandomStringUtils.randomAlphanumeric(30);
+
+        try {
+            itemClient.updateItemMetadata(itemId, generateProperties(1));
+            fail("Should have thrown NOT FOUND exception!");
+        } catch (IVIException e) {
+            if(e.getCode() != IVIErrorCode.NOT_FOUND) {
+                fail("Should have thrown NOT FOUND exception!");
+            }
+        }
+    }
+
+    void verifyItem(IVIItem expectedItem, IVIItem actualItem) {
+        assertEquals(expectedItem.getGameInventoryId(), actualItem.getGameInventoryId());
+        assertEquals(expectedItem.getItemTypeId(), actualItem.getItemTypeId());
+        assertEquals(expectedItem.getItemName(), actualItem.getItemName());
+        assertEquals(expectedItem.getDGoodsId(), actualItem.getDGoodsId());
+        assertEquals(expectedItem.getPlayerId(), actualItem.getPlayerId());
+        assertEquals(expectedItem.getOwnerSidechainAccount(), actualItem.getOwnerSidechainAccount());
+        assertEquals(expectedItem.getSerialNumber(), actualItem.getSerialNumber());
+        assertEquals(expectedItem.getCurrencyBase(), actualItem.getCurrencyBase());
+        assertEquals(expectedItem.getMetadataUri(), actualItem.getMetadataUri());
+        assertEquals(expectedItem.getTrackingId(), actualItem.getTrackingId());
+        assertEquals(expectedItem.getItemState(), actualItem.getItemState());
+        assertEquals(expectedItem.getCreatedTimestamp(), actualItem.getCreatedTimestamp());
+        assertEquals(expectedItem.getUpdatedTimestamp(), actualItem.getUpdatedTimestamp());
+
+        verifyProperties(expectedItem.getProperties(), actualItem.getProperties());
+        verifyMetadata(expectedItem.getMetadata(), actualItem.getMetadata());
+    }
+
+    void verifyProperties(Map<String, String> expectedProperties, Map<String, String> actualProperties) {
+        for (var key : expectedProperties.keySet()) {
+            if(actualProperties.containsKey(key)) {
+                assertEquals(expectedProperties.get(key), actualProperties.get(key));
+            } else {
+                fail("Property key " + key + " is missing!");
+            }
+        }
+    }
+
+    void verifyMetadata(IVIItemMetadata expectedMetadata, IVIItemMetadata actualMetadata) {
+        assertEquals(expectedMetadata.getDescription(), actualMetadata.getDescription());
+        assertEquals(expectedMetadata.getImageLargeUrl(), actualMetadata.getImageLargeUrl());
+        assertEquals(expectedMetadata.getImageSmallUrl(), actualMetadata.getImageSmallUrl());
+        assertEquals(expectedMetadata.getRender(), actualMetadata.getRender());
+        assertEquals(expectedMetadata.getAuthenticityImage(), actualMetadata.getAuthenticityImage());
     }
 }
