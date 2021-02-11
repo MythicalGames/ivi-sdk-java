@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Slf4j
 public class ConversionUtils {
-    public static Struct convertProperties(Map<String, String> properties) throws IVIException {
+    public static Struct convertProperties(Map<String, Object> properties) throws IVIException {
         try {
             var metadata = (JsonObject) new Gson().toJsonTree(properties);
             var structBuilder = Struct.newBuilder();
@@ -27,7 +27,7 @@ public class ConversionUtils {
         }
     }
 
-    public static Map<String, String> convertProperties(Struct properties) throws IVIException {
+    public static Map<String, Object> convertProperties(Struct properties) throws IVIException {
         try {
             var objectMapper = new ObjectMapper();
             var propertiesString = JsonFormat.printer().print(properties);

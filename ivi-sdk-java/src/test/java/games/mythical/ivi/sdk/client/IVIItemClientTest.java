@@ -303,7 +303,7 @@ class IVIItemClientTest extends AbstractClientTest {
         verifyMetadata(expectedItem.getMetadata(), actualItem.getMetadata());
     }
 
-    void verifyProperties(Map<String, String> expectedProperties, Map<String, String> actualProperties) {
+    void verifyProperties(Map<String, Object> expectedProperties, Map<String, Object> actualProperties) {
         for (var key : expectedProperties.keySet()) {
             if(actualProperties.containsKey(key)) {
                 assertEquals(expectedProperties.get(key), actualProperties.get(key));

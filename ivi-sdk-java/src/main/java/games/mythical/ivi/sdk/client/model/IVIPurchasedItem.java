@@ -31,19 +31,19 @@ public class IVIPurchasedItem {
     private String imageLargeUrl = "";
     @Builder.Default
     private String render = "";
-    private Map<String, String> properties;
+    private Map<String, Object> properties;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Struct _properties;
 
-    public void setProperties(Map<String, String> properties) throws IVIException {
+    public void setProperties(Map<String, Object> properties) throws IVIException {
         this.properties = properties;
         this._properties = convertProperties(properties);
     }
 
     public static class IVIPurchasedItemBuilder {
-        public IVIPurchasedItemBuilder properties(Map<String, String> properties) throws IVIException {
+        public IVIPurchasedItemBuilder properties(Map<String, Object> properties) throws IVIException {
             this.properties = properties;
             this._properties = convertProperties(properties);
             return this;

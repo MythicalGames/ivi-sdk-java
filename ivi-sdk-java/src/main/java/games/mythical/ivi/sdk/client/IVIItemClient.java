@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static games.mythical.ivi.sdk.util.ConversionUtils.convertProperties;
 
@@ -61,7 +60,7 @@ public class IVIItemClient extends AbstractIVIClient {
                           String playerId,
                           String itemName,
                           String itemTypeId,
-                          Map<String, String> properties,
+                          Map<String, Object> properties,
                           BigDecimal amountPaid,
                           String currency) throws IVIException {
         try {
@@ -163,7 +162,7 @@ public class IVIItemClient extends AbstractIVIClient {
         return result;
     }
 
-    public void updateItemMetadata(String gameInventoryId, Map<String, String> properties) throws IVIException {
+    public void updateItemMetadata(String gameInventoryId, Map<String, Object> properties) throws IVIException {
         var updateItems = UpdateItemMetadata.newBuilder()
                 .setGameInventoryId(gameInventoryId)
                 .setProperties(convertProperties(properties))
@@ -177,7 +176,7 @@ public class IVIItemClient extends AbstractIVIClient {
     }
 
     public void updateItemMetadataComplete(String gameInventoryId,
-                                           Map<String, String> properties,
+                                           Map<String, Object> properties,
                                            IVIItemMetadata metadata) throws IVIException {
         var optionalInfo = OptionalInformation.newBuilder()
                 .setDescription(metadata.getDescription())
