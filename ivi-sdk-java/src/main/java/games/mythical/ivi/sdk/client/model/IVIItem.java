@@ -1,5 +1,6 @@
 package games.mythical.ivi.sdk.client.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
@@ -21,7 +22,7 @@ public class IVIItem {
     private String currencyBase;
     private String metadataUri;
     private String trackingId;
-    private Map<String, String> properties;
+    private Map<String, Object> properties;
     private IVIItemMetadata metadata;
     private ItemState itemState;
     private Instant createdTimestamp;
@@ -37,7 +38,7 @@ public class IVIItem {
                    String currencyBase,
                    String metadataUri,
                    String trackingId,
-                   Map<String, String> properties,
+                   Map<String, Object> properties,
                    IVIItemMetadata metadata,
                    ItemState itemState,
                    Instant createdTimestamp,

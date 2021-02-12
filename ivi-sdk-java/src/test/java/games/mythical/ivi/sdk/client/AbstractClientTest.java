@@ -243,13 +243,44 @@ public abstract class AbstractClientTest {
                 .build();
     }
 
-    protected Map<String, String> generateProperties(int count) {
-        var properties = new HashMap<String, String>();
+    enum PropertyType {
+        STRING,
+        NUMBER,
+        ABILITY;
+
+        static PropertyType nextPropertyType() {
+            var choice = RandomUtils.nextInt(0, PropertyType.values().length);
+            return PropertyType.values()[choice];
+        }
+    }
+
+    protected Map<String, Object> generateProperties(int count) {
+        var properties = new HashMap<String, Object>();
         for(var i = 0; i < count; i++) {
-            properties.put(RandomStringUtils.randomAlphanumeric(10), RandomStringUtils.randomAlphanumeric(30));
+            var key = String.format("property%s", i);
+
+            switch (PropertyType.nextPropertyType()) {
+                case STRING:
+                    properties.put(key, RandomStringUtils.randomAlphanumeric(30));
+                    break;
+                case NUMBER:
+                    properties.put(key, RandomUtils.nextInt(1, 1000));
+                    break;
+                case ABILITY:
+                    properties.put(key, generateAbility());
+                    break;
+            }
         }
 
         return properties;
+    }
+
+    protected MockAbility generateAbility() {
+        return MockAbility.builder()
+                .ability1(RandomStringUtils.randomAlphanumeric(30))
+                .ability2(RandomUtils.nextInt())
+                .ability3(BigDecimal.valueOf(RandomUtils.nextDouble(1, 250)))
+                .build();
     }
 
     @SuppressWarnings("SameParameterValue")
