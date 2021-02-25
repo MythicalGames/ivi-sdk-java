@@ -23,7 +23,7 @@ public class IVIPlayerClient extends AbstractIVIClient {
     private IVIPlayerExecutor playerExecutor;
 
     @SuppressWarnings("unused")
-    protected IVIPlayerClient(IVIPlayerExecutor playerExecutor) throws IVIException {
+    public IVIPlayerClient(IVIPlayerExecutor playerExecutor) throws IVIException {
         super();
 
         this.playerExecutor = playerExecutor;

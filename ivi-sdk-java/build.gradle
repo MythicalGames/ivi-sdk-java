@@ -27,7 +27,7 @@ jar {
     dependsOn project(":ivi-sdk-proto").task("generateProtos")
 
     from project.sourceSets.main.allSource
-    from "${project(":ivi-sdk-proto").buildDir}/generated/source"
+    from "${project(":ivi-sdk-proto").buildDir}/classes/java/main"
 }
 
 publishing {
