@@ -47,7 +47,7 @@ jobs:
         ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
         ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
-        ./gradlew build :ivi-sdk-java:publishMavenJavaPublicationToGitHubPackagesRepository
+        ./gradlew build :publishMavenJavaPublicationToGitHubPackagesRepository
 
     - name: Build Release
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -61,7 +61,7 @@ jobs:
         ORG_GRADLE_PROJECT_ossrhUsername: 'mythical_keith'
         ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
       run: |
-        ./gradlew build :ivi-sdk-java:publishMavenJavaPublicationToMavenCentralRepository
+        ./gradlew build :publishMavenJavaPublicationToMavenCentralRepository
         ./gradlew :ivi-sdk-java:printVersionToFile
         version=$(cat version.txt)
         git tag -a v${version} -m "Releasing version ${version}"

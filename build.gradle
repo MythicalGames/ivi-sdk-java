@@ -26,6 +26,8 @@ buildscript {
     }
 }
 
+version = '2.0.0-SNAPSHOT'
+
 allprojects {
     repositories {
         mavenCentral()
@@ -34,6 +36,8 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
 }
 
 subprojects {
@@ -50,5 +54,75 @@ subprojects {
         testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: "${junit_version}"
 
         testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok_version}"
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/MythicalGames/ivi-sdk-java')
+            credentials {
+                username = project.findProperty('github.user') ?: System.getenv('GITHUB_USER')
+                password = project.findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
+            }
+        }
+        maven {
+            name = 'MavenCentral'
+            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = project.findProperty('ossrhUsername')
+                password = project.findProperty('ossrhPassword')
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'IVI SDK'
+                description = 'The IVI integration SDK for Java game servers'
+                url = 'https://mythical.games'
+                from components.java
+
+                scm {
+                    connection = 'https://github.com/MythicalGames/ivi-sdk-java.git'
+                    developerConnection = 'https://github.com/MythicalGames/ivi-sdk-java.git'
+                    url = 'https://github.com/MythicalGames/ivi-sdk-java.git'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name = 'Keith Miller'
+                        email = 'keith@mythical.games'
+                        organization = 'Mythical Games'
+                        organizationUrl = 'https://mythical.games'
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.withType(Sign) {
+    onlyIf { project.hasProperty('signingKey') && project.hasProperty('signingPassword') }
+}
+
+signing {
+    // switch to this and comment out the following line to test signing locally
+    // useGpgCmd()
+    useInMemoryPgpKeys(project.findProperty('signingKey'), findProperty('signingPassword'))
+    sign publishing.publications.mavenJava
+}
+
+task printVersionToFile {
+    doLast {
+        file("${rootDir}/version.txt").text = "${project.version}"
     }
 }
