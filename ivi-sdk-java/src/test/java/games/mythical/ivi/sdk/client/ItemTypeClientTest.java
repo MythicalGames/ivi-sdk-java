@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockItemTypeExecutor;
+import games.mythical.ivi.sdk.client.model.IVIItemType;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.server.itemtype.MockItemTypeServer;
@@ -12,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
 
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +22,7 @@ class ItemTypeClientTest extends AbstractClientTest {
     private MockItemTypeServer itemTypeServer;
     private MockItemTypeExecutor itemTypeExecutor;
     private IVIItemTypeClient itemTypeClient;
-    private Map<String, ItemType> itemTypes;
+    private Map<String, IVIItemType> itemTypes;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -53,12 +56,13 @@ class ItemTypeClientTest extends AbstractClientTest {
                 mockItemType.getCategory(),
                 mockItemType.getMaxSupply(),
                 mockItemType.getIssueTimeSpan(),
-                mockItemType.getBurnable(),
-                mockItemType.getTransferable(),
-                mockItemType.getSellable(),
-                mockItemType.getAgreementIdsList());
+                mockItemType.isBurnable(),
+                mockItemType.isTransferable(),
+                mockItemType.isSellable(),
+                mockItemType.getAgreementIds(),
+                mockItemType.getMetadata());
 
-        assertFalse(StringUtils.isEmpty(itemTypeExecutor.getItemTypeId()));
+        assertNotNull(itemTypeExecutor.getItemTypeId());
         assertFalse(StringUtils.isEmpty(itemTypeExecutor.getTrackingId()));
         assertEquals(ItemTypeState.PENDING_CREATE, itemTypeExecutor.getItemTypeState());
 
@@ -73,7 +77,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         ConcurrentFinisher.start(trackingId);
 
         itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
-                .setItemTypeId(itemTypeId)
+                .setItemTypeId(itemTypeId.toString())
                 .setCurrentSupply(maxSupply)
                 .setIssuedSupply(0)
                 .setBaseUri(baseUrl)
@@ -124,7 +128,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         ConcurrentFinisher.start(newTrackingId);
 
         itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
-                .setItemTypeId(itemTypeId)
+                .setItemTypeId(itemTypeId.toString())
                 .setCurrentSupply(currentSupply)
                 .setIssuedSupply(issuedSupply)
                 .setBaseUri(baseUrl)
@@ -147,7 +151,7 @@ class ItemTypeClientTest extends AbstractClientTest {
     }
 
     @Test
-    void getItemType() {
+    void getItemType() throws Exception {
         var mockItemType = itemTypes.entrySet().iterator().next().getValue();
         var itemType = itemTypeClient.getItemType(mockItemType.getItemTypeId());
 
@@ -164,8 +168,8 @@ class ItemTypeClientTest extends AbstractClientTest {
     }
 
     @Test
-    void getItemTypeNonExisting() {
-        var itemType = itemTypeClient.getItemType(RandomStringUtils.randomAlphanumeric(30));
+    void getItemTypeNonExisting() throws Exception {
+        var itemType = itemTypeClient.getItemType(UUID.randomUUID());
 
         assertTrue(itemType.isEmpty());
 
@@ -173,17 +177,17 @@ class ItemTypeClientTest extends AbstractClientTest {
     }
 
     @Test
-    void getItemTypes() {
-        var result = itemTypeClient.getItemTypes(itemTypes.keySet());
+    void getItemTypes() throws Exception {
+        var result = itemTypeClient.getItemTypes(itemTypes.keySet().stream().map(UUID::fromString).collect(Collectors.toList()));
 
         for(var itemType : result) {
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getItemTypeState(), itemType.getItemTypeState());
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getItemTypeId(), itemType.getItemTypeId());
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getTrackingId(), itemType.getTrackingId());
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getBaseUri(), itemType.getBaseUri());
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getIssueTimeSpan(), itemType.getIssueTimeSpan());
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getCurrentSupply(), itemType.getCurrentSupply());
-            assertEquals(itemTypes.get(itemType.getItemTypeId()).getIssuedSupply(), itemType.getIssuedSupply());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getItemTypeState(), itemType.getItemTypeState());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getItemTypeId(), itemType.getItemTypeId());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getTrackingId(), itemType.getTrackingId());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getBaseUri(), itemType.getBaseUri());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getIssueTimeSpan(), itemType.getIssueTimeSpan());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getCurrentSupply(), itemType.getCurrentSupply());
+            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getIssuedSupply(), itemType.getIssuedSupply());
         }
 
         itemTypeServer.verifyCalls("GetItemTypes", 1);

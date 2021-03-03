@@ -1,11 +1,11 @@
 package games.mythical.ivi.sdk.server.item;
 
-import com.google.gson.Gson;
 import games.mythical.ivi.sdk.client.model.IVIItem;
+import games.mythical.ivi.sdk.client.model.IVIMetadata;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.*;
+import games.mythical.ivi.sdk.proto.common.Finalized;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
-import games.mythical.ivi.sdk.proto.common.item.OptionalInformation;
 import games.mythical.ivi.sdk.util.ConversionUtils;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -35,9 +35,9 @@ public class MockItemServiceImpl extends ItemServiceGrpc.ItemServiceImplBase {
 
     @Override
     public void getItem(GetItemRequest request, StreamObserver<Item> responseObserver) {
-        if(items.containsKey(request.getItemId())) {
+        if(items.containsKey(request.getGameInventoryId())) {
             try {
-                var item = items.get(request.getItemId());
+                var item = items.get(request.getGameInventoryId());
                 responseObserver.onNext(toProto(item));
                 responseObserver.onCompleted();
             } catch (IVIException e) {
@@ -53,9 +53,17 @@ public class MockItemServiceImpl extends ItemServiceGrpc.ItemServiceImplBase {
     public void getItems(GetItemsRequest request, StreamObserver<Items> responseObserver) {
         try {
             var result = new ArrayList<Item>();
-            for (var itemId : request.getItemIdsList()) {
-                if (items.containsKey(itemId)) {
-                    result.add(toProto(items.get(itemId)));
+
+            ItemState state;
+            if(request.getFinalized().equals(Finalized.YES) || request.getFinalized().equals(Finalized.ALL)) {
+                state = ItemState.ISSUED;
+            } else {
+                state = ItemState.PENDING_ISSUED;
+            }
+
+            for (var item : items.values()) {
+                if (item.getItemState().equals(state)) {
+                    result.add(toProto(item));
                 }
             }
 
@@ -146,15 +154,7 @@ public class MockItemServiceImpl extends ItemServiceGrpc.ItemServiceImplBase {
         try {
             for (var gameInventoryId : updateMap.keySet()) {
                 var item = items.get(gameInventoryId);
-                item.setProperties(ConversionUtils.convertProperties(updateMap.get(gameInventoryId).getProperties()));
-
-                if(updateMap.get(gameInventoryId).hasOptionalInformation()) {
-                    item.getMetadata().setDescription(updateMap.get(gameInventoryId).getOptionalInformation().getDescription());
-                    item.getMetadata().setImageLargeUrl(updateMap.get(gameInventoryId).getOptionalInformation().getImageLarge());
-                    item.getMetadata().setImageSmallUrl(updateMap.get(gameInventoryId).getOptionalInformation().getImageSmall());
-                    item.getMetadata().setRender(updateMap.get(gameInventoryId).getOptionalInformation().getRender());
-                    item.getMetadata().setAuthenticityImage(updateMap.get(gameInventoryId).getOptionalInformation().getAuthenticityImage());
-                }
+                item.setMetadata(IVIMetadata.fromProto(updateMap.get(gameInventoryId).getMetadata()));
             }
 
             responseObserver.onNext(UpdateItemMetadataResponse.newBuilder().build());
@@ -187,14 +187,7 @@ public class MockItemServiceImpl extends ItemServiceGrpc.ItemServiceImplBase {
                 .setCurrencyBase(item.getCurrencyBase())
                 .setMetadataUri(item.getMetadataUri())
                 .setTrackingId(item.getTrackingId())
-                .setProperties(ConversionUtils.convertProperties(item.getProperties()))
-                .setOptionalInformation(OptionalInformation.newBuilder()
-                        .setDescription(item.getMetadata().getDescription())
-                        .setImageLarge(item.getMetadata().getImageLargeUrl())
-                        .setImageSmall(item.getMetadata().getImageSmallUrl())
-                        .setRender(item.getMetadata().getRender())
-                        .setAuthenticityImage(item.getMetadata().getAuthenticityImage())
-                        .build())
+                .setMetadata(IVIMetadata.toProto(item.getMetadata()))
                 .setItemState(item.getItemState())
                 .setCreatedTimestamp(item.getCreatedTimestamp().getEpochSecond())
                 .setUpdatedTimestamp(item.getUpdatedTimestamp().getEpochSecond())

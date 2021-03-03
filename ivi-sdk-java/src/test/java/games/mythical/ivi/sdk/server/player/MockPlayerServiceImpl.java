@@ -2,10 +2,10 @@ package games.mythical.ivi.sdk.server.player;
 
 import games.mythical.ivi.sdk.proto.api.player.*;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,15 +25,18 @@ public class MockPlayerServiceImpl extends PlayerServiceGrpc.PlayerServiceImplBa
 
     @Override
     public void getPlayers(GetPlayersRequest request, StreamObserver<IVIPlayers> responseObserver) {
-        var iviPlayers = new ArrayList<IVIPlayer>();
-        for(var playerId : request.getPlayerIdsList()) {
-            if(players.containsKey(playerId)) {
-                iviPlayers.add(players.get(playerId));
-            }
-        }
-
-        responseObserver.onNext(IVIPlayers.newBuilder().addAllIviPlayers(iviPlayers).build());
+        responseObserver.onNext(IVIPlayers.newBuilder().addAllIviPlayers(players.values()).build());
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getPlayer(GetPlayerRequest request, StreamObserver<IVIPlayer> responseObserver) {
+        if(players.containsKey(request.getPlayerId())) {
+            responseObserver.onNext(players.get(request.getPlayerId()));
+            responseObserver.onCompleted();
+        } else {
+            responseObserver.onError(Status.NOT_FOUND.asRuntimeException());
+        }
     }
 
     public void setPlayers(Collection<IVIPlayer> players) {

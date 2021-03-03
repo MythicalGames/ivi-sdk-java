@@ -11,6 +11,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -91,7 +92,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         responseObserver.onCompleted();
     }
 
-    public void setOrders(Collection<IVIOrder> orders) {
+    public void setOrders(Collection<IVIOrder> orders) throws Exception {
         for(var order : orders) {
             this.orders.putIfAbsent(order.getOrderId(), toProto(order));
         }
@@ -109,7 +110,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         orders.clear();
     }
 
-    private Order toProto(IVIOrder iviOrder) {
+    private Order toProto(IVIOrder iviOrder) throws Exception {
         var orderBuilder = Order.newBuilder()
                 .setOrderId(iviOrder.getOrderId())
                 .setStoreId(iviOrder.getStoreId())
@@ -121,11 +122,13 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setOrderStatus(iviOrder.getOrderStatus());
 
         if(iviOrder.isPrimarySale()) {
-            var purchasedItems = iviOrder.getPurchasedItems().stream()
-                    .map(IVIPurchasedItem::toProto)
-                    .collect(Collectors.toList());
+            var purchaseItemProtos = new ArrayList<PurchasedItem>();
+            for(var purchasedItem : iviOrder.getPurchasedItems() ) {
+                purchaseItemProtos.add(purchasedItem.toProto());
+            }
+
             orderBuilder.setPurchasedItems(PurchasedItems.newBuilder()
-                    .addAllPurchasedItems(purchasedItems)
+                    .addAllPurchasedItems(purchaseItemProtos)
                     .build());
         } else if (iviOrder.isSecondarySale()) {
             orderBuilder.setListingId(iviOrder.getListingId());
