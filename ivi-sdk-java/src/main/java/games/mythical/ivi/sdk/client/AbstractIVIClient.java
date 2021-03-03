@@ -12,6 +12,7 @@ public abstract class AbstractIVIClient {
 
     protected final String environmentId;
     protected final String apiKey;
+    protected ManagedChannel channel;
 
     protected AbstractIVIClient() throws IVIException {
         if(StringUtils.isEmpty(IVIConfiguration.getEnvironmentId())) {
@@ -35,5 +36,5 @@ public abstract class AbstractIVIClient {
         port = IVIConfiguration.getPort();
     }
 
-    abstract void initStub(ManagedChannel managedChannel);
+    abstract void initStub();
 }

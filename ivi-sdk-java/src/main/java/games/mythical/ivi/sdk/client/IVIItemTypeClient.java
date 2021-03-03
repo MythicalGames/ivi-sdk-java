@@ -24,28 +24,31 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         super();
 
         this.itemTypeExecutor = itemTypeExecutor;
-        var channel = ManagedChannelBuilder.forAddress(host, port)
+        this.channel = ManagedChannelBuilder.forAddress(host, port)
                 .build();
-
-        initStub(channel);
+        initStub();
     }
 
     IVIItemTypeClient(IVIItemTypeExecutor itemTypeExecutor, ManagedChannel channel) throws IVIException {
         this.itemTypeExecutor = itemTypeExecutor;
-        initStub(channel);
+        this.channel = channel;
+        initStub();
     }
 
     @Override
-    protected void initStub(ManagedChannel channel) {
+    protected void initStub() {
         serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel);
+        subscribeToStream(new IVIItemTypeObserver(itemTypeExecutor, ItemTypeStatusStreamGrpc.newBlockingStub(channel),
+                this::subscribeToStream));
+    }
 
+    void subscribeToStream(IVIItemTypeObserver observer) {
         // set up server stream
         var streamStub = ItemTypeStatusStreamGrpc.newStub(channel);
         var subscribe = Subscribe.newBuilder()
-                .setEnvironmentId(this.environmentId)
+                .setEnvironmentId(environmentId)
                 .build();
-        streamStub.itemTypeStatusStream(subscribe, new IVIItemTypeObserver(itemTypeExecutor,
-                ItemTypeStatusStreamGrpc.newBlockingStub(channel)));
+        streamStub.itemTypeStatusStream(subscribe, observer);
     }
 
     public Optional<ItemType> getItemType(String itemTypeId) {

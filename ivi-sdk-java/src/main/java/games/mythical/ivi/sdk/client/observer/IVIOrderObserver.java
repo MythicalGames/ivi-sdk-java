@@ -5,20 +5,23 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStreamGrpc;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.function.Consumer;
 
 @Slf4j
 public class IVIOrderObserver implements StreamObserver<OrderStatusUpdate> {
     private final IVIOrderExecutor orderExecutor;
     private final OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub;
+    private final Consumer<IVIOrderObserver> resubscribe;
 
     public IVIOrderObserver(IVIOrderExecutor orderExecutor,
-                            OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub) {
+                            OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub,
+                            Consumer<IVIOrderObserver> resubscribe) {
         this.orderExecutor = orderExecutor;
         this.streamBlockingStub = streamBlockingStub;
+        this.resubscribe = resubscribe;
     }
 
     @Override
@@ -35,12 +38,13 @@ public class IVIOrderObserver implements StreamObserver<OrderStatusUpdate> {
     @Override
     public void onError(Throwable t) {
         log.error("IVIOrderObserver.onError", t);
-        throw new StatusRuntimeException(Status.UNKNOWN);
+        resubscribe.accept(this);
     }
 
     @Override
     public void onCompleted() {
         log.info("IVIOrderObserver stream closed");
+        resubscribe.accept(this);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

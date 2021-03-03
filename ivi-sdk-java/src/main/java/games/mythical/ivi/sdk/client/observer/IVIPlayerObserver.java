@@ -5,20 +5,23 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.function.Consumer;
 
 @Slf4j
 public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
     private final IVIPlayerExecutor playerExecutor;
     private final PlayerStreamGrpc.PlayerStreamBlockingStub streamBlockingStub;
+    private final Consumer<IVIPlayerObserver> resubscribe;
 
     public IVIPlayerObserver(IVIPlayerExecutor playerExecutor,
-                             PlayerStreamGrpc.PlayerStreamBlockingStub playerStreamBlockingStub) {
+                             PlayerStreamGrpc.PlayerStreamBlockingStub playerStreamBlockingStub,
+                             Consumer<IVIPlayerObserver> resubscribe) {
         this.playerExecutor = playerExecutor;
         this.streamBlockingStub = playerStreamBlockingStub;
+        this.resubscribe = resubscribe;
     }
 
     @Override
@@ -39,12 +42,13 @@ public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
     @Override
     public void onError(Throwable t) {
         log.error("PlayerObserver.onError", t);
-        throw new StatusRuntimeException(Status.UNKNOWN);
+        resubscribe.accept(this);
     }
 
     @Override
     public void onCompleted() {
         log.info("PlayerObserver stream closed");
+        resubscribe.accept(this);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
