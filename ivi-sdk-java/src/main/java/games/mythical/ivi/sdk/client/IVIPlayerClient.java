@@ -76,7 +76,10 @@ public class IVIPlayerClient extends AbstractIVIClient {
     public Optional<IVIPlayer> getPlayer(String playerId) throws IVIException {
         log.trace("PlayerClient.getPlayer called from player: {}", playerId);
         try {
-            var result = serviceBlockingStub.getPlayer(GetPlayerRequest.newBuilder().setPlayerId(playerId).build());
+            var result = serviceBlockingStub.getPlayer(GetPlayerRequest.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setPlayerId(playerId)
+                    .build());
             return Optional.of(result);
         } catch (StatusRuntimeException e) {
             if (e.getStatus() == Status.NOT_FOUND) {
