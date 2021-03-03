@@ -269,9 +269,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         assertEquals(expectedItem.getItemTypeId(), actualItem.getItemTypeId());
         assertEquals(expectedItem.getAmountPaid(), actualItem.getAmountPaid());
         assertEquals(expectedItem.getCurrency(), actualItem.getCurrency());
-        assertEquals(expectedItem.getDescription(), actualItem.getDescription());
-        assertEquals(expectedItem.getImageSmallUrl(), actualItem.getImageSmallUrl());
-        assertEquals(expectedItem.getImageLargeUrl(), actualItem.getImageLargeUrl());
-        assertEquals(expectedItem.getRender(), actualItem.getRender());
+
+        verifyMetadata(expectedItem.getMetadata(), actualItem.getMetadata());
     }
 }

@@ -2,10 +2,12 @@ package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockItemExecutor;
 import games.mythical.ivi.sdk.client.model.IVIItem;
-import games.mythical.ivi.sdk.client.model.IVIItemMetadata;
+import games.mythical.ivi.sdk.client.model.IVIMetadata;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
+import games.mythical.ivi.sdk.proto.common.Finalized;
+import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import games.mythical.ivi.sdk.server.item.MockItemServer;
 import games.mythical.ivi.sdk.util.ConcurrentFinisher;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -56,15 +59,15 @@ class IVIItemClientTest extends AbstractClientTest {
     void issueItem() throws Exception {
         var item = generateNewItem();
 
-        var properties = generateProperties(5);
-
         itemClient.issueItem(item.getGameInventoryId(),
                 item.getPlayerId(),
                 item.getItemName(),
                 item.getItemTypeId(),
-                properties,
                 BigDecimal.valueOf(RandomUtils.nextDouble(0, 100)),
-                currency);
+                currency,
+                item.getMetadata(),
+                RandomStringUtils.randomAlphanumeric(10, 100),
+                RandomStringUtils.randomAlphanumeric(10, 100));
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertFalse(StringUtils.isEmpty(itemExecutor.getTrackingId()));
@@ -111,7 +114,7 @@ class IVIItemClientTest extends AbstractClientTest {
         // init item in the executor as if it's an existing db entry
         itemExecutor.setFromItem(item);
 
-        itemClient.transferItem(gameInventoryId, item.getPlayerId(), newPlayerId);
+        itemClient.transferItem(gameInventoryId, item.getPlayerId(), newPlayerId, RandomStringUtils.randomAlphanumeric(30));
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertNotEquals(initialTrackingId, itemExecutor.getTrackingId());
@@ -217,14 +220,18 @@ class IVIItemClientTest extends AbstractClientTest {
     }
 
     @Test
-    public void getItems()  throws Exception {
+    public void getItems() throws Exception {
         var itemIds = new ArrayList<>(items.keySet());
+        int finalizedCount = items.values().stream()
+                .mapToInt(i -> i.getItemState().equals(ItemState.ISSUED) ? 1 : 0)
+                .sum();
+
         itemIds.remove(0);
         itemIds.add(RandomStringUtils.randomAlphanumeric(30));
 
-        var itemResult = itemClient.getItems(itemIds);
+        var itemResult = itemClient.getItems(null, 30, SortOrder.ASC, Finalized.YES);
 
-        assertEquals(itemIds.size() - 1, itemResult.size());
+        assertEquals(finalizedCount, itemResult.size());
 
         for (var item : itemResult) {
             verifyItem(items.get(item.getGameInventoryId()), item);
@@ -237,28 +244,9 @@ class IVIItemClientTest extends AbstractClientTest {
     public void updateItemMetadata() throws Exception {
         var item= items.values().iterator().next();
 
-        item.setProperties(generateProperties(3));
+        item.getMetadata().setProperties(generateProperties(3));
 
-        itemClient.updateItemMetadata(item.getGameInventoryId(), item.getProperties());
-
-        itemServer.verifyCalls("UpdateItemMetadata", 1);
-
-        var newItem = itemClient.getItem(item.getGameInventoryId());
-
-        assertTrue(newItem.isPresent());
-        verifyItem(item, newItem.get());
-
-        itemServer.verifyCalls("GetItem", 1);
-    }
-
-    @Test
-    public void updateItemMetadataComplete() throws Exception {
-        var item= items.values().iterator().next();
-
-        item.setProperties(generateProperties(3));
-        item.setMetadata(generateItemMetadata(1).get(0));
-
-        itemClient.updateItemMetadataComplete(item.getGameInventoryId(), item.getProperties(), item.getMetadata());
+        itemClient.updateItemMetadata(item.getGameInventoryId(), item.getMetadata());
 
         itemServer.verifyCalls("UpdateItemMetadata", 1);
 
@@ -273,9 +261,10 @@ class IVIItemClientTest extends AbstractClientTest {
     @Test
     public void updateItemMetadataNotFound() {
         var itemId = RandomStringUtils.randomAlphanumeric(30);
+        var metadata = generateItemMetadata();
 
         try {
-            itemClient.updateItemMetadata(itemId, generateProperties(1));
+            itemClient.updateItemMetadata(itemId, metadata);
             fail("Should have thrown NOT FOUND exception!");
         } catch (IVIException e) {
             if(e.getCode() != IVIErrorCode.NOT_FOUND) {
@@ -299,25 +288,6 @@ class IVIItemClientTest extends AbstractClientTest {
         assertEquals(expectedItem.getCreatedTimestamp(), actualItem.getCreatedTimestamp());
         assertEquals(expectedItem.getUpdatedTimestamp(), actualItem.getUpdatedTimestamp());
 
-        verifyProperties(expectedItem.getProperties(), actualItem.getProperties());
         verifyMetadata(expectedItem.getMetadata(), actualItem.getMetadata());
-    }
-
-    void verifyProperties(Map<String, Object> expectedProperties, Map<String, Object> actualProperties) {
-        for (var key : expectedProperties.keySet()) {
-            if(actualProperties.containsKey(key)) {
-                assertEquals(expectedProperties.get(key), actualProperties.get(key));
-            } else {
-                fail("Property key " + key + " is missing!");
-            }
-        }
-    }
-
-    void verifyMetadata(IVIItemMetadata expectedMetadata, IVIItemMetadata actualMetadata) {
-        assertEquals(expectedMetadata.getDescription(), actualMetadata.getDescription());
-        assertEquals(expectedMetadata.getImageLargeUrl(), actualMetadata.getImageLargeUrl());
-        assertEquals(expectedMetadata.getImageSmallUrl(), actualMetadata.getImageSmallUrl());
-        assertEquals(expectedMetadata.getRender(), actualMetadata.getRender());
-        assertEquals(expectedMetadata.getAuthenticityImage(), actualMetadata.getAuthenticityImage());
     }
 }

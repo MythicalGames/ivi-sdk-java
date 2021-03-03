@@ -2,6 +2,7 @@ package games.mythical.ivi.sdk.client.observer;
 
 import games.mythical.ivi.sdk.client.executor.IVIPlayerExecutor;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
+import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
@@ -30,7 +31,7 @@ public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
                     message.getSidechainAccountName(),
                     message.getTrackingId(),
                     message.getPlayerState());
-            updatePlayerConfirmation(message.getPlayerId(), message.getTrackingId());
+            updatePlayerConfirmation(message.getPlayerId(), message.getTrackingId(), message.getPlayerState());
         } catch (Exception e) {
             log.error("Exception calling updatePlayer", e);
         }
@@ -48,11 +49,12 @@ public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void updatePlayerConfirmation(String playerId, String trackingId) {
+    private void updatePlayerConfirmation(String playerId, String trackingId, PlayerState playerState) {
         var request = PlayerStatusConfirmRequest.newBuilder()
                 .setEnvironmentId(IVIConfiguration.getEnvironmentId())
                 .setPlayerId(playerId)
                 .setTrackingId(trackingId)
+                .setPlayerState(playerState)
                 .build();
         streamBlockingStub.playerStatusConfirmation(request);
     }

@@ -2,6 +2,7 @@ package games.mythical.ivi.sdk.client.observer;
 
 import games.mythical.ivi.sdk.client.executor.IVIItemTypeExecutor;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
+import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
@@ -32,7 +33,7 @@ public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate>
                     message.getIssueTimeSpan(),
                     message.getTrackingId(),
                     message.getItemTypeState());
-            updateItemTypeConfirmation(message.getItemTypeId(), message.getTrackingId());
+            updateItemTypeConfirmation(message.getItemTypeId(), message.getTrackingId(), message.getItemTypeState());
         } catch (Exception e) {
             log.error("Exception calling updateItemType", e);
         }
@@ -50,11 +51,12 @@ public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate>
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void updateItemTypeConfirmation(String itemTypeId, String trackingId) {
+    private void updateItemTypeConfirmation(String itemTypeId, String trackingId, ItemTypeState itemTypeState) {
         var request = ItemTypeStatusConfirmRequest.newBuilder()
                 .setEnvironmentId(IVIConfiguration.getEnvironmentId())
                 .setItemTypeId(itemTypeId)
                 .setTrackingId(trackingId)
+                .setItemTypeState(itemTypeState)
                 .build();
         streamBlockingStub.itemTypeStatusConfirmation(request);
     }
