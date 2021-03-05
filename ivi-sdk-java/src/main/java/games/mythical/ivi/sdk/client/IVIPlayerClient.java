@@ -2,25 +2,26 @@ package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.IVIPlayerExecutor;
 import games.mythical.ivi.sdk.client.observer.IVIPlayerObserver;
+import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
-import games.mythical.ivi.sdk.proto.api.player.GetPlayersRequest;
-import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
-import games.mythical.ivi.sdk.proto.api.player.LinkPlayerRequest;
-import games.mythical.ivi.sdk.proto.api.player.PlayerServiceGrpc;
+import games.mythical.ivi.sdk.proto.api.player.*;
+import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collection;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 public class IVIPlayerClient extends AbstractIVIClient {
     private PlayerServiceGrpc.PlayerServiceBlockingStub serviceBlockingStub;
-    private IVIPlayerExecutor playerExecutor;
+    private final IVIPlayerExecutor playerExecutor;
 
     @SuppressWarnings("unused")
     public IVIPlayerClient(IVIPlayerExecutor playerExecutor) throws IVIException {
@@ -41,52 +42,74 @@ public class IVIPlayerClient extends AbstractIVIClient {
 
     @Override
     protected void initStub() {
-        serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel);
-        subscribeToStream(new IVIPlayerObserver(playerExecutor, PlayerStreamGrpc.newBlockingStub(channel), this::subscribeToStream));
+        serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
+        var streamBlockingStub = PlayerStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIPlayerObserver(playerExecutor, streamBlockingStub, this::subscribeToStream));
     }
 
     void subscribeToStream(IVIPlayerObserver observer) {
         // set up server stream
-        var streamStub = PlayerStreamGrpc.newStub(channel);
+        var streamStub  = PlayerStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.playerStatusStream(subscribe, observer);
     }
 
-    public void linkPlayer(String playerId, String iviUserId) {
+    public void linkPlayer(String playerId, String iviUserId) throws IVIException {
         log.trace("PlayerClient.linkPlayer called from player: {}:{}", playerId, iviUserId);
-        var request = LinkPlayerRequest.newBuilder()
-                .setEnvironmentId(environmentId)
-                .setPlayerId(playerId)
-                .setIviUserId(iviUserId)
-                .build();
-        var result = serviceBlockingStub.linkPlayer(request);
         try {
+            var request = LinkPlayerRequest.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setPlayerId(playerId)
+                    .setIviUserId(iviUserId)
+                    .build();
+            var result = serviceBlockingStub.linkPlayer(request);
+
             playerExecutor.updatePlayerState(playerId, result.getTrackingId(), result.getPlayerState());
+        } catch (StatusRuntimeException e) {
+            log.error("gRPC error from IVI server", e);
+            throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updatePlayerState on linkPlayer, player will be in an invalid state!", e);
+            throw new IVIException(IVIErrorCode.LOCAL_EXCEPTION);
         }
     }
 
-    public Optional<IVIPlayer> getPlayer(String playerId) {
+    public Optional<IVIPlayer> getPlayer(String playerId) throws IVIException {
         log.trace("PlayerClient.getPlayer called from player: {}", playerId);
-        var result = getPlayers(List.of(playerId));
-        if(result.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(result.get(0));
+        try {
+            var result = serviceBlockingStub.getPlayer(GetPlayerRequest.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setPlayerId(playerId)
+                    .build());
+            return Optional.of(result);
+        } catch (StatusRuntimeException e) {
+            if (e.getStatus() == Status.NOT_FOUND) {
+                return Optional.empty();
+            }
+
+            throw IVIException.fromGrpcException(e);
         }
     }
 
-    public List<IVIPlayer> getPlayers(Collection<String> playerIds) {
-        log.trace("PlayerClient.getPlayers called from players: {}", playerIds);
-        var request = GetPlayersRequest.newBuilder()
-                .setEnvironmentId(environmentId)
-                .addAllPlayerIds(playerIds)
-                .build();
+    public List<IVIPlayer> getPlayers(Instant createdTimestamp, int pageSize, SortOrder sortOrder) throws IVIException {
+        log.trace("PlayerClient.getPlayers called with params: createdTimestamp {}, pageSize {}, sortOrder {}",
+                createdTimestamp, pageSize, sortOrder);
+        try {
+            var request = GetPlayersRequest.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setCreatedTimestamp(createdTimestamp == null ? -1 : createdTimestamp.getEpochSecond())
+                    .setPageSize(pageSize)
+                    .setSortOrder(sortOrder)
+                    .build();
 
-        var result = serviceBlockingStub.getPlayers(request);
-        return result.getIviPlayersList();
+            var result = serviceBlockingStub.getPlayers(request);
+            return result.getIviPlayersList();
+        } catch (StatusRuntimeException e) {
+            log.error("gRPC error from IVI server", e);
+            throw IVIException.fromGrpcException(e);
+        }
     }
 }

@@ -1,7 +1,10 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockPlayerExecutor;
+import games.mythical.ivi.sdk.exception.IVIErrorCode;
+import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
+import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 import games.mythical.ivi.sdk.server.player.MockPlayerServer;
 import games.mythical.ivi.sdk.util.ConcurrentFinisher;
@@ -84,7 +87,7 @@ class PlayerClientTest extends AbstractClientTest {
     }
 
     @Test
-    void getPlayer() {
+    void getPlayer() throws Exception {
         var mockPlayer = iviPlayers.entrySet().iterator().next().getValue();
         var player = playerClient.getPlayer(mockPlayer.getPlayerId());
 
@@ -95,21 +98,19 @@ class PlayerClientTest extends AbstractClientTest {
         assertEquals(mockPlayer.getTrackingId(), player.get().getTrackingId());
         assertEquals(mockPlayer.getPlayerState(), player.get().getPlayerState());
 
-        playerServer.verifyCalls("GetPlayers", 1);
+        playerServer.verifyCalls("GetPlayer", 1);
     }
 
     @Test
-    void getPlayerNonExisting() {
+    void getPlayerNonExisting() throws Exception {
         var player = playerClient.getPlayer(RandomStringUtils.randomAlphanumeric(30));
-
         assertTrue(player.isEmpty());
-
-        playerServer.verifyCalls("GetPlayers", 1);
+        playerServer.verifyCalls("GetPlayer", 1);
     }
 
     @Test
-    void getPlayers() {
-        var players = playerClient.getPlayers(iviPlayers.keySet());
+    void getPlayers() throws Exception {
+        var players = playerClient.getPlayers(null, 30, SortOrder.ASC);
 
         for(var player : players) {
             assertEquals(iviPlayers.get(player.getPlayerId()).getPlayerId(), player.getPlayerId());

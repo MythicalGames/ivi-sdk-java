@@ -3,12 +3,14 @@ package games.mythical.ivi.sdk.client;
 import com.google.protobuf.InvalidProtocolBufferException;
 import games.mythical.ivi.sdk.client.executor.IVIItemExecutor;
 import games.mythical.ivi.sdk.client.model.IVIItem;
-import games.mythical.ivi.sdk.client.model.IVIItemMetadata;
+import games.mythical.ivi.sdk.client.model.IVIMetadata;
+import games.mythical.ivi.sdk.client.model.IVIMetadataUpdate;
 import games.mythical.ivi.sdk.client.observer.IVIItemObserver;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.*;
-import games.mythical.ivi.sdk.proto.common.item.OptionalInformation;
+import games.mythical.ivi.sdk.proto.common.Finalized;
+import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.item.ItemStreamGrpc;
 import io.grpc.ManagedChannel;
@@ -18,9 +20,8 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.*;
-
-import static games.mythical.ivi.sdk.util.ConversionUtils.convertProperties;
 
 @Slf4j
 public class IVIItemClient extends AbstractIVIClient {
@@ -45,16 +46,19 @@ public class IVIItemClient extends AbstractIVIClient {
 
     @Override
     void initStub() {
-        serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel);
-        subscribeToStream(new IVIItemObserver(iviItemExecutor, ItemStreamGrpc.newBlockingStub(channel), this::subscribeToStream));
+        serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
+        var streamBlockingStub = ItemStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIItemObserver(iviItemExecutor, streamBlockingStub, this::subscribeToStream));
     }
 
     void subscribeToStream(IVIItemObserver observer) {
         // set up server stream
-        var streamStub = ItemStreamGrpc.newStub(channel);
+        var streamStub = ItemStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
+
         streamStub.itemStatusStream(subscribe, observer);
     }
 
@@ -62,9 +66,11 @@ public class IVIItemClient extends AbstractIVIClient {
                           String playerId,
                           String itemName,
                           String itemTypeId,
-                          Map<String, Object> properties,
                           BigDecimal amountPaid,
-                          String currency) throws IVIException {
+                          String currency,
+                          IVIMetadata metadata,
+                          String storeId,
+                          String orderId) throws IVIException {
         try {
             var request = IssueItemRequest.newBuilder()
                     .setEnvironmentId(environmentId)
@@ -72,9 +78,11 @@ public class IVIItemClient extends AbstractIVIClient {
                     .setPlayerId(playerId)
                     .setItemName(itemName)
                     .setItemTypeId(itemTypeId)
-                    .setProperties(convertProperties(properties))
+                    .setMetadata(IVIMetadata.toProto(metadata))
                     .setAmountPaid(amountPaid.toString())
                     .setCurrency(currency)
+                    .setStoreId(storeId)
+                    .setOrderId(orderId)
                     .build();
             var result = serviceBlockingStub.issueItem(request);
             iviItemExecutor.updateItemState(gameInventoryId, result.getTrackingId(), result.getItemState());
@@ -89,12 +97,14 @@ public class IVIItemClient extends AbstractIVIClient {
 
     public void transferItem(String gameInventoryId,
                              String sourcePlayerId,
-                             String destPlayerId) throws IVIException {
+                             String destPlayerId,
+                             String storeId) throws IVIException {
         var request = TransferItemRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setGameItemInventoryId(gameInventoryId)
                 .setSourcePlayerId(sourcePlayerId)
                 .setDestinationPlayerId(destPlayerId)
+                .setStoreId(storeId)
                 .build();
 
         try {
@@ -126,14 +136,14 @@ public class IVIItemClient extends AbstractIVIClient {
     }
 
     public Optional<IVIItem> getItem(String gameInventoryId) throws IVIException {
-        return getItem(gameInventoryId, ItemHistory.LATEST);
+        return getItem(gameInventoryId, false);
     }
 
-    public Optional<IVIItem> getItem(String gameInventoryId, ItemHistory history) throws IVIException {
+    public Optional<IVIItem> getItem(String gameInventoryId, boolean history) throws IVIException {
         var request = GetItemRequest.newBuilder()
                 .setEnvironmentId(environmentId)
-                .setItemId(gameInventoryId)
-                .setItemHistory(history)
+                .setGameInventoryId(gameInventoryId)
+                .setHistory(history)
                 .build();
 
         try {
@@ -148,10 +158,13 @@ public class IVIItemClient extends AbstractIVIClient {
         }
     }
 
-    public List<IVIItem> getItems(Collection<String> gameInventoryIds) throws IVIException {
+    public List<IVIItem> getItems(Instant createdTimestamp, int pageSize, SortOrder sortOrder, Finalized finalized) throws IVIException {
         var request = GetItemsRequest.newBuilder()
                 .setEnvironmentId(environmentId)
-                .addAllItemIds(gameInventoryIds)
+                .setCreatedTimestamp(createdTimestamp == null ? -1 : createdTimestamp.getEpochSecond())
+                .setPageSize(pageSize)
+                .setSortOrder(sortOrder)
+                .setFinalized(finalized)
                 .build();
 
         var response = serviceBlockingStub.getItems(request);
@@ -164,45 +177,33 @@ public class IVIItemClient extends AbstractIVIClient {
         return result;
     }
 
-    public void updateItemMetadata(String gameInventoryId, Map<String, Object> properties) throws IVIException {
+    public void updateItemMetadata(String gameInventoryId, IVIMetadata metadata) throws IVIException {
         var updateItems = UpdateItemMetadata.newBuilder()
                 .setGameInventoryId(gameInventoryId)
-                .setProperties(convertProperties(properties))
+                .setMetadata(IVIMetadata.toProto(metadata))
                 .build();
 
-        var request = UpdateItemMetadataRequest.newBuilder()
-                .addAllUpdateItems(List.of(updateItems))
-                .build();
-
-        updateItemMetadata(request);
+        _updateItemMetadata(List.of(updateItems));
     }
 
-    public void updateItemMetadataComplete(String gameInventoryId,
-                                           Map<String, Object> properties,
-                                           IVIItemMetadata metadata) throws IVIException {
-        var optionalInfo = OptionalInformation.newBuilder()
-                .setDescription(metadata.getDescription())
-                .setImageLarge(metadata.getImageLargeUrl())
-                .setImageSmall(metadata.getImageSmallUrl())
-                .setRender(metadata.getRender())
-                .setAuthenticityImage(metadata.getAuthenticityImage())
-                .build();
+    public void updateItemMetadata(List<IVIMetadataUpdate> updates) throws IVIException {
+        var updateList = new ArrayList<UpdateItemMetadata>();
+        for(var update : updates) {
+            updateList.add(UpdateItemMetadata.newBuilder()
+                    .setGameInventoryId(update.getGameInventoryId())
+                    .setMetadata(IVIMetadata.toProto(update.getMetadata()))
+                    .build());
+        }
 
-        var updateItems = UpdateItemMetadata.newBuilder()
-                .setGameInventoryId(gameInventoryId)
-                .setProperties(convertProperties(properties))
-                .setOptionalInformation(optionalInfo)
-                .build();
-
-        var request = UpdateItemMetadataRequest.newBuilder()
-                .addAllUpdateItems(List.of(updateItems))
-                .build();
-
-        updateItemMetadata(request);
+        _updateItemMetadata(updateList);
     }
 
-    private void updateItemMetadata(UpdateItemMetadataRequest request) throws IVIException {
+    private void _updateItemMetadata(List<UpdateItemMetadata> updateList) throws IVIException {
         try {
+            var request = UpdateItemMetadataRequest.newBuilder()
+                    .addAllUpdateItems(updateList)
+                    .build();
+
             var response = serviceBlockingStub.updateItemMetadata(request);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);

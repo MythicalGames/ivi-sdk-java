@@ -7,14 +7,13 @@ import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
 import games.mythical.ivi.sdk.proto.api.order.Order;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
+import games.mythical.ivi.sdk.proto.api.order.PurchasedItem;
 import games.mythical.ivi.sdk.proto.api.order.PurchasedItems;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
-import games.mythical.ivi.sdk.proto.common.item.OptionalInformation;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
-import games.mythical.ivi.sdk.util.ConversionUtils;
 import io.grpc.ManagedChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,11 +21,10 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @Slf4j
 public abstract class AbstractClientTest {
@@ -45,21 +43,20 @@ public abstract class AbstractClientTest {
         IVIConfiguration.setEnvironmentId(environmentId);
     }
 
-    protected ItemType generateNewItemType() {
+    protected IVIItemType generateNewItemType() throws Exception {
         var maxSupply = RandomUtils.nextInt(10, 100);
         return generateItemType("", maxSupply, maxSupply, 0, ItemTypeState.PENDING_CREATE);
     }
 
-    protected ItemType generateItemType(String trackingId,
-                                        int maxSupply,
-                                        int currentSupply,
-                                        int issuedSupply,
-                                        ItemTypeState itemTypeState) {
+    protected IVIItemType generateItemType(String trackingId,
+                                           int maxSupply,
+                                           int currentSupply,
+                                           int issuedSupply,
+                                           ItemTypeState itemTypeState) throws Exception {
         var tokenName = RandomStringUtils.randomAlphanumeric(30);
-        var itemTypeId = environmentId + ":" + tokenName;
-        return ItemType.newBuilder()
-                .setItemTypeId(itemTypeId)
-                .setDescription(RandomStringUtils.randomAlphanumeric(30))
+        var itemTypeId = UUID.randomUUID();
+        var itemType = ItemType.newBuilder()
+                .setItemTypeId(itemTypeId.toString())
                 .setMaxSupply(maxSupply)
                 .setCurrentSupply(currentSupply)
                 .setIssuedSupply(issuedSupply)
@@ -75,12 +72,15 @@ public abstract class AbstractClientTest {
                 .setBaseUri(RandomStringUtils.randomAlphanumeric(30))
                 .setTrackingId(trackingId)
                 .setItemTypeState(itemTypeState)
+                .setMetadata(IVIMetadata.toProto(generateItemMetadata()))
                 .build();
+
+        return IVIItemType.fromProto(itemType);
     }
 
     @SuppressWarnings("SameParameterValue")
-    protected Map<String, ItemType> generateItemTypes(int count) {
-        var result = new HashMap<String, ItemType>();
+    protected Map<String, IVIItemType> generateItemTypes(int count) throws Exception {
+        var result = new HashMap<String, IVIItemType>();
 
         for (var i = 0; i < count; i++) {
             var trackingId = RandomStringUtils.randomAlphanumeric(30);
@@ -89,7 +89,7 @@ public abstract class AbstractClientTest {
             var issuedSupply = maxSupply - currentSupply;
 
             var itemType = generateItemType(trackingId, maxSupply, currentSupply, issuedSupply, ItemTypeState.CREATED);
-            result.put(itemType.getItemTypeId(), itemType);
+            result.put(itemType.getItemTypeId().toString(), itemType);
         }
 
         return result;
@@ -121,7 +121,7 @@ public abstract class AbstractClientTest {
                                 String metadataUri,
                                 String trackingId,
                                 ItemState state) throws IVIException {
-        var itemMetadata = generateItemMetadata(1).get(0);
+        var itemMetadata = generateItemMetadata();
 
         var item = Item.newBuilder()
                 .setGameInventoryId(RandomStringUtils.randomAlphanumeric(30))
@@ -134,14 +134,7 @@ public abstract class AbstractClientTest {
                 .setCurrencyBase(RandomStringUtils.randomAlphanumeric(30))
                 .setMetadataUri(metadataUri)
                 .setTrackingId(trackingId)
-                .setProperties(ConversionUtils.convertProperties(generateProperties(5)))
-                .setOptionalInformation(OptionalInformation.newBuilder()
-                        .setDescription(itemMetadata.getDescription())
-                        .setImageLarge(itemMetadata.getImageLargeUrl())
-                        .setImageSmall(itemMetadata.getImageSmallUrl())
-                        .setRender(itemMetadata.getRender())
-                        .setAuthenticityImage(itemMetadata.getAuthenticityImage())
-                        .build())
+                .setMetadata(IVIMetadata.toProto(generateItemMetadata()))
                 .setItemState(state)
                 .setCreatedTimestamp(Instant.now().getEpochSecond() - 86400)
                 .setUpdatedTimestamp(Instant.now().getEpochSecond())
@@ -163,13 +156,22 @@ public abstract class AbstractClientTest {
             var serialNumber = RandomUtils.nextInt(10, 100);
             var metadataUri = RandomStringUtils.randomAlphanumeric(30);
             var trackingId = RandomStringUtils.randomAlphanumeric(30);
-            var state = ItemState.ISSUED;
+
+            ItemState state;
+            if(RandomUtils.nextBoolean()) {
+                state = ItemState.ISSUED;
+
+            } else {
+                state = ItemState.PENDING_ISSUED;
+            }
+
             var item = generateItem(dGoodsId, sidechain, serialNumber, metadataUri, trackingId, state);
             result.put(item.getGameInventoryId(), item);
         }
         return result;
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected Map<String, IVIOrder> generateOrders(int count) throws IVIException {
         var orders = new HashMap<String, IVIOrder>();
         for(var i = 0; i < count; i++) {
@@ -185,11 +187,13 @@ public abstract class AbstractClientTest {
                     .setOrderStatus(OrderState.COMPLETE);
 
             if(isPrimary) {
-                var purchasedItems = generatePurchasedItems(3).stream()
-                        .map(IVIPurchasedItem::toProto)
-                        .collect(Collectors.toList());
+                var purchasedItems = generatePurchasedItems(3);
+                var protoItems = new ArrayList<PurchasedItem>();
+                for (var purchasedItem : purchasedItems) {
+                    protoItems.add(purchasedItem.toProto());
+                }
                 orderBuilder.setPurchasedItems(PurchasedItems.newBuilder()
-                        .addAllPurchasedItems(purchasedItems)
+                        .addAllPurchasedItems(protoItems)
                         .build());
             } else {
                 orderBuilder.setListingId(RandomStringUtils.randomAlphanumeric(30));
@@ -206,22 +210,13 @@ public abstract class AbstractClientTest {
     protected List<IVIPurchasedItem> generatePurchasedItems(int count) throws IVIException {
         var items = new ArrayList<IVIPurchasedItem>();
         for(var i = 0; i < count; i++) {
-            var hasOptionalProperties = RandomUtils.nextBoolean();
-
             var iviPurchasedItemBuilder = IVIPurchasedItem.builder()
                     .gameInventoryId(RandomStringUtils.randomAlphanumeric(30))
                     .itemName(RandomStringUtils.randomAlphanumeric(30))
                     .itemTypeId(RandomStringUtils.randomAlphanumeric(30))
                     .amountPaid(BigDecimal.valueOf(RandomUtils.nextDouble()))
                     .currency(RandomStringUtils.randomAlphanumeric(3))
-                    .properties(generateProperties(3));
-
-            if (hasOptionalProperties) {
-                iviPurchasedItemBuilder.description(RandomStringUtils.randomAlphanumeric(30))
-                        .imageSmallUrl(RandomStringUtils.randomAlphanumeric(30))
-                        .imageLargeUrl(RandomStringUtils.randomAlphanumeric(30))
-                        .render(RandomStringUtils.randomAlphanumeric(30));
-            }
+                    .metadata(generateItemMetadata());
 
             items.add(iviPurchasedItemBuilder.build());
         }
@@ -284,18 +279,30 @@ public abstract class AbstractClientTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    protected List<IVIItemMetadata> generateItemMetadata(int count) {
-        var metadataList = new ArrayList<IVIItemMetadata>();
-        for(var i = 0; i < count; i++) {
-            metadataList.add(IVIItemMetadata.builder()
-                    .description(RandomStringUtils.randomAlphanumeric(30))
-                    .imageLargeUrl(RandomStringUtils.randomAlphanumeric(30))
-                    .imageSmallUrl(RandomStringUtils.randomAlphanumeric(30))
-                    .render(RandomStringUtils.randomAlphanumeric(30))
-                    .authenticityImage(RandomStringUtils.randomAlphanumeric(30))
-                    .build());
-        }
+    protected IVIMetadata generateItemMetadata() {
+        return IVIMetadata.builder()
+                .name(RandomStringUtils.randomAlphanumeric(30))
+                .description(RandomStringUtils.randomAlphanumeric(30))
+                .image(RandomStringUtils.randomAlphanumeric(30))
+                .properties(generateProperties(3))
+                .build();
+    }
 
-        return metadataList;
+    protected void verifyProperties(Map<String, Object> expectedProperties, Map<String, Object> actualProperties) {
+        for (var key : expectedProperties.keySet()) {
+            if(actualProperties.containsKey(key)) {
+                assertEquals(expectedProperties.get(key), actualProperties.get(key));
+            } else {
+                fail("Property key " + key + " is missing!");
+            }
+        }
+    }
+
+    protected void verifyMetadata(IVIMetadata expectedMetadata, IVIMetadata actualMetadata) {
+        assertEquals(expectedMetadata.getDescription(), actualMetadata.getDescription());
+        assertEquals(expectedMetadata.getName(), actualMetadata.getName());
+        assertEquals(expectedMetadata.getImage(), actualMetadata.getImage());
+
+        verifyProperties(expectedMetadata.getProperties(), actualMetadata.getProperties());
     }
 }

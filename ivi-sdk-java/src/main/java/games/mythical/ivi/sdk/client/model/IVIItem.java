@@ -1,14 +1,11 @@
 package games.mythical.ivi.sdk.client.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
-import games.mythical.ivi.sdk.util.ConversionUtils;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Map;
 
 @Data
 public class IVIItem {
@@ -22,8 +19,7 @@ public class IVIItem {
     private String currencyBase;
     private String metadataUri;
     private String trackingId;
-    private Map<String, Object> properties;
-    private IVIItemMetadata metadata;
+    private IVIMetadata metadata;
     private ItemState itemState;
     private Instant createdTimestamp;
     private Instant updatedTimestamp;
@@ -38,8 +34,7 @@ public class IVIItem {
                    String currencyBase,
                    String metadataUri,
                    String trackingId,
-                   Map<String, Object> properties,
-                   IVIItemMetadata metadata,
+                   IVIMetadata metadata,
                    ItemState itemState,
                    Instant createdTimestamp,
                    Instant updatedTimestamp) {
@@ -53,7 +48,6 @@ public class IVIItem {
         this.currencyBase = currencyBase;
         this.metadataUri = metadataUri;
         this.trackingId = trackingId;
-        this.properties = properties;
         this.metadata = metadata;
         this.itemState = itemState;
         this.createdTimestamp = createdTimestamp;
@@ -61,16 +55,8 @@ public class IVIItem {
     }
 
     public static IVIItem fromProto(Item item) throws IVIException {
-        var properties = ConversionUtils.convertProperties(item.getProperties());
         var createdTimestamp = Instant.ofEpochSecond(item.getCreatedTimestamp());
         var updatedTimestamp = Instant.ofEpochSecond(item.getUpdatedTimestamp());
-        var metadata = IVIItemMetadata.builder()
-                .description(item.getOptionalInformation().getDescription())
-                .imageLargeUrl(item.getOptionalInformation().getImageLarge())
-                .imageSmallUrl(item.getOptionalInformation().getImageSmall())
-                .render(item.getOptionalInformation().getRender())
-                .authenticityImage(item.getOptionalInformation().getAuthenticityImage())
-                .build();
 
         return new IVIItem(item.getGameInventoryId(),
                 item.getItemTypeId(),
@@ -82,8 +68,7 @@ public class IVIItem {
                 item.getCurrencyBase(),
                 item.getMetadataUri(),
                 item.getTrackingId(),
-                properties,
-                metadata,
+                IVIMetadata.fromProto(item.getMetadata()),
                 item.getItemState(),
                 createdTimestamp,
                 updatedTimestamp);

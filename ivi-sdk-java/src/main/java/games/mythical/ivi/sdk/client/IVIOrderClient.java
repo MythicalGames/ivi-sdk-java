@@ -17,9 +17,9 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class IVIOrderClient extends AbstractIVIClient {
@@ -44,13 +44,15 @@ public class IVIOrderClient extends AbstractIVIClient {
 
     @Override
     void initStub() {
-        serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel);
-        subscribeToStream(new IVIOrderObserver(orderExecutor, OrderStreamGrpc.newBlockingStub(channel), this::subscribeToStream));
+        serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
+        var streamBlockingStub = OrderStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIOrderObserver(orderExecutor, streamBlockingStub, this::subscribeToStream));
     }
 
     void subscribeToStream(IVIOrderObserver observer) {
         // set up server stream
-        var streamStub = OrderStreamGrpc.newStub(channel);
+        var streamStub = OrderStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
@@ -81,6 +83,11 @@ public class IVIOrderClient extends AbstractIVIClient {
                             IVIOrderAddress address,
                             PaymentProviderId paymentProviderId,
                             Collection<IVIPurchasedItem> purchasedItems) throws IVIException {
+        var purchaseItemProtos = new ArrayList<PurchasedItem>();
+        for(var purchasedItem : purchasedItems ) {
+            purchaseItemProtos.add(purchasedItem.toProto());
+        }
+
         var request = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
@@ -89,7 +96,7 @@ public class IVIOrderClient extends AbstractIVIClient {
                 .setAddress(address.toProto())
                 .setPaymentProviderId(paymentProviderId)
                 .setPurchasedItems(PurchasedItems.newBuilder()
-                                .addAllPurchasedItems(purchasedItems.stream().map(IVIPurchasedItem::toProto).collect(Collectors.toList()))
+                                .addAllPurchasedItems(purchaseItemProtos)
                                 .build())
                 .build();
 
