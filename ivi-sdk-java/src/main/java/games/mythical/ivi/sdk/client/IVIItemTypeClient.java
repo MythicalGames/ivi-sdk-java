@@ -29,30 +29,33 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         super();
 
         this.itemTypeExecutor = itemTypeExecutor;
-        var channel = ManagedChannelBuilder.forAddress(host, port)
+        this.channel = ManagedChannelBuilder.forAddress(host, port)
                 .build();
-
-        initStub(channel);
+        initStub();
     }
 
     IVIItemTypeClient(IVIItemTypeExecutor itemTypeExecutor, ManagedChannel channel) throws IVIException {
         this.itemTypeExecutor = itemTypeExecutor;
-        initStub(channel);
+        this.channel = channel;
+        initStub();
     }
 
     @Override
-    protected void initStub(ManagedChannel channel) {
-        serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
+    protected void initStub() {
+        serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel);
+        var streamBlockingStub = ItemTypeStatusStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIItemTypeObserver(itemTypeExecutor, streamBlockingStub, this::subscribeToStream));
+    }
 
+    void subscribeToStream(IVIItemTypeObserver observer) {
         // set up server stream
         var streamStub = ItemTypeStatusStreamGrpc.newStub(channel)
                 .withCallCredentials(addAuthentication());
-        var streamBlockingStub = ItemTypeStatusStreamGrpc.newBlockingStub(channel)
-                .withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
-                .setEnvironmentId(this.environmentId)
+                .setEnvironmentId(environmentId)
                 .build();
-        streamStub.itemTypeStatusStream(subscribe, new IVIItemTypeObserver(itemTypeExecutor, streamBlockingStub));
+        streamStub.itemTypeStatusStream(subscribe, observer);
     }
 
     public Optional<IVIItemType> getItemType(UUID itemTypeId) throws IVIException {

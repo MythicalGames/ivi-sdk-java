@@ -28,29 +28,33 @@ public class IVIPlayerClient extends AbstractIVIClient {
         super();
 
         this.playerExecutor = playerExecutor;
-        var channel = ManagedChannelBuilder.forAddress(host, port)
+        this.channel = ManagedChannelBuilder.forAddress(host, port)
                 .build();
 
-        initStub(channel);
+        initStub();
     }
 
     IVIPlayerClient(IVIPlayerExecutor playerExecutor, ManagedChannel channel) throws IVIException {
         this.playerExecutor = playerExecutor;
-        initStub(channel);
+        this.channel = channel;
+        initStub();
     }
 
     @Override
-    protected void initStub(ManagedChannel channel) {
+    protected void initStub() {
         serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
-
-        // set up server stream
-        var streamStub  = PlayerStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = PlayerStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIPlayerObserver(playerExecutor, streamBlockingStub, this::subscribeToStream));
+    }
+
+    void subscribeToStream(IVIPlayerObserver observer) {
+        // set up server stream
+        var streamStub  = PlayerStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.playerStatusStream(subscribe, new IVIPlayerObserver(playerExecutor, streamBlockingStub));
+        streamStub.playerStatusStream(subscribe, observer);
     }
 
     public void linkPlayer(String playerId, String iviUserId) throws IVIException {

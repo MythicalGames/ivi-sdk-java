@@ -33,30 +33,33 @@ public class IVIItemClient extends AbstractIVIClient {
         super();
 
         this.iviItemExecutor = iviItemExecutor;
-        var channel = ManagedChannelBuilder.forAddress(host, port)
+        this.channel = ManagedChannelBuilder.forAddress(host, port)
                 .build();
-
-        initStub(channel);
+        initStub();
     }
 
     IVIItemClient(IVIItemExecutor iviItemExecutor, ManagedChannel channel) throws IVIException {
         this.iviItemExecutor = iviItemExecutor;
-        initStub(channel);
+        this.channel = channel;
+        initStub();
     }
 
     @Override
-    void initStub(ManagedChannel channel) {
+    void initStub() {
         serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
-
-        // set up server stream
-        var streamStub = ItemStreamGrpc.newStub(channel)
-                .withCallCredentials(addAuthentication());
         var streamBlockingStub = ItemStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIItemObserver(iviItemExecutor, streamBlockingStub, this::subscribeToStream));
+    }
+
+    void subscribeToStream(IVIItemObserver observer) {
+        // set up server stream
+        var streamStub = ItemStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.itemStatusStream(subscribe, new IVIItemObserver(iviItemExecutor, streamBlockingStub));
+
+        streamStub.itemStatusStream(subscribe, observer);
     }
 
     public void issueItem(String gameInventoryId,

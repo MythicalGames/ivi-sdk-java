@@ -31,29 +31,32 @@ public class IVIOrderClient extends AbstractIVIClient {
         super();
 
         this.orderExecutor = orderExecutor;
-
-        var channel = ManagedChannelBuilder.forAddress(host, port)
+        this.channel = ManagedChannelBuilder.forAddress(host, port)
                 .build();
-        initStub(channel);
+        initStub();
     }
 
     IVIOrderClient(IVIOrderExecutor orderExecutor, ManagedChannel channel) throws IVIException {
         this.orderExecutor = orderExecutor;
-        initStub(channel);
+        this.channel = channel;
+        initStub();
     }
 
     @Override
-    void initStub(ManagedChannel channel) {
+    void initStub() {
         serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
-
-        // set up server stream
-        var streamStub = OrderStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = OrderStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
+        subscribeToStream(new IVIOrderObserver(orderExecutor, streamBlockingStub, this::subscribeToStream));
+    }
+
+    void subscribeToStream(IVIOrderObserver observer) {
+        // set up server stream
+        var streamStub = OrderStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.orderStatusStream(subscribe, new IVIOrderObserver(orderExecutor, streamBlockingStub));
+        streamStub.orderStatusStream(subscribe, observer);
     }
 
     public Optional<IVIOrder> getOrder(String orderId) throws IVIException {
