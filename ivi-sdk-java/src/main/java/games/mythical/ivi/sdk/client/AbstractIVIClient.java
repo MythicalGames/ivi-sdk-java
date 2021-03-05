@@ -3,8 +3,12 @@ package games.mythical.ivi.sdk.client;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
+import io.grpc.CallCredentials;
 import io.grpc.ManagedChannel;
+import io.grpc.Metadata;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.concurrent.Executor;
 
 public abstract class AbstractIVIClient {
     protected final String host;
@@ -36,4 +40,18 @@ public abstract class AbstractIVIClient {
     }
 
     abstract void initStub(ManagedChannel managedChannel);
+
+    public CallCredentials addAuthentication() {
+        return new CallCredentials() {
+            @Override
+            public void applyRequestMetadata(RequestInfo requestInfo, Executor appExecutor, MetadataApplier applier) {
+                var metadata = new Metadata();
+                metadata.put(Metadata.Key.of("API-KEY", Metadata.ASCII_STRING_MARSHALLER), IVIConfiguration.getApiKey());
+                applier.apply(metadata);
+            }
+
+            @Override
+            public void thisUsesUnstableApi() { }
+        };
+    }
 }

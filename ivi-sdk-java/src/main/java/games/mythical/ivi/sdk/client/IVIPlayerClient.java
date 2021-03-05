@@ -15,7 +15,6 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,15 +41,16 @@ public class IVIPlayerClient extends AbstractIVIClient {
 
     @Override
     protected void initStub(ManagedChannel channel) {
-        serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel);
+        serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
 
         // set up server stream
-        var streamStub  = PlayerStreamGrpc.newStub(channel);
+        var streamStub  = PlayerStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
+        var streamBlockingStub = PlayerStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.playerStatusStream(subscribe, new IVIPlayerObserver(playerExecutor,
-                PlayerStreamGrpc.newBlockingStub(channel)));
+        streamStub.playerStatusStream(subscribe, new IVIPlayerObserver(playerExecutor, streamBlockingStub));
     }
 
     public void linkPlayer(String playerId, String iviUserId) throws IVIException {

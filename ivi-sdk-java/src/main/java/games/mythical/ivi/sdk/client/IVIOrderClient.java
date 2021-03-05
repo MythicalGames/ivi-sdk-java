@@ -44,15 +44,16 @@ public class IVIOrderClient extends AbstractIVIClient {
 
     @Override
     void initStub(ManagedChannel channel) {
-        serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel);
+        serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
 
         // set up server stream
-        var streamStub = OrderStreamGrpc.newStub(channel);
+        var streamStub = OrderStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
+        var streamBlockingStub = OrderStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.orderStatusStream(subscribe, new IVIOrderObserver(orderExecutor,
-                OrderStreamGrpc.newBlockingStub(channel)));
+        streamStub.orderStatusStream(subscribe, new IVIOrderObserver(orderExecutor, streamBlockingStub));
     }
 
     public Optional<IVIOrder> getOrder(String orderId) throws IVIException {

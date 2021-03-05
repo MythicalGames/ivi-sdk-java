@@ -46,15 +46,17 @@ public class IVIItemClient extends AbstractIVIClient {
 
     @Override
     void initStub(ManagedChannel channel) {
-        serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel);
+        serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
 
         // set up server stream
-        var streamStub = ItemStreamGrpc.newStub(channel);
+        var streamStub = ItemStreamGrpc.newStub(channel)
+                .withCallCredentials(addAuthentication());
+        var streamBlockingStub = ItemStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
                 .build();
-        streamStub.itemStatusStream(subscribe, new IVIItemObserver(iviItemExecutor,
-                ItemStreamGrpc.newBlockingStub(channel)));
+        streamStub.itemStatusStream(subscribe, new IVIItemObserver(iviItemExecutor, streamBlockingStub));
     }
 
     public void issueItem(String gameInventoryId,

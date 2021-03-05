@@ -42,15 +42,17 @@ public class IVIItemTypeClient extends AbstractIVIClient {
 
     @Override
     protected void initStub(ManagedChannel channel) {
-        serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel);
+        serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
 
         // set up server stream
-        var streamStub = ItemTypeStatusStreamGrpc.newStub(channel);
+        var streamStub = ItemTypeStatusStreamGrpc.newStub(channel)
+                .withCallCredentials(addAuthentication());
+        var streamBlockingStub = ItemTypeStatusStreamGrpc.newBlockingStub(channel)
+                .withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(this.environmentId)
                 .build();
-        streamStub.itemTypeStatusStream(subscribe, new IVIItemTypeObserver(itemTypeExecutor,
-                ItemTypeStatusStreamGrpc.newBlockingStub(channel)));
+        streamStub.itemTypeStatusStream(subscribe, new IVIItemTypeObserver(itemTypeExecutor, streamBlockingStub));
     }
 
     public Optional<IVIItemType> getItemType(UUID itemTypeId) throws IVIException {

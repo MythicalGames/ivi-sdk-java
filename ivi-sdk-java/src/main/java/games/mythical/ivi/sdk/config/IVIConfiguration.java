@@ -3,8 +3,8 @@ package games.mythical.ivi.sdk.config;
 public class IVIConfiguration {
     private static String environmentId;
     private static String apiKey;
-    private static String host = "api.iviengine.com";
-    private static Integer port = 10081;
+    private static String host = "sdk-api.iviengine.com";
+    private static Integer port = 443;
 
     public static String getEnvironmentId() {
         return IVIConfiguration.environmentId;
