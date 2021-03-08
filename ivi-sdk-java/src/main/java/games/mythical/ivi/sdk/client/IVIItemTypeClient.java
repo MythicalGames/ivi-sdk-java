@@ -76,15 +76,15 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         return IVIItemType.fromProto(result.getItemTypesList());
     }
 
-    void createItemType(String tokenName,
-                        String category,
-                        int maxSupply,
-                        int issueTimeSpan,
-                        boolean burnable,
-                        boolean transferable,
-                        boolean sellable,
-                        Collection<UUID> agreementIds,
-                        IVIMetadata metadata) throws IVIException {
+    public void createItemType(String tokenName,
+                               String category,
+                               int maxSupply,
+                               int issueTimeSpan,
+                               boolean burnable,
+                               boolean transferable,
+                               boolean sellable,
+                               Collection<UUID> agreementIds,
+                               IVIMetadata metadata) throws IVIException {
         try {
             log.trace("ItemTypeClient.createItemType called for {}:{}", tokenName, category);
             var request = CreateItemTypeRequest.newBuilder()
@@ -112,7 +112,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         }
     }
 
-    void freezeItemType(UUID itemTypeId) {
+    public void freezeItemType(UUID itemTypeId) {
         log.trace("ItemTypeClient.freezeItemType called for {}", itemTypeId);
         var request = FreezeItemTypeRequest.newBuilder()
                 .setEnvironmentId(environmentId)
