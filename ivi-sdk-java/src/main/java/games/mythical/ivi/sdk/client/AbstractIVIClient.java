@@ -16,6 +16,7 @@ public abstract class AbstractIVIClient {
 
     protected final String environmentId;
     protected final String apiKey;
+    protected final int keepAlive;
     protected ManagedChannel channel;
 
     protected AbstractIVIClient() throws IVIException {
@@ -38,6 +39,7 @@ public abstract class AbstractIVIClient {
             throw new IVIException("Port not set!", IVIErrorCode.PORT_NOT_SET);
         }
         port = IVIConfiguration.getPort();
+        keepAlive = IVIConfiguration.getKeepAlive();
     }
 
     abstract void initStub();

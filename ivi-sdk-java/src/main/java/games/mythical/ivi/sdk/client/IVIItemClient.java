@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class IVIItemClient extends AbstractIVIClient {
@@ -34,6 +35,7 @@ public class IVIItemClient extends AbstractIVIClient {
 
         this.iviItemExecutor = iviItemExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
+                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }

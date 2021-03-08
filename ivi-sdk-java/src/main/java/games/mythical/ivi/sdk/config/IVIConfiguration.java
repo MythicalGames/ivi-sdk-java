@@ -5,6 +5,7 @@ public class IVIConfiguration {
     private static String apiKey;
     private static String host = "sdk-api.iviengine.com";
     private static Integer port = 443;
+    private static int keepAlive = 30;
 
     public static String getEnvironmentId() {
         return IVIConfiguration.environmentId;
@@ -36,5 +37,13 @@ public class IVIConfiguration {
 
     public static void setPort(Integer port) {
         IVIConfiguration.port = port;
+    }
+
+    public static int getKeepAlive() {
+        return keepAlive;
+    }
+
+    public static void setKeepAlive(int keepAlive) {
+        IVIConfiguration.keepAlive = keepAlive;
     }
 }

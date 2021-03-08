@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,6 +31,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
 
         this.itemTypeExecutor = itemTypeExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
+                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }
