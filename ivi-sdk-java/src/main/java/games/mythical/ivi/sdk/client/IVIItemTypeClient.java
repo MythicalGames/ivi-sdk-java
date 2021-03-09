@@ -44,7 +44,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
 
     @Override
     protected void initStub() {
-        serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel);
+        serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = ItemTypeStatusStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
         subscribeToStream(new IVIItemTypeObserver(itemTypeExecutor, streamBlockingStub, this::subscribeToStream));
