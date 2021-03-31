@@ -35,8 +35,6 @@ public class MockPlayerStreamImpl extends PlayerStreamGrpc.PlayerStreamImplBase 
             var observer = streamObservers.get(environmentId);
             var playerStatus = PlayerStatusUpdate.newBuilder()
                     .setPlayerId(player.getPlayerId())
-                    .setIviUserId(player.getIviUserId())
-                    .setSidechainAccountName(RandomStringUtils.randomAlphanumeric(30))
                     .setTrackingId(player.getTrackingId())
                     .setPlayerState(state)
                     .build();

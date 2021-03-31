@@ -35,7 +35,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setTotal(String.valueOf(total))
                 .setAddress(request.getAddress())
                 .setPaymentProviderId(request.getPaymentProviderId())
-                .setOrderStatus(OrderState.CREATED);
+                .setOrderStatus(OrderState.STARTED);
 
         switch (request.getLineItemsCase()) {
             case PURCHASED_ITEMS:
@@ -55,7 +55,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
 
         var response = CreateOrderAsyncResponse.newBuilder()
                 .setOrderId(order.getOrderId())
-                .setOrderStatus(OrderState.CREATED)
+                .setOrderStatus(OrderState.STARTED)
                 .build();
 
         responseObserver.onNext(response);
@@ -80,7 +80,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         }
 
         var newOrderBuilder = orders.get(request.getOrderId()).toBuilder();
-        newOrderBuilder.setOrderStatus(OrderState.PENDING);
+        newOrderBuilder.setOrderStatus(OrderState.PROCESSING);
         var order = newOrderBuilder.build();
         orders.put(order.getOrderId(), order);
 

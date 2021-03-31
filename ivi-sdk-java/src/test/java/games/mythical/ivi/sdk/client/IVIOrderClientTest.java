@@ -81,12 +81,12 @@ class IVIOrderClientTest extends AbstractClientTest {
 
         orderServer.verifyCalls("CreateOrder", 1);
         assertNotNull(orderExecutor.getOrderId());
-        assertEquals(OrderState.CREATED, orderExecutor.getOrderStatus());
+        assertEquals(OrderState.STARTED, orderExecutor.getOrderStatus());
 
         var orderId = orderExecutor.getOrderId();
         ConcurrentFinisher.start(orderId);
 
-        orderServer.getOrderStream().sendStatus(environmentId, orderId, OrderState.PENDING);
+        orderServer.getOrderStream().sendStatus(environmentId, orderId, OrderState.PROCESSING);
 
         ConcurrentFinisher.wait(orderId);
 
@@ -94,13 +94,13 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderServer.verifyCalls("OrderStatusConfirmation", 1);
 
         assertEquals(orderId, orderExecutor.getOrderId());
-        assertEquals(OrderState.PENDING, orderExecutor.getOrderStatus());
+        assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
 
         var order = orderClient.getOrder(orderId);
 
         assertTrue(order.isPresent());
         assertEquals(orderId, order.get().getOrderId());
-        assertEquals(OrderState.PENDING, order.get().getOrderStatus());
+        assertEquals(OrderState.PROCESSING, order.get().getOrderStatus());
         assertTrue(order.get().isPrimarySale());
         assertFalse(order.get().isSecondarySale());
 
@@ -120,12 +120,12 @@ class IVIOrderClientTest extends AbstractClientTest {
 
         orderServer.verifyCalls("CreateOrder", 1);
         assertNotNull(orderExecutor.getOrderId());
-        assertEquals(OrderState.CREATED, orderExecutor.getOrderStatus());
+        assertEquals(OrderState.STARTED, orderExecutor.getOrderStatus());
 
         var orderId = orderExecutor.getOrderId();
         ConcurrentFinisher.start(orderId);
 
-        orderServer.getOrderStream().sendStatus(environmentId, orderId, OrderState.PENDING);
+        orderServer.getOrderStream().sendStatus(environmentId, orderId, OrderState.PROCESSING);
 
         ConcurrentFinisher.wait(orderId);
 
@@ -133,13 +133,13 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderServer.verifyCalls("OrderStatusConfirmation", 1);
 
         assertEquals(orderId, orderExecutor.getOrderId());
-        assertEquals(OrderState.PENDING, orderExecutor.getOrderStatus());
+        assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
 
         var order = orderClient.getOrder(orderId);
 
         assertTrue(order.isPresent());
         assertEquals(orderId, order.get().getOrderId());
-        assertEquals(OrderState.PENDING, order.get().getOrderStatus());
+        assertEquals(OrderState.PROCESSING, order.get().getOrderStatus());
         assertTrue(order.get().isSecondarySale());
         assertFalse(order.get().isPrimarySale());
 
@@ -158,7 +158,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce);
 
         assertEquals(orderId, orderExecutor.getOrderId());
-        assertEquals(OrderState.PENDING, orderExecutor.getOrderStatus());
+        assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
 
         orderServer.verifyCalls("FinalizeOrder", 1);
 
@@ -186,7 +186,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderClient.finalizeBitpayOrder(orderId, invoiceId);
 
         assertEquals(orderId, orderExecutor.getOrderId());
-        assertEquals(OrderState.PENDING, orderExecutor.getOrderStatus());
+        assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
 
         orderServer.verifyCalls("FinalizeOrder", 1);
 
@@ -266,7 +266,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     void verifyPurchaseItem(IVIPurchasedItem expectedItem, IVIPurchasedItem actualItem) {
         assertEquals(expectedItem.getGameInventoryId(), actualItem.getGameInventoryId());
         assertEquals(expectedItem.getItemName(), actualItem.getItemName());
-        assertEquals(expectedItem.getItemTypeId(), actualItem.getItemTypeId());
+        assertEquals(expectedItem.getGameItemTypeId(), actualItem.getGameItemTypeId());
         assertEquals(expectedItem.getAmountPaid(), actualItem.getAmountPaid());
         assertEquals(expectedItem.getCurrency(), actualItem.getCurrency());
 

@@ -54,9 +54,8 @@ public abstract class AbstractClientTest {
                                            int issuedSupply,
                                            ItemTypeState itemTypeState) throws Exception {
         var tokenName = RandomStringUtils.randomAlphanumeric(30);
-        var itemTypeId = UUID.randomUUID();
         var itemType = ItemType.newBuilder()
-                .setItemTypeId(itemTypeId.toString())
+                .setGameItemTypeId(RandomStringUtils.randomAlphanumeric(30))
                 .setMaxSupply(maxSupply)
                 .setCurrentSupply(currentSupply)
                 .setIssuedSupply(issuedSupply)
@@ -89,7 +88,7 @@ public abstract class AbstractClientTest {
             var issuedSupply = maxSupply - currentSupply;
 
             var itemType = generateItemType(trackingId, maxSupply, currentSupply, issuedSupply, ItemTypeState.CREATED);
-            result.put(itemType.getItemTypeId().toString(), itemType);
+            result.put(itemType.getGameItemTypeId(), itemType);
         }
 
         return result;
@@ -98,7 +97,7 @@ public abstract class AbstractClientTest {
     protected IVIPlayer generateIVIPlayer() {
         return IVIPlayer.newBuilder()
                 .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
-                .setIviUserId(RandomStringUtils.randomAlphanumeric(30))
+                .setEmail("test@game.com")
                 .setSidechainAccountName(RandomStringUtils.randomAlphanumeric(30))
                 .setTrackingId(RandomStringUtils.randomAlphanumeric(30))
                 .setPlayerState(PlayerState.LINKED)
@@ -125,7 +124,7 @@ public abstract class AbstractClientTest {
 
         var item = Item.newBuilder()
                 .setGameInventoryId(RandomStringUtils.randomAlphanumeric(30))
-                .setItemTypeId(RandomStringUtils.randomAlphanumeric(30))
+                .setGameItemTypeId(RandomStringUtils.randomAlphanumeric(30))
                 .setDgoodsId(dGoodsId)
                 .setItemName(RandomStringUtils.randomAlphanumeric(30))
                 .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
@@ -213,7 +212,7 @@ public abstract class AbstractClientTest {
             var iviPurchasedItemBuilder = IVIPurchasedItem.builder()
                     .gameInventoryId(RandomStringUtils.randomAlphanumeric(30))
                     .itemName(RandomStringUtils.randomAlphanumeric(30))
-                    .itemTypeId(RandomStringUtils.randomAlphanumeric(30))
+                    .gameItemTypeId(RandomStringUtils.randomAlphanumeric(30))
                     .amountPaid(BigDecimal.valueOf(RandomUtils.nextDouble()))
                     .currency(RandomStringUtils.randomAlphanumeric(3))
                     .metadata(generateItemMetadata());

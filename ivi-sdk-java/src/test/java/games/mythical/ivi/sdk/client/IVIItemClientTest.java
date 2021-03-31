@@ -2,7 +2,6 @@ package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockItemExecutor;
 import games.mythical.ivi.sdk.client.model.IVIItem;
-import games.mythical.ivi.sdk.client.model.IVIMetadata;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -62,7 +60,7 @@ class IVIItemClientTest extends AbstractClientTest {
         itemClient.issueItem(item.getGameInventoryId(),
                 item.getPlayerId(),
                 item.getItemName(),
-                item.getItemTypeId(),
+                item.getGameItemTypeId(),
                 BigDecimal.valueOf(RandomUtils.nextDouble(0, 100)),
                 currency,
                 item.getMetadata(),
@@ -83,7 +81,7 @@ class IVIItemClientTest extends AbstractClientTest {
         var metadataUri= RandomStringUtils.randomAlphanumeric(30);
         itemServer.getItemStream().sendStatus(environmentId, Item.newBuilder()
                 .setGameInventoryId(item.getGameInventoryId())
-                .setItemTypeId(item.getItemTypeId())
+                .setGameItemTypeId(item.getGameItemTypeId())
                 .setPlayerId(item.getPlayerId())
                 .setDgoodsId(dGoodsId)
                 .setSerialNumber(serialNumber)
@@ -130,7 +128,7 @@ class IVIItemClientTest extends AbstractClientTest {
         var trackingId = itemExecutor.getTrackingId();
         itemServer.getItemStream().sendStatus(environmentId, Item.newBuilder()
                 .setGameInventoryId(gameInventoryId)
-                .setItemTypeId(item.getItemTypeId())
+                .setGameItemTypeId(item.getGameItemTypeId())
                 .setPlayerId(newPlayerId)
                 .setDgoodsId(item.getDGoodsId())
                 .setSerialNumber(item.getSerialNumber())
@@ -180,7 +178,7 @@ class IVIItemClientTest extends AbstractClientTest {
         var trackingId = itemExecutor.getTrackingId();
         itemServer.getItemStream().sendStatus(environmentId, Item.newBuilder()
                 .setGameInventoryId(gameInventoryId)
-                .setItemTypeId(item.getItemTypeId())
+                .setGameItemTypeId(item.getGameItemTypeId())
                 .setPlayerId(item.getPlayerId())
                 .setDgoodsId(item.getDGoodsId())
                 .setSerialNumber(item.getSerialNumber())
@@ -275,7 +273,7 @@ class IVIItemClientTest extends AbstractClientTest {
 
     void verifyItem(IVIItem expectedItem, IVIItem actualItem) {
         assertEquals(expectedItem.getGameInventoryId(), actualItem.getGameInventoryId());
-        assertEquals(expectedItem.getItemTypeId(), actualItem.getItemTypeId());
+        assertEquals(expectedItem.getGameItemTypeId(), actualItem.getGameItemTypeId());
         assertEquals(expectedItem.getItemName(), actualItem.getItemName());
         assertEquals(expectedItem.getDGoodsId(), actualItem.getDGoodsId());
         assertEquals(expectedItem.getPlayerId(), actualItem.getPlayerId());

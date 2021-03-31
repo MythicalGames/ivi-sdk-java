@@ -52,7 +52,8 @@ class ItemTypeClientTest extends AbstractClientTest {
     void testCreateItemType() throws Exception {
         var mockItemType = generateNewItemType();
 
-        itemTypeClient.createItemType(mockItemType.getTokenName(),
+        itemTypeClient.createItemType(mockItemType.getGameItemTypeId(),
+                mockItemType.getTokenName(),
                 mockItemType.getCategory(),
                 mockItemType.getMaxSupply(),
                 mockItemType.getIssueTimeSpan(),
@@ -62,13 +63,13 @@ class ItemTypeClientTest extends AbstractClientTest {
                 mockItemType.getAgreementIds(),
                 mockItemType.getMetadata());
 
-        assertNotNull(itemTypeExecutor.getItemTypeId());
+        assertNotNull(itemTypeExecutor.getGameItemTypeId());
         assertFalse(StringUtils.isEmpty(itemTypeExecutor.getTrackingId()));
         assertEquals(ItemTypeState.PENDING_CREATE, itemTypeExecutor.getItemTypeState());
 
         itemTypeServer.verifyCalls("CreateItemType", 1);
 
-        var itemTypeId = itemTypeExecutor.getItemTypeId();
+        var gameItemTypeId = itemTypeExecutor.getGameItemTypeId();
         var trackingId = itemTypeExecutor.getTrackingId();
         var baseUrl = RandomStringUtils.randomAlphanumeric(30);
         var issueTimeSpan = RandomUtils.nextInt(10, 50);
@@ -77,7 +78,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         ConcurrentFinisher.start(trackingId);
 
         itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
-                .setItemTypeId(itemTypeId.toString())
+                .setGameItemTypeId(gameItemTypeId)
                 .setCurrentSupply(maxSupply)
                 .setIssuedSupply(0)
                 .setBaseUri(baseUrl)
@@ -88,7 +89,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         ConcurrentFinisher.wait(trackingId);
 
         assertEquals(ItemTypeState.CREATED, itemTypeExecutor.getItemTypeState());
-        assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
+        assertEquals(gameItemTypeId, itemTypeExecutor.getGameItemTypeId());
         assertEquals(trackingId, itemTypeExecutor.getTrackingId());
         assertEquals(baseUrl, itemTypeExecutor.getBaseUri());
         assertEquals(issueTimeSpan, itemTypeExecutor.getIssueTimeSpan());
@@ -108,15 +109,15 @@ class ItemTypeClientTest extends AbstractClientTest {
 
         var mockItemType = generateItemType(trackingId, maxSupply, currentSupply,
                 issuedSupply, ItemTypeState.CREATED);
-        var itemTypeId = mockItemType.getItemTypeId();
+        var gameItemTypeId = mockItemType.getGameItemTypeId();
 
         // set the starting state of the item type
         itemTypeExecutor.setFromItemType(mockItemType);
 
-        itemTypeClient.freezeItemType(itemTypeId);
+        itemTypeClient.freezeItemType(gameItemTypeId);
 
         assertNotEquals(itemTypeExecutor.getTrackingId(), trackingId);
-        assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
+        assertEquals(gameItemTypeId, itemTypeExecutor.getGameItemTypeId());
         assertEquals(ItemTypeState.PENDING_FREEZE, itemTypeExecutor.getItemTypeState());
 
         itemTypeServer.verifyCalls("FreezeItemType", 1);
@@ -128,7 +129,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         ConcurrentFinisher.start(newTrackingId);
 
         itemTypeServer.getItemStream().sendStatus(environmentId, ItemType.newBuilder()
-                .setItemTypeId(itemTypeId.toString())
+                .setGameItemTypeId(gameItemTypeId)
                 .setCurrentSupply(currentSupply)
                 .setIssuedSupply(issuedSupply)
                 .setBaseUri(baseUrl)
@@ -139,7 +140,7 @@ class ItemTypeClientTest extends AbstractClientTest {
         ConcurrentFinisher.wait(newTrackingId);
 
         assertEquals(ItemTypeState.FROZEN, itemTypeExecutor.getItemTypeState());
-        assertEquals(itemTypeId, itemTypeExecutor.getItemTypeId());
+        assertEquals(gameItemTypeId, itemTypeExecutor.getGameItemTypeId());
         assertEquals(newTrackingId, itemTypeExecutor.getTrackingId());
         assertEquals(baseUrl, itemTypeExecutor.getBaseUri());
         assertEquals(issueTimeSpan, itemTypeExecutor.getIssueTimeSpan());
@@ -153,11 +154,11 @@ class ItemTypeClientTest extends AbstractClientTest {
     @Test
     void getItemType() throws Exception {
         var mockItemType = itemTypes.entrySet().iterator().next().getValue();
-        var itemType = itemTypeClient.getItemType(mockItemType.getItemTypeId());
+        var itemType = itemTypeClient.getItemType(mockItemType.getGameItemTypeId());
 
         assertTrue(itemType.isPresent());
         assertEquals(mockItemType.getItemTypeState(), itemType.get().getItemTypeState());
-        assertEquals(mockItemType.getItemTypeId(), itemType.get().getItemTypeId());
+        assertEquals(mockItemType.getGameItemTypeId(), itemType.get().getGameItemTypeId());
         assertEquals(mockItemType.getTrackingId(), itemType.get().getTrackingId());
         assertEquals(mockItemType.getBaseUri(), itemType.get().getBaseUri());
         assertEquals(mockItemType.getIssueTimeSpan(), itemType.get().getIssueTimeSpan());
@@ -169,7 +170,7 @@ class ItemTypeClientTest extends AbstractClientTest {
 
     @Test
     void getItemTypeNonExisting() throws Exception {
-        var itemType = itemTypeClient.getItemType(UUID.randomUUID());
+        var itemType = itemTypeClient.getItemType(RandomStringUtils.randomAlphanumeric(20, 50));
 
         assertTrue(itemType.isEmpty());
 
@@ -178,18 +179,22 @@ class ItemTypeClientTest extends AbstractClientTest {
 
     @Test
     void getItemTypes() throws Exception {
-        var result = itemTypeClient.getItemTypes(itemTypes.keySet().stream().map(UUID::fromString).collect(Collectors.toList()));
+        var result = itemTypeClient.getItemTypes(itemTypes.keySet());
 
         for(var itemType : result) {
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getItemTypeState(), itemType.getItemTypeState());
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getItemTypeId(), itemType.getItemTypeId());
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getTrackingId(), itemType.getTrackingId());
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getBaseUri(), itemType.getBaseUri());
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getIssueTimeSpan(), itemType.getIssueTimeSpan());
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getCurrentSupply(), itemType.getCurrentSupply());
-            assertEquals(itemTypes.get(itemType.getItemTypeId().toString()).getIssuedSupply(), itemType.getIssuedSupply());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getItemTypeState(), itemType.getItemTypeState());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getGameItemTypeId(), itemType.getGameItemTypeId());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getTrackingId(), itemType.getTrackingId());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getBaseUri(), itemType.getBaseUri());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getIssueTimeSpan(), itemType.getIssueTimeSpan());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getCurrentSupply(), itemType.getCurrentSupply());
+            assertEquals(itemTypes.get(itemType.getGameItemTypeId()).getIssuedSupply(), itemType.getIssuedSupply());
         }
 
-        itemTypeServer.verifyCalls("GetItemTypes", 1);
+        result = itemTypeClient.getItemTypes();
+
+        assertEquals(itemTypes.keySet().size(), result.size());
+
+        itemTypeServer.verifyCalls("GetItemTypes", 2);
     }
 }

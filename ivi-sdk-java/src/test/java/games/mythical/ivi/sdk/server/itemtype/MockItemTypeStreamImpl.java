@@ -33,7 +33,7 @@ public class MockItemTypeStreamImpl extends ItemTypeStatusStreamGrpc.ItemTypeSta
         if(streamObservers.containsKey(environmentId)) {
             var observer = streamObservers.get(environmentId);
             var itemTypeStatus = ItemTypeStatusUpdate.newBuilder()
-                    .setItemTypeId(itemType.getItemTypeId())
+                    .setGameItemTypeId(itemType.getGameItemTypeId())
                     .setCurrentSupply(itemType.getCurrentSupply())
                     .setIssuedSupply(itemType.getIssuedSupply())
                     .setBaseUri(itemType.getBaseUri())

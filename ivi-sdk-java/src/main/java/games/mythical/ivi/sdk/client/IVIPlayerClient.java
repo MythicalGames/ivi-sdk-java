@@ -59,17 +59,18 @@ public class IVIPlayerClient extends AbstractIVIClient {
         streamStub.playerStatusStream(subscribe, observer);
     }
 
-    public void linkPlayer(String playerId, String iviUserId) throws IVIException {
-        log.trace("PlayerClient.linkPlayer called from player: {}:{}", playerId, iviUserId);
+    public void linkPlayer(String playerId, String email, String displayName) throws IVIException {
+        log.trace("PlayerClient.linkPlayer called from player: {}:{}:{}", playerId, email, displayName);
         try {
             var request = LinkPlayerRequest.newBuilder()
                     .setEnvironmentId(environmentId)
                     .setPlayerId(playerId)
-                    .setIviUserId(iviUserId)
+                    .setEmail(email)
+                    .setDisplayName(displayName)
                     .build();
             var result = serviceBlockingStub.linkPlayer(request);
 
-            playerExecutor.updatePlayerState(playerId, result.getTrackingId(), result.getPlayerState());
+            playerExecutor.updatePlayer(playerId, result.getTrackingId(), result.getPlayerState());
         } catch (StatusRuntimeException e) {
             log.error("gRPC error from IVI server", e);
             throw IVIException.fromGrpcException(e);

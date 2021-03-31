@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class IVIPurchasedItem {
     private String gameInventoryId;
     private String itemName;
-    private String itemTypeId;
+    private String gameItemTypeId;
     private BigDecimal amountPaid;
     private String currency;
     private IVIMetadata metadata;
@@ -22,7 +22,7 @@ public class IVIPurchasedItem {
         return PurchasedItem.newBuilder()
                 .setGameInventoryId(gameInventoryId)
                 .setItemName(itemName)
-                .setItemTypeId(itemTypeId)
+                .setGameItemTypeId(gameItemTypeId)
                 .setAmountPaid(amountPaid.toString())
                 .setCurrency(currency)
                 .setMetadata(IVIMetadata.toProto(metadata))
@@ -33,7 +33,7 @@ public class IVIPurchasedItem {
         return IVIPurchasedItem.builder()
                 .gameInventoryId(purchasedItem.getGameInventoryId())
                 .itemName(purchasedItem.getItemName())
-                .itemTypeId(purchasedItem.getItemTypeId())
+                .gameItemTypeId(purchasedItem.getGameItemTypeId())
                 .amountPaid(new BigDecimal(purchasedItem.getAmountPaid()))
                 .currency(purchasedItem.getCurrency())
                 .metadata(IVIMetadata.fromProto(purchasedItem.getMetadata()))
