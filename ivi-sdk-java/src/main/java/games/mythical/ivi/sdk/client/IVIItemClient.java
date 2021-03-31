@@ -56,6 +56,7 @@ public class IVIItemClient extends AbstractIVIClient {
 
     void subscribeToStream(IVIItemObserver observer) {
         // set up server stream
+        sleepBetweenReconnects();
         var streamStub = ItemStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)

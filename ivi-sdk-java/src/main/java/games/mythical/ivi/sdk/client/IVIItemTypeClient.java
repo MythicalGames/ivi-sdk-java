@@ -49,6 +49,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
 
     void subscribeToStream(IVIItemTypeObserver observer) {
         // set up server stream
+        sleepBetweenReconnects();
         var streamStub = ItemTypeStatusStreamGrpc.newStub(channel)
                 .withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
