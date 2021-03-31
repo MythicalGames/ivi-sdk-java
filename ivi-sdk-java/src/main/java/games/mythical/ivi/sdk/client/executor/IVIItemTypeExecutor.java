@@ -3,7 +3,7 @@ package games.mythical.ivi.sdk.client.executor;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 
 public interface IVIItemTypeExecutor {
-    void updateItemType(String itemTypeId,
+    void updateItemType(String gameItemTypeId,
                         int currentSupply,
                         int issuedSupply,
                         String baseUri,
@@ -11,7 +11,7 @@ public interface IVIItemTypeExecutor {
                         String trackingId,
                         ItemTypeState itemTypeState) throws Exception;
 
-    void updateItemTypeStatus(String itemTypeId,
+    void updateItemTypeStatus(String gameItemTypeId,
                               String trackingId,
                               ItemTypeState itemTypeState) throws Exception;
 }

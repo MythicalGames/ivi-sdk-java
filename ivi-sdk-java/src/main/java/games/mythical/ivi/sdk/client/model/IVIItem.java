@@ -10,7 +10,7 @@ import java.time.Instant;
 @Data
 public class IVIItem {
     private String gameInventoryId;
-    private String itemTypeId;
+    private String gameItemTypeId;
     private long dGoodsId;
     private String itemName;
     private String playerId;
@@ -25,7 +25,7 @@ public class IVIItem {
     private Instant updatedTimestamp;
 
     IVIItem(String gameInventoryId,
-                   String itemTypeId,
+                   String gameItemTypeId,
                    long dGoodsId,
                    String itemName,
                    String playerId,
@@ -39,7 +39,7 @@ public class IVIItem {
                    Instant createdTimestamp,
                    Instant updatedTimestamp) {
         this.gameInventoryId = gameInventoryId;
-        this.itemTypeId = itemTypeId;
+        this.gameItemTypeId = gameItemTypeId;
         this.dGoodsId = dGoodsId;
         this.itemName = itemName;
         this.playerId = playerId;
@@ -59,7 +59,7 @@ public class IVIItem {
         var updatedTimestamp = Instant.ofEpochSecond(item.getUpdatedTimestamp());
 
         return new IVIItem(item.getGameInventoryId(),
-                item.getItemTypeId(),
+                item.getGameItemTypeId(),
                 item.getDgoodsId(),
                 item.getItemName(),
                 item.getPlayerId(),

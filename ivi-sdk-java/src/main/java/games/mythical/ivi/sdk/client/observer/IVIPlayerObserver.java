@@ -30,8 +30,6 @@ public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
         log.trace("PlayerObserver.onNext for player id: {}", message.getPlayerId());
         try {
             playerExecutor.updatePlayer(message.getPlayerId(),
-                    message.getIviUserId(),
-                    message.getSidechainAccountName(),
                     message.getTrackingId(),
                     message.getPlayerState());
             updatePlayerConfirmation(message.getPlayerId(), message.getTrackingId(), message.getPlayerState());

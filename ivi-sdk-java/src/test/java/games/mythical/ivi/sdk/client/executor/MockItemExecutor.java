@@ -12,14 +12,14 @@ public class MockItemExecutor implements IVIItemExecutor {
     private String playerId;
     private long dGoodsId;
     private int serialNumber;
-    private String itemTypeId;
+    private String gameItemTypeId;
     private String metadataUri;
     private String trackingId;
     private ItemState itemState;
 
     @Override
     public void updateItem(String gameInventoryId,
-                           String itemTypeId,
+                           String gameItemTypeId,
                            String playerId,
                            long dGoodsId,
                            int serialNumber,
@@ -30,7 +30,7 @@ public class MockItemExecutor implements IVIItemExecutor {
         this.playerId = playerId;
         this.dGoodsId = dGoodsId;
         this.serialNumber = serialNumber;
-        this.itemTypeId = itemTypeId;
+        this.gameItemTypeId = gameItemTypeId;
         this.metadataUri = metadataUri;
         this.trackingId = trackingId;
         this.itemState = itemState;
@@ -45,7 +45,7 @@ public class MockItemExecutor implements IVIItemExecutor {
 
     public void setFromItem(IVIItem item) {
         updateItem(item.getGameInventoryId(),
-                item.getItemTypeId(),
+                item.getGameItemTypeId(),
                 item.getPlayerId(),
                 item.getDGoodsId(),
                 item.getSerialNumber(),

@@ -13,10 +13,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -60,8 +57,8 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         streamStub.itemTypeStatusStream(subscribe, observer);
     }
 
-    public Optional<IVIItemType> getItemType(UUID itemTypeId) throws IVIException {
-        var result = getItemTypes(List.of(itemTypeId));
+    public Optional<IVIItemType> getItemType(String gameItemTypeId) throws IVIException {
+        var result = getItemTypes(List.of(gameItemTypeId));
         if(result.isEmpty()) {
             return Optional.empty();
         } else {
@@ -69,16 +66,24 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         }
     }
 
-    public List<IVIItemType> getItemTypes(Collection<UUID> itemTypeIds) throws IVIException {
-        var request = GetItemTypesRequest.newBuilder()
-                .setEnvironmentId(environmentId)
-                .addAllItemTypeIds(itemTypeIds.stream().map(UUID::toString).collect(Collectors.toList()))
-                .build();
-        var result = serviceBlockingStub.getItemTypes(request);
+    public List<IVIItemType> getItemTypes() throws IVIException {
+        return getItemTypes(Collections.emptyList());
+    }
+
+    public List<IVIItemType> getItemTypes(Collection<String> gameItemTypeIds) throws IVIException {
+        var requestBuilder = GetItemTypesRequest.newBuilder()
+                .setEnvironmentId(environmentId);
+
+        if(!gameItemTypeIds.isEmpty()) {
+            requestBuilder.addAllGameItemTypeIds(gameItemTypeIds);
+        }
+
+        var result = serviceBlockingStub.getItemTypes(requestBuilder.build());
         return IVIItemType.fromProto(result.getItemTypesList());
     }
 
-    public void createItemType(String tokenName,
+    public void createItemType(String gameItemTypeId,
+                               String tokenName,
                                String category,
                                int maxSupply,
                                int issueTimeSpan,
@@ -102,7 +107,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .build();
             var result = serviceBlockingStub.createItemType(request);
-            itemTypeExecutor.updateItemTypeStatus(result.getItemTypeId(),
+            itemTypeExecutor.updateItemTypeStatus(result.getGameItemTypeId(),
                     result.getTrackingId(),
                     result.getItemTypeState());
         } catch (IVIException e) {
@@ -114,15 +119,15 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         }
     }
 
-    public void freezeItemType(UUID itemTypeId) {
-        log.trace("ItemTypeClient.freezeItemType called for {}", itemTypeId);
+    public void freezeItemType(String gameItemTypeId) {
+        log.trace("ItemTypeClient.freezeItemType called for {}", gameItemTypeId);
         var request = FreezeItemTypeRequest.newBuilder()
                 .setEnvironmentId(environmentId)
-                .setItemTypeId(itemTypeId.toString())
+                .setGameItemTypeId(gameItemTypeId)
                 .build();
         var result = serviceBlockingStub.freezeItemType(request);
         try {
-            itemTypeExecutor.updateItemTypeStatus(itemTypeId.toString(),
+            itemTypeExecutor.updateItemTypeStatus(gameItemTypeId,
                     result.getTrackingId(),
                     result.getItemTypeState());
         } catch (Exception e) {

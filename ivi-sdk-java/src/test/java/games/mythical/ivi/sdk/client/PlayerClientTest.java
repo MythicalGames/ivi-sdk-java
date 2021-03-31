@@ -53,15 +53,14 @@ class PlayerClientTest extends AbstractClientTest {
     @Test
     void linkPlayer() throws Exception {
         var playerId = UUID.randomUUID().toString();
-        var iviUserId = UUID.randomUUID().toString();
+        var email = "user@game.com";
+        var displayName = RandomStringUtils.randomAlphanumeric(20, 50);
 
         playerExecutor.setPlayerId(playerId);
-        playerExecutor.setIviUserId(iviUserId);
 
-        playerClient.linkPlayer(playerId, iviUserId);
+        playerClient.linkPlayer(playerId, email, displayName);
 
         assertEquals(playerId, playerExecutor.getPlayerId());
-        assertEquals(iviUserId, playerExecutor.getIviUserId());
         assertFalse(StringUtils.isEmpty(playerExecutor.getTrackingId()));
         assertEquals(PlayerState.PENDING_LINKED, playerExecutor.getPlayerState());
 
@@ -70,16 +69,13 @@ class PlayerClientTest extends AbstractClientTest {
         ConcurrentFinisher.start(playerExecutor.getTrackingId());
         playerServer.getPlayerStream().sendStatus(environmentId, IVIPlayer.newBuilder()
                 .setPlayerId(playerId)
-                .setIviUserId(iviUserId)
                 .setTrackingId(playerExecutor.getTrackingId())
                 .build(), PlayerState.LINKED);
 
         ConcurrentFinisher.wait(playerExecutor.getTrackingId());
 
         assertEquals(playerId, playerExecutor.getPlayerId());
-        assertEquals(iviUserId, playerExecutor.getIviUserId());
         assertFalse(StringUtils.isEmpty(playerExecutor.getTrackingId()));
-        assertFalse(StringUtils.isEmpty(playerExecutor.getSidechainAccountName()));
         assertEquals(PlayerState.LINKED, playerExecutor.getPlayerState());
 
         playerServer.verifyCalls("PlayerStatusStream", 1);
@@ -93,7 +89,8 @@ class PlayerClientTest extends AbstractClientTest {
 
         assertTrue(player.isPresent());
         assertEquals(mockPlayer.getPlayerId(), player.get().getPlayerId());
-        assertEquals(mockPlayer.getIviUserId(), player.get().getIviUserId());
+        assertEquals(mockPlayer.getEmail(), player.get().getEmail());
+        assertEquals(mockPlayer.getDisplayName(), player.get().getDisplayName());
         assertEquals(mockPlayer.getSidechainAccountName(), player.get().getSidechainAccountName());
         assertEquals(mockPlayer.getTrackingId(), player.get().getTrackingId());
         assertEquals(mockPlayer.getPlayerState(), player.get().getPlayerState());
@@ -114,7 +111,8 @@ class PlayerClientTest extends AbstractClientTest {
 
         for(var player : players) {
             assertEquals(iviPlayers.get(player.getPlayerId()).getPlayerId(), player.getPlayerId());
-            assertEquals(iviPlayers.get(player.getPlayerId()).getIviUserId(), player.getIviUserId());
+            assertEquals(iviPlayers.get(player.getPlayerId()).getEmail(), player.getEmail());
+            assertEquals(iviPlayers.get(player.getPlayerId()).getDisplayName(), player.getDisplayName());
             assertEquals(iviPlayers.get(player.getPlayerId()).getSidechainAccountName(), player.getSidechainAccountName());
             assertEquals(iviPlayers.get(player.getPlayerId()).getTrackingId(), player.getTrackingId());
             assertEquals(iviPlayers.get(player.getPlayerId()).getPlayerState(), player.getPlayerState());

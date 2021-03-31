@@ -21,7 +21,7 @@ public class MockItemTypeServiceImpl extends ItemTypeServiceGrpc.ItemTypeService
     @Override
     public void createItemType(CreateItemTypeRequest request, StreamObserver<CreateItemAsyncResponse> responseObserver) {
         var response = CreateItemAsyncResponse.newBuilder()
-                .setItemTypeId(UUID.randomUUID().toString())
+                .setGameItemTypeId(RandomStringUtils.randomAlphanumeric(20, 50))
                 .setTrackingId(RandomStringUtils.randomAlphanumeric(30))
                 .setItemTypeState(ItemTypeState.PENDING_CREATE)
                 .build();
@@ -32,9 +32,13 @@ public class MockItemTypeServiceImpl extends ItemTypeServiceGrpc.ItemTypeService
     @Override
     public void getItemTypes(GetItemTypesRequest request, StreamObserver<ItemTypes> responseObserver) {
         var result = new ArrayList<ItemType>();
-        for (var itemTypeId : request.getItemTypeIdsList()) {
-            if(itemTypes.containsKey(itemTypeId)) {
-                result.add(itemTypes.get(itemTypeId));
+        if(request.getGameItemTypeIdsList().isEmpty()) {
+            result = new ArrayList<>(itemTypes.values());
+        } else {
+            for (var itemTypeId : request.getGameItemTypeIdsList()) {
+                if(itemTypes.containsKey(itemTypeId)) {
+                    result.add(itemTypes.get(itemTypeId));
+                }
             }
         }
 
@@ -54,7 +58,7 @@ public class MockItemTypeServiceImpl extends ItemTypeServiceGrpc.ItemTypeService
 
     public void setItemTypes(Collection<IVIItemType> itemTypes) throws IVIException {
         for (var itemType : itemTypes) {
-            this.itemTypes.putIfAbsent(itemType.getItemTypeId().toString(), fromIVI(itemType));
+            this.itemTypes.putIfAbsent(itemType.getGameItemTypeId(), fromIVI(itemType));
         }
     }
 
@@ -64,7 +68,7 @@ public class MockItemTypeServiceImpl extends ItemTypeServiceGrpc.ItemTypeService
 
     private ItemType fromIVI(IVIItemType itemType) throws IVIException {
         return ItemType.newBuilder()
-                .setItemTypeId(itemType.getItemTypeId().toString())
+                .setGameItemTypeId(itemType.getGameItemTypeId())
                 .setMaxSupply(itemType.getMaxSupply())
                 .setCurrentSupply(itemType.getCurrentSupply())
                 .setIssuedSupply(itemType.getIssuedSupply())

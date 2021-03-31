@@ -67,7 +67,7 @@ public class IVIItemClient extends AbstractIVIClient {
     public void issueItem(String gameInventoryId,
                           String playerId,
                           String itemName,
-                          String itemTypeId,
+                          String gameItemTypeId,
                           BigDecimal amountPaid,
                           String currency,
                           IVIMetadata metadata,
@@ -79,7 +79,7 @@ public class IVIItemClient extends AbstractIVIClient {
                     .setGameInventoryId(gameInventoryId)
                     .setPlayerId(playerId)
                     .setItemName(itemName)
-                    .setItemTypeId(itemTypeId)
+                    .setGameItemTypeId(gameItemTypeId)
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .setAmountPaid(amountPaid.toString())
                     .setCurrency(currency)

@@ -27,16 +27,16 @@ public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate>
 
     @Override
     public void onNext(ItemTypeStatusUpdate message) {
-        log.trace("ItemTypeObserver.onNext for item_type id: {}", message.getItemTypeId());
+        log.trace("ItemTypeObserver.onNext for game item type id: {}", message.getGameItemTypeId());
         try {
-            itemTypeExecutor.updateItemType(message.getItemTypeId(),
+            itemTypeExecutor.updateItemType(message.getGameItemTypeId(),
                     message.getCurrentSupply(),
                     message.getIssuedSupply(),
                     message.getBaseUri(),
                     message.getIssueTimeSpan(),
                     message.getTrackingId(),
                     message.getItemTypeState());
-            updateItemTypeConfirmation(message.getItemTypeId(), message.getTrackingId(), message.getItemTypeState());
+            updateItemTypeConfirmation(message.getGameItemTypeId(), message.getTrackingId(), message.getItemTypeState());
         } catch (Exception e) {
             log.error("Exception calling updateItemType", e);
         }
@@ -55,10 +55,10 @@ public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate>
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void updateItemTypeConfirmation(String itemTypeId, String trackingId, ItemTypeState itemTypeState) {
+    private void updateItemTypeConfirmation(String gameItemTypeId, String trackingId, ItemTypeState itemTypeState) {
         var request = ItemTypeStatusConfirmRequest.newBuilder()
                 .setEnvironmentId(IVIConfiguration.getEnvironmentId())
-                .setItemTypeId(itemTypeId)
+                .setGameItemTypeId(gameItemTypeId)
                 .setTrackingId(trackingId)
                 .setItemTypeState(itemTypeState)
                 .build();

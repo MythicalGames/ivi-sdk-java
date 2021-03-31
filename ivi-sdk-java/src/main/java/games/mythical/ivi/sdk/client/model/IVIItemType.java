@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Data
 public class IVIItemType {
-    private UUID itemTypeId;
+    private String gameItemTypeId;
     private int maxSupply;
     private int currentSupply;
     private int issuedSupply;
@@ -34,7 +34,7 @@ public class IVIItemType {
     private Instant updatedTimestamp;
     private ItemTypeState itemTypeState;
 
-    IVIItemType(UUID itemTypeId,
+    IVIItemType(String gameItemTypeId,
                 int maxSupply,
                 int currentSupply,
                 int issuedSupply,
@@ -54,7 +54,7 @@ public class IVIItemType {
                 Instant createdTimestamp,
                 Instant updatedTimestamp,
                 ItemTypeState itemTypeState) {
-        this.itemTypeId = itemTypeId;
+        this.gameItemTypeId = gameItemTypeId;
         this.maxSupply = maxSupply;
         this.currentSupply = currentSupply;
         this.issuedSupply = issuedSupply;
@@ -77,7 +77,7 @@ public class IVIItemType {
     }
 
     public static IVIItemType fromProto(ItemType itemType) throws IVIException {
-        return new IVIItemType(UUID.fromString(itemType.getItemTypeId()),
+        return new IVIItemType(itemType.getGameItemTypeId(),
                 itemType.getMaxSupply(),
                 itemType.getCurrentSupply(),
                 itemType.getIssuedSupply(),

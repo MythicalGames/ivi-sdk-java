@@ -178,7 +178,7 @@ public class MockItemServiceImpl extends ItemServiceGrpc.ItemServiceImplBase {
     private Item toProto(IVIItem item) throws IVIException {
         return Item.newBuilder()
                 .setGameInventoryId(item.getGameInventoryId())
-                .setItemTypeId(item.getItemTypeId())
+                .setGameItemTypeId(item.getGameItemTypeId())
                 .setDgoodsId(item.getDGoodsId())
                 .setItemName(item.getItemName())
                 .setPlayerId(item.getPlayerId())

@@ -5,12 +5,10 @@ import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 @Builder
 public class MockItemTypeExecutor implements IVIItemTypeExecutor {
-    private UUID itemTypeId;
+    private String gameItemTypeId;
     private int currentSupply;
     private int issuedSupply;
     private String baseUri;
@@ -19,14 +17,14 @@ public class MockItemTypeExecutor implements IVIItemTypeExecutor {
     private ItemTypeState itemTypeState;
 
     @Override
-    public void updateItemType(String itemTypeId,
+    public void updateItemType(String gameItemTypeId,
                                int currentSupply,
                                int issuedSupply,
                                String baseUri,
                                int issueTimeSpan,
                                String trackingId,
                                ItemTypeState itemTypeState) throws Exception {
-        this.itemTypeId =  UUID.fromString(itemTypeId);
+        this.gameItemTypeId = gameItemTypeId;
         this.currentSupply = currentSupply;
         this.issuedSupply = issuedSupply;
         this.baseUri = baseUri;
@@ -36,16 +34,16 @@ public class MockItemTypeExecutor implements IVIItemTypeExecutor {
     }
 
     @Override
-    public void updateItemTypeStatus(String itemTypeId,
+    public void updateItemTypeStatus(String gameItemTypeId,
                                      String trackingId,
                                      ItemTypeState itemTypeState) throws Exception {
-        this.itemTypeId = UUID.fromString(itemTypeId);
+        this.gameItemTypeId = gameItemTypeId;
         this.trackingId = trackingId;
         this.itemTypeState = itemTypeState;
     }
 
     public void setFromItemType(IVIItemType itemType) {
-            this.itemTypeId = itemType.getItemTypeId();
+            this.gameItemTypeId = itemType.getGameItemTypeId();
             this.currentSupply = itemType.getCurrentSupply();
             this.issuedSupply = itemType.getIssuedSupply();
             this.baseUri = itemType.getBaseUri();
