@@ -52,6 +52,7 @@ public class IVIPlayerClient extends AbstractIVIClient {
 
     void subscribeToStream(IVIPlayerObserver observer) {
         // set up server stream
+        sleepBetweenReconnects();
         var streamStub  = PlayerStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)

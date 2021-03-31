@@ -54,6 +54,7 @@ public class IVIOrderClient extends AbstractIVIClient {
 
     void subscribeToStream(IVIOrderObserver observer) {
         // set up server stream
+        sleepBetweenReconnects();
         var streamStub = OrderStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)

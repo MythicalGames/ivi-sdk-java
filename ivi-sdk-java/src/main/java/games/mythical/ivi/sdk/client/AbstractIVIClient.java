@@ -6,18 +6,28 @@ import games.mythical.ivi.sdk.exception.IVIException;
 import io.grpc.CallCredentials;
 import io.grpc.ManagedChannel;
 import io.grpc.Metadata;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.Executor;
 
+@Slf4j
 public abstract class AbstractIVIClient {
+    // IVI settings
     protected final String host;
     protected final int port;
-
     protected final String environmentId;
     protected final String apiKey;
+
+    // gRPC settings
     protected final int keepAlive;
     protected ManagedChannel channel;
+
+    // retry settings
+    private boolean retry = false;
+    private int requestCount = 1;
+    private int maxCount = 32;
 
     protected AbstractIVIClient() throws IVIException {
         if(StringUtils.isEmpty(IVIConfiguration.getEnvironmentId())) {
@@ -56,5 +66,24 @@ public abstract class AbstractIVIClient {
             @Override
             public void thisUsesUnstableApi() { }
         };
+    }
+
+    protected void sleepBetweenReconnects() {
+        if(!retry) {
+            retry = true;
+            return;
+        }
+
+        if(requestCount < maxCount) {
+            requestCount = (int) Math.pow(2, requestCount);
+        }
+        var sleepTimeMillis = (requestCount * 1000) + RandomUtils.nextInt(1, 1000);
+        try {
+            log.trace("Sleeping before reconnect");
+            Thread.sleep(sleepTimeMillis);
+        } catch (InterruptedException e) {
+            log.error("Retry interrupted, exiting...");
+            Thread.currentThread().interrupt();
+        }
     }
 }
