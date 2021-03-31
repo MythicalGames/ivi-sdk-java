@@ -77,7 +77,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         var providerId = PaymentProviderId.BRAINTREE;
         var purchasedItems = generatePurchasedItems(3);
 
-        orderClient.createPrimaryOrder(storeId, playerId, subTotal, address, providerId, purchasedItems);
+        orderClient.createPrimaryOrder(storeId, playerId, subTotal, address, providerId, purchasedItems, null);
 
         orderServer.verifyCalls("CreateOrder", 1);
         assertNotNull(orderExecutor.getOrderId());
@@ -116,7 +116,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         var providerId = PaymentProviderId.BRAINTREE;
         var listingId = RandomStringUtils.randomAlphanumeric(30);
 
-        orderClient.createSecondaryOrder(storeId, playerId, subTotal, address, providerId, listingId);
+        orderClient.createSecondaryOrder(storeId, playerId, subTotal, address, providerId, listingId, null);
 
         orderServer.verifyCalls("CreateOrder", 1);
         assertNotNull(orderExecutor.getOrderId());
@@ -155,7 +155,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderExecutor.setOrderId(orders.get(orderId).getOrderId());
         orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
 
-        orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce);
+        orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce, null);
 
         assertEquals(orderId, orderExecutor.getOrderId());
         assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
@@ -183,7 +183,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderExecutor.setOrderId(orders.get(orderId).getOrderId());
         orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
 
-        orderClient.finalizeBitpayOrder(orderId, invoiceId);
+        orderClient.finalizeBitpayOrder(orderId, invoiceId, null);
 
         assertEquals(orderId, orderExecutor.getOrderId());
         assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
@@ -210,7 +210,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         var paymentNonce = RandomStringUtils.randomAlphanumeric(30);
 
         try {
-            orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce);
+            orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce, null);
             fail("Didn't return an expected IVIException!");
         } catch (IVIException e) {
             assertEquals(IVIErrorCode.NOT_FOUND, e.getCode());
