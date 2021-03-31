@@ -93,9 +93,10 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                                Collection<UUID> agreementIds,
                                IVIMetadata metadata) throws IVIException {
         try {
-            log.trace("ItemTypeClient.createItemType called for {}:{}", tokenName, category);
+            log.trace("ItemTypeClient.createItemType called for game item type id: {} {}:{}", gameItemTypeId, tokenName, category);
             var request = CreateItemTypeRequest.newBuilder()
                     .setEnvironmentId(environmentId)
+                    .setGameItemTypeId(gameItemTypeId)
                     .setTokenName(tokenName)
                     .setCategory(category)
                     .setMaxSupply(maxSupply)
