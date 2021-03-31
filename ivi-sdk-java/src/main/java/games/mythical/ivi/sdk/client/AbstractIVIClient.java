@@ -83,6 +83,7 @@ public abstract class AbstractIVIClient {
             Thread.sleep(sleepTimeMillis);
         } catch (InterruptedException e) {
             log.error("Retry interrupted, exiting...");
+            Thread.currentThread().interrupt();
         }
     }
 }
