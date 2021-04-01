@@ -58,6 +58,7 @@ public class IVIPlayerClient extends AbstractIVIClient {
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.playerStatusStream(subscribe, observer);
+        resetConnectionRetry();
     }
 
     public void linkPlayer(String playerId, String email, String displayName) throws IVIException {

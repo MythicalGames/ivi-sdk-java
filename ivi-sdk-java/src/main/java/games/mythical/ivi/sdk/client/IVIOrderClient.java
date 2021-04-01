@@ -60,6 +60,7 @@ public class IVIOrderClient extends AbstractIVIClient {
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.orderStatusStream(subscribe, observer);
+        resetConnectionRetry();
     }
 
     public Optional<IVIOrder> getOrder(String orderId) throws IVIException {

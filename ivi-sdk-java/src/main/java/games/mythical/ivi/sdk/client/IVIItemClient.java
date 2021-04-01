@@ -63,6 +63,7 @@ public class IVIItemClient extends AbstractIVIClient {
                 .build();
 
         streamStub.itemStatusStream(subscribe, observer);
+        resetConnectionRetry();
     }
 
     public void issueItem(String gameInventoryId,
