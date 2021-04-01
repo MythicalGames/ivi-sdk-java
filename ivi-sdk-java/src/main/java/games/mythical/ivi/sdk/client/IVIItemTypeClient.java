@@ -56,6 +56,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.itemTypeStatusStream(subscribe, observer);
+        resetConnectionRetry();
     }
 
     public Optional<IVIItemType> getItemType(String gameItemTypeId) throws IVIException {

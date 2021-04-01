@@ -27,7 +27,7 @@ public abstract class AbstractIVIClient {
     // retry settings
     private boolean retry = false;
     private int requestCount = 1;
-    private int maxCount = 16;
+    private final int maxCount = 16;
 
     protected AbstractIVIClient() throws IVIException {
         if(StringUtils.isEmpty(IVIConfiguration.getEnvironmentId())) {
@@ -76,7 +76,7 @@ public abstract class AbstractIVIClient {
 
         var sleepTimeMillis = (int) Math.pow(2, requestCount) + RandomUtils.nextInt(1, 1000);
         try {
-            log.trace("Sleeping before reconnect");
+            log.trace("Sleeping {} milliseconds before reconnect", sleepTimeMillis);
             Thread.sleep(sleepTimeMillis);
 
             if(requestCount < maxCount) {
@@ -86,5 +86,10 @@ public abstract class AbstractIVIClient {
             log.error("Retry interrupted, exiting...");
             Thread.currentThread().interrupt();
         }
+    }
+
+    protected void resetConnectionRetry() {
+        retry = false;
+        requestCount = 1;
     }
 }
