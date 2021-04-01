@@ -74,7 +74,7 @@ public abstract class AbstractIVIClient {
             return;
         }
 
-        var sleepTimeMillis = ((int) Math.pow(2, requestCount) * 1000) + RandomUtils.nextInt(1, 1000);
+        var sleepTimeMillis = (int) Math.pow(2, requestCount) + RandomUtils.nextInt(1, 1000);
         try {
             log.trace("Sleeping before reconnect");
             Thread.sleep(sleepTimeMillis);
