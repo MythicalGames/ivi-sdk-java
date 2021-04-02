@@ -5,6 +5,7 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStreamGrpc;
+import games.mythical.ivi.sdk.util.Procedure;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,18 +16,22 @@ public class IVIOrderObserver implements StreamObserver<OrderStatusUpdate> {
     private final IVIOrderExecutor orderExecutor;
     private final OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub;
     private final Consumer<IVIOrderObserver> resubscribe;
+    private final Procedure reset;
 
     public IVIOrderObserver(IVIOrderExecutor orderExecutor,
                             OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub,
-                            Consumer<IVIOrderObserver> resubscribe) {
+                            Consumer<IVIOrderObserver> resubscribe,
+                            Procedure reset) {
         this.orderExecutor = orderExecutor;
         this.streamBlockingStub = streamBlockingStub;
         this.resubscribe = resubscribe;
+        this.reset = reset;
     }
 
     @Override
     public void onNext(OrderStatusUpdate message) {
         log.trace("IVIOrderObserver.onNext for order {}", message.getOrderId());
+        reset.invoke();
         try {
             orderExecutor.updateOrder(message.getOrderId(), message.getOrderState());
             updateOrderConfirmation(message.getOrderId());

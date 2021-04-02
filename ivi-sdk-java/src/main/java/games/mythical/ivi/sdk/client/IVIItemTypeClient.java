@@ -44,7 +44,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         serviceBlockingStub = ItemTypeServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = ItemTypeStatusStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIItemTypeObserver(itemTypeExecutor, streamBlockingStub, this::subscribeToStream));
+        subscribeToStream(new IVIItemTypeObserver(itemTypeExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
     }
 
     void subscribeToStream(IVIItemTypeObserver observer) {
@@ -56,7 +56,6 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.itemTypeStatusStream(subscribe, observer);
-        resetConnectionRetry();
     }
 
     public Optional<IVIItemType> getItemType(String gameItemTypeId) throws IVIException {

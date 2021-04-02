@@ -51,7 +51,7 @@ public class IVIItemClient extends AbstractIVIClient {
         serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = ItemStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIItemObserver(iviItemExecutor, streamBlockingStub, this::subscribeToStream));
+        subscribeToStream(new IVIItemObserver(iviItemExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
     }
 
     void subscribeToStream(IVIItemObserver observer) {
@@ -63,7 +63,6 @@ public class IVIItemClient extends AbstractIVIClient {
                 .build();
 
         streamStub.itemStatusStream(subscribe, observer);
-        resetConnectionRetry();
     }
 
     public void issueItem(String gameInventoryId,

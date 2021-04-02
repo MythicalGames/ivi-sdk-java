@@ -49,7 +49,7 @@ public class IVIOrderClient extends AbstractIVIClient {
         serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = OrderStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIOrderObserver(orderExecutor, streamBlockingStub, this::subscribeToStream));
+        subscribeToStream(new IVIOrderObserver(orderExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
     }
 
     void subscribeToStream(IVIOrderObserver observer) {
@@ -60,7 +60,6 @@ public class IVIOrderClient extends AbstractIVIClient {
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.orderStatusStream(subscribe, observer);
-        resetConnectionRetry();
     }
 
     public Optional<IVIOrder> getOrder(String orderId) throws IVIException {
