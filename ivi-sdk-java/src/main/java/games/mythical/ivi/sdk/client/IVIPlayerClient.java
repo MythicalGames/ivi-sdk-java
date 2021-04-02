@@ -47,7 +47,7 @@ public class IVIPlayerClient extends AbstractIVIClient {
         serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = PlayerStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIPlayerObserver(playerExecutor, streamBlockingStub, this::subscribeToStream));
+        subscribeToStream(new IVIPlayerObserver(playerExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
     }
 
     void subscribeToStream(IVIPlayerObserver observer) {
@@ -58,7 +58,6 @@ public class IVIPlayerClient extends AbstractIVIClient {
                 .setEnvironmentId(environmentId)
                 .build();
         streamStub.playerStatusStream(subscribe, observer);
-        resetConnectionRetry();
     }
 
     public void linkPlayer(String playerId, String email, String displayName) throws IVIException {

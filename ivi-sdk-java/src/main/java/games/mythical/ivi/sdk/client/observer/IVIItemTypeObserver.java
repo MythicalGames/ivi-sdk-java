@@ -6,6 +6,7 @@ import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
+import games.mythical.ivi.sdk.util.Procedure;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,18 +17,22 @@ public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate>
     private final IVIItemTypeExecutor itemTypeExecutor;
     private final ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub;
     private final Consumer<IVIItemTypeObserver> resubscribe;
+    private final Procedure reset;
 
     public IVIItemTypeObserver(IVIItemTypeExecutor itemTypeExecutor,
                                ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub,
-                               Consumer<IVIItemTypeObserver> resubscribe) {
+                               Consumer<IVIItemTypeObserver> resubscribe,
+                               Procedure reset) {
         this.streamBlockingStub = streamBlockingStub;
         this.itemTypeExecutor = itemTypeExecutor;
         this.resubscribe = resubscribe;
+        this.reset = reset;
     }
 
     @Override
     public void onNext(ItemTypeStatusUpdate message) {
         log.trace("ItemTypeObserver.onNext for game item type id: {}", message.getGameItemTypeId());
+        reset.invoke();
         try {
             itemTypeExecutor.updateItemType(message.getGameItemTypeId(),
                     message.getCurrentSupply(),

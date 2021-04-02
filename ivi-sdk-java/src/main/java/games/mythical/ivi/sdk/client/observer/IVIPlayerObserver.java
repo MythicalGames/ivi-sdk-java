@@ -6,6 +6,7 @@ import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
+import games.mythical.ivi.sdk.util.Procedure;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,18 +17,22 @@ public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
     private final IVIPlayerExecutor playerExecutor;
     private final PlayerStreamGrpc.PlayerStreamBlockingStub streamBlockingStub;
     private final Consumer<IVIPlayerObserver> resubscribe;
+    private final Procedure reset;
 
     public IVIPlayerObserver(IVIPlayerExecutor playerExecutor,
                              PlayerStreamGrpc.PlayerStreamBlockingStub playerStreamBlockingStub,
-                             Consumer<IVIPlayerObserver> resubscribe) {
+                             Consumer<IVIPlayerObserver> resubscribe,
+                             Procedure reset) {
         this.playerExecutor = playerExecutor;
         this.streamBlockingStub = playerStreamBlockingStub;
         this.resubscribe = resubscribe;
+        this.reset = reset;
     }
 
     @Override
     public void onNext(PlayerStatusUpdate message) {
         log.trace("PlayerObserver.onNext for player id: {}", message.getPlayerId());
+        reset.invoke();
         try {
             playerExecutor.updatePlayer(message.getPlayerId(),
                     message.getTrackingId(),
