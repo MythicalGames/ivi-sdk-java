@@ -77,7 +77,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         var providerId = PaymentProviderId.BRAINTREE;
         var purchasedItems = generatePurchasedItems(3);
 
-        orderClient.createPrimaryOrder(storeId, playerId, subTotal, address, providerId, purchasedItems, null);
+        orderClient.createPrimaryOrder(storeId, playerId, subTotal, address, providerId, purchasedItems, null, null);
 
         orderServer.verifyCalls("CreateOrder", 1);
         assertNotNull(orderExecutor.getOrderId());
@@ -116,7 +116,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         var providerId = PaymentProviderId.BRAINTREE;
         var listingId = RandomStringUtils.randomAlphanumeric(30);
 
-        orderClient.createSecondaryOrder(storeId, playerId, subTotal, address, providerId, listingId, null);
+        orderClient.createSecondaryOrder(storeId, playerId, subTotal, address, providerId, listingId, null, null);
 
         orderServer.verifyCalls("CreateOrder", 1);
         assertNotNull(orderExecutor.getOrderId());

@@ -88,7 +88,8 @@ public class IVIOrderClient extends AbstractIVIClient {
                                    IVIOrderAddress address,
                                    PaymentProviderId paymentProviderId,
                                    Collection<IVIPurchasedItem> purchasedItems,
-                                   Map<String, Object> metadata) throws IVIException {
+                                   Map<String, Object> metadata,
+                                   String requestIp) throws IVIException {
         var purchaseItemProtos = new ArrayList<IssuedItem>();
         for(var purchasedItem : purchasedItems ) {
             purchaseItemProtos.add(purchasedItem.toProto());
@@ -109,14 +110,9 @@ public class IVIOrderClient extends AbstractIVIClient {
             builder.setMetadata(ConversionUtils.convertProperties(metadata));
         }
 
-        // TODO: IVI has these two as param, would this be too much for user to send?
-//        if (StringUtils.isNotBlank(createdBy)) {
-//            builder.setCreatedBy(createdBy);
-//        }
-//
-//        if (StringUtils.isNotBlank(requestIp)) {
-//            builder.setRequestIp(requestIp);
-//        }
+        if (StringUtils.isNotBlank(requestIp)) {
+            builder.setRequestIp(requestIp);
+        }
 
         createOrder(builder.build());
     }
@@ -127,7 +123,8 @@ public class IVIOrderClient extends AbstractIVIClient {
                                      IVIOrderAddress address,
                                      PaymentProviderId paymentProviderId,
                                      String listingId,
-                                     Map<String, Object> metadata) throws IVIException {
+                                     Map<String, Object> metadata,
+                                     String requestIp) throws IVIException {
         var builder= CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
@@ -139,6 +136,10 @@ public class IVIOrderClient extends AbstractIVIClient {
 
         if (metadata != null) {
             builder.setMetadata(ConversionUtils.convertProperties(metadata));
+        }
+
+        if (StringUtils.isNotBlank(requestIp)) {
+            builder.setRequestIp(requestIp);
         }
 
         createOrder(builder.build());
