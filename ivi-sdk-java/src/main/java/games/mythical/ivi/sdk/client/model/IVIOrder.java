@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class IVIOrder {
     private String listingId;
     private final PaymentProviderId paymentProviderId;
     private final OrderState orderStatus;
+    private final Instant createdTimestamp;
 
     IVIOrder(Order order) throws IVIException {
         orderId = order.getOrderId();
@@ -36,6 +38,7 @@ public class IVIOrder {
         address = IVIOrderAddress.fromProto(order.getAddress());
         paymentProviderId = order.getPaymentProviderId();
         orderStatus = order.getOrderStatus();
+        createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
 
         switch (order.getLineItemsCase()) {
             case PURCHASED_ITEMS:

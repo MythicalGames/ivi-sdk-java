@@ -10,15 +10,18 @@ import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.*;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStreamGrpc;
+import games.mythical.ivi.sdk.util.ConversionUtils;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -81,48 +84,66 @@ public class IVIOrderClient extends AbstractIVIClient {
     }
 
     public void createPrimaryOrder(String storeId,
-                            String buyerPlayerId,
-                            BigDecimal subTotal,
-                            IVIOrderAddress address,
-                            PaymentProviderId paymentProviderId,
-                            Collection<IVIPurchasedItem> purchasedItems) throws IVIException {
-        var purchaseItemProtos = new ArrayList<PurchasedItem>();
-        for(var purchasedItem : purchasedItems ) {
-            purchaseItemProtos.add(purchasedItem.toProto());
-        }
-
-        var request = CreateOrderRequest.newBuilder()
-                .setEnvironmentId(environmentId)
-                .setStoreId(storeId)
-                .setBuyerPlayerId(buyerPlayerId)
-                .setSubTotal(subTotal.toString())
-                .setAddress(address.toProto())
-                .setPaymentProviderId(paymentProviderId)
-                .setPurchasedItems(PurchasedItems.newBuilder()
-                                .addAllPurchasedItems(purchaseItemProtos)
-                                .build())
-                .build();
-
-        createOrder(request);
-    }
-
-    public void createSecondaryOrder(String storeId,
                                    String buyerPlayerId,
                                    BigDecimal subTotal,
                                    IVIOrderAddress address,
                                    PaymentProviderId paymentProviderId,
-                                   String listingId) throws IVIException {
-        var request = CreateOrderRequest.newBuilder()
+                                   Collection<IVIPurchasedItem> purchasedItems,
+                                   Map<String, Object> metadata,
+                                   String requestIp) throws IVIException {
+        var purchaseItemProtos = new ArrayList<IssuedItem>();
+        for(var purchasedItem : purchasedItems ) {
+            purchaseItemProtos.add(purchasedItem.toProto());
+        }
+
+        var builder = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
                 .setBuyerPlayerId(buyerPlayerId)
                 .setSubTotal(subTotal.toString())
                 .setAddress(address.toProto())
                 .setPaymentProviderId(paymentProviderId)
-                .setListingId(listingId)
-                .build();
+                .setPurchasedItems(IssuedItems.newBuilder()
+                        .addAllPurchasedItems(purchaseItemProtos)
+                        .build());
 
-        createOrder(request);
+        if (metadata != null) {
+            builder.setMetadata(ConversionUtils.convertProperties(metadata));
+        }
+
+        if (StringUtils.isNotBlank(requestIp)) {
+            builder.setRequestIp(requestIp);
+        }
+
+        createOrder(builder.build());
+    }
+
+    public void createSecondaryOrder(String storeId,
+                                     String buyerPlayerId,
+                                     BigDecimal subTotal,
+                                     IVIOrderAddress address,
+                                     PaymentProviderId paymentProviderId,
+                                     String listingId,
+                                     Map<String, Object> metadata,
+                                     String requestIp) throws IVIException {
+        var builder = CreateOrderRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setStoreId(storeId)
+                .setBuyerPlayerId(buyerPlayerId)
+                .setSubTotal(subTotal.toString())
+                .setAddress(address.toProto())
+                .setPaymentProviderId(paymentProviderId)
+                .setListingId(listingId);
+
+        if (metadata != null) {
+            builder.setMetadata(ConversionUtils.convertProperties(metadata));
+        }
+
+        if (StringUtils.isNotBlank(requestIp)) {
+            builder.setRequestIp(requestIp);
+        }
+
+        createOrder(builder.build());
     }
 
     private void createOrder(CreateOrderRequest request) throws IVIException {
@@ -137,7 +158,10 @@ public class IVIOrderClient extends AbstractIVIClient {
         }
     }
 
-    public void finalizeBraintreeOrder(String orderId, String clientToken, String paymentNonce) throws IVIException {
+    public void finalizeBraintreeOrder(String orderId,
+                                       String clientToken,
+                                       String paymentNonce,
+                                       String fraudSessionId) throws IVIException {
         var paymentData = PaymentProviderProto.newBuilder()
                 .setBraintree(BraintreeProto.newBuilder()
                         .setBraintreeClientToken(clientToken)
@@ -145,26 +169,32 @@ public class IVIOrderClient extends AbstractIVIClient {
                         .build())
                 .build();
 
-        finalizeOrder(orderId, paymentData);
+        finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
-    public void finalizeBitpayOrder(String orderId, String invoiceId) throws IVIException {
+    public void finalizeBitpayOrder(String orderId,
+                                    String invoiceId,
+                                    String fraudSessionId) throws IVIException {
         var paymentData = PaymentProviderProto.newBuilder()
                 .setBitpay(BitPayProto.newBuilder()
                         .setInvoiceId(invoiceId)
                         .build())
                 .build();
 
-        finalizeOrder(orderId, paymentData);
+        finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
-    private void finalizeOrder(String orderId, PaymentProviderProto paymentData) throws IVIException {
-        var request = FinalizeOrderRequest.newBuilder()
+    private void finalizeOrder(String orderId, PaymentProviderProto paymentData, String fraudSessionId) throws IVIException {
+        var builder = FinalizeOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setOrderId(orderId)
-                .setPaymentProviderData(paymentData)
-                .build();
+                .setPaymentProviderData(paymentData);
 
+        if (StringUtils.isNotBlank(fraudSessionId)) {
+            builder.setFraudSessionId(fraudSessionId);
+        }
+
+        var request = builder.build();
         try {
             var result = serviceBlockingStub.finalizeOrder(request);
             orderExecutor.updateOrder(orderId, result.getOrderStatus());

@@ -5,10 +5,8 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
-import games.mythical.ivi.sdk.proto.api.order.Order;
-import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
-import games.mythical.ivi.sdk.proto.api.order.PurchasedItem;
-import games.mythical.ivi.sdk.proto.api.order.PurchasedItems;
+import games.mythical.ivi.sdk.proto.api.itemtype.ItemTypes;
+import games.mythical.ivi.sdk.proto.api.order.*;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
@@ -187,11 +185,11 @@ public abstract class AbstractClientTest {
 
             if(isPrimary) {
                 var purchasedItems = generatePurchasedItems(3);
-                var protoItems = new ArrayList<PurchasedItem>();
+                var protoItems = new ArrayList<IssuedItem>();
                 for (var purchasedItem : purchasedItems) {
                     protoItems.add(purchasedItem.toProto());
                 }
-                orderBuilder.setPurchasedItems(PurchasedItems.newBuilder()
+                orderBuilder.setPurchasedItems(IssuedItems.newBuilder()
                         .addAllPurchasedItems(protoItems)
                         .build());
             } else {
