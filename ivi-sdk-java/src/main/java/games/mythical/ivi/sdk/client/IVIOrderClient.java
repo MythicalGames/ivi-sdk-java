@@ -95,7 +95,7 @@ public class IVIOrderClient extends AbstractIVIClient {
             purchaseItemProtos.add(purchasedItem.toProto());
         }
 
-        var builder= CreateOrderRequest.newBuilder()
+        var builder = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
                 .setBuyerPlayerId(buyerPlayerId)
@@ -125,7 +125,7 @@ public class IVIOrderClient extends AbstractIVIClient {
                                      String listingId,
                                      Map<String, Object> metadata,
                                      String requestIp) throws IVIException {
-        var builder= CreateOrderRequest.newBuilder()
+        var builder = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
                 .setBuyerPlayerId(buyerPlayerId)
