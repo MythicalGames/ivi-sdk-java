@@ -5,33 +5,28 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStreamGrpc;
-import games.mythical.ivi.sdk.util.Procedure;
-import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;
 
 @Slf4j
-public class IVIOrderObserver implements StreamObserver<OrderStatusUpdate> {
+public class IVIOrderObserver extends AbstractObserver<OrderStatusUpdate> {
     private final IVIOrderExecutor orderExecutor;
     private final OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub;
     private final Consumer<IVIOrderObserver> resubscribe;
-    private final Procedure reset;
 
     public IVIOrderObserver(IVIOrderExecutor orderExecutor,
                             OrderStreamGrpc.OrderStreamBlockingStub streamBlockingStub,
-                            Consumer<IVIOrderObserver> resubscribe,
-                            Procedure reset) {
+                            Consumer<IVIOrderObserver> resubscribe) {
         this.orderExecutor = orderExecutor;
         this.streamBlockingStub = streamBlockingStub;
         this.resubscribe = resubscribe;
-        this.reset = reset;
     }
 
     @Override
     public void onNext(OrderStatusUpdate message) {
         log.trace("IVIOrderObserver.onNext for order {}", message.getOrderId());
-        reset.invoke();
+        resetConnectionRetry();
         try {
             orderExecutor.updateOrder(message.getOrderId(), message.getOrderState());
             updateOrderConfirmation(message.getOrderId());
@@ -43,12 +38,14 @@ public class IVIOrderObserver implements StreamObserver<OrderStatusUpdate> {
     @Override
     public void onError(Throwable t) {
         log.error("IVIOrderObserver.onError", t);
+        sleepBetweenReconnects();
         resubscribe.accept(this);
     }
 
     @Override
     public void onCompleted() {
         log.info("IVIOrderObserver stream closed");
+        sleepBetweenReconnects();
         resubscribe.accept(this);
     }
 

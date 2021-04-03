@@ -6,33 +6,28 @@ import games.mythical.ivi.sdk.proto.common.player.PlayerState;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
-import games.mythical.ivi.sdk.util.Procedure;
-import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;
 
 @Slf4j
-public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
+public class IVIPlayerObserver extends AbstractObserver<PlayerStatusUpdate> {
     private final IVIPlayerExecutor playerExecutor;
     private final PlayerStreamGrpc.PlayerStreamBlockingStub streamBlockingStub;
     private final Consumer<IVIPlayerObserver> resubscribe;
-    private final Procedure reset;
 
     public IVIPlayerObserver(IVIPlayerExecutor playerExecutor,
                              PlayerStreamGrpc.PlayerStreamBlockingStub playerStreamBlockingStub,
-                             Consumer<IVIPlayerObserver> resubscribe,
-                             Procedure reset) {
+                             Consumer<IVIPlayerObserver> resubscribe) {
         this.playerExecutor = playerExecutor;
         this.streamBlockingStub = playerStreamBlockingStub;
         this.resubscribe = resubscribe;
-        this.reset = reset;
     }
 
     @Override
     public void onNext(PlayerStatusUpdate message) {
         log.trace("PlayerObserver.onNext for player id: {}", message.getPlayerId());
-        reset.invoke();
+        resetConnectionRetry();
         try {
             playerExecutor.updatePlayer(message.getPlayerId(),
                     message.getTrackingId(),
@@ -46,12 +41,14 @@ public class IVIPlayerObserver implements StreamObserver<PlayerStatusUpdate> {
     @Override
     public void onError(Throwable t) {
         log.error("PlayerObserver.onError", t);
+        sleepBetweenReconnects();
         resubscribe.accept(this);
     }
 
     @Override
     public void onCompleted() {
         log.info("PlayerObserver stream closed");
+        sleepBetweenReconnects();
         resubscribe.accept(this);
     }
 
