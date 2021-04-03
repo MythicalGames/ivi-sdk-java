@@ -47,12 +47,11 @@ public class IVIPlayerClient extends AbstractIVIClient {
         serviceBlockingStub = PlayerServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = PlayerStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIPlayerObserver(playerExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
+        subscribeToStream(new IVIPlayerObserver(playerExecutor, streamBlockingStub, this::subscribeToStream));
     }
 
     void subscribeToStream(IVIPlayerObserver observer) {
         // set up server stream
-        sleepBetweenReconnects();
         var streamStub  = PlayerStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)

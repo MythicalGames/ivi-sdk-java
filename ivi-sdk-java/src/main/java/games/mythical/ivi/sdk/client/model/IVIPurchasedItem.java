@@ -1,7 +1,7 @@
 package games.mythical.ivi.sdk.client.model;
 
 import games.mythical.ivi.sdk.exception.IVIException;
-import games.mythical.ivi.sdk.proto.api.order.PurchasedItem;
+import games.mythical.ivi.sdk.proto.api.order.IssuedItem;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +18,8 @@ public class IVIPurchasedItem {
     private String currency;
     private IVIMetadata metadata;
 
-    public PurchasedItem toProto() throws IVIException {
-        return PurchasedItem.newBuilder()
+    public IssuedItem toProto() throws IVIException {
+        return IssuedItem.newBuilder()
                 .setGameInventoryId(gameInventoryId)
                 .setItemName(itemName)
                 .setGameItemTypeId(gameItemTypeId)
@@ -29,7 +29,7 @@ public class IVIPurchasedItem {
                 .build();
     }
 
-    public static IVIPurchasedItem fromProto(PurchasedItem purchasedItem) throws IVIException {
+    public static IVIPurchasedItem fromProto(IssuedItem purchasedItem) throws IVIException {
         return IVIPurchasedItem.builder()
                 .gameInventoryId(purchasedItem.getGameInventoryId())
                 .itemName(purchasedItem.getItemName())

@@ -33,5 +33,7 @@ jacocoTestReport {
 }
 
 coverallsJacoco {
+
+
     reportPath = "${buildDir}/reports/jacoco/report.xml"
 }

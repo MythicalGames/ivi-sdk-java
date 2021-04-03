@@ -1,7 +1,6 @@
 package games.mythical.ivi.sdk.server.order;
 
 import games.mythical.ivi.sdk.client.model.IVIOrder;
-import games.mythical.ivi.sdk.client.model.IVIPurchasedItem;
 import games.mythical.ivi.sdk.proto.api.order.*;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import io.grpc.Status;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -24,7 +22,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
     private final Map<String, Order> orders = new ConcurrentHashMap<>();
 
     @Override
-    public void createOrder(CreateOrderRequest request, StreamObserver<CreateOrderAsyncResponse> responseObserver) {
+    public void createOrder(CreateOrderRequest request, StreamObserver<Order> responseObserver) {
         var tax = BigDecimal.valueOf(RandomUtils.nextDouble(0, 10));
         var total = new BigDecimal(request.getSubTotal()).add(tax);
         var orderBuilder = Order.newBuilder()
@@ -53,7 +51,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         var order = orderBuilder.build();
         orders.put(order.getOrderId(), order);
 
-        var response = CreateOrderAsyncResponse.newBuilder()
+        var response = Order.newBuilder()
                 .setOrderId(order.getOrderId())
                 .setOrderStatus(OrderState.STARTED)
                 .build();
@@ -122,12 +120,12 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setOrderStatus(iviOrder.getOrderStatus());
 
         if(iviOrder.isPrimarySale()) {
-            var purchaseItemProtos = new ArrayList<PurchasedItem>();
+            var purchaseItemProtos = new ArrayList<IssuedItem>();
             for(var purchasedItem : iviOrder.getPurchasedItems() ) {
                 purchaseItemProtos.add(purchasedItem.toProto());
             }
 
-            orderBuilder.setPurchasedItems(PurchasedItems.newBuilder()
+            orderBuilder.setPurchasedItems(IssuedItems.newBuilder()
                     .addAllPurchasedItems(purchaseItemProtos)
                     .build());
         } else if (iviOrder.isSecondarySale()) {
