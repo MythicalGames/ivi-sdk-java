@@ -51,12 +51,11 @@ public class IVIItemClient extends AbstractIVIClient {
         serviceBlockingStub = ItemServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = ItemStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIItemObserver(iviItemExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
+        subscribeToStream(new IVIItemObserver(iviItemExecutor, streamBlockingStub, this::subscribeToStream));
     }
 
     void subscribeToStream(IVIItemObserver observer) {
         // set up server stream
-        sleepBetweenReconnects();
         var streamStub = ItemStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)

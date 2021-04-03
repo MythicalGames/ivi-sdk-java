@@ -6,33 +6,28 @@ import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusUpdate;
-import games.mythical.ivi.sdk.util.Procedure;
-import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;
 
 @Slf4j
-public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate> {
+public class IVIItemTypeObserver extends AbstractObserver<ItemTypeStatusUpdate> {
     private final IVIItemTypeExecutor itemTypeExecutor;
     private final ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub;
     private final Consumer<IVIItemTypeObserver> resubscribe;
-    private final Procedure reset;
 
     public IVIItemTypeObserver(IVIItemTypeExecutor itemTypeExecutor,
                                ItemTypeStatusStreamGrpc.ItemTypeStatusStreamBlockingStub streamBlockingStub,
-                               Consumer<IVIItemTypeObserver> resubscribe,
-                               Procedure reset) {
+                               Consumer<IVIItemTypeObserver> resubscribe) {
         this.streamBlockingStub = streamBlockingStub;
         this.itemTypeExecutor = itemTypeExecutor;
         this.resubscribe = resubscribe;
-        this.reset = reset;
     }
 
     @Override
     public void onNext(ItemTypeStatusUpdate message) {
         log.trace("ItemTypeObserver.onNext for game item type id: {}", message.getGameItemTypeId());
-        reset.invoke();
+        resetConnectionRetry();
         try {
             itemTypeExecutor.updateItemType(message.getGameItemTypeId(),
                     message.getCurrentSupply(),
@@ -50,12 +45,14 @@ public class IVIItemTypeObserver implements StreamObserver<ItemTypeStatusUpdate>
     @Override
     public void onError(Throwable t) {
         log.error("ItemTypeObserver.onError", t);
+        sleepBetweenReconnects();
         resubscribe.accept(this);
     }
 
     @Override
     public void onCompleted() {
         log.info("ItemTypeObserver stream closed");
+        sleepBetweenReconnects();
         resubscribe.accept(this);
     }
 

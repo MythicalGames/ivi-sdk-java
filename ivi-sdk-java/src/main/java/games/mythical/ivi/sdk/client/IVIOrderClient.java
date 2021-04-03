@@ -52,12 +52,11 @@ public class IVIOrderClient extends AbstractIVIClient {
         serviceBlockingStub = OrderServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
         var streamBlockingStub = OrderStreamGrpc.newBlockingStub(channel)
                 .withCallCredentials(addAuthentication());
-        subscribeToStream(new IVIOrderObserver(orderExecutor, streamBlockingStub, this::subscribeToStream, this::resetConnectionRetry));
+        subscribeToStream(new IVIOrderObserver(orderExecutor, streamBlockingStub, this::subscribeToStream));
     }
 
     void subscribeToStream(IVIOrderObserver observer) {
         // set up server stream
-        sleepBetweenReconnects();
         var streamStub = OrderStreamGrpc.newStub(channel).withCallCredentials(addAuthentication());
         var subscribe = Subscribe.newBuilder()
                 .setEnvironmentId(environmentId)
