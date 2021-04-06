@@ -203,6 +203,7 @@ public class IVIItemClient extends AbstractIVIClient {
     private void _updateItemMetadata(List<UpdateItemMetadata> updateList) throws IVIException {
         try {
             var request = UpdateItemMetadataRequest.newBuilder()
+                    .setEnvironmentId(environmentId)
                     .addAllUpdateItems(updateList)
                     .build();
 

@@ -135,5 +135,21 @@ public class IVIItemTypeClient extends AbstractIVIClient {
             log.error("Exception calling updateItemType on createItemType, item type will be in an invalid state!", e);
         }
     }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void updateItemTypeMetadata(String gameItemTypeId, IVIMetadata metadata) throws IVIException {
+        log.trace("ItemTypeClient.updateItemTypeMetadata called for {}", gameItemTypeId);
+        try {
+            var request = UpdateItemTypeMetadataPayload.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setGameItemTypeId(gameItemTypeId)
+                    .setMetadata(IVIMetadata.toProto(metadata))
+                    .build();
+            serviceBlockingStub.updateItemTypeMetadata(request);
+        } catch (IVIException e) {
+            log.error("Error parsing metadata!", e);
+            throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
+        }
+    }
 }
 
