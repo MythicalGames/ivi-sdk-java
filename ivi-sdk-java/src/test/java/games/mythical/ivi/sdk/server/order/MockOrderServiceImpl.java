@@ -51,12 +51,30 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         var order = orderBuilder.build();
         orders.put(order.getOrderId(), order);
 
-        var response = Order.newBuilder()
+        var responseBuilder = Order.newBuilder()
                 .setOrderId(order.getOrderId())
-                .setOrderStatus(OrderState.STARTED)
-                .build();
+                .setStoreId(request.getStoreId())
+                .setBuyerPlayerId(request.getBuyerPlayerId())
+                .setTax(tax.toString())
+                .setTotal(total.toString())
+                .setAddress(request.getAddress())
+                .setPaymentProviderId(request.getPaymentProviderId())
+                .setOrderStatus(OrderState.STARTED);
 
-        responseObserver.onNext(response);
+        switch (request.getLineItemsCase()) {
+            case PURCHASED_ITEMS:
+                responseBuilder.setPurchasedItems(request.getPurchasedItems());
+                break;
+            case LISTING_ID:
+                responseBuilder.setListingId(request.getListingId());
+                break;
+            case LINEITEMS_NOT_SET:
+                log.error("Order doesn't have any line items!");
+                responseObserver.onError(Status.INVALID_ARGUMENT.asException());
+                return;
+        }
+
+        responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
     }
 
