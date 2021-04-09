@@ -153,12 +153,15 @@ class IVIOrderClientTest extends AbstractClientTest {
         var orderId = orders.keySet().iterator().next();
         var clientToken = RandomStringUtils.randomAlphanumeric(30);
         var paymentNonce = RandomStringUtils.randomAlphanumeric(30);
+        var fraudSessionId = RandomStringUtils.randomAlphanumeric(30);
 
         orderExecutor.setOrderId(orders.get(orderId).getOrderId());
         orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
 
-        orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce, null);
+        var finalizeResponse = orderClient.finalizeBraintreeOrder(orderId, clientToken, paymentNonce, fraudSessionId);
 
+        assertTrue(finalizeResponse.isSuccess());
+        assertNotNull(finalizeResponse.getFraudScore());
         assertEquals(orderId, orderExecutor.getOrderId());
         assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
 
@@ -185,8 +188,10 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderExecutor.setOrderId(orders.get(orderId).getOrderId());
         orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
 
-        orderClient.finalizeBitpayOrder(orderId, invoiceId, null);
+        var finalizeResponse = orderClient.finalizeBitpayOrder(orderId, invoiceId, null);
 
+        assertTrue(finalizeResponse.isSuccess());
+        assertNull(finalizeResponse.getFraudScore());
         assertEquals(orderId, orderExecutor.getOrderId());
         assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
 

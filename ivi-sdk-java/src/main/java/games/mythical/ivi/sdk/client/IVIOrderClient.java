@@ -115,7 +115,7 @@ public class IVIOrderClient extends AbstractIVIClient {
             builder.setRequestIp(requestIp);
         }
 
-        return IVIOrder.fromProto(createOrder(builder.build()));
+        return createOrder(builder.build());
     }
 
     public IVIOrder createSecondaryOrder(String storeId,
@@ -143,14 +143,14 @@ public class IVIOrderClient extends AbstractIVIClient {
             builder.setRequestIp(requestIp);
         }
 
-        return IVIOrder.fromProto(createOrder(builder.build()));
+        return createOrder(builder.build());
     }
 
-    private Order createOrder(CreateOrderRequest request) throws IVIException {
+    private IVIOrder createOrder(CreateOrderRequest request) throws IVIException {
         try {
             var result = serviceBlockingStub.createOrder(request);
             orderExecutor.updateOrder(result.getOrderId(), result.getOrderStatus());
-            return result;
+            return IVIOrder.fromProto(result);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
@@ -170,7 +170,7 @@ public class IVIOrderClient extends AbstractIVIClient {
                         .build())
                 .build();
 
-        return IVIFinalizeOrderResponse.fromProto(finalizeOrder(orderId, paymentData, fraudSessionId));
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
     public IVIFinalizeOrderResponse finalizeBitpayOrder(String orderId,
@@ -182,10 +182,10 @@ public class IVIOrderClient extends AbstractIVIClient {
                         .build())
                 .build();
 
-        return IVIFinalizeOrderResponse.fromProto(finalizeOrder(orderId, paymentData, fraudSessionId));
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
-    private FinalizeOrderAsyncResponse finalizeOrder(String orderId, PaymentProviderProto paymentData, String fraudSessionId) throws IVIException {
+    private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentProviderProto paymentData, String fraudSessionId) throws IVIException {
         var builder = FinalizeOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setOrderId(orderId)
@@ -199,7 +199,7 @@ public class IVIOrderClient extends AbstractIVIClient {
         try {
             var result = serviceBlockingStub.finalizeOrder(request);
             orderExecutor.updateOrder(orderId, result.getOrderStatus());
-            return result;
+            return IVIFinalizeOrderResponse.fromProto(result);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
