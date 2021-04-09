@@ -8,6 +8,7 @@ import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -51,12 +52,30 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         var order = orderBuilder.build();
         orders.put(order.getOrderId(), order);
 
-        var response = Order.newBuilder()
+        var responseBuilder = Order.newBuilder()
                 .setOrderId(order.getOrderId())
-                .setOrderStatus(OrderState.STARTED)
-                .build();
+                .setStoreId(request.getStoreId())
+                .setBuyerPlayerId(request.getBuyerPlayerId())
+                .setTax(tax.toString())
+                .setTotal(total.toString())
+                .setAddress(request.getAddress())
+                .setPaymentProviderId(request.getPaymentProviderId())
+                .setOrderStatus(OrderState.STARTED);
 
-        responseObserver.onNext(response);
+        switch (request.getLineItemsCase()) {
+            case PURCHASED_ITEMS:
+                responseBuilder.setPurchasedItems(request.getPurchasedItems());
+                break;
+            case LISTING_ID:
+                responseBuilder.setListingId(request.getListingId());
+                break;
+            case LINEITEMS_NOT_SET:
+                log.error("Order doesn't have any line items!");
+                responseObserver.onError(Status.INVALID_ARGUMENT.asException());
+                return;
+        }
+
+        responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
     }
 
@@ -82,11 +101,19 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         var order = newOrderBuilder.build();
         orders.put(order.getOrderId(), order);
 
-        var response = FinalizeOrderAsyncResponse.newBuilder()
-                .setOrderStatus(order.getOrderStatus())
-                .build();
 
-        responseObserver.onNext(response);
+        var responseBuilder = FinalizeOrderAsyncResponse.newBuilder()
+                .setSuccess(true)
+                .setOrderStatus(order.getOrderStatus());
+
+        if (StringUtils.isNotBlank(request.getFraudSessionId())) {
+            var fraudScore = FraudResultProto.newBuilder()
+                    .setFraudScore(RandomUtils.nextInt(0, 99))
+                    .setFraudOmniscore(BigDecimal.valueOf(RandomUtils.nextDouble(0, 10)).toString());
+            responseBuilder.setFraudScore(fraudScore);
+        }
+
+        responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
     }
 

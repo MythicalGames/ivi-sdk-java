@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.IVIOrderExecutor;
+import games.mythical.ivi.sdk.client.model.IVIFinalizeOrderResponse;
 import games.mythical.ivi.sdk.client.model.IVIOrder;
 import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
 import games.mythical.ivi.sdk.client.model.IVIPurchasedItem;
@@ -82,14 +83,14 @@ public class IVIOrderClient extends AbstractIVIClient {
         }
     }
 
-    public void createPrimaryOrder(String storeId,
-                                   String buyerPlayerId,
-                                   BigDecimal subTotal,
-                                   IVIOrderAddress address,
-                                   PaymentProviderId paymentProviderId,
-                                   Collection<IVIPurchasedItem> purchasedItems,
-                                   Map<String, Object> metadata,
-                                   String requestIp) throws IVIException {
+    public IVIOrder createPrimaryOrder(String storeId,
+                                       String buyerPlayerId,
+                                       BigDecimal subTotal,
+                                       IVIOrderAddress address,
+                                       PaymentProviderId paymentProviderId,
+                                       Collection<IVIPurchasedItem> purchasedItems,
+                                       Map<String, Object> metadata,
+                                       String requestIp) throws IVIException {
         var purchaseItemProtos = new ArrayList<IssuedItem>();
         for(var purchasedItem : purchasedItems ) {
             purchaseItemProtos.add(purchasedItem.toProto());
@@ -114,17 +115,17 @@ public class IVIOrderClient extends AbstractIVIClient {
             builder.setRequestIp(requestIp);
         }
 
-        createOrder(builder.build());
+        return createOrder(builder.build());
     }
 
-    public void createSecondaryOrder(String storeId,
-                                     String buyerPlayerId,
-                                     BigDecimal subTotal,
-                                     IVIOrderAddress address,
-                                     PaymentProviderId paymentProviderId,
-                                     String listingId,
-                                     Map<String, Object> metadata,
-                                     String requestIp) throws IVIException {
+    public IVIOrder createSecondaryOrder(String storeId,
+                                         String buyerPlayerId,
+                                         BigDecimal subTotal,
+                                         IVIOrderAddress address,
+                                         PaymentProviderId paymentProviderId,
+                                         String listingId,
+                                         Map<String, Object> metadata,
+                                         String requestIp) throws IVIException {
         var builder = CreateOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setStoreId(storeId)
@@ -142,13 +143,14 @@ public class IVIOrderClient extends AbstractIVIClient {
             builder.setRequestIp(requestIp);
         }
 
-        createOrder(builder.build());
+        return createOrder(builder.build());
     }
 
-    private void createOrder(CreateOrderRequest request) throws IVIException {
+    private IVIOrder createOrder(CreateOrderRequest request) throws IVIException {
         try {
             var result = serviceBlockingStub.createOrder(request);
             orderExecutor.updateOrder(result.getOrderId(), result.getOrderStatus());
+            return IVIOrder.fromProto(result);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
@@ -157,10 +159,10 @@ public class IVIOrderClient extends AbstractIVIClient {
         }
     }
 
-    public void finalizeBraintreeOrder(String orderId,
-                                       String clientToken,
-                                       String paymentNonce,
-                                       String fraudSessionId) throws IVIException {
+    public IVIFinalizeOrderResponse finalizeBraintreeOrder(String orderId,
+                                                           String clientToken,
+                                                           String paymentNonce,
+                                                           String fraudSessionId) throws IVIException {
         var paymentData = PaymentProviderProto.newBuilder()
                 .setBraintree(BraintreeProto.newBuilder()
                         .setBraintreeClientToken(clientToken)
@@ -168,22 +170,22 @@ public class IVIOrderClient extends AbstractIVIClient {
                         .build())
                 .build();
 
-        finalizeOrder(orderId, paymentData, fraudSessionId);
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
-    public void finalizeBitpayOrder(String orderId,
-                                    String invoiceId,
-                                    String fraudSessionId) throws IVIException {
+    public IVIFinalizeOrderResponse finalizeBitpayOrder(String orderId,
+                                                        String invoiceId,
+                                                        String fraudSessionId) throws IVIException {
         var paymentData = PaymentProviderProto.newBuilder()
                 .setBitpay(BitPayProto.newBuilder()
                         .setInvoiceId(invoiceId)
                         .build())
                 .build();
 
-        finalizeOrder(orderId, paymentData, fraudSessionId);
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
-    private void finalizeOrder(String orderId, PaymentProviderProto paymentData, String fraudSessionId) throws IVIException {
+    private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentProviderProto paymentData, String fraudSessionId) throws IVIException {
         var builder = FinalizeOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setOrderId(orderId)
@@ -197,6 +199,7 @@ public class IVIOrderClient extends AbstractIVIClient {
         try {
             var result = serviceBlockingStub.finalizeOrder(request);
             orderExecutor.updateOrder(orderId, result.getOrderStatus());
+            return IVIFinalizeOrderResponse.fromProto(result);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
