@@ -27,7 +27,8 @@ public class IVIOrder {
     private String listingId;
     private final PaymentProviderId paymentProviderId;
     private final OrderState orderStatus;
-    private final Instant createdTimestamp;
+// TODO: return if needed, fix it in IVI first then sdk proto
+//    private final Instant createdTimestamp;
 
     IVIOrder(Order order) throws IVIException {
         orderId = order.getOrderId();
@@ -38,7 +39,7 @@ public class IVIOrder {
         address = IVIOrderAddress.fromProto(order.getAddress());
         paymentProviderId = order.getPaymentProviderId();
         orderStatus = order.getOrderStatus();
-        createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
+//        createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
 
         switch (order.getLineItemsCase()) {
             case PURCHASED_ITEMS:
