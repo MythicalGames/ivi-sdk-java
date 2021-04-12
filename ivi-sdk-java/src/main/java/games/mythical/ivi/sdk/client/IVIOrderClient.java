@@ -163,8 +163,8 @@ public class IVIOrderClient extends AbstractIVIClient {
                                                            String clientToken,
                                                            String paymentNonce,
                                                            String fraudSessionId) throws IVIException {
-        var paymentData = PaymentProviderProto.newBuilder()
-                .setBraintree(BraintreeProto.newBuilder()
+        var paymentData = PaymentRequestProto.newBuilder()
+                .setBraintree(BraintreePaymentRequestProto.newBuilder()
                         .setBraintreeClientToken(clientToken)
                         .setBraintreePaymentNonce(paymentNonce)
                         .build())
@@ -176,8 +176,8 @@ public class IVIOrderClient extends AbstractIVIClient {
     public IVIFinalizeOrderResponse finalizeBitpayOrder(String orderId,
                                                         String invoiceId,
                                                         String fraudSessionId) throws IVIException {
-        var paymentData = PaymentProviderProto.newBuilder()
-                .setBitpay(BitPayProto.newBuilder()
+        var paymentData = PaymentRequestProto.newBuilder()
+                .setBitpay(BitPayPaymentRequestProto.newBuilder()
                         .setInvoiceId(invoiceId)
                         .build())
                 .build();
@@ -185,11 +185,11 @@ public class IVIOrderClient extends AbstractIVIClient {
         return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
-    private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentProviderProto paymentData, String fraudSessionId) throws IVIException {
+    private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentRequestProto paymentData, String fraudSessionId) throws IVIException {
         var builder = FinalizeOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setOrderId(orderId)
-                .setPaymentProviderData(paymentData);
+                .setPaymentRequestData(paymentData);
 
         if (StringUtils.isNotBlank(fraudSessionId)) {
             builder.setFraudSessionId(fraudSessionId);
