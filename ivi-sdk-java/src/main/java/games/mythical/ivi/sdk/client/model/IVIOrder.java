@@ -5,6 +5,7 @@ import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.Order;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
+import games.mythical.ivi.sdk.util.ConversionUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Getter
@@ -26,9 +28,12 @@ public class IVIOrder {
     private List<IVIPurchasedItem> purchasedItems;
     private String listingId;
     private final PaymentProviderId paymentProviderId;
+    private final Map<String, Object> metadata;
+    private final String createdBy;
+    private final String requestIp;
+    private final String environmentId;
     private final OrderState orderStatus;
-// TODO: return if needed, fix it in IVI first then sdk proto
-//    private final Instant createdTimestamp;
+    private final Instant createdTimestamp;
 
     IVIOrder(Order order) throws IVIException {
         orderId = order.getOrderId();
@@ -38,8 +43,12 @@ public class IVIOrder {
         total = new BigDecimal(order.getTotal());
         address = IVIOrderAddress.fromProto(order.getAddress());
         paymentProviderId = order.getPaymentProviderId();
+        metadata = ConversionUtils.convertProperties(order.getMetadata());
+        createdBy = order.getCreatedBy();
+        requestIp = order.getRequestIp();
+        environmentId = order.getEnvironmentId();
         orderStatus = order.getOrderStatus();
-//        createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
+        createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
 
         switch (order.getLineItemsCase()) {
             case PURCHASED_ITEMS:
