@@ -37,13 +37,13 @@ public class IVIPaymentClient extends AbstractIVIClient {
         serviceBlockingStub = PaymentServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
     }
 
-    public IVIToken getToken(PaymentProviderId providerId, String customerId) throws IVIException {
+    public IVIToken getToken(PaymentProviderId providerId, String playerId) throws IVIException {
         var builder = CreateTokenRequest.newBuilder()
                 .setEnvironmentId(environmentId);
 
         if (PaymentProviderId.BRAINTREE.equals(providerId)) {
             builder.setBraintree(BraintreeTokenRequest.newBuilder()
-                    .setCustomerId(customerId)
+                    .setPlayerId(playerId)
                     .build());
         }
 
