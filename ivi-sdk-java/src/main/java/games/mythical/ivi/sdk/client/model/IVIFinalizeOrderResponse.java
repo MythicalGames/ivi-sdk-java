@@ -7,9 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Slf4j
 @Getter
 @Builder
@@ -18,7 +15,6 @@ public class IVIFinalizeOrderResponse {
     private final OrderState orderStatus;
     private final String paymentInstrumentType;
     private final String transactionId;
-    private final List<IVIPurchasedItem> purchasedItems;
     private final IVIFraudScore fraudScore;
     private final String processorResponse;
 
@@ -30,10 +26,6 @@ public class IVIFinalizeOrderResponse {
     }
 
     public static IVIFinalizeOrderResponse fromProto(FinalizeOrderAsyncResponse response) throws IVIException {
-        var purchasedItems = new ArrayList<IVIPurchasedItem>();
-        for(var purchasedItem : response.getPendingIssuedItems().getPurchasedItemsList()) {
-            purchasedItems.add(IVIPurchasedItem.fromProto(purchasedItem));
-        }
 
         IVIFraudScore fraudScore = null;
         if (response.hasFraudScore()) {
@@ -48,7 +40,6 @@ public class IVIFinalizeOrderResponse {
                 .orderStatus(response.getOrderStatus())
                 .paymentInstrumentType(response.getPaymentInstrumentType())
                 .transactionId(response.getTransactionId())
-                .purchasedItems(purchasedItems)
                 .fraudScore(fraudScore)
                 .processorResponse(response.getProcessorResponse())
                 .build();

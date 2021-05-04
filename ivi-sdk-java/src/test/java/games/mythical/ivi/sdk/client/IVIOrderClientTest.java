@@ -3,7 +3,7 @@ package games.mythical.ivi.sdk.client;
 import games.mythical.ivi.sdk.client.executor.MockOrderExecutor;
 import games.mythical.ivi.sdk.client.model.IVIOrder;
 import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
-import games.mythical.ivi.sdk.client.model.IVIPurchasedItem;
+import games.mythical.ivi.sdk.client.model.IVIPurchasedItems;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -238,17 +237,6 @@ class IVIOrderClientTest extends AbstractClientTest {
             if(!actualOrder.isPrimarySale()) {
                 fail("Actual order is missing purchased items!");
             }
-
-            for(var iviPurchaseItem : expectedOrder.getPurchasedItems()) {
-                var purchaseItem = actualOrder.getPurchasedItems().stream()
-                        .filter(i -> i.getGameInventoryId().equals(iviPurchaseItem.getGameInventoryId()))
-                        .collect(Collectors.toList());
-                if(purchaseItem.isEmpty()) {
-                    fail("Matching purchase item wasn't found!");
-                }
-
-                verifyPurchaseItem(iviPurchaseItem, purchaseItem.get(0));
-            }
         } else {
             if(!actualOrder.isSecondarySale()) {
                 fail("Actual order is missing listing id!");
@@ -270,8 +258,8 @@ class IVIOrderClientTest extends AbstractClientTest {
         assertEquals(expectedAddress.getCountryIsoAlpha2(), actualAddress.getCountryIsoAlpha2());
     }
 
-    void verifyPurchaseItem(IVIPurchasedItem expectedItem, IVIPurchasedItem actualItem) {
-        assertEquals(expectedItem.getGameInventoryId(), actualItem.getGameInventoryId());
+    void verifyPurchaseItem(IVIPurchasedItems expectedItem, IVIPurchasedItems actualItem) {
+        assertEquals(expectedItem.getGameInventoryIds(), actualItem.getGameInventoryIds());
         assertEquals(expectedItem.getItemName(), actualItem.getItemName());
         assertEquals(expectedItem.getGameItemTypeId(), actualItem.getGameItemTypeId());
         assertEquals(expectedItem.getAmountPaid(), actualItem.getAmountPaid());

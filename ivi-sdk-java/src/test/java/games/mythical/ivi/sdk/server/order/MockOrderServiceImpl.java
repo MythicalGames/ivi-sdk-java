@@ -11,7 +11,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -135,7 +134,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         orders.clear();
     }
 
-    private Order toProto(IVIOrder iviOrder) throws Exception {
+    private Order toProto(IVIOrder iviOrder) {
         var orderBuilder = Order.newBuilder()
                 .setOrderId(iviOrder.getOrderId())
                 .setStoreId(iviOrder.getStoreId())
@@ -147,14 +146,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setOrderStatus(iviOrder.getOrderStatus());
 
         if(iviOrder.isPrimarySale()) {
-            var purchaseItemProtos = new ArrayList<IssuedItem>();
-            for(var purchasedItem : iviOrder.getPurchasedItems() ) {
-                purchaseItemProtos.add(purchasedItem.toProto());
-            }
-
-            orderBuilder.setPurchasedItems(IssuedItems.newBuilder()
-                    .addAllPurchasedItems(purchaseItemProtos)
-                    .build());
+            orderBuilder.setPurchasedItems(ItemTypeOrders.getDefaultInstance());
         } else if (iviOrder.isSecondarySale()) {
             orderBuilder.setListingId(iviOrder.getListingId());
         } else {

@@ -4,7 +4,7 @@ import games.mythical.ivi.sdk.client.executor.IVIOrderExecutor;
 import games.mythical.ivi.sdk.client.model.IVIFinalizeOrderResponse;
 import games.mythical.ivi.sdk.client.model.IVIOrder;
 import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
-import games.mythical.ivi.sdk.client.model.IVIPurchasedItem;
+import games.mythical.ivi.sdk.client.model.IVIPurchasedItems;
 import games.mythical.ivi.sdk.client.observer.IVIOrderObserver;
 import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
@@ -88,12 +88,12 @@ public class IVIOrderClient extends AbstractIVIClient {
                                        BigDecimal subTotal,
                                        IVIOrderAddress address,
                                        PaymentProviderId paymentProviderId,
-                                       Collection<IVIPurchasedItem> purchasedItems,
+                                       Collection<IVIPurchasedItems> purchasedItems,
                                        Map<String, Object> metadata,
                                        String requestIp) throws IVIException {
-        var purchaseItemProtos = new ArrayList<IssuedItem>();
+        var purchaseItemsProtos = new ArrayList<ItemTypeOrder>();
         for(var purchasedItem : purchasedItems ) {
-            purchaseItemProtos.add(purchasedItem.toProto());
+            purchaseItemsProtos.add(purchasedItem.toProto());
         }
 
         var builder = CreateOrderRequest.newBuilder()
@@ -103,8 +103,8 @@ public class IVIOrderClient extends AbstractIVIClient {
                 .setSubTotal(subTotal.toString())
                 .setAddress(address.toProto())
                 .setPaymentProviderId(paymentProviderId)
-                .setPurchasedItems(IssuedItems.newBuilder()
-                        .addAllPurchasedItems(purchaseItemProtos)
+                .setPurchasedItems(ItemTypeOrders.newBuilder()
+                        .addAllPurchasedItems(purchaseItemsProtos)
                         .build());
 
         if (metadata != null) {

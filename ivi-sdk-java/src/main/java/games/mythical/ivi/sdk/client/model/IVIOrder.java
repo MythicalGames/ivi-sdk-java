@@ -1,6 +1,5 @@
 package games.mythical.ivi.sdk.client.model;
 
-import games.mythical.ivi.sdk.exception.IVIErrorCode;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.Order;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
@@ -12,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -25,7 +22,6 @@ public class IVIOrder {
     private final BigDecimal tax;
     private final BigDecimal total;
     private final IVIOrderAddress address;
-    private List<IVIPurchasedItem> purchasedItems;
     private String listingId;
     private final PaymentProviderId paymentProviderId;
     private final Map<String, Object> metadata;
@@ -53,18 +49,11 @@ public class IVIOrder {
         switch (order.getLineItemsCase()) {
             case PURCHASED_ITEMS:
                 primarySale = true;
-                purchasedItems = new ArrayList<>();
-                for(var purchasedItem : order.getPurchasedItems().getPurchasedItemsList()) {
-                    purchasedItems.add(IVIPurchasedItem.fromProto(purchasedItem));
-                }
                 break;
             case LISTING_ID:
                 secondarySale = true;
                 listingId = order.getListingId();
                 break;
-            case LINEITEMS_NOT_SET:
-                log.error("Unable to parse Order from IVI, line items not set! Id: {}", order.getOrderId());
-                throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
         }
     }
 

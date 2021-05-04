@@ -5,7 +5,6 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
-import games.mythical.ivi.sdk.proto.api.itemtype.ItemTypes;
 import games.mythical.ivi.sdk.proto.api.order.*;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
@@ -184,14 +183,7 @@ public abstract class AbstractClientTest {
                     .setOrderStatus(OrderState.COMPLETE);
 
             if(isPrimary) {
-                var purchasedItems = generatePurchasedItems(3);
-                var protoItems = new ArrayList<IssuedItem>();
-                for (var purchasedItem : purchasedItems) {
-                    protoItems.add(purchasedItem.toProto());
-                }
-                orderBuilder.setPurchasedItems(IssuedItems.newBuilder()
-                        .addAllPurchasedItems(protoItems)
-                        .build());
+                orderBuilder.setPurchasedItems(ItemTypeOrders.getDefaultInstance());
             } else {
                 orderBuilder.setListingId(RandomStringUtils.randomAlphanumeric(30));
             }
@@ -204,11 +196,11 @@ public abstract class AbstractClientTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    protected List<IVIPurchasedItem> generatePurchasedItems(int count) throws IVIException {
-        var items = new ArrayList<IVIPurchasedItem>();
+    protected List<IVIPurchasedItems> generatePurchasedItems(int count) {
+        var items = new ArrayList<IVIPurchasedItems>();
         for(var i = 0; i < count; i++) {
-            var iviPurchasedItemBuilder = IVIPurchasedItem.builder()
-                    .gameInventoryId(RandomStringUtils.randomAlphanumeric(30))
+            var iviPurchasedItemBuilder = IVIPurchasedItems.builder()
+                    .gameInventoryIds(List.of(RandomStringUtils.randomAlphanumeric(30)))
                     .itemName(RandomStringUtils.randomAlphanumeric(30))
                     .gameItemTypeId(RandomStringUtils.randomAlphanumeric(30))
                     .amountPaid(BigDecimal.valueOf(RandomUtils.nextDouble()))
