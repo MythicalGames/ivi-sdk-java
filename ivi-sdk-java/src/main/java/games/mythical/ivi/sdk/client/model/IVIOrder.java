@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Map;
 
 @Slf4j
@@ -30,6 +31,7 @@ public class IVIOrder {
     private final String environmentId;
     private final OrderState orderStatus;
     private final Instant createdTimestamp;
+    private final Map<String, Object> bitpayInvoice;
 
     IVIOrder(Order order) throws IVIException {
         orderId = order.getOrderId();
@@ -45,6 +47,12 @@ public class IVIOrder {
         environmentId = order.getEnvironmentId();
         orderStatus = order.getOrderStatus();
         createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
+
+        if(order.hasPaymentProviderData()) {
+            bitpayInvoice = ConversionUtils.convertProperties(order.getPaymentProviderData().getBitpay().getInvoice());
+        } else {
+            bitpayInvoice = Collections.emptyMap();
+        }
 
         switch (order.getLineItemsCase()) {
             case PURCHASED_ITEMS:
