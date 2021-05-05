@@ -2,6 +2,7 @@ package games.mythical.ivi.sdk.client.observer;
 
 import games.mythical.ivi.sdk.client.executor.IVIOrderExecutor;
 import games.mythical.ivi.sdk.config.IVIConfiguration;
+import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusConfirmRequest;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStatusUpdate;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStreamGrpc;
@@ -29,7 +30,7 @@ public class IVIOrderObserver extends AbstractObserver<OrderStatusUpdate> {
         resetConnectionRetry();
         try {
             orderExecutor.updateOrder(message.getOrderId(), message.getOrderState());
-            updateOrderConfirmation(message.getOrderId());
+            updateOrderConfirmation(message.getOrderId(), message.getOrderState());
         } catch (Exception e) {
             log.error("Exception calling updateOrder for {}. {}", message.getOrderId(), e);
         }
@@ -50,10 +51,11 @@ public class IVIOrderObserver extends AbstractObserver<OrderStatusUpdate> {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void updateOrderConfirmation(String orderId) {
+    private void updateOrderConfirmation(String orderId, OrderState orderState) {
         var request = OrderStatusConfirmRequest.newBuilder()
                 .setEnvironmentId(IVIConfiguration.getEnvironmentId())
                 .setOrderId(orderId)
+                .setOrderState(orderState)
                 .build();
         streamBlockingStub.orderStatusConfirmation(request);
     }
