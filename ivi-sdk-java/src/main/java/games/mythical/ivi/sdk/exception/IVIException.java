@@ -34,10 +34,38 @@ public class IVIException extends Exception {
     }
 
     public static IVIException fromGrpcException(StatusRuntimeException exception) {
-        // TODO: figure out mapping, or if we need it
+
         switch (exception.getStatus().getCode()) {
+            case INVALID_ARGUMENT:
+                return new IVIException(IVIErrorCode.INVALID_ARGUMENT);
+            case FAILED_PRECONDITION:
+                return new IVIException(IVIErrorCode.FAILED_PRECONDITION);
+            case OUT_OF_RANGE:
+                return new IVIException(IVIErrorCode.OUT_OF_RANGE);
+            case DEADLINE_EXCEEDED:
+                return new IVIException(IVIErrorCode.DEADLINE_EXCEEDED);
             case NOT_FOUND:
                 return new IVIException(IVIErrorCode.NOT_FOUND);
+            case ALREADY_EXISTS:
+                return new IVIException(IVIErrorCode.ALREADY_EXISTS);
+            case PERMISSION_DENIED:
+                return new IVIException(IVIErrorCode.PERMISSION_DENIED);
+            case UNIMPLEMENTED:
+                return new IVIException(IVIErrorCode.UNIMPLEMENTED);
+            case UNAUTHENTICATED:
+                return new IVIException(IVIErrorCode.UNAUTHENTICATED);
+            case UNAVAILABLE:
+                return new IVIException(IVIErrorCode.UNAVAILABLE);
+            case INTERNAL:
+                return new IVIException(IVIErrorCode.INTERNAL);
+            case RESOURCE_EXHAUSTED:
+                return new IVIException(IVIErrorCode.RESOURCE_EXHAUSTED);
+            case ABORTED:
+                return new IVIException(IVIErrorCode.ABORTED);
+            case DATA_LOSS:
+                return new IVIException(IVIErrorCode.DATA_LOSS);
+            case UNKNOWN:
+                return new IVIException(IVIErrorCode.SERVER_ERROR);
             default:
                 return new IVIException(IVIErrorCode.UNKNOWN_GRPC_ERROR);
         }
