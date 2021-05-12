@@ -13,10 +13,7 @@ import games.mythical.ivi.sdk.proto.common.Finalized;
 import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.item.ItemStreamGrpc;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
+import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -114,6 +111,8 @@ public class IVIItemClient extends AbstractIVIClient {
             iviItemExecutor.updateItemState(gameInventoryId, result.getTrackingId(), result.getItemState());
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
+            throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updateItemState on transferItem, item will be in an invalid state!", e);
             throw new IVIException(IVIErrorCode.LOCAL_EXCEPTION);
@@ -130,6 +129,8 @@ public class IVIItemClient extends AbstractIVIClient {
             var result = serviceBlockingStub.burnItem(request);
             iviItemExecutor.updateItemState(gameInventoryId, result.getTrackingId(), result.getItemState());
         } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updateItemState on burnItem, item will be in an invalid state!", e);

@@ -1,11 +1,18 @@
 package games.mythical.ivi.sdk.exception;
 
+import games.mythical.ivi.sdk.util.HttpStatus;
+import io.grpc.Metadata;
+import io.grpc.Status.Code;
+import io.grpc.StatusException;
 import io.grpc.StatusRuntimeException;
+import org.apache.commons.lang3.StringUtils;
 
 public class IVIException extends Exception {
     private final IVIErrorCode code;
+    private static final String HTTP_CODE_KEY = "HttpCode";
 
     public IVIException(IVIErrorCode code) {
+
         this.code = code;
     }
 
@@ -33,9 +40,30 @@ public class IVIException extends Exception {
         return code;
     }
 
-    public static IVIException fromGrpcException(StatusRuntimeException exception) {
+    public static IVIException fromGrpcException(StatusException exception) {
+        return fromGrpcExceptionMessaging(exception.getStatus().getCode(),
+                                          exception.getTrailers());
+    }
 
-        switch (exception.getStatus().getCode()) {
+    public static IVIException fromGrpcException(StatusRuntimeException exception) {
+        return fromGrpcExceptionMessaging(exception.getStatus().getCode(),
+                                          exception.getTrailers());
+    }
+
+    private static IVIException fromGrpcExceptionMessaging(Code exception, Metadata metadata) {
+
+        IVIErrorCode ivierrorcode;
+
+        // GRPC Status doesn't handle all http codes, so check if one was added
+        if (metadata != null) {
+            String httpCodeString = metadata.get(Metadata.Key.of(HTTP_CODE_KEY, Metadata.ASCII_STRING_MARSHALLER));
+            if (StringUtils.isNotBlank(httpCodeString)) {
+                ivierrorcode = fromStatusCode(Integer.parseInt(httpCodeString));
+                return new IVIException(ivierrorcode);
+            }
+        }
+
+        switch (exception) {
             case INVALID_ARGUMENT:
                 return new IVIException(IVIErrorCode.INVALID_ARGUMENT);
             case NOT_FOUND:
@@ -65,6 +93,27 @@ public class IVIException extends Exception {
                 return new IVIException(IVIErrorCode.SERVER_ERROR);
             default:
                 return new IVIException(IVIErrorCode.UNKNOWN_GRPC_ERROR);
+        }
+    }
+
+    private static IVIErrorCode fromStatusCode(int statusCode) {
+        switch (HttpStatus.valueOf(statusCode)) {
+            case BAD_REQUEST:
+                return IVIErrorCode.BAD_REQUEST;
+            case UNAUTHORIZED:
+                return IVIErrorCode.NOT_AUTHORIZED;
+            case FORBIDDEN:
+                return IVIErrorCode.FORBIDDEN;
+            case NOT_FOUND:
+                return IVIErrorCode.NOT_FOUND;
+            case CONFLICT:
+                return IVIErrorCode.CONFLICT;
+            case REQUEST_TIMEOUT:
+                return IVIErrorCode.TIMEOUT;
+            case UNPROCESSABLE_ENTITY:
+                return IVIErrorCode.UNPROCESSABLE_ENTITY;
+            default:
+                return IVIErrorCode.SERVER_ERROR;
         }
     }
 }
