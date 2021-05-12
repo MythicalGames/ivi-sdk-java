@@ -8,10 +8,7 @@ import games.mythical.ivi.sdk.proto.api.player.*;
 import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
+import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
@@ -73,6 +70,8 @@ public class IVIPlayerClient extends AbstractIVIClient {
             playerExecutor.updatePlayer(playerId, result.getTrackingId(), result.getPlayerState());
         } catch (StatusRuntimeException e) {
             log.error("gRPC error from IVI server", e);
+            throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updatePlayerState on linkPlayer, player will be in an invalid state!", e);

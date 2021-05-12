@@ -12,10 +12,7 @@ import games.mythical.ivi.sdk.proto.api.order.*;
 import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.order.OrderStreamGrpc;
 import games.mythical.ivi.sdk.util.ConversionUtils;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
+import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -152,6 +149,8 @@ public class IVIOrderClient extends AbstractIVIClient {
             orderExecutor.updateOrder(result.getOrderId(), result.getOrderStatus());
             return IVIOrder.fromProto(result);
         } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
             throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updateOrder on createOrder, order will be in an invalid state!", e);
