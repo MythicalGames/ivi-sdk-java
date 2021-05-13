@@ -1,13 +1,16 @@
 package games.mythical.ivi.sdk.exception;
 
-import games.mythical.ivi.sdk.util.HttpStatus;
 import io.grpc.Metadata;
 import io.grpc.Status.Code;
 import io.grpc.StatusException;
 import io.grpc.StatusRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
+import java.net.HttpURLConnection;
+
 public class IVIException extends Exception {
+    public static final int UNPROCESSABLE_ENTITY = 422;
+
     private final IVIErrorCode code;
     private static final String HTTP_CODE_KEY = "HttpCode";
 
@@ -97,18 +100,18 @@ public class IVIException extends Exception {
     }
 
     private static IVIErrorCode fromStatusCode(int statusCode) {
-        switch (HttpStatus.valueOf(statusCode)) {
-            case BAD_REQUEST:
+        switch (statusCode) {
+            case HttpURLConnection.HTTP_BAD_REQUEST:
                 return IVIErrorCode.BAD_REQUEST;
-            case UNAUTHORIZED:
+            case HttpURLConnection.HTTP_UNAUTHORIZED:
                 return IVIErrorCode.NOT_AUTHORIZED;
-            case FORBIDDEN:
+            case HttpURLConnection.HTTP_FORBIDDEN:
                 return IVIErrorCode.FORBIDDEN;
-            case NOT_FOUND:
+            case HttpURLConnection.HTTP_NOT_FOUND:
                 return IVIErrorCode.NOT_FOUND;
-            case CONFLICT:
+            case HttpURLConnection.HTTP_CONFLICT:
                 return IVIErrorCode.CONFLICT;
-            case REQUEST_TIMEOUT:
+            case HttpURLConnection.HTTP_CLIENT_TIMEOUT:
                 return IVIErrorCode.TIMEOUT;
             case UNPROCESSABLE_ENTITY:
                 return IVIErrorCode.UNPROCESSABLE_ENTITY;
