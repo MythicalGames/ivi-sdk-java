@@ -201,6 +201,8 @@ public class IVIOrderClient extends AbstractIVIClient {
             return IVIFinalizeOrderResponse.fromProto(result);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
+            throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updateOrder on createOrder, order will be in an invalid state!", e);
             throw new IVIException(IVIErrorCode.LOCAL_EXCEPTION);

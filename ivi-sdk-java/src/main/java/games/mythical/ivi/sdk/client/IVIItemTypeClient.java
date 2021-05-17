@@ -11,6 +11,8 @@ import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.itemtype.ItemTypeStatusStreamGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusException;
+import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -114,23 +116,31 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         } catch (IVIException e) {
             log.error("Error parsing metadata!", e);
             throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
+            throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updateItemType on createItemType, item type will be in an invalid state!", e);
             throw new IVIException(IVIErrorCode.LOCAL_EXCEPTION);
         }
     }
 
-    public void freezeItemType(String gameItemTypeId) {
-        log.trace("ItemTypeClient.freezeItemType called for {}", gameItemTypeId);
-        var request = FreezeItemTypeRequest.newBuilder()
-                .setEnvironmentId(environmentId)
-                .setGameItemTypeId(gameItemTypeId)
-                .build();
-        var result = serviceBlockingStub.freezeItemType(request);
+    public void freezeItemType(String gameItemTypeId) throws IVIException {
         try {
+            log.trace("ItemTypeClient.freezeItemType called for {}", gameItemTypeId);
+            var request = FreezeItemTypeRequest.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setGameItemTypeId(gameItemTypeId)
+                    .build();
+            var result = serviceBlockingStub.freezeItemType(request);
             itemTypeExecutor.updateItemTypeStatus(gameItemTypeId,
                     result.getTrackingId(),
                     result.getItemTypeState());
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
+            throw IVIException.fromGrpcException(e);
         } catch (Exception e) {
             log.error("Exception calling updateItemType on createItemType, item type will be in an invalid state!", e);
         }
@@ -146,6 +156,8 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .build();
             serviceBlockingStub.updateItemTypeMetadata(request);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
         } catch (IVIException e) {
             log.error("Error parsing metadata!", e);
             throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
