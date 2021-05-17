@@ -1,8 +1,6 @@
 package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.executor.MockPlayerExecutor;
-import games.mythical.ivi.sdk.exception.IVIErrorCode;
-import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.SortOrder;
 import games.mythical.ivi.sdk.proto.common.player.PlayerState;
@@ -45,7 +43,7 @@ class PlayerClientTest extends AbstractClientTest {
     }
 
     @AfterEach
-    void tearDown() throws Exception {
+    void tearDown() {
         playerServer.stop();
         ConcurrentFinisher.reset();
     }
@@ -58,7 +56,7 @@ class PlayerClientTest extends AbstractClientTest {
 
         playerExecutor.setPlayerId(playerId);
 
-        playerClient.linkPlayer(playerId, email, displayName);
+        playerClient.linkPlayer(playerId, email, displayName, "127.0.0.1");
 
         assertEquals(playerId, playerExecutor.getPlayerId());
         assertFalse(StringUtils.isEmpty(playerExecutor.getTrackingId()));

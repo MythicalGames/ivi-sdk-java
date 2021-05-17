@@ -4,10 +4,12 @@ import io.grpc.Metadata;
 import io.grpc.Status.Code;
 import io.grpc.StatusException;
 import io.grpc.StatusRuntimeException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
 
+@Slf4j
 public class IVIException extends Exception {
     public static final int UNPROCESSABLE_ENTITY = 422;
 
@@ -44,17 +46,14 @@ public class IVIException extends Exception {
     }
 
     public static IVIException fromGrpcException(StatusException exception) {
-        return fromGrpcExceptionMessaging(exception.getStatus().getCode(),
-                                          exception.getTrailers());
+        return fromGrpcExceptionMessaging(exception.getStatus().getCode(), exception.getTrailers(), exception.getMessage());
     }
 
     public static IVIException fromGrpcException(StatusRuntimeException exception) {
-        return fromGrpcExceptionMessaging(exception.getStatus().getCode(),
-                                          exception.getTrailers());
+        return fromGrpcExceptionMessaging(exception.getStatus().getCode(), exception.getTrailers(), exception.getMessage());
     }
 
-    private static IVIException fromGrpcExceptionMessaging(Code exception, Metadata metadata) {
-
+    private static IVIException fromGrpcExceptionMessaging(Code exception, Metadata metadata, String message) {
         IVIErrorCode ivierrorcode;
 
         // GRPC Status doesn't handle all http codes, so check if one was added
@@ -68,37 +67,40 @@ public class IVIException extends Exception {
 
         switch (exception) {
             case INVALID_ARGUMENT:
-                return new IVIException(IVIErrorCode.INVALID_ARGUMENT);
+                return logError(message, IVIErrorCode.INVALID_ARGUMENT);
             case NOT_FOUND:
-                return new IVIException(IVIErrorCode.NOT_FOUND);
+                return logError(message, IVIErrorCode.NOT_FOUND);
             case PERMISSION_DENIED:
-                return new IVIException(IVIErrorCode.PERMISSION_DENIED);
+                return logError(message, IVIErrorCode.PERMISSION_DENIED);
             case UNIMPLEMENTED:
-                return new IVIException(IVIErrorCode.UNIMPLEMENTED);
+                return logError(message, IVIErrorCode.UNIMPLEMENTED);
             case UNAUTHENTICATED:
-                return new IVIException(IVIErrorCode.UNAUTHENTICATED);
+                return logError(message, IVIErrorCode.UNAUTHENTICATED);
             case UNAVAILABLE:
-                return new IVIException(IVIErrorCode.UNAVAILABLE);
+                return logError(message, IVIErrorCode.UNAVAILABLE);
             case RESOURCE_EXHAUSTED:
-                return new IVIException(IVIErrorCode.RESOURCE_EXHAUSTED);
+                return logError(message, IVIErrorCode.RESOURCE_EXHAUSTED);
             case ABORTED:
-                return new IVIException(IVIErrorCode.ABORTED);
-            case DATA_LOSS:
-                return new IVIException(IVIErrorCode.DATA_LOSS);
+                return logError(message, IVIErrorCode.ABORTED);
             case DEADLINE_EXCEEDED:
             case FAILED_PRECONDITION:
             case OUT_OF_RANGE:
-                return new IVIException(IVIErrorCode.BAD_REQUEST);
+                return logError(message, IVIErrorCode.BAD_REQUEST);
             case ALREADY_EXISTS:
-                return new IVIException(IVIErrorCode.CONFLICT);
+                return logError(message, IVIErrorCode.CONFLICT);
+            case DATA_LOSS:
             case INTERNAL:
             case UNKNOWN:
-                return new IVIException(IVIErrorCode.SERVER_ERROR);
+                return logError(message, IVIErrorCode.SERVER_ERROR);
             default:
-                return new IVIException(IVIErrorCode.UNKNOWN_GRPC_ERROR);
+                return logError(message, IVIErrorCode.UNKNOWN_GRPC_ERROR);
         }
     }
 
+    private static IVIException logError(String message, IVIErrorCode code) {
+        log.error("gRPC error from IVI server: code: {} message: {}", code, message);
+        return new IVIException(message, code);
+    }
     private static IVIErrorCode fromStatusCode(int statusCode) {
         switch (statusCode) {
             case HttpURLConnection.HTTP_BAD_REQUEST:

@@ -65,7 +65,8 @@ class IVIItemClientTest extends AbstractClientTest {
                 currency,
                 item.getMetadata(),
                 RandomStringUtils.randomAlphanumeric(10, 100),
-                RandomStringUtils.randomAlphanumeric(10, 100));
+                RandomStringUtils.randomAlphanumeric(10, 100),
+                "127.0.0.1");
 
         assertEquals(item.getGameInventoryId(), itemExecutor.getGameInventoryId());
         assertFalse(StringUtils.isEmpty(itemExecutor.getTrackingId()));
