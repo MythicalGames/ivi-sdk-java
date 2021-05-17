@@ -17,7 +17,6 @@ public enum IVIErrorCode {
     INTERNAL,
     RESOURCE_EXHAUSTED,
     ABORTED,
-    DATA_LOSS,
     INVALID_ARGUMENT,
     BAD_REQUEST,
     SERVER_ERROR,

@@ -10,6 +10,7 @@ import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.player.PlayerStreamGrpc;
 import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.Instant;
 import java.util.List;
@@ -56,20 +57,23 @@ public class IVIPlayerClient extends AbstractIVIClient {
         streamStub.playerStatusStream(subscribe, observer);
     }
 
-    public void linkPlayer(String playerId, String email, String displayName) throws IVIException {
+    public void linkPlayer(String playerId, String email, String displayName, String requestIp) throws IVIException {
         log.trace("PlayerClient.linkPlayer called from player: {}:{}:{}", playerId, email, displayName);
         try {
-            var request = LinkPlayerRequest.newBuilder()
+            var requestBuilder = LinkPlayerRequest.newBuilder()
                     .setEnvironmentId(environmentId)
                     .setPlayerId(playerId)
                     .setEmail(email)
-                    .setDisplayName(displayName)
-                    .build();
-            var result = serviceBlockingStub.linkPlayer(request);
+                    .setDisplayName(displayName);
+
+            if(StringUtils.isNotBlank(requestIp)) {
+                requestBuilder.setRequestIp(requestIp);
+            }
+
+            var result = serviceBlockingStub.linkPlayer(requestBuilder.build());
 
             playerExecutor.updatePlayer(playerId, result.getTrackingId(), result.getPlayerState());
         } catch (StatusRuntimeException e) {
-            log.error("gRPC error from IVI server", e);
             throw IVIException.fromGrpcException(e);
         } catch (StatusException e) {
             throw IVIException.fromGrpcException(e);

@@ -15,6 +15,7 @@ import games.mythical.ivi.sdk.proto.streams.Subscribe;
 import games.mythical.ivi.sdk.proto.streams.item.ItemStreamGrpc;
 import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -69,9 +70,10 @@ public class IVIItemClient extends AbstractIVIClient {
                           String currency,
                           IVIMetadata metadata,
                           String storeId,
-                          String orderId) throws IVIException {
+                          String orderId,
+                          String requestIp) throws IVIException {
         try {
-            var request = IssueItemRequest.newBuilder()
+            var requestBuilder = IssueItemRequest.newBuilder()
                     .setEnvironmentId(environmentId)
                     .setGameInventoryId(gameInventoryId)
                     .setPlayerId(playerId)
@@ -80,11 +82,22 @@ public class IVIItemClient extends AbstractIVIClient {
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .setAmountPaid(amountPaid.toString())
                     .setCurrency(currency)
-                    .setStoreId(storeId)
-                    .setOrderId(orderId)
-                    .build();
-            var result = serviceBlockingStub.issueItem(request);
+                    .setStoreId(storeId);
+
+            if(StringUtils.isNotBlank(orderId)) {
+                requestBuilder.setOrderId(orderId);
+            }
+
+            if(StringUtils.isNotBlank(requestIp)) {
+                requestBuilder.setRequestIp(requestIp);
+            }
+
+            var result = serviceBlockingStub.issueItem(requestBuilder.build());
             iviItemExecutor.updateItemState(gameInventoryId, result.getTrackingId(), result.getItemState());
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (StatusException e) {
+            throw IVIException.fromGrpcException(e);
         } catch (InvalidProtocolBufferException e) {
             log.error("issueItem: couldn't convert additionalMetadata!", e);
             throw new IVIException(IVIErrorCode.LOCAL_EXCEPTION);
