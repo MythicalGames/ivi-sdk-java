@@ -171,7 +171,6 @@ public abstract class AbstractClientTest {
     protected Map<String, IVIOrder> generateOrders(int count) throws IVIException {
         var orders = new HashMap<String, IVIOrder>();
         for(var i = 0; i < count; i++) {
-            var isPrimary = RandomUtils.nextBoolean();
             var orderBuilder = Order.newBuilder()
                     .setOrderId(RandomStringUtils.randomAlphanumeric(30))
                     .setStoreId(RandomStringUtils.randomAlphanumeric(30))
@@ -180,13 +179,8 @@ public abstract class AbstractClientTest {
                     .setTotal(String.valueOf(RandomUtils.nextDouble(0, 200)))
                     .setAddress(generateAddress().toProto())
                     .setPaymentProviderId(PaymentProviderId.BRAINTREE)
-                    .setOrderStatus(OrderState.COMPLETE);
-
-            if(isPrimary) {
-                orderBuilder.setPurchasedItems(ItemTypeOrders.getDefaultInstance());
-            } else {
-                orderBuilder.setListingId(RandomStringUtils.randomAlphanumeric(30));
-            }
+                    .setOrderStatus(OrderState.COMPLETE)
+                    .setPurchasedItems(ItemTypeOrders.getDefaultInstance());
 
             var order = orderBuilder.build();
             orders.put(order.getOrderId(), IVIOrder.fromProto(order));
