@@ -23,7 +23,6 @@ public class IVIOrder {
     private final BigDecimal tax;
     private final BigDecimal total;
     private final IVIOrderAddress address;
-    private String listingId;
     private final PaymentProviderId paymentProviderId;
     private final Map<String, Object> metadata;
     private final String createdBy;
@@ -48,20 +47,14 @@ public class IVIOrder {
         orderStatus = order.getOrderStatus();
         createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
 
-        if(order.hasPaymentProviderData()) {
+        if (order.hasPaymentProviderData()) {
             bitpayInvoice = ConversionUtils.convertProperties(order.getPaymentProviderData().getBitpay().getInvoice());
         } else {
             bitpayInvoice = Collections.emptyMap();
         }
 
-        switch (order.getLineItemsCase()) {
-            case PURCHASED_ITEMS:
-                primarySale = true;
-                break;
-            case LISTING_ID:
-                secondarySale = true;
-                listingId = order.getListingId();
-                break;
+        if (order.hasPurchasedItems()) {
+            primarySale = true;
         }
     }
 

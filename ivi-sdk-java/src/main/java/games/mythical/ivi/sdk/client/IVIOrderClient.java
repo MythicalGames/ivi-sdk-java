@@ -115,34 +115,6 @@ public class IVIOrderClient extends AbstractIVIClient {
         return createOrder(builder.build());
     }
 
-    public IVIOrder createSecondaryOrder(String storeId,
-                                         String buyerPlayerId,
-                                         BigDecimal subTotal,
-                                         IVIOrderAddress address,
-                                         PaymentProviderId paymentProviderId,
-                                         String listingId,
-                                         Map<String, Object> metadata,
-                                         String requestIp) throws IVIException {
-        var builder = CreateOrderRequest.newBuilder()
-                .setEnvironmentId(environmentId)
-                .setStoreId(storeId)
-                .setBuyerPlayerId(buyerPlayerId)
-                .setSubTotal(subTotal.toString())
-                .setAddress(address.toProto())
-                .setPaymentProviderId(paymentProviderId)
-                .setListingId(listingId);
-
-        if (metadata != null) {
-            builder.setMetadata(ConversionUtils.convertProperties(metadata));
-        }
-
-        if (StringUtils.isNotBlank(requestIp)) {
-            builder.setRequestIp(requestIp);
-        }
-
-        return createOrder(builder.build());
-    }
-
     private IVIOrder createOrder(CreateOrderRequest request) throws IVIException {
         try {
             var result = serviceBlockingStub.createOrder(request);

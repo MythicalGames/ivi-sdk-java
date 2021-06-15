@@ -33,20 +33,8 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setTotal(String.valueOf(total))
                 .setAddress(request.getAddress())
                 .setPaymentProviderId(request.getPaymentProviderId())
-                .setOrderStatus(OrderState.STARTED);
-
-        switch (request.getLineItemsCase()) {
-            case PURCHASED_ITEMS:
-                orderBuilder.setPurchasedItems(request.getPurchasedItems());
-                break;
-            case LISTING_ID:
-                orderBuilder.setListingId(request.getListingId());
-                break;
-            case LINEITEMS_NOT_SET:
-                log.error("Order doesn't have any line items!");
-                responseObserver.onError(Status.INVALID_ARGUMENT.asException());
-                return;
-        }
+                .setOrderStatus(OrderState.STARTED)
+                .setPurchasedItems(request.getPurchasedItems());
 
         var order = orderBuilder.build();
         orders.put(order.getOrderId(), order);
@@ -59,20 +47,8 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setTotal(total.toString())
                 .setAddress(request.getAddress())
                 .setPaymentProviderId(request.getPaymentProviderId())
-                .setOrderStatus(OrderState.STARTED);
-
-        switch (request.getLineItemsCase()) {
-            case PURCHASED_ITEMS:
-                responseBuilder.setPurchasedItems(request.getPurchasedItems());
-                break;
-            case LISTING_ID:
-                responseBuilder.setListingId(request.getListingId());
-                break;
-            case LINEITEMS_NOT_SET:
-                log.error("Order doesn't have any line items!");
-                responseObserver.onError(Status.INVALID_ARGUMENT.asException());
-                return;
-        }
+                .setOrderStatus(OrderState.STARTED)
+                .setPurchasedItems(request.getPurchasedItems());
 
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
@@ -116,7 +92,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         responseObserver.onCompleted();
     }
 
-    public void setOrders(Collection<IVIOrder> orders) throws Exception {
+    public void setOrders(Collection<IVIOrder> orders) {
         for(var order : orders) {
             this.orders.putIfAbsent(order.getOrderId(), toProto(order));
         }
@@ -147,8 +123,6 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
 
         if(iviOrder.isPrimarySale()) {
             orderBuilder.setPurchasedItems(ItemTypeOrders.getDefaultInstance());
-        } else if (iviOrder.isSecondarySale()) {
-            orderBuilder.setListingId(iviOrder.getListingId());
         } else {
             fail("Invalid order passed in!");
         }
