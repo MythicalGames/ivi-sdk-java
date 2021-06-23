@@ -9,6 +9,7 @@ import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import games.mythical.ivi.sdk.server.order.MockOrderServer;
+import games.mythical.ivi.sdk.server.order.MockOrderServiceImpl;
 import games.mythical.ivi.sdk.util.ConcurrentFinisher;
 import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -101,8 +102,6 @@ class IVIOrderClientTest extends AbstractClientTest {
         assertTrue(orderOpt.isPresent());
         assertEquals(orderId, orderOpt.get().getOrderId());
         assertEquals(OrderState.PROCESSING, orderOpt.get().getOrderStatus());
-        assertTrue(orderOpt.get().isPrimarySale());
-        assertFalse(orderOpt.get().isSecondarySale());
 
         orderServer.verifyCalls("GetOrder", 1);
     }
@@ -137,6 +136,18 @@ class IVIOrderClientTest extends AbstractClientTest {
 
         orderServer.verifyCalls("OrderStatusStream", 1);
         orderServer.verifyCalls("OrderStatusConfirmation", 1);
+    }
+
+    @Test
+    void finalizeBraintreeOrderAndUnexpectedError() {
+        var orderId = orders.keySet().iterator().next();
+        var clientToken = RandomStringUtils.randomAlphanumeric(30);
+        var paymentNonce = RandomStringUtils.randomAlphanumeric(30);
+        var ex = assertThrows(IVIException.class, () -> orderClient.finalizeBraintreeOrder(orderId, clientToken,
+                paymentNonce, MockOrderServiceImpl.FAILURE_TRIGGER));
+
+        assertEquals(IVIErrorCode.NOT_FOUND, ex.getCode());
+        assertEquals("FAILED_PRECONDITION: " + MockOrderServiceImpl.FAILURE_MESSAGE, ex.getMessage());
     }
 
     @Test
@@ -192,12 +203,6 @@ class IVIOrderClientTest extends AbstractClientTest {
         assertEquals(expectedOrder.getPaymentProviderId(), actualOrder.getPaymentProviderId());
         assertEquals(expectedOrder.getOrderStatus(), actualOrder.getOrderStatus());
         verifyAddress(expectedOrder.getAddress(), actualOrder.getAddress());
-
-        if(expectedOrder.isPrimarySale()) {
-            if(!actualOrder.isPrimarySale()) {
-                fail("Actual order is missing purchased items!");
-            }
-        }
     }
 
     void verifyAddress(IVIOrderAddress expectedAddress, IVIOrderAddress actualAddress) {

@@ -5,7 +5,6 @@ import games.mythical.ivi.sdk.proto.api.order.Order;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import games.mythical.ivi.sdk.util.ConversionUtils;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,24 +51,6 @@ public class IVIOrder {
         } else {
             bitpayInvoice = Collections.emptyMap();
         }
-
-        if (order.hasPurchasedItems()) {
-            primarySale = true;
-        }
-    }
-
-    @Getter(AccessLevel.NONE)
-    private boolean primarySale = false;
-
-    @Getter(AccessLevel.NONE)
-    private boolean secondarySale = false;
-
-    public boolean isPrimarySale() {
-        return primarySale;
-    }
-
-    public boolean isSecondarySale() {
-        return secondarySale;
     }
 
     public static IVIOrder fromProto(Order order) throws IVIException {
