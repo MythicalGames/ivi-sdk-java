@@ -58,9 +58,8 @@ class IVIPaymentClientTest extends AbstractClientTest {
 
     @Test
     void createBraintreeToken() throws IVIException {
-        // TODO: uh oh, generate token should be using playerId right?
-        var customerId = RandomStringUtils.randomAlphanumeric(30);
-        var token = paymentClient.getToken(PaymentProviderId.BRAINTREE, customerId);
+        var playerId = RandomStringUtils.randomAlphanumeric(30);
+        var token = paymentClient.getToken(PaymentProviderId.BRAINTREE, playerId);
 
         assertNotNull(token.getBraintreeToken());
     }
