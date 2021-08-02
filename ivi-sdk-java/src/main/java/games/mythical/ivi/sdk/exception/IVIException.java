@@ -14,10 +14,10 @@ public class IVIException extends Exception {
     public static final int UNPROCESSABLE_ENTITY = 422;
 
     private final IVIErrorCode code;
-    private static final String HTTP_CODE_KEY = "HttpCode";
+    public static final String HTTP_CODE_KEY = "HttpCode";
 
     public IVIException(IVIErrorCode code) {
-
+        super();
         this.code = code;
     }
 
@@ -54,14 +54,12 @@ public class IVIException extends Exception {
     }
 
     private static IVIException fromGrpcExceptionMessaging(Code exception, Metadata metadata, String message) {
-        IVIErrorCode ivierrorcode;
-
         // GRPC Status doesn't handle all http codes, so check if one was added
         if (metadata != null) {
-            String httpCodeString = metadata.get(Metadata.Key.of(HTTP_CODE_KEY, Metadata.ASCII_STRING_MARSHALLER));
+            var httpCodeString = metadata.get(Metadata.Key.of(HTTP_CODE_KEY, Metadata.ASCII_STRING_MARSHALLER));
             if (StringUtils.isNotBlank(httpCodeString)) {
-                ivierrorcode = fromStatusCode(Integer.parseInt(httpCodeString));
-                return new IVIException(ivierrorcode);
+                var iviErrorCode = fromStatusCode(Integer.parseInt(httpCodeString));
+                return logError(message, iviErrorCode);
             }
         }
 

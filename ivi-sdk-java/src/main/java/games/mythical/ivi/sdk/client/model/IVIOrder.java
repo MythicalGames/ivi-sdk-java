@@ -5,7 +5,6 @@ import games.mythical.ivi.sdk.proto.api.order.Order;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
 import games.mythical.ivi.sdk.util.ConversionUtils;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +22,6 @@ public class IVIOrder {
     private final BigDecimal tax;
     private final BigDecimal total;
     private final IVIOrderAddress address;
-    private String listingId;
     private final PaymentProviderId paymentProviderId;
     private final Map<String, Object> metadata;
     private final String createdBy;
@@ -48,35 +46,11 @@ public class IVIOrder {
         orderStatus = order.getOrderStatus();
         createdTimestamp = Instant.ofEpochSecond(order.getCreatedTimestamp());
 
-        if(order.hasPaymentProviderData()) {
+        if (order.hasPaymentProviderData()) {
             bitpayInvoice = ConversionUtils.convertProperties(order.getPaymentProviderData().getBitpay().getInvoice());
         } else {
             bitpayInvoice = Collections.emptyMap();
         }
-
-        switch (order.getLineItemsCase()) {
-            case PURCHASED_ITEMS:
-                primarySale = true;
-                break;
-            case LISTING_ID:
-                secondarySale = true;
-                listingId = order.getListingId();
-                break;
-        }
-    }
-
-    @Getter(AccessLevel.NONE)
-    private boolean primarySale = false;
-
-    @Getter(AccessLevel.NONE)
-    private boolean secondarySale = false;
-
-    public boolean isPrimarySale() {
-        return primarySale;
-    }
-
-    public boolean isSecondarySale() {
-        return secondarySale;
     }
 
     public static IVIOrder fromProto(Order order) throws IVIException {

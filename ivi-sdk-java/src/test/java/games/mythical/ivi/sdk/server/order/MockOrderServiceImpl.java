@@ -1,9 +1,13 @@
 package games.mythical.ivi.sdk.server.order;
 
+import com.google.rpc.Code;
 import games.mythical.ivi.sdk.client.model.IVIOrder;
+import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.*;
 import games.mythical.ivi.sdk.proto.common.order.OrderState;
+import io.grpc.Metadata;
 import io.grpc.Status;
+import io.grpc.protobuf.StatusProto;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -15,11 +19,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 @Slf4j
 public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
     private final Map<String, Order> orders = new ConcurrentHashMap<>();
+    public final static String FAILURE_TRIGGER = "Fail me";
+    public final static String FAILURE_MESSAGE = "Generic failure message";
 
     @Override
     public void createOrder(CreateOrderRequest request, StreamObserver<Order> responseObserver) {
@@ -33,20 +37,8 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setTotal(String.valueOf(total))
                 .setAddress(request.getAddress())
                 .setPaymentProviderId(request.getPaymentProviderId())
-                .setOrderStatus(OrderState.STARTED);
-
-        switch (request.getLineItemsCase()) {
-            case PURCHASED_ITEMS:
-                orderBuilder.setPurchasedItems(request.getPurchasedItems());
-                break;
-            case LISTING_ID:
-                orderBuilder.setListingId(request.getListingId());
-                break;
-            case LINEITEMS_NOT_SET:
-                log.error("Order doesn't have any line items!");
-                responseObserver.onError(Status.INVALID_ARGUMENT.asException());
-                return;
-        }
+                .setOrderStatus(OrderState.STARTED)
+                .setPurchasedItems(request.getPurchasedItems());
 
         var order = orderBuilder.build();
         orders.put(order.getOrderId(), order);
@@ -59,20 +51,8 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setTotal(total.toString())
                 .setAddress(request.getAddress())
                 .setPaymentProviderId(request.getPaymentProviderId())
-                .setOrderStatus(OrderState.STARTED);
-
-        switch (request.getLineItemsCase()) {
-            case PURCHASED_ITEMS:
-                responseBuilder.setPurchasedItems(request.getPurchasedItems());
-                break;
-            case LISTING_ID:
-                responseBuilder.setListingId(request.getListingId());
-                break;
-            case LINEITEMS_NOT_SET:
-                log.error("Order doesn't have any line items!");
-                responseObserver.onError(Status.INVALID_ARGUMENT.asException());
-                return;
-        }
+                .setOrderStatus(OrderState.STARTED)
+                .setPurchasedItems(request.getPurchasedItems());
 
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
@@ -90,8 +70,21 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
 
     @Override
     public void finalizeOrder(FinalizeOrderRequest request, StreamObserver<FinalizeOrderAsyncResponse> responseObserver) {
-        if(!orders.containsKey(request.getOrderId())) {
+        if (!orders.containsKey(request.getOrderId())) {
             responseObserver.onError(Status.NOT_FOUND.asException());
+            return;
+        }
+
+        if (FAILURE_TRIGGER.equals(request.getFraudSessionId())) {
+            var metadata = new Metadata();
+            metadata.put(Metadata.Key.of(IVIException.HTTP_CODE_KEY, Metadata.ASCII_STRING_MARSHALLER), "404");
+
+            var sre = StatusProto.toStatusRuntimeException(com.google.rpc.Status.newBuilder()
+                    .setCode(Code.FAILED_PRECONDITION_VALUE)
+                    .setMessage(FAILURE_MESSAGE)
+                    .build(), metadata);
+
+            responseObserver.onError(sre);
             return;
         }
 
@@ -116,7 +109,7 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
         responseObserver.onCompleted();
     }
 
-    public void setOrders(Collection<IVIOrder> orders) throws Exception {
+    public void setOrders(Collection<IVIOrder> orders) {
         for(var order : orders) {
             this.orders.putIfAbsent(order.getOrderId(), toProto(order));
         }
@@ -143,15 +136,8 @@ public class MockOrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase 
                 .setTotal(String.valueOf(iviOrder.getTotal()))
                 .setAddress(iviOrder.getAddress().toProto())
                 .setPaymentProviderId(iviOrder.getPaymentProviderId())
-                .setOrderStatus(iviOrder.getOrderStatus());
-
-        if(iviOrder.isPrimarySale()) {
-            orderBuilder.setPurchasedItems(ItemTypeOrders.getDefaultInstance());
-        } else if (iviOrder.isSecondarySale()) {
-            orderBuilder.setListingId(iviOrder.getListingId());
-        } else {
-            fail("Invalid order passed in!");
-        }
+                .setOrderStatus(iviOrder.getOrderStatus())
+                .setPurchasedItems(ItemTypeOrders.getDefaultInstance());
 
         return orderBuilder.build();
     }
