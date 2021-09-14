@@ -6,7 +6,6 @@ import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.*;
 import games.mythical.ivi.sdk.proto.common.Finalized;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
-import games.mythical.ivi.sdk.util.ConversionUtils;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
@@ -184,7 +183,6 @@ public class MockItemServiceImpl extends ItemServiceGrpc.ItemServiceImplBase {
                 .setPlayerId(item.getPlayerId())
                 .setOwnerSidechainAccount(item.getOwnerSidechainAccount())
                 .setSerialNumber(item.getSerialNumber())
-                .setCurrencyBase(item.getCurrencyBase())
                 .setMetadataUri(item.getMetadataUri())
                 .setTrackingId(item.getTrackingId())
                 .setMetadata(IVIMetadata.toProto(item.getMetadata()))

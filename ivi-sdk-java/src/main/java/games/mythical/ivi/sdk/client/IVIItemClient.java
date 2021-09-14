@@ -62,12 +62,25 @@ public class IVIItemClient extends AbstractIVIClient {
         streamStub.itemStatusStream(subscribe, observer);
     }
 
+    @Deprecated(since = "2.2.0", forRemoval = true)
     public void issueItem(String gameInventoryId,
                           String playerId,
                           String itemName,
                           String gameItemTypeId,
                           BigDecimal amountPaid,
                           String currency,
+                          IVIMetadata metadata,
+                          String storeId,
+                          String orderId,
+                          String requestIp) throws IVIException {
+        issueItem(gameInventoryId, playerId, itemName, gameItemTypeId, amountPaid, metadata, storeId, orderId, requestIp);
+    }
+    
+    public void issueItem(String gameInventoryId,
+                          String playerId,
+                          String itemName,
+                          String gameItemTypeId,
+                          BigDecimal amountPaid,
                           IVIMetadata metadata,
                           String storeId,
                           String orderId,
@@ -81,7 +94,6 @@ public class IVIItemClient extends AbstractIVIClient {
                     .setGameItemTypeId(gameItemTypeId)
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .setAmountPaid(amountPaid.toString())
-                    .setCurrency(currency)
                     .setStoreId(storeId);
 
             if(StringUtils.isNotBlank(orderId)) {
