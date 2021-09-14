@@ -11,8 +11,6 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.TimeUnit;
-
 @Slf4j
 public class IVIPaymentClient extends AbstractIVIClient {
     private PaymentServiceGrpc.PaymentServiceBlockingStub serviceBlockingStub;
@@ -22,7 +20,6 @@ public class IVIPaymentClient extends AbstractIVIClient {
         super();
 
         this.channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }

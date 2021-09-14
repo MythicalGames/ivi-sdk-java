@@ -19,8 +19,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class IVIItemClient extends AbstractIVIClient {
@@ -33,7 +34,6 @@ public class IVIItemClient extends AbstractIVIClient {
 
         this.iviItemExecutor = iviItemExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }

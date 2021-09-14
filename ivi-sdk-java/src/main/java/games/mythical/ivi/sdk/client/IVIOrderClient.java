@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class IVIOrderClient extends AbstractIVIClient {
@@ -34,7 +33,6 @@ public class IVIOrderClient extends AbstractIVIClient {
 
         this.orderExecutor = orderExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }
