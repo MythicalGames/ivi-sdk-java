@@ -5,6 +5,7 @@ import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.payment.BraintreeTokenRequest;
 import games.mythical.ivi.sdk.proto.api.payment.CreateTokenRequest;
+import games.mythical.ivi.sdk.proto.api.payment.CybersourceTokenRequest;
 import games.mythical.ivi.sdk.proto.api.payment.PaymentServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -34,13 +35,24 @@ public class IVIPaymentClient extends AbstractIVIClient {
         serviceBlockingStub = PaymentServiceGrpc.newBlockingStub(channel).withCallCredentials(addAuthentication());
     }
 
+    @Deprecated(since = "2.2.0", forRemoval = true)
     public IVIToken getToken(PaymentProviderId providerId, String playerId) throws IVIException {
+        return getToken(providerId, playerId, "");
+    }
+
+    public IVIToken getToken(PaymentProviderId providerId, String playerId, String origin) throws IVIException {
         var builder = CreateTokenRequest.newBuilder()
                 .setEnvironmentId(environmentId);
 
         if (PaymentProviderId.BRAINTREE.equals(providerId)) {
             builder.setBraintree(BraintreeTokenRequest.newBuilder()
                     .setPlayerId(playerId)
+                    .build());
+        }
+
+        if(PaymentProviderId.CYBERSOURCE.equals(providerId)) {
+            builder.setCybersource(CybersourceTokenRequest.newBuilder()
+                    .setOrigin(origin == null ? "" : origin)
                     .build());
         }
 

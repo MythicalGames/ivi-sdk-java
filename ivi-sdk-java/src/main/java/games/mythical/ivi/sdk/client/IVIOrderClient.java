@@ -154,6 +154,26 @@ public class IVIOrderClient extends AbstractIVIClient {
         return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
+    public IVIFinalizeOrderResponse finalizeCybersourceOrder(String orderId,
+                                                             String cardType,
+                                                             String expirationMonth,
+                                                             String expirationYear,
+                                                             String instrumentId,
+                                                             String paymentMethodTokenId,
+                                                             String fraudSessionId) throws IVIException {
+        var paymentData = PaymentRequestProto.newBuilder()
+                .setCybersource(CybersourcePaymentRequestProto.newBuilder()
+                        .setCardType(cardType)
+                        .setExpirationMonth(expirationMonth)
+                        .setExpirationYear(expirationYear)
+                        .setInstrumentId(instrumentId)
+                        .setPaymentMethodTokenId(paymentMethodTokenId)
+                        .build())
+                .build();
+
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
+    }
+
     private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentRequestProto paymentData, String fraudSessionId) throws IVIException {
         var builder = FinalizeOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)

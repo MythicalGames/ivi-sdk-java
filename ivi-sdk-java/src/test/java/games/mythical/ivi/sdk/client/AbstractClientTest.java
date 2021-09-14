@@ -185,6 +185,20 @@ public abstract class AbstractClientTest {
         return orders;
     }
 
+    protected IVIOrder generateCybersourceOrder() throws IVIException {
+        return IVIOrder.fromProto(Order.newBuilder()
+                    .setOrderId(RandomStringUtils.randomAlphanumeric(30))
+                    .setStoreId(RandomStringUtils.randomAlphanumeric(30))
+                    .setBuyerPlayerId(RandomStringUtils.randomAlphanumeric(30))
+                    .setTax(String.valueOf(RandomUtils.nextDouble(0, 10)))
+                    .setTotal(String.valueOf(RandomUtils.nextDouble(0, 200)))
+                    .setAddress(generateAddress().toProto())
+                    .setPaymentProviderId(PaymentProviderId.CYBERSOURCE)
+                    .setOrderStatus(OrderState.COMPLETE)
+                    .setPurchasedItems(ItemTypeOrders.getDefaultInstance())
+                .build());
+    }
+
     @SuppressWarnings("SameParameterValue")
     protected List<IVIPurchasedItems> generatePurchasedItems(int count) {
         var items = new ArrayList<IVIPurchasedItems>();

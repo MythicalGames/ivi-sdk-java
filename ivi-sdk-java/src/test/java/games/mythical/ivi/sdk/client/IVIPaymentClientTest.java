@@ -6,6 +6,7 @@ import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.server.payment.order.MockPaymentServer;
 import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IVIPaymentClientTest extends AbstractClientTest {
     private MockPaymentServer paymentServer;
@@ -59,9 +61,22 @@ class IVIPaymentClientTest extends AbstractClientTest {
     @Test
     void createBraintreeToken() throws IVIException {
         var playerId = RandomStringUtils.randomAlphanumeric(30);
-        var token = paymentClient.getToken(PaymentProviderId.BRAINTREE, playerId);
+        var token = paymentClient.getToken(PaymentProviderId.BRAINTREE, playerId, "");
 
         assertNotNull(token.getBraintreeToken());
+    }
+
+    @Test
+    void createCybersourceToken() throws IVIException {
+        var origin = RandomStringUtils.randomAlphanumeric(30);
+        var token = paymentClient.getToken(PaymentProviderId.CYBERSOURCE, "", origin);
+
+        assertNotNull(token.getCybersourceJWK());
+        assertTrue(StringUtils.isNotBlank(token.getCybersourceJWK().getKty()));
+        assertTrue(StringUtils.isNotBlank(token.getCybersourceJWK().getE()));
+        assertTrue(StringUtils.isNotBlank(token.getCybersourceJWK().getUse()));
+        assertTrue(StringUtils.isNotBlank(token.getCybersourceJWK().getN()));
+        assertTrue(StringUtils.isNotBlank(token.getCybersourceJWK().getKid()));
     }
 
 }
