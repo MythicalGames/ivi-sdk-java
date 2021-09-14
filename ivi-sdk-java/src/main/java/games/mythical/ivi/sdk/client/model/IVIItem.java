@@ -16,7 +16,6 @@ public class IVIItem {
     private String playerId;
     private String ownerSidechainAccount;
     private int serialNumber;
-    private String currencyBase;
     private String metadataUri;
     private String trackingId;
     private IVIMetadata metadata;
@@ -31,7 +30,6 @@ public class IVIItem {
                    String playerId,
                    String ownerSidechainAccount,
                    int serialNumber,
-                   String currencyBase,
                    String metadataUri,
                    String trackingId,
                    IVIMetadata metadata,
@@ -45,7 +43,6 @@ public class IVIItem {
         this.playerId = playerId;
         this.ownerSidechainAccount = ownerSidechainAccount;
         this.serialNumber = serialNumber;
-        this.currencyBase = currencyBase;
         this.metadataUri = metadataUri;
         this.trackingId = trackingId;
         this.metadata = metadata;
@@ -65,7 +62,6 @@ public class IVIItem {
                 item.getPlayerId(),
                 item.getOwnerSidechainAccount(),
                 item.getSerialNumber(),
-                item.getCurrencyBase(),
                 item.getMetadataUri(),
                 item.getTrackingId(),
                 IVIMetadata.fromProto(item.getMetadata()),

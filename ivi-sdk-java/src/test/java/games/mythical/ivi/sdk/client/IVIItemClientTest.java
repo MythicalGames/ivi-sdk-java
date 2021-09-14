@@ -17,10 +17,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,6 +56,7 @@ class IVIItemClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void issueItem() throws Exception {
         var item = generateNewItem();
 
@@ -62,7 +65,6 @@ class IVIItemClientTest extends AbstractClientTest {
                 item.getItemName(),
                 item.getGameItemTypeId(),
                 BigDecimal.valueOf(RandomUtils.nextDouble(0, 100)),
-                currency,
                 item.getMetadata(),
                 RandomStringUtils.randomAlphanumeric(10, 100),
                 RandomStringUtils.randomAlphanumeric(10, 100),
@@ -104,6 +106,7 @@ class IVIItemClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     public void transferItem() throws Exception {
         var gameInventoryId= items.keySet().iterator().next();
         var item = items.get(gameInventoryId);
@@ -155,6 +158,7 @@ class IVIItemClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     public void burnItem() throws Exception {
         var gameInventoryId= items.keySet().iterator().next();
         var item = items.get(gameInventoryId);
@@ -280,7 +284,6 @@ class IVIItemClientTest extends AbstractClientTest {
         assertEquals(expectedItem.getPlayerId(), actualItem.getPlayerId());
         assertEquals(expectedItem.getOwnerSidechainAccount(), actualItem.getOwnerSidechainAccount());
         assertEquals(expectedItem.getSerialNumber(), actualItem.getSerialNumber());
-        assertEquals(expectedItem.getCurrencyBase(), actualItem.getCurrencyBase());
         assertEquals(expectedItem.getMetadataUri(), actualItem.getMetadataUri());
         assertEquals(expectedItem.getTrackingId(), actualItem.getTrackingId());
         assertEquals(expectedItem.getItemState(), actualItem.getItemState());

@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class IVIItemTypeClient extends AbstractIVIClient {
@@ -84,6 +83,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         return IVIItemType.fromProto(result.getItemTypesList());
     }
 
+    @Deprecated(since = "2.2.0", forRemoval = true)
     public void createItemType(String gameItemTypeId,
                                String tokenName,
                                String category,
@@ -93,6 +93,19 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                                boolean transferable,
                                boolean sellable,
                                Collection<UUID> agreementIds,
+                               IVIMetadata metadata) throws IVIException {
+        createItemType(gameItemTypeId, tokenName, category, maxSupply, issueTimeSpan, burnable, transferable, sellable,
+                metadata);
+    }
+
+    public void createItemType(String gameItemTypeId,
+                               String tokenName,
+                               String category,
+                               int maxSupply,
+                               int issueTimeSpan,
+                               boolean burnable,
+                               boolean transferable,
+                               boolean sellable,
                                IVIMetadata metadata) throws IVIException {
         try {
             log.trace("ItemTypeClient.createItemType called for game item type id: {} {}:{}", gameItemTypeId, tokenName, category);
@@ -106,7 +119,6 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                     .setBurnable(burnable)
                     .setTransferable(transferable)
                     .setSellable(sellable)
-                    .addAllAgreementIds(agreementIds.stream().map(UUID::toString).collect(Collectors.toList()))
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .build();
             var result = serviceBlockingStub.createItemType(request);

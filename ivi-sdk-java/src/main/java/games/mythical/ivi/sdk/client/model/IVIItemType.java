@@ -8,8 +8,6 @@ import lombok.Data;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Data
 public class IVIItemType {
@@ -27,7 +25,6 @@ public class IVIItemType {
     private boolean finalized;
     private boolean sellable;
     private String baseUri;
-    private List<UUID> agreementIds;
     private String trackingId;
     private IVIMetadata metadata;
     private Instant createdTimestamp;
@@ -48,7 +45,6 @@ public class IVIItemType {
                 boolean finalized,
                 boolean sellable,
                 String baseUri,
-                List<UUID> agreementIds,
                 String trackingId,
                 IVIMetadata metadata,
                 Instant createdTimestamp,
@@ -68,7 +64,6 @@ public class IVIItemType {
         this.finalized = finalized;
         this.sellable = sellable;
         this.baseUri = baseUri;
-        this.agreementIds = agreementIds;
         this.trackingId = trackingId;
         this.metadata = metadata;
         this.createdTimestamp = createdTimestamp;
@@ -91,7 +86,6 @@ public class IVIItemType {
                 itemType.getFinalized(),
                 itemType.getSellable(),
                 itemType.getBaseUri(),
-                itemType.getAgreementIdsList().stream().map(UUID::fromString).collect(Collectors.toList()),
                 itemType.getTrackingId(),
                 IVIMetadata.fromProto(itemType.getMetadata()),
                 Instant.ofEpochSecond(itemType.getCreatedTimestamp()),

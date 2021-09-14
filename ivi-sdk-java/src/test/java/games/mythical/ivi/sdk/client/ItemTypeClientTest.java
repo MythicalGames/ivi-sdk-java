@@ -10,11 +10,13 @@ import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,12 +45,13 @@ class ItemTypeClientTest extends AbstractClientTest {
     }
 
     @AfterEach
-    void tearDown() throws Exception {
+    void tearDown() {
         itemTypeServer.stop();
         ConcurrentFinisher.reset();
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void testCreateItemType() throws Exception {
         var mockItemType = generateNewItemType();
 
@@ -60,7 +63,6 @@ class ItemTypeClientTest extends AbstractClientTest {
                 mockItemType.isBurnable(),
                 mockItemType.isTransferable(),
                 mockItemType.isSellable(),
-                mockItemType.getAgreementIds(),
                 mockItemType.getMetadata());
 
         assertNotNull(itemTypeExecutor.getGameItemTypeId());
@@ -101,6 +103,7 @@ class ItemTypeClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void testFreezeItemType() throws Exception {
         var maxSupply = RandomUtils.nextInt(10, 100);
         var currentSupply = RandomUtils.nextInt(0, maxSupply);

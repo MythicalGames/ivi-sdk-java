@@ -11,9 +11,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class MockItemTypeServiceImpl extends ItemTypeServiceGrpc.ItemTypeServiceImplBase {
     private final Map<String, ItemType> itemTypes = new ConcurrentHashMap<>();
@@ -81,7 +79,6 @@ public class MockItemTypeServiceImpl extends ItemTypeServiceGrpc.ItemTypeService
                 .setFinalized(itemType.isFinalized())
                 .setSellable(itemType.isSellable())
                 .setBaseUri(itemType.getBaseUri())
-                .addAllAgreementIds(itemType.getAgreementIds().stream().map(UUID::toString).collect(Collectors.toList()))
                 .setTrackingId(itemType.getTrackingId())
                 .setMetadata(IVIMetadata.toProto(itemType.getMetadata()))
                 .setCreatedTimestamp(itemType.getCreatedTimestamp().getEpochSecond())

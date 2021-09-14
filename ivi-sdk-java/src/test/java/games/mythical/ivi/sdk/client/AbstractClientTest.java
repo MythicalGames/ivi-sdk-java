@@ -28,7 +28,6 @@ public abstract class AbstractClientTest {
     protected static final String host = "localhost";
     protected static final String apiKey = "MOCK_API_KEY";
     protected static final String environmentId = "MOCK_ENV_ID";
-    protected static final String currency = "BB";
 
     protected int port;
     protected ManagedChannel channel;
@@ -117,8 +116,6 @@ public abstract class AbstractClientTest {
                                 String metadataUri,
                                 String trackingId,
                                 ItemState state) throws IVIException {
-        var itemMetadata = generateItemMetadata();
-
         var item = Item.newBuilder()
                 .setGameInventoryId(RandomStringUtils.randomAlphanumeric(30))
                 .setGameItemTypeId(RandomStringUtils.randomAlphanumeric(30))
@@ -127,7 +124,6 @@ public abstract class AbstractClientTest {
                 .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
                 .setOwnerSidechainAccount(sideChainAccount)
                 .setSerialNumber(serialNumber)
-                .setCurrencyBase(RandomStringUtils.randomAlphanumeric(30))
                 .setMetadataUri(metadataUri)
                 .setTrackingId(trackingId)
                 .setMetadata(IVIMetadata.toProto(generateItemMetadata()))
