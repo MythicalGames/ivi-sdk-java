@@ -11,6 +11,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
 public class IVIPaymentClient extends AbstractIVIClient {
@@ -52,7 +53,7 @@ public class IVIPaymentClient extends AbstractIVIClient {
 
         if(PaymentProviderId.CYBERSOURCE.equals(providerId)) {
             builder.setCybersource(CybersourceTokenRequest.newBuilder()
-                    .setOrigin(origin == null ? "" : origin)
+                    .setOrigin(StringUtils.defaultString(origin, ""))
                     .build());
         }
 
