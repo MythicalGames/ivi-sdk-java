@@ -1,12 +1,11 @@
 package games.mythical.ivi.sdk.client;
 
+import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
+import games.mythical.ivi.sdk.client.model.IVIPaymentMethod;
 import games.mythical.ivi.sdk.client.model.IVIToken;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
-import games.mythical.ivi.sdk.proto.api.payment.BraintreeTokenRequest;
-import games.mythical.ivi.sdk.proto.api.payment.CreateTokenRequest;
-import games.mythical.ivi.sdk.proto.api.payment.CybersourceTokenRequest;
-import games.mythical.ivi.sdk.proto.api.payment.PaymentServiceGrpc;
+import games.mythical.ivi.sdk.proto.api.payment.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
@@ -60,6 +59,36 @@ public class IVIPaymentClient extends AbstractIVIClient {
         try {
             var order = serviceBlockingStub.generateClientToken(builder.build());
             return IVIToken.fromProto(order);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public IVIPaymentMethod createCybersourcePaymentMethod(
+            String playerId,
+            String cardType,
+            String expirationMonth,
+            String expirationYear,
+            String instrumentId,
+            IVIOrderAddress address
+    ) throws IVIException {
+        var request = CreatePaymentMethodRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .setCardPaymentData(CardPaymentData.newBuilder()
+                        .setCybersource(CybersourcePaymentData.newBuilder()
+                                .setCardType(cardType)
+                                .setExpirationMonth(expirationMonth)
+                                .setExpirationYear(expirationYear)
+                                .setInstrumentId(instrumentId)
+                                .build())
+                        .build())
+                .setAddress(address.toProto())
+                .build();
+
+        try {
+            var paymentMethod = serviceBlockingStub.createPaymentMethod(request);
+            return IVIPaymentMethod.fromProto(paymentMethod);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         }

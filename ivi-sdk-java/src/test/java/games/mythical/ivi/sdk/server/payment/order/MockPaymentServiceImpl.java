@@ -1,10 +1,14 @@
 package games.mythical.ivi.sdk.server.payment.order;
 
+import games.mythical.ivi.sdk.client.AbstractClientTest;
 import games.mythical.ivi.sdk.client.model.IVIToken;
 import games.mythical.ivi.sdk.proto.api.payment.*;
+import io.grpc.Status;
+import io.grpc.StatusException;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -39,6 +43,25 @@ public class MockPaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImp
         }
 
         responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void createPaymentMethod(CreatePaymentMethodRequest request, StreamObserver<CreatePaymentResponse> responseObserver) {
+        if(request.getCardPaymentData().getCybersource().getCardType().equals("invalid")) {
+            responseObserver.onError(new StatusException(Status.CANCELLED));
+        } else {
+            responseObserver.onNext(CreatePaymentResponse.newBuilder()
+                    .setCardType("valid")
+                    .setToken(RandomStringUtils.randomAlphanumeric(10))
+                    .setExpirationMonth(String.valueOf(RandomUtils.nextInt(1000, 9999)))
+                    .setExpirationYear(String.valueOf(RandomUtils.nextInt(1000, 9999)))
+                    .setMaskedNumber(RandomStringUtils.randomAlphanumeric(10))
+                    .setLastFour(String.valueOf(RandomUtils.nextInt(1000, 9999)))
+                    .setAddress(AbstractClientTest.generateAddress().toProto())
+                    .setDefaultOption(true)
+                    .build());
+        }
         responseObserver.onCompleted();
     }
 

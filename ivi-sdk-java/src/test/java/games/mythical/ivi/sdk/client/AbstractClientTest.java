@@ -5,7 +5,9 @@ import games.mythical.ivi.sdk.config.IVIConfiguration;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.item.Item;
 import games.mythical.ivi.sdk.proto.api.itemtype.ItemType;
-import games.mythical.ivi.sdk.proto.api.order.*;
+import games.mythical.ivi.sdk.proto.api.order.ItemTypeOrders;
+import games.mythical.ivi.sdk.proto.api.order.Order;
+import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.player.IVIPlayer;
 import games.mythical.ivi.sdk.proto.common.item.ItemState;
 import games.mythical.ivi.sdk.proto.common.itemtype.ItemTypeState;
@@ -18,7 +20,10 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -217,7 +222,7 @@ public abstract class AbstractClientTest {
         return items;
     }
 
-    protected IVIOrderAddress generateAddress() {
+    public static IVIOrderAddress generateAddress() {
         return IVIOrderAddress.builder()
                 .firstName(RandomStringUtils.randomAlphanumeric(30))
                 .lastName(RandomStringUtils.randomAlphanumeric(30))

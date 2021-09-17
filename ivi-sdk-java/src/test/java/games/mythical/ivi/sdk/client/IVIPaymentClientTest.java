@@ -14,8 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IVIPaymentClientTest extends AbstractClientTest {
     private MockPaymentServer paymentServer;
@@ -79,4 +78,32 @@ class IVIPaymentClientTest extends AbstractClientTest {
         assertTrue(StringUtils.isNotBlank(token.getCybersourceJWK().getKid()));
     }
 
+    @Test
+    public void testCreateCybersourcePaymentMethod() throws Exception {
+        var method = paymentClient.createCybersourcePaymentMethod(
+                RandomStringUtils.randomAlphanumeric(10),
+                RandomStringUtils.randomAlphanumeric(10),
+                RandomStringUtils.randomAlphanumeric(10),
+                RandomStringUtils.randomAlphanumeric(10),
+                RandomStringUtils.randomAlphanumeric(10),
+                generateAddress()
+        );
+
+        assertNotNull(method);
+        assertEquals("valid", method.getCardType());
+    }
+
+    @Test
+    public void testCreateCybersourcePaymentMethodFailure() {
+        assertThrows(IVIException.class, () -> {
+            paymentClient.createCybersourcePaymentMethod(
+                    RandomStringUtils.randomAlphanumeric(10),
+                    "invalid",
+                    RandomStringUtils.randomAlphanumeric(10),
+                    RandomStringUtils.randomAlphanumeric(10),
+                    RandomStringUtils.randomAlphanumeric(10),
+                    generateAddress()
+            );
+        });
+    }
 }
