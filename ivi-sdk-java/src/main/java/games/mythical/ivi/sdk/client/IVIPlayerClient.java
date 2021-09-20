@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class IVIPlayerClient extends AbstractIVIClient {
@@ -28,7 +27,6 @@ public class IVIPlayerClient extends AbstractIVIClient {
 
         this.playerExecutor = playerExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
 
         initStub();

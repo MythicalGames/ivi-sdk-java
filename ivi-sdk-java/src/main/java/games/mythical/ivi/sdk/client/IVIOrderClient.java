@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class IVIOrderClient extends AbstractIVIClient {
@@ -34,7 +33,6 @@ public class IVIOrderClient extends AbstractIVIClient {
 
         this.orderExecutor = orderExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }
@@ -150,6 +148,26 @@ public class IVIOrderClient extends AbstractIVIClient {
         var paymentData = PaymentRequestProto.newBuilder()
                 .setBitpay(BitPayPaymentRequestProto.newBuilder()
                         .setInvoiceId(invoiceId)
+                        .build())
+                .build();
+
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
+    }
+
+    public IVIFinalizeOrderResponse finalizeCybersourceOrder(String orderId,
+                                                             String cardType,
+                                                             String expirationMonth,
+                                                             String expirationYear,
+                                                             String instrumentId,
+                                                             String paymentMethodTokenId,
+                                                             String fraudSessionId) throws IVIException {
+        var paymentData = PaymentRequestProto.newBuilder()
+                .setCybersource(CybersourcePaymentRequestProto.newBuilder()
+                        .setCardType(cardType)
+                        .setExpirationMonth(expirationMonth)
+                        .setExpirationYear(expirationYear)
+                        .setInstrumentId(instrumentId)
+                        .setPaymentMethodTokenId(paymentMethodTokenId)
                         .build())
                 .build();
 

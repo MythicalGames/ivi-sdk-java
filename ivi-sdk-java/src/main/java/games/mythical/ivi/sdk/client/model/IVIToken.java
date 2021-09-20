@@ -11,12 +11,23 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 public class IVIToken {
     private final String braintreeToken;
+    private final IVICybersourceJWK cybersourceJWK;
 
     public static IVIToken fromProto(Token response) throws IVIException {
         var builder = IVIToken.builder();
 
         if (response.hasBraintree()) {
             builder.braintreeToken(response.getBraintree().getToken());
+        }
+
+        if(response.hasCybersource()) {
+            builder.cybersourceJWK(IVICybersourceJWK.builder()
+                    .kty(response.getCybersource().getJwk().getKty())
+                    .e(response.getCybersource().getJwk().getE())
+                    .use(response.getCybersource().getJwk().getUse())
+                    .n(response.getCybersource().getJwk().getN())
+                    .kid(response.getCybersource().getJwk().getN())
+                    .build());
         }
 
         return builder.build();

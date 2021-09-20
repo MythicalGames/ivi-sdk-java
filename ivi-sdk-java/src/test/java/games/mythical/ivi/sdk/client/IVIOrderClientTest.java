@@ -17,9 +17,11 @@ import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +30,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     private MockOrderExecutor orderExecutor;
     private IVIOrderClient orderClient;
     private Map<String, IVIOrder> orders;
+    private IVIOrder cyberSourceOrder;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -37,6 +40,8 @@ class IVIOrderClientTest extends AbstractClientTest {
         setUpConfig();
 
         orders = generateOrders(3);
+        cyberSourceOrder = generateCybersourceOrder();
+        orders.put(cyberSourceOrder.getOrderId(), cyberSourceOrder);
         orderServer.getOrderService().setOrders(orders.values());
 
         channel = ManagedChannelBuilder.forAddress(host, port)
@@ -69,6 +74,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void createPrimaryOrder() throws Exception {
         var storeId = RandomStringUtils.randomAlphanumeric(30);
         var playerId = RandomStringUtils.randomAlphanumeric(30);
@@ -107,6 +113,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void finalizeBraintreeOrder() throws Exception {
         var orderId = orders.keySet().iterator().next();
         var clientToken = RandomStringUtils.randomAlphanumeric(30);
@@ -139,6 +146,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void finalizeBraintreeOrderAndUnexpectedError() {
         var orderId = orders.keySet().iterator().next();
         var clientToken = RandomStringUtils.randomAlphanumeric(30);
@@ -151,6 +159,7 @@ class IVIOrderClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void finalizeBitpayOrder() throws Exception {
         var orderId = orders.keySet().iterator().next();
         var invoiceId = RandomStringUtils.randomAlphanumeric(30);
@@ -181,6 +190,46 @@ class IVIOrderClientTest extends AbstractClientTest {
     }
 
     @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
+    void finalizeCybersourceOrder() throws Exception {
+        var orderId = cyberSourceOrder.getOrderId();
+        var clientToken = RandomStringUtils.randomAlphanumeric(30);
+        var cardType = RandomStringUtils.randomAlphanumeric(30);
+        var expirationMonth = RandomStringUtils.randomAlphanumeric(30);
+        var expirationYear = RandomStringUtils.randomAlphanumeric(30);
+        var instrumentId = RandomStringUtils.randomAlphanumeric(30);
+        var paymentMethodTokenId = RandomStringUtils.randomAlphanumeric(30);
+
+
+        orderExecutor.setOrderId(cyberSourceOrder.getOrderId());
+        orderExecutor.setOrderStatus(cyberSourceOrder.getOrderStatus());
+
+        var finalizeResponse =
+                orderClient.finalizeCybersourceOrder(orderId, clientToken, cardType, expirationMonth, expirationYear, instrumentId,
+                        paymentMethodTokenId);
+
+        assertTrue(finalizeResponse.isSuccess());
+        assertNotNull(finalizeResponse.getFraudScore());
+        assertEquals(orderId, orderExecutor.getOrderId());
+        assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
+
+        orderServer.verifyCalls("FinalizeOrder", 1);
+
+        ConcurrentFinisher.start(orderId);
+
+        orderServer.getOrderStream().sendStatus(environmentId, orderId, OrderState.COMPLETE);
+
+        ConcurrentFinisher.wait(orderId);
+
+        assertEquals(orderId, orderExecutor.getOrderId());
+        assertEquals(OrderState.COMPLETE, orderExecutor.getOrderStatus());
+
+        orderServer.verifyCalls("OrderStatusStream", 1);
+        orderServer.verifyCalls("OrderStatusConfirmation", 1);
+    }
+
+    @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void finalizeOrderNotFound() {
         var orderId = RandomStringUtils.randomAlphanumeric(30);
         var clientToken = RandomStringUtils.randomAlphanumeric(30);

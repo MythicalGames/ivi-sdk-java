@@ -16,7 +16,6 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class IVIItemTypeClient extends AbstractIVIClient {
@@ -29,7 +28,6 @@ public class IVIItemTypeClient extends AbstractIVIClient {
 
         this.itemTypeExecutor = itemTypeExecutor;
         this.channel = ManagedChannelBuilder.forAddress(host, port)
-                .keepAliveTime(keepAlive, TimeUnit.SECONDS)
                 .build();
         initStub();
     }
