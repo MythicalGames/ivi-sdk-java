@@ -47,11 +47,11 @@ public class MockPaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImp
     }
 
     @Override
-    public void createPaymentMethod(CreatePaymentMethodRequest request, StreamObserver<CreatePaymentResponse> responseObserver) {
+    public void createPaymentMethod(CreatePaymentMethodRequest request, StreamObserver<PaymentMethodResponse> responseObserver) {
         if(request.getCardPaymentData().getCybersource().getCardType().equals("invalid")) {
             responseObserver.onError(new StatusException(Status.CANCELLED));
         } else {
-            responseObserver.onNext(CreatePaymentResponse.newBuilder()
+            responseObserver.onNext(PaymentMethodResponse.newBuilder()
                     .setCardType("valid")
                     .setToken(RandomStringUtils.randomAlphanumeric(10))
                     .setExpirationMonth(String.valueOf(RandomUtils.nextInt(1000, 9999)))

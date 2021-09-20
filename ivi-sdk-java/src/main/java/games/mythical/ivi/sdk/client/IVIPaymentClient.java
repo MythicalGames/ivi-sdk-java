@@ -12,6 +12,9 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
+import java.util.List;
+
 @Slf4j
 public class IVIPaymentClient extends AbstractIVIClient {
     private PaymentServiceGrpc.PaymentServiceBlockingStub serviceBlockingStub;
@@ -89,6 +92,78 @@ public class IVIPaymentClient extends AbstractIVIClient {
         try {
             var paymentMethod = serviceBlockingStub.createPaymentMethod(request);
             return IVIPaymentMethod.fromProto(paymentMethod);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public List<IVIPaymentMethod> getPaymentMethods(
+        String playerId,
+        String token,
+        PaymentProviderId paymentProviderId
+    ) throws IVIException {
+        // only supported for Cybersource for now
+        if(paymentProviderId != PaymentProviderId.CYBERSOURCE) {
+            return Collections.emptyList();
+        }
+
+        var request = GetPaymentMethodRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .setToken(token)
+                .setPaymentProviderId(paymentProviderId)
+                .build();
+
+        try {
+            var methods = serviceBlockingStub.getPaymentMethods(request);
+            return IVIPaymentMethod.fromProtos(methods);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public IVIPaymentMethod updateCybersourcePaymentMethod(
+            String playerId,
+            String cardType,
+            String token,
+            String expirationMonth,
+            String expirationYear,
+            String instrumentId,
+            IVIOrderAddress address
+    ) throws IVIException {
+        var request = UpdatePaymentMethodRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .setToken(token)
+                .setCardPaymentData(CardPaymentData.newBuilder()
+                        .setCybersource(CybersourcePaymentData.newBuilder()
+                                .setCardType(cardType)
+                                .setExpirationMonth(expirationMonth)
+                                .setExpirationYear(expirationYear)
+                                .setInstrumentId(instrumentId)
+                                .build())
+                        .build())
+                .setAddress(address.toProto())
+                .build();
+
+        try {
+            var paymentMethod = serviceBlockingStub.updatePaymentMethod(request);
+            return IVIPaymentMethod.fromProto(paymentMethod);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public void deletePaymentMethod(String playerId, String token, PaymentProviderId paymentProviderId) throws IVIException {
+        var request = DeletePaymentMethodRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .setToken(token)
+                .setPaymentProviderId(paymentProviderId)
+                .build();
+
+        try {
+            serviceBlockingStub.deletePaymentMethod(request);
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         }
