@@ -39,7 +39,7 @@ class IVIOrderClientTest extends AbstractClientTest {
         port = orderServer.getPort();
         setUpConfig();
 
-        orders = generateOrders(3);
+        orders = generateOrders(4);
         cyberSourceOrder = generateCybersourceOrder();
         orders.put(cyberSourceOrder.getOrderId(), cyberSourceOrder);
         orderServer.getOrderService().setOrders(orders.values());
@@ -168,6 +168,37 @@ class IVIOrderClientTest extends AbstractClientTest {
         orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
 
         var finalizeResponse = orderClient.finalizeBitpayOrder(orderId, invoiceId, null);
+
+        assertTrue(finalizeResponse.isSuccess());
+        assertNull(finalizeResponse.getFraudScore());
+        assertEquals(orderId, orderExecutor.getOrderId());
+        assertEquals(OrderState.PROCESSING, orderExecutor.getOrderStatus());
+
+        orderServer.verifyCalls("FinalizeOrder", 1);
+
+        ConcurrentFinisher.start(orderId);
+
+        orderServer.getOrderStream().sendStatus(environmentId, orderId, OrderState.COMPLETE);
+
+        ConcurrentFinisher.wait(orderId);
+
+        assertEquals(orderId, orderExecutor.getOrderId());
+        assertEquals(OrderState.COMPLETE, orderExecutor.getOrderStatus());
+
+        orderServer.verifyCalls("OrderStatusStream", 1);
+        orderServer.verifyCalls("OrderStatusConfirmation", 1);
+    }
+
+    @Test
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
+    void finalizeUpholdOrder() throws Exception {
+        var orderId = orders.keySet().iterator().next();
+        var upholdExternalId = RandomStringUtils.randomAlphanumeric(30);
+
+        orderExecutor.setOrderId(orders.get(orderId).getOrderId());
+        orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
+
+        var finalizeResponse = orderClient.finalizeUpholdOrder(orderId, upholdExternalId, null);
 
         assertTrue(finalizeResponse.isSuccess());
         assertNull(finalizeResponse.getFraudScore());
