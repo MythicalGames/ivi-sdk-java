@@ -26,7 +26,7 @@ public class IVIToken {
                     .e(response.getCybersource().getJwk().getE())
                     .use(response.getCybersource().getJwk().getUse())
                     .n(response.getCybersource().getJwk().getN())
-                    .kid(response.getCybersource().getJwk().getN())
+                    .kid(response.getCybersource().getJwk().getKid())
                     .build());
         }
 
