@@ -174,6 +174,18 @@ public class IVIOrderClient extends AbstractIVIClient {
         return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
+    public IVIFinalizeOrderResponse finalizeUpholdOrder(String orderId,
+                                                        String upholdExternalCardId,
+                                                        String fraudSessionId) throws IVIException {
+        var paymentData = PaymentRequestProto.newBuilder()
+                .setUphold(UpholdPaymentRequestProto.newBuilder()
+                        .setExternalCardId(upholdExternalCardId)
+                        .build())
+                .build();
+
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
+    }
+
     private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentRequestProto paymentData, String fraudSessionId) throws IVIException {
         var builder = FinalizeOrderRequest.newBuilder()
                 .setEnvironmentId(environmentId)
