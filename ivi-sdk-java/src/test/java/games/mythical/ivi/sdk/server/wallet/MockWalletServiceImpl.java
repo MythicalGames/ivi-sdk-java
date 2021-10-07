@@ -11,7 +11,7 @@ public class MockWalletServiceImpl extends WalletServiceGrpc.WalletServiceImplBa
     private String accountId = "";
     private String upholdExtId = "";
 
-    private final UpholdCryptoCard card1 = UpholdCryptoCard.newBuilder()
+    private final UpholdCard card1 = UpholdCard.newBuilder()
             .setUpholdId(MockWalletServer.CRYPTO_1_ID)
             .setCurrency(MockWalletServer.CRYPTO_1_CURRENCY)
             .setBalance(MockWalletServer.CRYPTO_1_BALANCE)
@@ -19,7 +19,7 @@ public class MockWalletServiceImpl extends WalletServiceGrpc.WalletServiceImplBa
             .setNormalizedBalance(MockWalletServer.CRYTPO_1_NORM_BALANCE)
             .build();
 
-    private final UpholdCryptoCard card2 = UpholdCryptoCard.newBuilder()
+    private final UpholdCard card2 = UpholdCard.newBuilder()
             .setUpholdId(MockWalletServer.CRYPTO_2_ID)
             .setCurrency(MockWalletServer.CRYPTO_2_CURRENCY)
             .setBalance(MockWalletServer.CRYPTO_2_BALANCE)
@@ -58,7 +58,7 @@ public class MockWalletServiceImpl extends WalletServiceGrpc.WalletServiceImplBa
                     .setUpholdState(MockWalletServer.UPHOLD_STATE)
                     .setUpholdExternalCardId(upholdExtId)
                     .setBalance(balance)
-                    .addAllCryptoCards(List.of(card1, card2))
+                    .addAllCards(List.of(card1, card2))
                     .setEmail(MockWalletServer.UPHOLD_EMAIL)
                     .setStatus(MockWalletServer.UPHOLD_STATUS)
                     .setBirthDate(MockWalletServer.UPHOLD_BIRTHDATE)

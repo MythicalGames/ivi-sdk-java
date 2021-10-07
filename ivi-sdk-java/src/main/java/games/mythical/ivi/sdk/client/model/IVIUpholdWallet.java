@@ -16,7 +16,7 @@ public class IVIUpholdWallet {
     private String upholdState;
     private String upholdExternalCardId;
     private IVIUpholdBalance balance;
-    private List<IVIUpholdCryptoCard> cryptoCards;
+    private List<IVIUpholdCard> cards;
     private String email;
     private String status;
     private Map<String, Object> verifications;
@@ -29,7 +29,7 @@ public class IVIUpholdWallet {
                 .upholdState(upholdWallet.getUpholdState())
                 .upholdExternalCardId(upholdWallet.getUpholdExternalCardId())
                 .balance(IVIUpholdBalance.fromProto(upholdWallet.getBalance()))
-                .cryptoCards(IVIUpholdCryptoCard.fromProto(upholdWallet.getCryptoCardsList()))
+                .cards(IVIUpholdCard.fromProto(upholdWallet.getCardsList()))
                 .email(upholdWallet.getEmail())
                 .status(upholdWallet.getStatus())
                 .verifications(ConversionUtils.convertProperties(upholdWallet.getVerifications()))
