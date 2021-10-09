@@ -176,10 +176,12 @@ public class IVIOrderClient extends AbstractIVIClient {
 
     public IVIFinalizeOrderResponse finalizeUpholdOrder(String orderId,
                                                         String upholdExternalCardId,
+                                                        String quoteId,
                                                         String fraudSessionId) throws IVIException {
         var paymentData = PaymentRequestProto.newBuilder()
                 .setUphold(UpholdPaymentRequestProto.newBuilder()
                         .setExternalCardId(upholdExternalCardId)
+                        .setQuoteId(quoteId)
                         .build())
                 .build();
 

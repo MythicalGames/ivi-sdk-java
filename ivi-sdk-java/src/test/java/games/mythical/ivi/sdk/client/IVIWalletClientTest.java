@@ -58,7 +58,7 @@ public class IVIWalletClientTest extends AbstractClientTest{
         assertEquals(new BigDecimal(MockWalletServer.UPHOLD_CURRENT_BALANCE), upholdBalance.getCurrentBalance());
         assertEquals(new BigDecimal(MockWalletServer.UPHOLD_PENDING_BALANCE), upholdBalance.getPendingBalance());
 
-        var cards = upholdWallet.getCryptoCards();
+        var cards = upholdWallet.getCards();
         assertEquals(2, cards.size());
 
         var card1 = cards.get(0);

@@ -194,11 +194,12 @@ class IVIOrderClientTest extends AbstractClientTest {
     void finalizeUpholdOrder() throws Exception {
         var orderId = orders.keySet().iterator().next();
         var upholdExternalId = RandomStringUtils.randomAlphanumeric(30);
+        var upholdQuoteId = RandomStringUtils.randomAlphanumeric(30);
 
         orderExecutor.setOrderId(orders.get(orderId).getOrderId());
         orderExecutor.setOrderStatus(orders.get(orderId).getOrderStatus());
 
-        var finalizeResponse = orderClient.finalizeUpholdOrder(orderId, upholdExternalId, null);
+        var finalizeResponse = orderClient.finalizeUpholdOrder(orderId, upholdExternalId, upholdQuoteId, null);
 
         assertTrue(finalizeResponse.isSuccess());
         assertNull(finalizeResponse.getFraudScore());
