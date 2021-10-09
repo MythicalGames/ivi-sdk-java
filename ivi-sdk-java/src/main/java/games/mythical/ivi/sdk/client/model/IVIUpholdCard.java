@@ -1,13 +1,12 @@
 package games.mythical.ivi.sdk.client.model;
 
-import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.wallet.UpholdCard;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -18,7 +17,7 @@ public class IVIUpholdCard {
     private String normalizedCurrency;
     private BigDecimal normalizedBalance;
 
-    public static IVIUpholdCard fromProto(UpholdCard upholdCard) throws IVIException {
+    public static IVIUpholdCard fromProto(UpholdCard upholdCard) {
         return IVIUpholdCard.builder()
                 .upholdId(upholdCard.getUpholdId())
                 .currency(upholdCard.getCurrency())
@@ -28,11 +27,9 @@ public class IVIUpholdCard {
                 .build();
     }
 
-    public static List<IVIUpholdCard> fromProto(List<UpholdCard> upholdCards) throws IVIException {
-        var result = new ArrayList<IVIUpholdCard>();
-        for (var upholdCard : upholdCards) {
-            result.add(IVIUpholdCard.fromProto(upholdCard));
-        }
-        return result;
+    public static List<IVIUpholdCard> fromProto(List<UpholdCard> upholdCards) {
+        return upholdCards.stream()
+                .map(IVIUpholdCard::fromProto)
+                .collect(Collectors.toList());
     }
 }
