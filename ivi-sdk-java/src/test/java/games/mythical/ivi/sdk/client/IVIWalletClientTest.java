@@ -75,4 +75,20 @@ public class IVIWalletClientTest extends AbstractClientTest{
         assertEquals(new BigDecimal(MockWalletServer.CRYTPO_2_NORM_BALANCE), card2.getNormalizedBalance());
         assertEquals(MockWalletServer.CRYPTO_2_NORM_CURRENCY, card2.getNormalizedCurrency());
     }
+
+    @Test
+    void createUpholdQuote() throws IVIException {
+        var quote = walletClient.createUpholdQuote(ENV_ID, PLAYER_ID,
+                MockWalletServer.QUOTE_REQUESTED_AMOUNT, UPHOLD_EXT_ID);
+
+        assertEquals(MockWalletServer.QUOTE_ID, quote.getQuoteId());
+        assertEquals(MockWalletServer.QUOTE_REQUESTED_AMOUNT, quote.getRequestedAmount());
+        assertEquals(MockWalletServer.QUOTE_REQUESTED_CURRENCY, quote.getRequestedCurrency());
+        assertEquals(MockWalletServer.QUOTE_QUOTED_AMOUNT, quote.getQuotedAmount());
+        assertEquals(MockWalletServer.QUOTE_QUOTED_CURRENCY, quote.getQuotedCurrency());
+        assertEquals(MockWalletServer.QUOTE_NORMALIZED_QUOTE_AMOUNT, quote.getNormalizedQuotedAmount());
+        assertEquals(MockWalletServer.QUOTE_CONVERSION_FEE, quote.getConversionFee());
+        assertEquals(MockWalletServer.QUOTE_CREATED_AT, quote.getCreatedAt().toEpochMilli());
+        assertEquals(MockWalletServer.QUOTE_EXPIRE_TIME, quote.getExpireInMillis());
+    }
 }
