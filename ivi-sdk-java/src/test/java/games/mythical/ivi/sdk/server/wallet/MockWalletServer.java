@@ -2,6 +2,9 @@ package games.mythical.ivi.sdk.server.wallet;
 
 import games.mythical.ivi.sdk.server.AbstractMockServer;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+
 public class MockWalletServer extends AbstractMockServer {
     public final static String UPHOLD_ID = "uphold-id";
     public final static String UPHOLD_STATE = "uphold-state";
@@ -17,12 +20,21 @@ public class MockWalletServer extends AbstractMockServer {
     public final static String CRYPTO_1_NORM_CURRENCY = "USD";
     public final static String CRYTPO_1_NORM_BALANCE = "40.78000000";
 
-
     public final static String CRYPTO_2_ID = "crypto-2";
     public final static String CRYPTO_2_CURRENCY = "ARRR";
     public final static String CRYPTO_2_BALANCE = "150.00000000";
     public final static String CRYPTO_2_NORM_CURRENCY = "EUR";
     public final static String CRYTPO_2_NORM_BALANCE = "283.26000000";
+
+    public final static String QUOTE_ID = "quote-id";
+    public final static BigDecimal QUOTE_REQUESTED_AMOUNT = BigDecimal.valueOf(95.99);
+    public final static String QUOTE_REQUESTED_CURRENCY = "USD";
+    public final static BigDecimal QUOTE_QUOTED_AMOUNT = BigDecimal.valueOf(82.71);
+    public final static String QUOTE_QUOTED_CURRENCY = "EUR";
+    public final static BigDecimal QUOTE_NORMALIZED_QUOTE_AMOUNT = BigDecimal.valueOf(84.71);
+    public final static BigDecimal QUOTE_CONVERSION_FEE = BigDecimal.valueOf(2.0);
+    public final static long QUOTE_CREATED_AT = Instant.now().toEpochMilli();
+    public final static long QUOTE_EXPIRE_TIME = 18000;
 
     public MockWalletServer() throws Exception {
         super(new MockWalletServiceImpl());

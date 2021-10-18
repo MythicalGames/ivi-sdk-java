@@ -32,6 +32,18 @@ public class MockWalletServiceImpl extends WalletServiceGrpc.WalletServiceImplBa
             .setPendingBalance(MockWalletServer.UPHOLD_PENDING_BALANCE)
             .build();
 
+    private final UpholdQuote quote = UpholdQuote.newBuilder()
+            .setQuoteId(MockWalletServer.QUOTE_ID)
+            .setRequestedAmount(MockWalletServer.QUOTE_REQUESTED_AMOUNT.toString())
+            .setRequestedCurrency(MockWalletServer.QUOTE_REQUESTED_CURRENCY)
+            .setQuotedAmount(MockWalletServer.QUOTE_QUOTED_AMOUNT.toString())
+            .setQuotedCurrency(MockWalletServer.QUOTE_QUOTED_CURRENCY)
+            .setNormalizedQuotedAmount(MockWalletServer.QUOTE_NORMALIZED_QUOTE_AMOUNT.toString())
+            .setConversionFee(MockWalletServer.QUOTE_CONVERSION_FEE.toString())
+            .setCreatedAt(MockWalletServer.QUOTE_CREATED_AT)
+            .setExpireInMillis(MockWalletServer.QUOTE_EXPIRE_TIME)
+            .build();
+
     public void setWallet(String environmentId, String playerId, String accountId, String upholdExtId) {
         this.environmentId = environmentId;
         this.playerId = playerId;
@@ -64,6 +76,26 @@ public class MockWalletServiceImpl extends WalletServiceGrpc.WalletServiceImplBa
                     .setBirthDate(MockWalletServer.UPHOLD_BIRTHDATE)
                     .build();
             responseBuilder.setUphold(wallet);
+        }
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void createUpholdQuote(CreateUpholdQuoteRequest request, StreamObserver<UpholdQuote> responseObserver) {
+        var responseBuilder = UpholdQuote.newBuilder();
+        if (environmentId.equals(request.getEnvironmentId())
+            && playerId.equals(request.getPlayerId())
+            && upholdExtId.equals(request.getExternalCardId())) {
+            responseBuilder.setQuoteId(MockWalletServer.QUOTE_ID)
+                    .setRequestedAmount(MockWalletServer.QUOTE_REQUESTED_AMOUNT.toString())
+                    .setRequestedCurrency(MockWalletServer.QUOTE_REQUESTED_CURRENCY)
+                    .setQuotedAmount(MockWalletServer.QUOTE_QUOTED_AMOUNT.toString())
+                    .setQuotedCurrency(MockWalletServer.QUOTE_QUOTED_CURRENCY)
+                    .setNormalizedQuotedAmount(MockWalletServer.QUOTE_NORMALIZED_QUOTE_AMOUNT.toString())
+                    .setConversionFee(MockWalletServer.QUOTE_CONVERSION_FEE.toString())
+                    .setCreatedAt(MockWalletServer.QUOTE_CREATED_AT)
+                    .setExpireInMillis(MockWalletServer.QUOTE_EXPIRE_TIME);
         }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
