@@ -175,5 +175,22 @@ public class IVIItemTypeClient extends AbstractIVIClient {
             throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
         }
     }
+
+    public void updateItemType(String gameItemTypeId, int singleOrderLimit, boolean searchable) throws IVIException {
+        try {
+            log.trace("ItemTypeClient.updateItemType called for {}", gameItemTypeId);
+            var request = UpdateItemTypePayload.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setGameItemTypeId(gameItemTypeId)
+                    .setSingleOrderLimit(singleOrderLimit)
+                    .setSearchable(searchable)
+                    .build();
+            serviceBlockingStub.updateItemType(request);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (Exception e) {
+            log.error("Exception calling updateItemType ", e);
+        }
+    }
 }
 
