@@ -58,7 +58,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
 
     public Optional<IVIItemType> getItemType(String gameItemTypeId) throws IVIException {
         var result = getItemTypes(List.of(gameItemTypeId));
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return Optional.empty();
         } else {
             return Optional.of(result.get(0));
@@ -73,7 +73,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         var requestBuilder = GetItemTypesRequest.newBuilder()
                 .setEnvironmentId(environmentId);
 
-        if(!gameItemTypeIds.isEmpty()) {
+        if (!gameItemTypeIds.isEmpty()) {
             requestBuilder.addAllGameItemTypeIds(gameItemTypeIds);
         }
 
@@ -175,5 +175,24 @@ public class IVIItemTypeClient extends AbstractIVIClient {
             throw new IVIException(IVIErrorCode.PARSING_DATA_EXCEPTION);
         }
     }
+
+
+    public void updateItemType(String gameItemTypeId, int singleOrderLimit, boolean searchable) throws IVIException {
+        try {
+            log.trace("ItemTypeClient.updateItemType called for {}", gameItemTypeId);
+            var request = UpdateItemTypePayload.newBuilder()
+                    .setEnvironmentId(environmentId)
+                    .setGameItemTypeId(gameItemTypeId)
+                    .setSingleOrderLimit(singleOrderLimit)
+                    .setSearchable(searchable)
+                    .build();
+            serviceBlockingStub.updateItemType(request);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        } catch (Exception e) {
+            log.error("Exception calling updateItemType ", e);
+        }
+    }
+
 }
 
