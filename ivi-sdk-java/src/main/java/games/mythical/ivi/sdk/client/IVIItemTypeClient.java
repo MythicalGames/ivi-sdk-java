@@ -92,7 +92,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                                boolean sellable,
                                Collection<UUID> agreementIds,
                                IVIMetadata metadata) throws IVIException {
-        createItemType(gameItemTypeId, tokenName, category, maxSupply, issueTimeSpan, burnable, transferable, sellable,
+        createItemType(gameItemTypeId, tokenName, category, maxSupply, issueTimeSpan, burnable, transferable, sellable, false,
                 metadata);
     }
 
@@ -104,6 +104,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                                boolean burnable,
                                boolean transferable,
                                boolean sellable,
+                               boolean searchable,
                                IVIMetadata metadata) throws IVIException {
         try {
             log.trace("ItemTypeClient.createItemType called for game item type id: {} {}:{}", gameItemTypeId, tokenName, category);
@@ -117,6 +118,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                     .setBurnable(burnable)
                     .setTransferable(transferable)
                     .setSellable(sellable)
+                    .setSearchable(searchable)
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .build();
             var result = serviceBlockingStub.createItemType(request);

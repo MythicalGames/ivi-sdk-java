@@ -24,6 +24,7 @@ public class IVIItemType {
     private boolean transferable;
     private boolean finalized;
     private boolean sellable;
+    private boolean searchable;
     private String baseUri;
     private String trackingId;
     private IVIMetadata metadata;
@@ -44,6 +45,7 @@ public class IVIItemType {
                 boolean transferable,
                 boolean finalized,
                 boolean sellable,
+                boolean searchable,
                 String baseUri,
                 String trackingId,
                 IVIMetadata metadata,
@@ -63,6 +65,7 @@ public class IVIItemType {
         this.transferable = transferable;
         this.finalized = finalized;
         this.sellable = sellable;
+        this.searchable = searchable;
         this.baseUri = baseUri;
         this.trackingId = trackingId;
         this.metadata = metadata;
@@ -85,6 +88,7 @@ public class IVIItemType {
                 itemType.getTransferable(),
                 itemType.getFinalized(),
                 itemType.getSellable(),
+                itemType.getSearchable(),
                 itemType.getBaseUri(),
                 itemType.getTrackingId(),
                 IVIMetadata.fromProto(itemType.getMetadata()),

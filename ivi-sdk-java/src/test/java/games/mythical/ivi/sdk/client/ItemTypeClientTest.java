@@ -63,6 +63,7 @@ class ItemTypeClientTest extends AbstractClientTest {
                 mockItemType.isBurnable(),
                 mockItemType.isTransferable(),
                 mockItemType.isSellable(),
+                mockItemType.isSearchable(),
                 mockItemType.getMetadata());
 
         assertNotNull(itemTypeExecutor.getGameItemTypeId());
