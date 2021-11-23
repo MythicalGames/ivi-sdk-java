@@ -55,11 +55,12 @@ class PlayerClientTest extends AbstractClientTest {
     void linkPlayer() throws Exception {
         var playerId = UUID.randomUUID().toString();
         var email = "user@game.com";
+        var oauthId = "123456789abcdefghijk";
         var displayName = RandomStringUtils.randomAlphanumeric(20, 50);
 
         playerExecutor.setPlayerId(playerId);
 
-        playerClient.linkPlayer(playerId, email, displayName, "127.0.0.1");
+        playerClient.linkPlayer(playerId, email, oauthId, displayName, "127.0.0.1");
 
         assertEquals(playerId, playerExecutor.getPlayerId());
         assertFalse(StringUtils.isEmpty(playerExecutor.getTrackingId()));
@@ -91,6 +92,7 @@ class PlayerClientTest extends AbstractClientTest {
         assertTrue(player.isPresent());
         assertEquals(mockPlayer.getPlayerId(), player.get().getPlayerId());
         assertEquals(mockPlayer.getEmail(), player.get().getEmail());
+        assertEquals(mockPlayer.getOauthId(), player.get().getOauthId());
         assertEquals(mockPlayer.getDisplayName(), player.get().getDisplayName());
         assertEquals(mockPlayer.getSidechainAccountName(), player.get().getSidechainAccountName());
         assertEquals(mockPlayer.getTrackingId(), player.get().getTrackingId());

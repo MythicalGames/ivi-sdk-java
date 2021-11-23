@@ -99,6 +99,7 @@ public abstract class AbstractClientTest {
         return IVIPlayer.newBuilder()
                 .setPlayerId(RandomStringUtils.randomAlphanumeric(30))
                 .setEmail("test@game.com")
+                .setOauthId(RandomStringUtils.randomAlphanumeric(30))
                 .setSidechainAccountName(RandomStringUtils.randomAlphanumeric(30))
                 .setTrackingId(RandomStringUtils.randomAlphanumeric(30))
                 .setPlayerState(PlayerState.LINKED)
