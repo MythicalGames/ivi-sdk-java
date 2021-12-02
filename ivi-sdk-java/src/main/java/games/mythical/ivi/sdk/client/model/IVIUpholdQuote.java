@@ -3,6 +3,7 @@ package games.mythical.ivi.sdk.client.model;
 import games.mythical.ivi.sdk.proto.api.wallet.UpholdQuote;
 import lombok.Builder;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -21,16 +22,29 @@ public class IVIUpholdQuote {
     private long expireInMillis;
 
     public static IVIUpholdQuote fromProto(UpholdQuote upholdQuote) {
-        return IVIUpholdQuote.builder()
+        var builder = IVIUpholdQuote.builder()
                 .quoteId(upholdQuote.getQuoteId())
-                .requestedAmount(new BigDecimal(upholdQuote.getRequestedAmount()))
                 .requestedCurrency(upholdQuote.getRequestedCurrency())
-                .quotedAmount(new BigDecimal(upholdQuote.getQuotedAmount()))
                 .quotedCurrency(upholdQuote.getQuotedCurrency())
-                .normalizedQuotedAmount(new BigDecimal(upholdQuote.getNormalizedQuotedAmount()))
-                .conversionFee(new BigDecimal(upholdQuote.getConversionFee()))
                 .createdAt(Instant.ofEpochMilli(upholdQuote.getCreatedAt()))
-                .expireInMillis(upholdQuote.getExpireInMillis())
-                .build();
+                .expireInMillis(upholdQuote.getExpireInMillis());
+
+        if (StringUtils.isNotBlank(upholdQuote.getRequestedAmount())) {
+            builder.requestedAmount(new BigDecimal(upholdQuote.getRequestedAmount()));
+        }
+
+        if (StringUtils.isNotBlank(upholdQuote.getQuotedAmount())) {
+            builder.quotedAmount(new BigDecimal(upholdQuote.getQuotedAmount()));
+        }
+
+        if (StringUtils.isNotBlank(upholdQuote.getConversionFee())) {
+            builder.conversionFee(new BigDecimal(upholdQuote.getConversionFee()));
+        }
+
+        if (StringUtils.isNotBlank(upholdQuote.getNormalizedQuotedAmount())) {
+            builder.normalizedQuotedAmount(new BigDecimal(upholdQuote.getNormalizedQuotedAmount()));
+        }
+
+        return builder.build();
     }
 }
