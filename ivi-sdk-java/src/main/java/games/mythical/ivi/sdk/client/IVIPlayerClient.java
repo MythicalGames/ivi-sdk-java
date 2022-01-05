@@ -55,13 +55,14 @@ public class IVIPlayerClient extends AbstractIVIClient {
         streamStub.playerStatusStream(subscribe, observer);
     }
 
-    public void linkPlayer(String playerId, String email, String displayName, String requestIp) throws IVIException {
+    public void linkPlayer(String playerId, String email, String oauthId, String displayName, String requestIp) throws IVIException {
         log.trace("PlayerClient.linkPlayer called from player: {}:{}:{}", playerId, email, displayName);
         try {
             var requestBuilder = LinkPlayerRequest.newBuilder()
                     .setEnvironmentId(environmentId)
                     .setPlayerId(playerId)
                     .setEmail(email)
+                    .setOauthId(oauthId)
                     .setDisplayName(displayName);
 
             if(StringUtils.isNotBlank(requestIp)) {
