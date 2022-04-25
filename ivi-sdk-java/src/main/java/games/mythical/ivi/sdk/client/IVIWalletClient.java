@@ -1,12 +1,10 @@
 package games.mythical.ivi.sdk.client;
 
+import games.mythical.ivi.sdk.client.model.IVIUnlinkUpholdResponse;
 import games.mythical.ivi.sdk.client.model.IVIUpholdQuote;
 import games.mythical.ivi.sdk.client.model.IVIWallet;
 import games.mythical.ivi.sdk.exception.IVIException;
-import games.mythical.ivi.sdk.proto.api.wallet.CreateUpholdQuoteRequest;
-import games.mythical.ivi.sdk.proto.api.wallet.GetWalletUserRequest;
-import games.mythical.ivi.sdk.proto.api.wallet.PayoutProviderId;
-import games.mythical.ivi.sdk.proto.api.wallet.WalletServiceGrpc;
+import games.mythical.ivi.sdk.proto.api.wallet.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
@@ -65,5 +63,21 @@ public class IVIWalletClient extends AbstractIVIClient {
         } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         }
+    }
+
+    public IVIUnlinkUpholdResponse unlinkUpholdWallet(String environmentId,
+                                   String playerId) throws IVIException {
+        var request = UnlinkUpholdWalletRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .build();
+
+        try{
+            var unlinkResponse = serviceBlockingStub.unlinkUpholdWallet(request);
+            return IVIUnlinkUpholdResponse.fromProto(unlinkResponse);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+
     }
 }
