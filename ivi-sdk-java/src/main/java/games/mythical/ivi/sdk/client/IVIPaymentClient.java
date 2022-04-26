@@ -1,5 +1,6 @@
 package games.mythical.ivi.sdk.client;
 
+import games.mythical.ivi.sdk.client.model.IVICustomer;
 import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
 import games.mythical.ivi.sdk.client.model.IVIPaymentMethod;
 import games.mythical.ivi.sdk.client.model.IVIToken;
@@ -165,6 +166,21 @@ public class IVIPaymentClient extends AbstractIVIClient {
         try {
             serviceBlockingStub.deletePaymentMethod(request);
         } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public IVICustomer getCustomer(String playerId, PaymentProviderId paymentProviderId) throws IVIException {
+        try {
+            var providerId = games.mythical.ivi.sdk.proto.api.payment.PaymentProviderId.valueOf(paymentProviderId.name());
+            var request = GetCustomerRequest.newBuilder()
+                    .setPlayerId(playerId)
+                    .setProvider(providerId)
+                    .setEnvironmentId(environmentId)
+                    .build();
+            var customer = serviceBlockingStub.getCustomer(request);
+            return IVICustomer.fromProto(customer);
+        } catch (StatusRuntimeException e){
             throw IVIException.fromGrpcException(e);
         }
     }
