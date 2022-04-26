@@ -15,20 +15,20 @@ Mythical Platform SDK for Java
 <dependency>
   <groupId>games.mythical</groupId>
   <artifactId>ivi-sdk-java</artifactId>
-  <version>2.4.0-SNAPSHOT</version>
+  <version>2.5.0</version>
 </dependency>
 ```
 
 ## Gradle Groovy DSL
 
 ```groovy
-implementation 'games.mythical:ivi-sdk-java:2.4.0'
+implementation 'games.mythical:ivi-sdk-java:2.5.0'
 ```
 
 ## Gradle Kotlin DSL
 
 ```kotlin
-implementation("games.mythical:ivi-sdk-java:2.4.0")
+implementation("games.mythical:ivi-sdk-java:2.5.0")
 ```
 
 # Getting Started
