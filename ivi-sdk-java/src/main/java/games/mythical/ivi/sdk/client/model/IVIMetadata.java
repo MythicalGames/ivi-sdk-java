@@ -26,9 +26,6 @@ public class IVIMetadata {
                 .properties(ConversionUtils.convertProperties(metadata.getProperties()))
                 .animationUrl(StringUtils.isNotEmpty(metadata.getAnimationUrl()) ? metadata.getAnimationUrl() : "")
                 .build();
-
-
-
     }
 
     public static Metadata toProto(IVIMetadata metadata) throws IVIException {
