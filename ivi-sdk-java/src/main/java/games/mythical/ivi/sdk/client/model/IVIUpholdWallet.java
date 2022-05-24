@@ -22,6 +22,7 @@ public class IVIUpholdWallet {
     private Map<String, Object> verifications;
     private String birthDate;
     private IVIOrderAddress address;
+    private boolean isLinked;
 
     public static IVIUpholdWallet fromProto(UpholdWallet upholdWallet) throws IVIException {
         return IVIUpholdWallet.builder()
@@ -35,6 +36,7 @@ public class IVIUpholdWallet {
                 .verifications(ConversionUtils.convertProperties(upholdWallet.getVerifications()))
                 .birthDate(upholdWallet.getBirthDate())
                 .address(IVIOrderAddress.fromProto(upholdWallet.getAddress()))
+                .isLinked(upholdWallet.getIsLinked())
                 .build();
     }
 }
