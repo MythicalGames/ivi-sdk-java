@@ -1,5 +1,8 @@
 apply plugin: 'com.google.protobuf'
 
+// TODO: Remove when upgrading to versions of these packages which publish an osx-aarch build
+def missingAarchBuildClassifier = osdetector.os == "osx" ? ":osx-x86_64" : ""
+
 dependencies {
     api group: 'io.grpc', name: 'grpc-netty', version: "${grpc_version}"
     api group: 'io.grpc', name: 'grpc-protobuf', version: "${grpc_version}"
@@ -18,12 +21,12 @@ java {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${protobuf_version}"
+        artifact = "com.google.protobuf:protoc:${protobuf_version}" + missingAarchBuildClassifier
     }
 
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpc_version}"
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpc_version}" + missingAarchBuildClassifier
         }
     }
 
