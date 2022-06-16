@@ -92,8 +92,22 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                                boolean sellable,
                                Collection<UUID> agreementIds,
                                IVIMetadata metadata) throws IVIException {
-        createItemType(gameItemTypeId, tokenName, category, maxSupply, issueTimeSpan, burnable, transferable, sellable, false,
+        createItemType(gameItemTypeId, tokenName, category, maxSupply, issueTimeSpan, burnable, transferable, sellable, false, false,
                 metadata);
+    }
+
+    @Deprecated(since = "2.9.0", forRemoval = true)
+    public void createItemType(String gameItemTypeId,
+                               String tokenName,
+                               String category,
+                               int maxSupply,
+                               int issueTimeSpan,
+                               boolean burnable,
+                               boolean transferable,
+                               boolean sellable,
+                               boolean searchable,
+                               IVIMetadata metadata) throws IVIException {
+        createItemType(gameItemTypeId, tokenName, category, maxSupply, issueTimeSpan, burnable, transferable, sellable, searchable, false, metadata);
     }
 
     public void createItemType(String gameItemTypeId,
@@ -105,6 +119,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                                boolean transferable,
                                boolean sellable,
                                boolean searchable,
+                               boolean withdrawable,
                                IVIMetadata metadata) throws IVIException {
         try {
             log.trace("ItemTypeClient.createItemType called for game item type id: {} {}:{}", gameItemTypeId, tokenName, category);
@@ -119,6 +134,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                     .setTransferable(transferable)
                     .setSellable(sellable)
                     .setSearchable(searchable)
+                    .setWithdrawable(withdrawable)
                     .setMetadata(IVIMetadata.toProto(metadata))
                     .build();
             var result = serviceBlockingStub.createItemType(request);
@@ -176,7 +192,12 @@ public class IVIItemTypeClient extends AbstractIVIClient {
         }
     }
 
+    @Deprecated(since = "2.9.0", forRemoval = true)
     public void updateItemType(String gameItemTypeId, int singleOrderLimit, boolean searchable) throws IVIException {
+        updateItemType(gameItemTypeId, singleOrderLimit, searchable, false);
+    }
+
+    public void updateItemType(String gameItemTypeId, int singleOrderLimit, boolean searchable, boolean withdrawable) throws IVIException {
         try {
             log.trace("ItemTypeClient.updateItemType called for {}", gameItemTypeId);
             var request = UpdateItemTypePayload.newBuilder()
@@ -184,6 +205,7 @@ public class IVIItemTypeClient extends AbstractIVIClient {
                     .setGameItemTypeId(gameItemTypeId)
                     .setSingleOrderLimit(singleOrderLimit)
                     .setSearchable(searchable)
+                    .setWithdrawable(withdrawable)
                     .build();
             serviceBlockingStub.updateItemType(request);
         } catch (StatusRuntimeException e) {
