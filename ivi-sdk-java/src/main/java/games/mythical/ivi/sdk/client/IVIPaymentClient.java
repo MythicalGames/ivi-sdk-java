@@ -98,6 +98,37 @@ public class IVIPaymentClient extends AbstractIVIClient {
         }
     }
 
+    public IVIPaymentMethod createGr4vyPaymentMethod(
+            String playerId,
+            String cardType,
+            String expMonth,
+            String expYear,
+            String instrumentId,
+            String securityCode,
+            IVIOrderAddress address) throws IVIException {
+        var request = CreatePaymentMethodRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .setCardPaymentData(CardPaymentData.newBuilder()
+                        .setGr4Vy(Gr4vyPaymentData.newBuilder()
+                                .setExpirationMonth(expMonth)
+                                .setExpirationYear(expYear)
+                                .setCardType(cardType)
+                                .setInstrumentId(instrumentId)
+                                .setSecurityCode(securityCode)
+                                .build())
+                        .build())
+                .setAddress(address.toProto())
+                .build();
+
+        try {
+            var paymentMethod = serviceBlockingStub.createPaymentMethod(request);
+            return IVIPaymentMethod.fromProto(paymentMethod);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
     public List<IVIPaymentMethod> getPaymentMethods(
         String playerId,
         String token,
