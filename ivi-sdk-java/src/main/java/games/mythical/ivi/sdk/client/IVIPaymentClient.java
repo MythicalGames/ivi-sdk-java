@@ -1,9 +1,6 @@
 package games.mythical.ivi.sdk.client;
 
-import games.mythical.ivi.sdk.client.model.IVICustomer;
-import games.mythical.ivi.sdk.client.model.IVIOrderAddress;
-import games.mythical.ivi.sdk.client.model.IVIPaymentMethod;
-import games.mythical.ivi.sdk.client.model.IVIToken;
+import games.mythical.ivi.sdk.client.model.*;
 import games.mythical.ivi.sdk.exception.IVIException;
 import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.payment.*;
@@ -180,6 +177,22 @@ public class IVIPaymentClient extends AbstractIVIClient {
                     .build();
             var customer = serviceBlockingStub.getCustomer(request);
             return IVICustomer.fromProto(customer);
+        } catch (StatusRuntimeException e){
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public IVICustomer updateCustomer(IVICustomerUpdateRequest customer, PaymentProviderId paymentProviderId) throws IVIException {
+        try {
+            var providerId = games.mythical.ivi.sdk.proto.api.payment.PaymentProviderId.valueOf(paymentProviderId.name());
+            var request = UpdateCustomerRequest.newBuilder()
+                    .setPlayerId(customer.getPlayerId())
+                    .setProvider(providerId)
+                    .setEnvironmentId(environmentId)
+                    .setAddress(customer.getAddress())
+                    .build();
+            var response = serviceBlockingStub.updateCustomer(request);
+            return IVICustomer.fromProto(response);
         } catch (StatusRuntimeException e){
             throw IVIException.fromGrpcException(e);
         }
