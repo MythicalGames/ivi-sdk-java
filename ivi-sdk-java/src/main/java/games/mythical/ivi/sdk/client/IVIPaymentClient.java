@@ -100,18 +100,12 @@ public class IVIPaymentClient extends AbstractIVIClient {
         String token,
         PaymentProviderId paymentProviderId
     ) throws IVIException {
-        // only supported for Cybersource for now
-        if(paymentProviderId != PaymentProviderId.CYBERSOURCE) {
-            return Collections.emptyList();
-        }
-
         var request = GetPaymentMethodRequest.newBuilder()
                 .setEnvironmentId(environmentId)
                 .setPlayerId(playerId)
                 .setToken(token)
                 .setPaymentProviderId(paymentProviderId)
                 .build();
-
         try {
             var methods = serviceBlockingStub.getPaymentMethods(request);
             return IVIPaymentMethod.fromProtos(methods);
