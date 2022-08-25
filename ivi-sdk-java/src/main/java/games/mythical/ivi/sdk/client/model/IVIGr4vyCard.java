@@ -18,10 +18,10 @@ public class IVIGr4vyCard {
         var proto = Gr4vyPaymentData.newBuilder();
 
         if (StringUtils.isNotEmpty(card.expMonth)) {
-            proto.setExpMonth(card.expMonth);
+            proto.setExpirationMonth(card.expMonth);
         }
         if (StringUtils.isNotEmpty(card.expYear)) {
-            proto.setExpYear(card.expYear);
+            proto.setExpirationYear(card.expYear);
         }
         if (StringUtils.isNotEmpty(card.cardType)) {
             proto.setCardType(card.cardType);
