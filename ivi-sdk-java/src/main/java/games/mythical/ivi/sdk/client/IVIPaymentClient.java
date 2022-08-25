@@ -7,11 +7,9 @@ import games.mythical.ivi.sdk.proto.api.payment.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
-import jdk.jfr.Frequency;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
