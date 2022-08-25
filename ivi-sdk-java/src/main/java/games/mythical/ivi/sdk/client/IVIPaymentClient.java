@@ -10,7 +10,6 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -188,6 +187,17 @@ public class IVIPaymentClient extends AbstractIVIClient {
             var response = serviceBlockingStub.updateCustomer(request);
             return IVICustomer.fromProto(response);
         } catch (StatusRuntimeException e){
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
+    public IVICustomer createCustomer(IVICustomerCreateRequest customer) throws IVIException {
+        try {
+            customer.setEnvironmentId(environmentId);
+            var request = IVICustomerCreateRequest.toProto(customer);
+            var response = serviceBlockingStub.createCustomer(request);
+            return IVICustomer.fromProto(response);
+        } catch (StatusRuntimeException e) {
             throw IVIException.fromGrpcException(e);
         }
     }
