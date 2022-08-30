@@ -189,20 +189,10 @@ public class IVIOrderClient extends AbstractIVIClient {
     }
 
     public IVIFinalizeOrderResponse finalizeGr4vyOrder(String orderId,
-                                                       String cardType,
-                                                       String expMonth,
-                                                       String expYear,
-                                                       String instrumentId,
-                                                       String securityCode,
                                                        String paymentMethodTokenId) throws IVIException {
 
         var paymentData = PaymentRequestProto.newBuilder()
                 .setGr4Vy(Gr4vyPaymentRequestProto.newBuilder()
-                        .setCardType(cardType)
-                        .setExpMonth(expMonth)
-                        .setExpYear(expYear)
-                        .setInstrumentId(instrumentId)
-                        .setSecurityCode(securityCode)
                         .setPaymentMethodTokenId(paymentMethodTokenId)
                         .build())
                 .build();
