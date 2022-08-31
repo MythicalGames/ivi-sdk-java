@@ -2,6 +2,7 @@ package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.model.*;
 import games.mythical.ivi.sdk.exception.IVIException;
+import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.payment.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -161,9 +162,10 @@ public class IVIPaymentClient extends AbstractIVIClient {
 
     public IVICustomer getCustomer(String playerId, PaymentProviderId paymentProviderId) throws IVIException {
         try {
+            var providerId = games.mythical.ivi.sdk.proto.api.payment.PaymentProviderId.valueOf(paymentProviderId.name());
             var request = GetCustomerRequest.newBuilder()
                     .setPlayerId(playerId)
-                    .setProvider(paymentProviderId)
+                    .setProvider(providerId)
                     .setEnvironmentId(environmentId)
                     .build();
             var customer = serviceBlockingStub.getCustomer(request);
@@ -175,9 +177,10 @@ public class IVIPaymentClient extends AbstractIVIClient {
 
     public IVICustomer updateCustomer(IVICustomerUpdateRequest customer, PaymentProviderId paymentProviderId) throws IVIException {
         try {
+            var providerId = games.mythical.ivi.sdk.proto.api.payment.PaymentProviderId.valueOf(paymentProviderId.name());
             var request = UpdateCustomerRequest.newBuilder()
                     .setPlayerId(customer.getPlayerId())
-                    .setProvider(paymentProviderId)
+                    .setProvider(providerId)
                     .setEnvironmentId(environmentId)
                     .setAddress(customer.getAddress())
                     .build();
