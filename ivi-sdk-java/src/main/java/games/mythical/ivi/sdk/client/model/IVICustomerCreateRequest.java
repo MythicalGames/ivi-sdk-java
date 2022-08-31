@@ -1,6 +1,7 @@
 package games.mythical.ivi.sdk.client.model;
 
 import games.mythical.ivi.sdk.proto.api.payment.CreateCustomerRequest;
+import games.mythical.ivi.sdk.proto.api.payment.PaymentProviderId;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -12,11 +13,13 @@ public class IVICustomerCreateRequest {
     private String address;
     private IVICardProvider card;
     private String environmentId;
+    private PaymentProviderId paymentProviderId;
 
     public static CreateCustomerRequest toProto(IVICustomerCreateRequest request) {
         var proto = CreateCustomerRequest.newBuilder()
                 .setPlayerId(request.playerId)
-                .setEnvironmentId(request.environmentId);
+                .setEnvironmentId(request.environmentId)
+                .setProvider(request.paymentProviderId);
         if (StringUtils.isNotEmpty(request.getAddress())) {
             proto.setAddress(request.address);
         }
