@@ -2,7 +2,6 @@ package games.mythical.ivi.sdk.client;
 
 import games.mythical.ivi.sdk.client.model.*;
 import games.mythical.ivi.sdk.exception.IVIException;
-import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.payment.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
