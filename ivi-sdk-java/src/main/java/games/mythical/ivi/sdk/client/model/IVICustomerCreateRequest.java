@@ -1,7 +1,7 @@
 package games.mythical.ivi.sdk.client.model;
 
+import games.mythical.ivi.sdk.proto.api.order.PaymentProviderId;
 import games.mythical.ivi.sdk.proto.api.payment.CreateCustomerRequest;
-import games.mythical.ivi.sdk.proto.api.payment.PaymentProviderId;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
