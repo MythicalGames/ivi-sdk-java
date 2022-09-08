@@ -56,6 +56,14 @@ public class IVIPaymentClient extends AbstractIVIClient {
                     .build());
         }
 
+        if (PaymentProviderId.GR4VY.equals(providerId)) {
+            builder.setGr4Vy(Gr4vyTokenRequest.newBuilder()
+                    .setCurrency("USD")
+                    .setAmount("0")
+                    .setPlayerId(playerId)
+                    .build());
+        }
+
         try {
             var order = serviceBlockingStub.generateClientToken(builder.build());
             return IVIToken.fromProto(order);
