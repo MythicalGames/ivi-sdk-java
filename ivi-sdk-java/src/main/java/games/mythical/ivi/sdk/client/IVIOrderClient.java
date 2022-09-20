@@ -190,7 +190,8 @@ public class IVIOrderClient extends AbstractIVIClient {
 
     public IVIFinalizeOrderResponse finalizeGr4vyOrder(String orderId,
                                                        String paymentMethodTokenId,
-                                                       String origin) throws IVIException {
+                                                       String origin,
+                                                       String fraudSessionId) throws IVIException {
 
         var paymentData = PaymentRequestProto.newBuilder()
                 .setGr4Vy(Gr4vyPaymentRequestProto.newBuilder()
@@ -199,7 +200,7 @@ public class IVIOrderClient extends AbstractIVIClient {
                         .build())
                 .build();
 
-        return finalizeOrder(orderId, paymentData, "");
+        return finalizeOrder(orderId, paymentData, fraudSessionId);
     }
 
     private IVIFinalizeOrderResponse finalizeOrder(String orderId, PaymentRequestProto paymentData, String fraudSessionId) throws IVIException {
