@@ -209,4 +209,15 @@ public class IVIPaymentClient extends AbstractIVIClient {
             throw IVIException.fromGrpcException(e);
         }
     }
+
+    public IVICheckoutSession createCheckoutSession(IVICreateCheckoutSessionRequest sessionRequest) throws IVIException {
+        try {
+            var request = IVICreateCheckoutSessionRequest.toProto(environmentId, sessionRequest);
+            var response = serviceBlockingStub.createCheckoutSession(request);
+            return IVICheckoutSession.fromProto(response);
+
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
 }
