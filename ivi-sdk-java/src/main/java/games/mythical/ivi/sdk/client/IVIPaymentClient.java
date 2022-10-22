@@ -102,6 +102,32 @@ public class IVIPaymentClient extends AbstractIVIClient {
         }
     }
 
+    public IVIPaymentMethod createGr4vyPaymentMethod(
+            String playerId,
+            String paymentType,
+            String id,
+            IVIOrderAddress address
+    ) throws IVIException {
+        var request = CreatePaymentMethodRequest.newBuilder()
+                .setEnvironmentId(environmentId)
+                .setPlayerId(playerId)
+                .setCardPaymentData(CardPaymentData.newBuilder()
+                        .setGr4Vy(Gr4vyPaymentData.newBuilder()
+                                .setCardType(paymentType)
+                                .setId(id)
+                                .build())
+                        .build())
+                .setAddress(address.toProto())
+                .build();
+
+        try {
+            var paymentMethod = serviceBlockingStub.createPaymentMethod(request);
+            return IVIPaymentMethod.fromProto(paymentMethod);
+        } catch (StatusRuntimeException e) {
+            throw IVIException.fromGrpcException(e);
+        }
+    }
+
     public List<IVIPaymentMethod> getPaymentMethods(
         String playerId,
         String token,
