@@ -20,6 +20,7 @@ public class IVIPaymentMethod {
     private boolean defaultOption;
     private IVIOrderAddress address;
     private String scheme;
+    private String status;
 
     public static IVIPaymentMethod fromProto(PaymentMethodResponse proto) {
         return IVIPaymentMethod.builder()
@@ -32,6 +33,7 @@ public class IVIPaymentMethod {
                 .defaultOption(proto.getDefaultOption())
                 .address(IVIOrderAddress.fromProto(proto.getAddress()))
                 .scheme(proto.getScheme())
+                .status(proto.getStatus())
                 .build();
     }
 
